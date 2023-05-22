@@ -1,0 +1,68 @@
+@import "../../styles/common.scss";
+
+.container {
+  display: flex;
+  max-width: 100%;
+
+  .sidebar {
+    background: $colormain;
+    color: #FEFFFF;
+    height: 99vh;
+    transition: all 0.5s;
+    padding-top: 10px;
+    border-radius: 10px;
+    margin: 5px 0 0 5px;
+    position: sticky;
+    top: 5px;
+
+    .top_section {
+      display: flex;
+      align-items: center;
+      padding: 20px 15px;
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .bars {
+        display: flex;
+        font-size: 25px;
+        cursor: pointer;
+      }
+    }
+
+    .link {
+      display: flex;
+      color: #FEFFFF;
+      padding: 12px 20px;
+      gap: 15px;
+      transition: all 0.5s;
+      text-decoration: none;
+      margin: 3px 5px;
+
+      .icon,
+      .link_text {
+        font-size: 20px;
+      }
+    }
+
+    .link:hover {
+      background: lightskyblue;
+      color: $text-in-light;
+      transition: all 0.5s;
+      border-radius: 7px;
+    }
+
+    .active {
+      background: lightskyblue;
+      color: $text-in-light;
+      border-radius: 7px;
+    }
+  }
+
+  main {
+    width: 100%;
+    margin-left: 10px;
+    padding: 5px;
+  }
+}
