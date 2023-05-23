@@ -1,10 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
 import * as actions from "../../store/actions";
-// import Navigator from "../../components/Navigator";
-// import { adminMenu } from "./menuApp";
 import "./Header.scss";
 
 const Header = (props) => {
@@ -13,7 +10,6 @@ const Header = (props) => {
   return (
     <div className="header-container">
       <div className="header-tabs-container" title="Dashboard">
-        {/* <Navigator menus={adminMenu} /> */}
         <Link to="/system/dashboard">
           <i className="fas fa-home"></i>
         </Link>

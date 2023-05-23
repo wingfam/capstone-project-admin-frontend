@@ -13,7 +13,7 @@ import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import System from "../routes/System";
 import { CustomToastCloseButton } from "../components/CustomToast";
-import ConfirmModal from "../components/ConfirmModal";
+// import ConfirmModal from "../components/ConfirmModal";
 import Dashboard from "../views/Dashboard";
 import Cabinet from "../views/Cabinet";
 import Order from "../views/Order";
@@ -45,7 +45,7 @@ class App extends Component {
       <Fragment>
         <Router history={history}>
           <div className="main-container">
-            <ConfirmModal />
+            {/* <ConfirmModal /> */}
             {this.props.isLoggedIn}
 
             <span className="content-container">

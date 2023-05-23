@@ -19,16 +19,24 @@ class Login extends Component {
     };
   }
 
+  redirectToSystemPage = () => {
+    const { navigate } = this.props;
+    const redirectPath = "/system/dashboard";
+    navigate(`${redirectPath}`);
+  };
+
   handleOnChangeUserName = (event) => {
     this.setState({
       username: event.target.value,
     });
   };
+
   handleOnChangePassword = (event) => {
     this.setState({
       password: event.target.value,
     });
   };
+
   handleLogin = async () => {
     this.setState({
       errMessage: "",
@@ -43,6 +51,7 @@ class Login extends Component {
       if (data && data.errCode === 0) {
         this.props.userLoginSuccess(data.user);
         console.log("Login succeeds!");
+        this.redirectToSystemPage();
       }
     } catch (error) {
       if (error.response) {
@@ -55,10 +64,17 @@ class Login extends Component {
       console.log("Minh Leo: ", error.response);
     }
   };
+
   handleShowHidePassword = () => {
     this.setState({
       isShowPassword: !this.state.isShowPassword,
     });
+  };
+
+  handleEnter = (event) => {
+    if (event.keyCode === 13) {
+      this.handleLogin();
+    }
   };
   render() {
     return (
@@ -85,6 +101,7 @@ class Login extends Component {
                   placeholder="Enter your password"
                   value={this.state.password}
                   onChange={(event) => this.handleOnChangePassword(event)}
+                  onKeyDown={this.handleEnter}
                 />
                 <span
                   onClick={() => {
@@ -114,17 +131,6 @@ class Login extends Component {
                 Login
               </button>
             </div>
-            {/* 
-            <div className="col-12">
-              <span className="forgot-password">Forgot your password?</span>
-            </div>
-            <div className="col-12 text-center mt-3">
-              <span className="text-other-login">Or Login with: </span>
-            </div>
-            <div className="col-12 social-login">
-              <i className="fab fa-google-plus-g google"></i>
-              <i className="fab fa-facebook-f facebook"></i>
-            </div> */}
           </div>
         </div>
       </div>
