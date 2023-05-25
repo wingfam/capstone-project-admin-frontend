@@ -1,65 +1,80 @@
 @import "../../styles/common.scss";
 
 .header-container {
-    z-index: 99;
+  z-index: 99;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+  backdrop-filter: saturate(200%) blur(1.875rem);
+  box-shadow: rgba(255, 255, 255, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset,
+    rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
+  color: $text-in-light;
+  height: 50px;
+  position: sticky;
+  top: 5px;
+  border-radius: 7px;
+  margin-bottom: 25px;
+
+  .header-content {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.8);
-    opacity: 1;
-    backdrop-filter: saturate(200%) blur(1.875rem);
-    box-shadow: rgba(255, 255, 255, 0.9) 0rem 0rem 0.0625rem 0.0625rem inset, rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem;
-    color: $text-in-light;
-    height: 50px;
-    position: sticky;
-    top: 5px;
-    border-radius: 7px;
-    margin-bottom: 25px;
 
-    .header-tabs-container {
-        margin-left: 5px;
+    .header-left-content {
+      margin-left: 5px;
+      display: flex;
+      width: 30%;
 
-        i {
-            margin: 50%;
-            align-items: center;
-            color: gray;
-            font-size: 20px;
-        }
-
-        .header-content {
-            font-size: $base-size + 2px;
-        }
+      i {
+        margin: 50%;
+        align-items: center;
+        color: gray;
+        font-size: 20px;
+      }
     }
 
-    .btn-logout {
+    .header-center-content {
+      width: 59%;
+      display: flex;
+    }
+
+    .header-right-content {
+      width: 11%;
+      display: flex;
+
+      .select-language {
+        height: 50%;
+        margin-top: 5px;
+        width: 75px;
+      }
+
+      .btn-logout {
         color: gray;
         line-height: 40px;
-        height: 40px;
-        padding: 0 10px;
         margin-right: 7px;
 
         i {
-            margin: 50%;
-            align-items: center;
-            font-size: $base-size + 4px;
+          margin: 50%;
+          align-items: center;
+          font-size: $base-size + 4px;
         }
-    }
+      }
 
-    .btn-bell {
+      .btn-bell {
         line-height: 40px;
-        height: 40px;
         padding: 0 10px;
-        margin-right: 7px;
         position: relative;
 
         i {
-            margin: 50%;
-            align-items: center;
-            font-size: $base-size + 4px;
-            color: $colormain;
+          margin: 50%;
+          align-items: center;
+          font-size: $base-size + 4px;
+          color: $colormain;
 
-            .btn-unread {
-                position: absolute;
-            }
+          .btn-unread {
+            position: absolute;
+          }
         }
+      }
     }
+  }
 }

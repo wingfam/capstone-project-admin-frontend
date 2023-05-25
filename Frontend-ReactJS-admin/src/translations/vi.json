@@ -1,4 +1,8 @@
 {
+"header":{
+"notification":"Thông báo"
+},
+
     "common": {
         "add": "Thêm",
         "edit": "Sửa",
