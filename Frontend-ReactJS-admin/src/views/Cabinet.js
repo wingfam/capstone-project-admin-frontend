@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Header from "../containers/Header/Header";
 import TableCabinet from "../components/Table/TableCabinet";
 import ModalCabinet from "../components/Modal/ModalCabinet";
+import { FormattedMessage } from "react-intl";
 
 class Cabinet extends Component {
   constructor(props) {
@@ -25,12 +26,14 @@ class Cabinet extends Component {
     });
   };
 
-  render() {
-    const title = ["Quản lý tủ"];
+  changeLanguage = (language) => {
+    this.props.changeLanguageAppRedux(language);
+  };
 
+  render() {
     return (
       <div className="cabinet-container">
-        <Header data={title} />
+        <Header data={<FormattedMessage id={"title.cabinet"} />} />
         <ModalCabinet
           isOpen={this.state.isOpenModalUser}
           toggleFromParent={this.toggleUserModal}
@@ -38,10 +41,10 @@ class Cabinet extends Component {
         <div className="mx-1">
           <button
             className="btn px-3"
-            style={{ background: "#21a5ff", color: "#FEFFFF" }}
+            style={{ background: "#21a5ff", color: "#FEFFFF", fontSize: "16px" }}
             onClick={() => this.handleAddNewUsers()}
           >
-            <i className="fas fa-plus"></i> &nbsp; Thêm tủ
+            <i className="fas fa-plus"></i> &nbsp; <FormattedMessage id={"table.add-cabinet"} />
           </button>
         </div>
         <TableCabinet />
@@ -51,7 +54,9 @@ class Cabinet extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    language: state.app.language,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

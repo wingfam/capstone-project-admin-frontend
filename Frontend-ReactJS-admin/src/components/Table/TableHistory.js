@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableHistory.scss";
 import { getAllUsers } from "../../services/userService";
@@ -29,13 +29,13 @@ class TableHistory extends Component {
           <table className="histories">
             <tbody>
               <tr>
-                <th>Tên tủ</th>
-                <th>Người đặt</th>
-                <th>Số điện thoại</th>
-                <th>Mã đặt tủ</th>
-                <th>Ngày đặt</th>
-                <th>Hết hạn</th>
-                <th>Mã mở tủ</th>
+                <th><FormattedMessage id="table.name-cabinet" /></th>
+                <th><FormattedMessage id="table.firstname" /></th>
+                <th><FormattedMessage id="table.phone" /></th>
+                <th><FormattedMessage id="table.code-order" /></th>
+                <th><FormattedMessage id="table.booking-date" /></th>
+                <th><FormattedMessage id="table.booking-valid-date" /></th>
+                <th><FormattedMessage id="table.code-cabinet" /></th>
               </tr>
               {arrUsers &&
                 arrUsers.map((item, index) => {

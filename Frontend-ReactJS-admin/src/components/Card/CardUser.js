@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import "./CardUser.scss";
 
 const CardUser = () => {
@@ -7,7 +8,7 @@ const CardUser = () => {
     <div className="container-user-card">
       <div className="card">
         <h5 className="card-header">
-          <i className="fas fa-id-card">&nbsp; Hồ sơ</i>
+          <i className="fas fa-id-card">&nbsp; <FormattedMessage id="title.detail" /> </i>
         </h5>
         <div className="row g-0">
           <div className="col-md-2 text-center">

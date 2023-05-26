@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Header from "../containers/Header/Header";
+import { FormattedMessage } from "react-intl";
 
 class Dashboard extends Component {
   render() {
-    let title = "Dashboard";
     return (
       <div>
-        <Header data={title} />
+        <Header data={<FormattedMessage id="title.dashboard" />} />
         <h1>Dashboard Page</h1>
       </div>
     );

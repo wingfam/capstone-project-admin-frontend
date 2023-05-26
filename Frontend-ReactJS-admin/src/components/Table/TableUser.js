@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableUser.scss";
 import { getAllUsers } from "../../services/userService";
@@ -30,18 +30,20 @@ class TableUser extends Component {
           <table className="customers">
             <tbody>
               <tr>
-                <th>Họ tên</th>
-                <th>Email</th>
-                <th>Số điện thoại</th>
-                <th>Thao tác</th>
+                <th className="col-2"><FormattedMessage id="table.lastname" /></th>
+                <th className="col-1"><FormattedMessage id="table.firstname" /></th>
+                <th className="col-3"><FormattedMessage id="table.email" /></th>
+                <th className="col-2"><FormattedMessage id="table.phone" /></th>
+                <th className="col-1"><FormattedMessage id="table.action" /></th>
               </tr>
               {arrUsers &&
                 arrUsers.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/user-detail">{item.firstName}</Link>
+                        <Link to="/system/user-detail">{item.lastName}</Link>
                       </td>
+                      <td>{item.firstName}</td>
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
                       <td>

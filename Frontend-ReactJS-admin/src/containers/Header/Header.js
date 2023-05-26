@@ -1,20 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../store/actions";
-import { LANGUAGES } from "../../utils";
 import "./Header.scss";
+import { LANGUAGES } from "../../utils";
 import { FormattedMessage } from "react-intl";
 import { changeLanguageApp } from "../../store/actions/appActions";
-import { Component } from "react";
 
 class Header extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //   };
+  // }
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -27,44 +26,46 @@ class Header extends Component {
     return (
       <div className="header-container">
         <div className="header-content">
-          <div className="header-left-content" title="Dashboard">
+          <div className="header-left-content">
             <Link to="/system/dashboard">
               <i className="fas fa-home"></i>
             </Link>
           </div>
           <div className="header-center-content title">
             <span className="display-5 px-3 bg-white rounded shadow">
-              {titleHeader}<FormattedMessage id="header.notification" />
+              {titleHeader}
             </span>
           </div>
           <div className="header-right-content">
-            <select className="select-language">
-              {/* <option
-              className={
-                language === LANGUAGES.VI
-                  ? "language-vi active"
-                  : "language-vi"
-              }
-            >
-              <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
-                VN
-              </span>
-            </option>
-            <option value="1"
-              className={
-                language === LANGUAGES.EN
-                  ? "language-en active"
-                  : "language-en"
-              }
-            >
-              <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
-                EN
-              </span>
-            </option> */}
-              <option onClick={() => this.changeLanguage(LANGUAGES.VI)}>VietNam</option>
-              <option onClick={() => this.changeLanguage(LANGUAGES.EN)}>English</option>
-            </select>
-            <div className="btn btn-bell" title="Thông báo">
+            {/* <select className="select-language"> */}
+            <div className="language-content">
+              <div
+                className={
+                  language === LANGUAGES.VI
+                    ? "language-vi active"
+                    : "language-vi"
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
+                  VN
+                </span>
+              </div>
+              <div
+                className={
+                  language === LANGUAGES.EN
+                    ? "language-en active"
+                    : "language-en"
+                }
+              >
+                <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
+                  EN
+                </span>
+              </div>
+            </div>
+            {/* <option className={language === LANGUAGES.VN} onClick={() => this.changeLanguage(LANGUAGES.VI)}>Việt Nam</option>
+              <option className={language === LANGUAGES.EN} onClick={() => this.changeLanguage(LANGUAGES.EN)}>English</option>
+            </select> */}
+            <div className="btn btn-bell" title="">
               <Link to="/system/notification">
                 <i className="fas fa-bell">
                   {(() => {
@@ -97,8 +98,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    isLoggedIn: state.user.isLoggedIn,
   };
 };
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableCabinet.scss";
 import { getAllUsers } from "../../services/userService";
@@ -30,9 +30,9 @@ class TableCabinet extends Component {
           <table className="cabinets">
             <tbody>
               <tr>
-                <th className="col-2">Tên tủ</th>
-                <th className="col-2">Trạng thái tủ</th>
-                <th className="col-2">Thao tác</th>
+                <th className="col-2"><FormattedMessage id="table.name-cabinet" /></th>
+                <th className="col-2"><FormattedMessage id="table.status-cabinet" /></th>
+                <th className="col-2"><FormattedMessage id="table.action" /></th>
               </tr>
               {arrUsers &&
                 arrUsers.map((item, index) => {

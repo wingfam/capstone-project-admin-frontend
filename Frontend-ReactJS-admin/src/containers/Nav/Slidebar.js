@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Slidebar.scss";
+import { FormattedMessage } from "react-intl";
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -9,27 +10,27 @@ const Sidebar = ({ children }) => {
   const menuItem = [
     {
       path: "/system/dashboard",
-      name: "Dashboard",
+      name: <FormattedMessage id="slidebar.dashboard" />,
       icon: <i className="fas fa-chart-bar"></i>,
     },
     {
       path: "/system/cabinet",
-      name: "Tủ",
+      name: <FormattedMessage id="slidebar.cabinet" />,
       icon: <i className="fas fa-table"></i>,
     },
     {
       path: "/system/user-manage",
-      name: "Khách hàng",
+      name: <FormattedMessage id="slidebar.user" />,
       icon: <i className="fas fa-users"></i>,
     },
     {
       path: "/system/order",
-      name: "Đơn đặt hàng",
+      name: <FormattedMessage id="slidebar.order" />,
       icon: <i className="fas fa-shopping-cart"></i>,
     },
     {
       path: "/system/history",
-      name: "Lịch sử đặt hàng",
+      name: <FormattedMessage id="slidebar.history" />,
       icon: <i className="fas fa-history"></i>,
     },
   ];

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-// import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./ModalCabinet.scss";
 
@@ -10,7 +10,7 @@ class ModalCabinet extends Component {
     this.state = {};
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -32,29 +32,17 @@ class ModalCabinet extends Component {
             this.toggle();
           }}
         >
-          Thêm tủ
+          <FormattedMessage id="table.add-cabinet" />
         </ModalHeader>
         <ModalBody>
           <div className="modal-user-body">
             <div className="input-container">
-              <label>Tên tủ</label>
+              <label><FormattedMessage id="table.name-cabinet" /></label>
               <input type="text" />
             </div>
             <div className="input-container">
               <label>Password</label>
               <input type="password" />
-            </div>
-            <div className="input-container">
-              <label>First name</label>
-              <input type="text" />
-            </div>
-            <div className="input-container">
-              <label>Last name</label>
-              <input type="text" />
-            </div>
-            <div className="input-container max-width-input">
-              <label>Địa chỉ</label>
-              <input type="text" />
             </div>
           </div>
         </ModalBody>
@@ -66,16 +54,15 @@ class ModalCabinet extends Component {
               this.toggle();
             }}
           >
-            Save Changes
+            <FormattedMessage id="common.add" />
           </Button>{" "}
           <Button
-            color="secondary"
             className="px-3"
             onClick={() => {
               this.toggle();
             }}
           >
-            Close
+            <FormattedMessage id="common.close" />
           </Button>
         </ModalFooter>
       </Modal>

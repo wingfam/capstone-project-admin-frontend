@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import CardHistory from "../components/Card/CardHistory";
 import CardUser from "../components/Card/CardUser";
 import Header from "../containers/Header/Header";
+import { FormattedMessage } from "react-intl";
 
 class DetailUser extends Component {
   render() {
-    const title = ["Chi tiết người dùng"];
     return (
       <div>
-        <Header data={title} />
+        <Header data={<FormattedMessage id="title.detail-user" />} />
         <CardUser />
         <CardHistory />
       </div>

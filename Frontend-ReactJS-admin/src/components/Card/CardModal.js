@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./CardModal.scss";
+import { FormattedMessage } from "react-intl";
 
 const CardModal = () => {
   return (
     <div className="container-card">
       <div className="card">
         <h5 className="card-header">
-          <i className="fas fa-bell">&nbsp; Alerts</i>
+          <i className="fas fa-bell">&nbsp; <FormattedMessage id="title.alerts" /></i>
         </h5>
         <div className="card-body">
           <div className="card-content">

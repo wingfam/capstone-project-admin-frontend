@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
-// import * as actions from "../store/actions";
 import * as actions from "../../store/actions";
 import "./Login.scss";
-// import { FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { handleLoginApi } from "../../services/userService";
-// import { userLoginSuccess } from "../../store/actions";
 
 class Login extends Component {
   constructor(props) {
@@ -81,9 +79,9 @@ class Login extends Component {
       <div className="login-background">
         <div className="login-container">
           <div className="login-content row">
-            <div className="col-12 text-login">Login</div>
+            <div className="col-12 text-login"><FormattedMessage id="login.login" /></div>
             <div className="col-12 form-group login-input">
-              <label>Username: </label>
+              <label><FormattedMessage id="login.username" />:</label>
               <input
                 type="text"
                 className="form-control"
@@ -93,7 +91,7 @@ class Login extends Component {
               />
             </div>
             <div className="col-12 form-group login-input">
-              <label>Password: </label>
+              <label><FormattedMessage id="login.password" />: </label>
               <div className="custom-input-password">
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
@@ -128,7 +126,7 @@ class Login extends Component {
                   this.handleLogin();
                 }}
               >
-                Login
+                <FormattedMessage id="login.login" />
               </button>
             </div>
           </div>
