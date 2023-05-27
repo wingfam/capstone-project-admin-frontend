@@ -8,7 +8,6 @@ import { FormattedMessage } from "react-intl";
 import { changeLanguageApp } from "../../store/actions/appActions";
 
 class Header extends Component {
-
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -62,10 +61,7 @@ class Header extends Component {
                 </span>
               </div>
             </div>
-            {/* <option className={language === LANGUAGES.VN} onClick={() => this.changeLanguage(LANGUAGES.VI)}>Việt Nam</option>
-              <option className={language === LANGUAGES.EN} onClick={() => this.changeLanguage(LANGUAGES.EN)}>English</option>
-            </select> */}
-            <div className="btn btn-bell" title="">
+            <div className="btn btn-bell">
               <Link to="/system/notification">
                 <i className="fas fa-bell">
                   {(() => {
@@ -82,11 +78,7 @@ class Header extends Component {
                 </i>
               </Link>
             </div>
-            <div
-              className="btn btn-logout"
-              onClick={this.props.processLogout}
-              title="Đăng xuất"
-            >
+            <div className="btn btn-logout" onClick={this.props.processLogout}>
               <i className="fas fa-sign-out-alt"></i>
             </div>
           </div>
@@ -94,7 +86,7 @@ class Header extends Component {
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => {
   return {

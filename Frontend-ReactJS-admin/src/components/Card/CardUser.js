@@ -8,7 +8,9 @@ const CardUser = () => {
     <div className="container-user-card">
       <div className="card">
         <h5 className="card-header">
-          <i className="fas fa-id-card">&nbsp; <FormattedMessage id="title.detail" /> </i>
+          <i className="fas fa-id-card">
+            &nbsp; <FormattedMessage id="title.detail" />{" "}
+          </i>
         </h5>
         <div className="row g-0">
           <div className="col-md-2 text-center">
@@ -50,10 +52,10 @@ const CardUser = () => {
                   />
                 </div>
                 <span className="offset-md-9">
-                  <button type="button" className="btn-pen" title="Chỉnh sửa">
+                  <button type="button" className="btn-pen">
                     <i className="fas fa-pencil-alt"></i>
                   </button>
-                  <button type="button" className="btn-trash" title="Xóa">
+                  <button type="button" className="btn-trash">
                     <i className="fas fa-trash"></i>
                   </button>
                 </span>

@@ -30,9 +30,15 @@ class TableCabinet extends Component {
           <table className="cabinets">
             <tbody>
               <tr>
-                <th className="col-2"><FormattedMessage id="table.name-cabinet" /></th>
-                <th className="col-2"><FormattedMessage id="table.status-cabinet" /></th>
-                <th className="col-2"><FormattedMessage id="table.action" /></th>
+                <th className="col-2">
+                  <FormattedMessage id="table.name-cabinet" />
+                </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.status-cabinet" />
+                </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.action" />
+                </th>
               </tr>
               {arrUsers &&
                 arrUsers.map((item, index) => {
@@ -43,10 +49,10 @@ class TableCabinet extends Component {
                       </td>
                       <td>{item.lastName}</td>
                       <td>
-                        <button className="btn-edit" title="Chỉnh sửa">
+                        <button className="btn-edit">
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button className="btn-delete" title="Xoá">
+                        <button className="btn-delete">
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>

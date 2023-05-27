@@ -8,7 +8,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Header data={<FormattedMessage id="title.dashboard" />} />
-        <h1>Dashboard Page</h1>
+        <h1>Dashboard page</h1>
       </div>
     );
   }
