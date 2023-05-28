@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableUser.scss";
-import { getAllUsers, editUserService, deleteUserService } from "../../services/userService";
+import {
+  getAllUsers,
+  editUserService,
+  deleteUserService,
+} from "../../services/userService";
 import { Link } from "react-router-dom";
 import ModalEditUser from "../Modal/ModalEditUser";
+import { toast } from "react-toastify";
 
 class TableUser extends Component {
   constructor(props) {
@@ -17,13 +22,17 @@ class TableUser extends Component {
   }
 
   async componentDidMount() {
+    await this.getAllUsersFromReact();
+  }
+
+  getAllUsersFromReact = async () => {
     let response = await getAllUsers("ALL");
     if (response && response.errCode === 0) {
       this.setState({
         arrUsers: response.users,
       });
     }
-  }
+  };
 
   toggleUserEditModal = () => {
     this.setState({
@@ -59,6 +68,16 @@ class TableUser extends Component {
       let res = await deleteUserService(user.id);
       if (res && res.errCode === 0) {
         await this.getAllUsersFromReact();
+        toast.success(<FormattedMessage id="toast.delete-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } else {
         alert(res.errMessage);
       }
@@ -111,14 +130,20 @@ class TableUser extends Component {
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
                       <td>
-                        <button className="btn-edit" onClick={() => {
-                          this.handleEditUser(item);
-                        }}>
+                        <button
+                          className="btn-edit"
+                          onClick={() => {
+                            this.handleEditUser(item);
+                          }}
+                        >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button className="btn-delete" onClick={() => {
-                          this.handleDeleteUser(item);
-                        }}>
+                        <button
+                          className="btn-delete"
+                          onClick={() => {
+                            this.handleDeleteUser(item);
+                          }}
+                        >
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>

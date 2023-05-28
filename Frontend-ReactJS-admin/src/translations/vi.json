@@ -56,5 +56,11 @@
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+  },
+
+  "toast":{
+    "delete-success":"Xóa thành công",
+    "edit-success":"Chỉnh sửa thành công",
+    "create-success":"Tạo thành công"
   }
 }

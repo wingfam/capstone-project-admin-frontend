@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
@@ -12,8 +13,6 @@ import { path } from "../utils";
 import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import System from "../routes/System";
-import { CustomToastCloseButton } from "../components/CustomToast";
-// import ConfirmModal from "../components/ConfirmModal";
 import Dashboard from "../views/Dashboard";
 import Cabinet from "../views/Cabinet";
 import Order from "../views/Order";
@@ -69,16 +68,17 @@ class App extends Component {
             </span>
 
             <ToastContainer
-              className="toast-container"
-              toastClassName="toast-item"
-              bodyClassName="toast-item-body"
-              autoClose={false}
-              hideProgressBar={true}
-              pauseOnHover={false}
-              pauseOnFocusLoss={true}
-              closeOnClick={false}
-              draggable={false}
-              closeButton={<CustomToastCloseButton />}
+            // className="toast-container"
+            // toastClassName="toast-item"
+            // bodyClassName="toast-item-body"
+            // autoClose={5000}
+            // hideProgressBar={false}
+            // pauseOnHover={true}
+            // pauseOnFocusLoss={true}
+            // closeOnClick={true}
+            // draggable={true}
+            // theme="light"
+            // closeButton={<CustomToastCloseButton />}
             />
           </div>
         </Router>

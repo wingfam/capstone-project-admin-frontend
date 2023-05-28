@@ -9,7 +9,8 @@
     "dashboard": "dashboard",
     "alerts": "Alerts",
     "detail": "Detail",
-    "history-order": "History order"
+    "history-order": "History order",
+    "edit-user": "Chỉnh sửa thông tin khách hàng"
   },
 
   "table": {
@@ -25,7 +26,8 @@
     "booking-date": "Booking date",
     "booking-valid-date": "Booking valid date",
     "serial": "Serial",
-    "add-cabinet": "Add locker"
+    "add-cabinet": "Add locker",
+    "address": "Địa chỉ"
   },
 
   "slidebar": {
@@ -54,5 +56,11 @@
     "username": "Username",
     "password": "Password",
     "userpass-wrong": "Invalid username or password!"
+  },
+
+  "toast":{
+    "delete-success":"Delete success!",
+    "edit-success":"Edit success!",
+    "create-success":"Create success!"
   }
 }
