@@ -1,42 +1,44 @@
 @import "../../styles/common.scss";
 
 .container-history-card {
-    width: calc(80% + 24px);
-    margin: 50px 50px 50px 100px;
+  width: calc(80% + 24px);
+  margin: 50px 50px 50px 100px;
+  position: relative;
+  z-index: -1;
 
-    .card {
-        border-radius: 10px;
-        border-color: $common-green;
+  .card {
+    border-radius: 10px;
+    border-color: $common-green;
 
-        .card-header {
-            background: $common-green;
-            color: white;
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
-            border: none;
-            height: 60px;
+    .card-header {
+      background: $common-green;
+      color: white;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      border: none;
+      height: 60px;
 
-            i {
-                padding: 10px;
-                font-size: 25px;
-            }
-        }
-
-        .card-body {
-            table {
-                width: 100%;
-
-                .history {
-                    margin: 10px 10px;
-                }
-            }
-
-            tr,
-            th,
-            td {
-                text-align: center;
-                border: 1px solid gray;
-            }
-        }
+      i {
+        padding: 10px;
+        font-size: 25px;
+      }
     }
+
+    .card-body {
+      table {
+        width: 100%;
+
+        .history {
+          margin: 10px 10px;
+        }
+      }
+
+      tr,
+      th,
+      td {
+        text-align: center;
+        border: 1px solid gray;
+      }
+    }
+  }
 }

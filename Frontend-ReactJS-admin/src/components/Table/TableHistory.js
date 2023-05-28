@@ -24,7 +24,7 @@ class TableHistory extends Component {
   render() {
     let arrUsers = this.state.arrUsers;
     return (
-      <div className="table-history-container">
+      <div className="table-histories-container">
         <div className="histories-table mt-3 mx-1">
           <table className="histories">
             <tbody>

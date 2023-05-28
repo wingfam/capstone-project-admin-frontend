@@ -24,7 +24,7 @@ class TableOrder extends Component {
   render() {
     let arrUsers = this.state.arrUsers;
     return (
-      <div className="table-order-container">
+      <div className="table-orders-container">
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <tbody>

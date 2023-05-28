@@ -1,7 +1,7 @@
 {
   "title": {
     "notification": "notification",
-    "cabinet": "cabinet manage",
+    "cabinet": "locker manage",
     "detail-user": "detail user",
     "user-manage": "user manage",
     "history": "history",
@@ -18,24 +18,24 @@
     "email": "Email",
     "phone": "Phone number",
     "action": "Action",
-    "name-cabinet": "Name cabinet",
-    "status-cabinet": "Status cabinet",
+    "name-cabinet": "Name locker",
+    "status-cabinet": "Status locker",
     "code-order": "Code order",
     "code-cabinet": "Code unlock",
     "booking-date": "Booking date",
     "booking-valid-date": "Booking valid date",
     "serial": "Serial",
-    "add-cabinet": "Add cabinet"
+    "add-cabinet": "Add locker"
   },
 
   "slidebar": {
-    "cabinet": "Cabinet",
+    "cabinet": "Locker",
     "user": "Customer",
     "history": "History",
     "order": "Orders",
     "dashboard": "Dashboard"
   },
-  
+
   "common": {
     "add": "Add",
     "edit": "Edit",

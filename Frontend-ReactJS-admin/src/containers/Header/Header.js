@@ -4,15 +4,9 @@ import { Link } from "react-router-dom";
 import * as actions from "../../store/actions";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
-import { FormattedMessage } from "react-intl";
 import { changeLanguageApp } from "../../store/actions/appActions";
 
 class Header extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //   };
-  // }
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -31,12 +25,11 @@ class Header extends Component {
             </Link>
           </div>
           <div className="header-center-content title">
-            <span className="display-5 px-3 bg-white rounded shadow">
+            <span className="display-4 px-3 bg-white rounded shadow">
               {titleHeader}
             </span>
           </div>
           <div className="header-right-content">
-            {/* <select className="select-language"> */}
             <div className="language-content">
               <div
                 className={

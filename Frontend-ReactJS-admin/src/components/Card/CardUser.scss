@@ -1,68 +1,67 @@
 @import "../../styles/common.scss";
 
 .container-user-card {
-    width: calc(80% + 24px);
-    margin: 50px 50px 50px 100px;
+  width: calc(80% + 24px);
+  margin: 50px 50px 50px 100px;
+  z-index: -1;
+  position: relative;
 
-    .card {
-        border-radius: 10px;
-        border-color: $colormain;
+  .card {
+    border-radius: 10px;
+    border-color: $colormain;
 
-        .card-header {
-            background: $colormain;
-            color: white;
-            height: 60px;
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
+    .card-header {
+      background: $colormain;
+      color: white;
+      height: 60px;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
 
-            i {
-                padding: 10px;
-                font-size: 23px;
-            }
-        }
-
-        .card-body {
-
-            .form-content {
-                border-radius: 7px;
-                margin-top: 5px;
-                text-align: left;
-
-                div {
-                    margin-top: 10px;
-
-                    .form-control {
-                        height: 50px;
-                    }
-
-                }
-
-                span {
-
-                    .btn-pen {
-                        width: 10%;
-                        height: 35px;
-                        border-radius: 7px;
-                        border: none;
-                        background: orange;
-                        color: white;
-                        font-size: 20px;
-                        margin-top: 10px;
-                        margin-right: 10px;
-                    }
-
-                    .btn-trash {
-                        width: 10%;
-                        height: 35px;
-                        border-radius: 7px;
-                        border: none;
-                        background: red;
-                        color: white;
-                        font-size: 20px;
-                        margin-top: 10px;
-                    }
-                }
-            }
-        }
+      i {
+        padding: 10px;
+        font-size: 23px;
+      }
     }
+
+    .card-body {
+      .form-content {
+        border-radius: 7px;
+        margin-top: 5px;
+        text-align: left;
+
+        div {
+          margin-top: 10px;
+
+          .form-control {
+            height: 50px;
+          }
+        }
+
+        span {
+          .btn-pen {
+            width: 10%;
+            height: 35px;
+            border-radius: 7px;
+            border: none;
+            background: orange;
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+            margin-right: 10px;
+          }
+
+          .btn-trash {
+            width: 10%;
+            height: 35px;
+            border-radius: 7px;
+            border: none;
+            background: red;
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
 }

@@ -9,7 +9,8 @@
     "dashboard": "dashboard",
     "alerts": "Cảnh báo",
     "detail": "Hồ sơ",
-    "history-order": "Lịch sử đặt tủ"
+    "history-order": "Lịch sử đặt tủ",
+    "edit-user": "Chỉnh sửa thông tin khách hàng"
   },
 
   "table": {
@@ -25,7 +26,8 @@
     "booking-date": "Ngày đặt",
     "booking-valid-date": "Ngày hết hạn",
     "serial": "STT",
-    "add-cabinet": "Thêm tủ"
+    "add-cabinet": "Thêm tủ",
+    "address": "Địa chỉ"
   },
 
   "slidebar": {

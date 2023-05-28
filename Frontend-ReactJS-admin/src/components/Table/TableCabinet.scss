@@ -1,66 +1,74 @@
 @import "../../styles/common.scss";
 
-.cabinets {
+.table-cabinet-container {
+  padding-top: 5px;
+
+  .cabinets {
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     border-radius: 5px;
-}
 
-.cabinets tbody {
-    border-radius: 10px;
-}
+    tbody {
+      border-radius: 10px;
+    }
 
-.cabinets td,
-.cabinets th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    font-size: 17px;
-}
+    td,
+    th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-size: 17px;
+    }
 
-.cabinets tr:first-child th:first-child {
-    border-top-left-radius: 10px;
-    border: none;
-}
+    tr:first-child th {
+      text-align: center;
+    }
 
-.cabinets tr:first-child th:last-child {
-    border-top-right-radius: 10px;
-    border: none;
-}
+    tr:first-child th:first-child {
+      border-top-left-radius: 10px;
+      border: none;
+    }
 
-.cabinets tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+    tr:first-child th:last-child {
+      border-top-right-radius: 10px;
+      border: none;
+    }
 
-.cabinets th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: $colormain;
-    color: white;
-}
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
 
-.btn-edit {
-    width: 50px;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: orange;
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: $colormain;
+      color: white;
+    }
 
-    &:hover {
+    .btn-edit {
+      width: 50px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: orange;
+
+      &:hover {
         background-color: transparent !important;
         color: orange !important;
+      }
     }
-}
 
-.btn-delete {
-    width: 50px;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: rgb(235, 15, 15);
+    .btn-delete {
+      width: 50px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: rgb(235, 15, 15);
 
-    &:hover {
+      &:hover {
         background-color: transparent !important;
         color: rgb(235, 15, 15) !important;
+      }
     }
+  }
 }

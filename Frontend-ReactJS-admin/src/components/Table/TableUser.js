@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableUser.scss";
-import { getAllUsers } from "../../services/userService";
+import { getAllUsers, editUserService, deleteUserService } from "../../services/userService";
 import { Link } from "react-router-dom";
+import ModalEditUser from "../Modal/ModalEditUser";
 
 class TableUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrUsers: [],
+      isOpenModalEditUser: false,
+      userEdit: {},
     };
   }
 
@@ -22,11 +25,62 @@ class TableUser extends Component {
     }
   }
 
+  toggleUserEditModal = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser,
+    });
+  };
+
+  doEditUser = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalEditUser: false,
+        });
+        await this.getAllUsersFromReact();
+      } else {
+        alert(res.errCode);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleEditUser = (user) => {
+    this.setState({
+      isOpenModalEditUser: true,
+      editUser: user,
+    });
+  };
+
+  handleDeleteUser = async (user) => {
+    try {
+      let res = await deleteUserService(user.id);
+      if (res && res.errCode === 0) {
+        await this.getAllUsersFromReact();
+      } else {
+        alert(res.errMessage);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   render() {
     let arrUsers = this.state.arrUsers;
     return (
-      <div className="table-user-container">
-        <div className="users-table mt-3 mx-1 ">
+      <div className="table-customers-container">
+        {this.state.isOpenModalEditUser && (
+          <ModalEditUser
+            isOpen={this.state.isOpenModalEditUser}
+            toggleFromParent={this.toggleUserEditModal}
+            currentUser={this.state.editUser}
+            editUser={this.doEditUser}
+          />
+        )}
+
+        <div className="customers-table mt-3 mx-1 ">
           <table className="customers">
             <tbody>
               <tr>
@@ -57,10 +111,14 @@ class TableUser extends Component {
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
                       <td>
-                        <button className="btn-edit">
+                        <button className="btn-edit" onClick={() => {
+                          this.handleEditUser(item);
+                        }}>
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button className="btn-delete">
+                        <button className="btn-delete" onClick={() => {
+                          this.handleDeleteUser(item);
+                        }}>
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>
