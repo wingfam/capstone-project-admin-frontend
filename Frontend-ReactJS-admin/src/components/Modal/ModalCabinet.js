@@ -23,7 +23,7 @@ class ModalCabinet extends Component {
         toggle={() => {
           this.toggle();
         }}
-        className={"modal-user-container"}
+        className={"modal-cabinet-container"}
         size="lg"
         centered
       >
@@ -35,7 +35,7 @@ class ModalCabinet extends Component {
           <FormattedMessage id="table.add-cabinet" />
         </ModalHeader>
         <ModalBody>
-          <div className="modal-user-body">
+          <div className="modal-cabinet-body">
             <div className="input-container">
               <label><FormattedMessage id="table.name-cabinet" /></label>
               <input type="text" />

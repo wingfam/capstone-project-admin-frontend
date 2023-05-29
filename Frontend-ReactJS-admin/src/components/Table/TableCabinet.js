@@ -34,6 +34,9 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.name-cabinet" />
                 </th>
                 <th className="col-2">
+                  <FormattedMessage id="table.create-cabinet-date" />
+                </th>
+                <th className="col-2">
                   <FormattedMessage id="table.status-cabinet" />
                 </th>
                 <th className="col-2">
@@ -47,6 +50,7 @@ class TableCabinet extends Component {
                       <td>
                         <Link to="/system/history">{item.firstName}</Link>
                       </td>
+                      <td>{item.createdAt}</td>
                       <td>{item.lastName}</td>
                       <td>
                         <button className="btn-edit">

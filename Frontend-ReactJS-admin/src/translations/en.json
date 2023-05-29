@@ -16,6 +16,7 @@
   "table": {
     "lastname": "Lastname",
     "firstname": "Name",
+    "name": "Full name",
     "email": "Email",
     "phone": "Phone number",
     "action": "Action",
@@ -24,6 +25,7 @@
     "code-order": "Code order",
     "code-cabinet": "Code unlock",
     "booking-date": "Booking date",
+    "create-cabinet-date": "Locker creation date",
     "booking-valid-date": "Booking valid date",
     "serial": "Serial",
     "add-cabinet": "Add locker",
@@ -58,9 +60,16 @@
     "userpass-wrong": "Invalid username or password!"
   },
 
-  "toast":{
-    "delete-success":"Delete success!",
-    "edit-success":"Edit success!",
-    "create-success":"Create success!"
+  "toast": {
+    "delete-user-success": "Delete customer succeeds!",
+    "delete-user-error": "Delete customer not succeeds!",
+    "edit-user-success": "Edit customer succeeds!",
+    "edit-user-error": "Edit customer not succeeds!",
+    "create-cabinet-success": "Create cabinet succeeds!",
+    "create-cabinet-error": "Create cabinet not succeeds!",
+    "delete-cabinet-success": "Delete cabinet succeeds!",
+    "delete-cabinet-error": "Delete cabinet not succeeds!",
+    "edit-cabinet-success": "Edit cabinet succeeds!",
+    "edit-cabinet-error": "Edit cabinet not succeeds!"
   }
 }

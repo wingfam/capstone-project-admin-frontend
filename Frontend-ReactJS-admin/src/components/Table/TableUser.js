@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import "./TableUser.scss";
 import {
@@ -48,8 +48,28 @@ class TableUser extends Component {
           isOpenModalEditUser: false,
         });
         await this.getAllUsersFromReact();
+        toast.success(<FormattedMessage id="toast.edit-user-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } else {
         alert(res.errCode);
+        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (e) {
       console.log(e);
@@ -68,7 +88,7 @@ class TableUser extends Component {
       let res = await deleteUserService(user.id);
       if (res && res.errCode === 0) {
         await this.getAllUsersFromReact();
-        toast.success(<FormattedMessage id="toast.delete-success" />, {
+        toast.success(<FormattedMessage id="toast.delete-user-success" />, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -80,6 +100,16 @@ class TableUser extends Component {
         });
       } else {
         alert(res.errMessage);
+        toast.error(<FormattedMessage id="toast.delete-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (e) {
       console.log(e);
@@ -88,6 +118,9 @@ class TableUser extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers;
+    const intl = this.useIntl();
+    var titleDelete = <FormattedMessage id="common.delete" />;
+
     return (
       <div className="table-customers-container">
         {this.state.isOpenModalEditUser && (
@@ -104,16 +137,16 @@ class TableUser extends Component {
             <tbody>
               <tr>
                 <th className="col-2">
-                  <FormattedMessage id="table.lastname" />
-                </th>
-                <th className="col-1">
-                  <FormattedMessage id="table.firstname" />
+                  <FormattedMessage id={"table.name"} />
                 </th>
                 <th className="col-3">
                   <FormattedMessage id="table.email" />
                 </th>
-                <th className="col-2">
+                <th className="col-1">
                   <FormattedMessage id="table.phone" />
+                </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.address" />
                 </th>
                 <th className="col-1">
                   <FormattedMessage id="table.action" />
@@ -124,11 +157,11 @@ class TableUser extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/user-detail">{item.lastName}</Link>
+                        <Link to="/system/user-detail">{item.lastName} {item.firstName}</Link>
                       </td>
-                      <td>{item.firstName}</td>
                       <td>{item.email}</td>
-                      <td>{item.phonenumber}</td>
+                      <td className="text-center">{item.phonenumber}</td>
+                      <td>{item.address}</td>
                       <td>
                         <button
                           className="btn-edit"
@@ -140,6 +173,7 @@ class TableUser extends Component {
                         </button>
                         <button
                           className="btn-delete"
+                          title={intl.formattedMessage(titleDelete)}
                           onClick={() => {
                             this.handleDeleteUser(item);
                           }}

@@ -41,6 +41,14 @@ html {
   }
 }
 
+:link {
+  text-decoration: none;
+}
+
+td:last-child {
+  text-align: center;
+}
+
 #password:invalid {
   font-family: $fontmain; // Fixed TH hien thi placeholder cho EDGE
 }

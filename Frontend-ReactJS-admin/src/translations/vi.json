@@ -15,7 +15,8 @@
 
   "table": {
     "lastname": "Họ",
-    "firstname": "Tên",
+    "firstname": "Tên khách hàng",
+    "name": "Họ và Tên",
     "email": "Email",
     "phone": "Số điện thoại",
     "action": "Thao tác",
@@ -24,6 +25,7 @@
     "code-order": "Mã đặt tủ",
     "code-cabinet": "Mã mở tủ",
     "booking-date": "Ngày đặt",
+    "create-cabinet-date": "Ngày tạo tủ",
     "booking-valid-date": "Ngày hết hạn",
     "serial": "STT",
     "add-cabinet": "Thêm tủ",
@@ -58,9 +60,16 @@
     "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
   },
 
-  "toast":{
-    "delete-success":"Xóa thành công",
-    "edit-success":"Chỉnh sửa thành công",
-    "create-success":"Tạo thành công"
+  "toast": {
+    "delete-user-success": "Cấm khách hàng thành công!",
+    "delete-user-error": "Cấm khách hàng không thành công!",
+    "edit-user-success": "Chỉnh sửa khách hàng thành công!",
+    "edit-user-error": "Chỉnh sửa khách hàng không thành công!",
+    "create-cabinet-success": "Tạo tủ thành công!",
+    "create-cabinet-error": "Tạo tủ không thành công!",
+    "delete-cabinet-success": "Xóa tủ thành công!",
+    "delete-cabinet-error": "Xóa tủ không thành công!",
+    "edit-cabinet-success": "Chỉnh sửa tủ thành công!",
+    "edit-cabinet-error": "Chỉnh sửa tủ không thành công!"
   }
 }

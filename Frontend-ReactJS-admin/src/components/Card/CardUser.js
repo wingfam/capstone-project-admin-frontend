@@ -9,7 +9,7 @@ const CardUser = () => {
       <div className="card">
         <h5 className="card-header">
           <i className="fas fa-id-card">
-            &nbsp; <FormattedMessage id="title.detail" />{" "}
+            &nbsp; <FormattedMessage id="title.detail" />
           </i>
         </h5>
         <div className="row g-0">
@@ -39,7 +39,7 @@ const CardUser = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Email"
+                    placeholder={(<FormattedMessage id="title.detail" />)}
                     aria-label="Email"
                   />
                 </div>
