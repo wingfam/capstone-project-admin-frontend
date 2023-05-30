@@ -3,10 +3,10 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
 import { emitter } from "../../utils/emitter";
 import _ from "lodash";
-import "./ModalEditUser.scss";
-import { FormattedMessage } from "react-intl";
+import "./ModalEditCabinet.scss";
+import { useIntl, FormattedMessage } from "react-intl";
 
-class ModalEditUser extends Component {
+class ModalEditCabinet extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,7 @@ class ModalEditUser extends Component {
     };
 
     componentDidMount() {
-        let user = this.props.currentUser;
+        let user = this.props.currentCabinet;
         if (user && !_.isEmpty(user)) {
             this.setState({
                 id: user.id,
@@ -70,10 +70,10 @@ class ModalEditUser extends Component {
         return isValid;
     };
 
-    handleSaveUser = () => {
+    handleSaveCabinet = () => {
         let isValid = this.checkValidateInput();
         if (isValid === true) {
-            this.props.editUser(this.state);
+            this.props.editCabinet(this.state);
         }
     };
 
@@ -84,7 +84,7 @@ class ModalEditUser extends Component {
                 toggle={() => {
                     this.toggle();
                 }}
-                className={"modal-edit-user-container"}
+                className={"modal-edit-cabinet-container"}
                 size="lg"
                 centered
             >
@@ -93,10 +93,10 @@ class ModalEditUser extends Component {
                         this.toggle();
                     }}
                 >
-                    <FormattedMessage id="title.edit-user" />
+                    <FormattedMessage id="title.edit-cabinet" />
                 </ModalHeader>
                 <ModalBody>
-                    <div className="modal-edit-user-body">
+                    <div className="modal-edit-cabinet-body">
                         <div className="input-container">
                             <label> <FormattedMessage id="table.email" /> </label>
                             <input
@@ -154,7 +154,7 @@ class ModalEditUser extends Component {
                     <Button
                         className="btn-edit px-3"
                         onClick={() => {
-                            this.handleSaveUser();
+                            this.handleSaveCabinet();
                         }}
                     >
                         <FormattedMessage id="common.save" />
@@ -182,4 +182,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditCabinet);

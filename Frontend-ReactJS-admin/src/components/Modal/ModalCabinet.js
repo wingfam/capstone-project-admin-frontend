@@ -3,17 +3,64 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./ModalCabinet.scss";
+import { emitter } from "../../utils/emitter";
+import { createNewUserService, getAllUsers } from "../../services/userService";
 
 class ModalCabinet extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: "",
+      firstName: "",
+      password: "",
+      lastName: "Minh",
+      address: "Long An",
+      phoneNumber: "0931765012",
+      arrUsers: [],
+    };
+    this.listenToEmitter();
   }
 
-  componentDidMount() { }
+  listenToEmitter = () => {
+    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
+      this.setState({
+        email: "",
+        firstName: "",
+        password: "",
+      });
+    });
+  };
 
   toggle = () => {
     this.props.toggleFromParent();
+  };
+
+  handleOnChangeInput = (event, id) => {
+    let copyState = { ...this.state };
+    copyState[id] = event.target.value;
+    this.setState({
+      ...copyState,
+    });
+  };
+
+  checkValidateInput = () => {
+    let isValid = true;
+    let arrInput = ["lastName", "password"];
+    for (let i = 0; i < arrInput.length; i++) {
+      if (!this.state[arrInput[i]]) {
+        isValid = false;
+        alert("Missing parameter: " + arrInput[i]);
+        break;
+      }
+    }
+    return isValid;
+  };
+
+  handleAddNewUser = () => {
+    let isValid = this.checkValidateInput();
+    if (isValid === true) {
+      this.props.createNewUser(this.state);
+    }
   };
 
   render() {
@@ -37,12 +84,19 @@ class ModalCabinet extends Component {
         <ModalBody>
           <div className="modal-cabinet-body">
             <div className="input-container">
+              <label><FormattedMessage id="table.email" /></label>
+              <input type="text" onChange={(event) => { this.handleOnChangeInput(event, "email") }}
+                value={this.state.email} />
+            </div>
+            <div className="input-container">
               <label><FormattedMessage id="table.name-cabinet" /></label>
-              <input type="text" />
+              <input type="text" onChange={(event) => { this.handleOnChangeInput(event, "firstName") }}
+                value={this.state.firstName} />
             </div>
             <div className="input-container">
               <label>Password</label>
-              <input type="password" />
+              <input type="password" onChange={(event) => { this.handleOnChangeInput(event, "password") }}
+                value={this.state.password} />
             </div>
           </div>
         </ModalBody>
@@ -51,7 +105,7 @@ class ModalCabinet extends Component {
             color="primary"
             className="px-3"
             onClick={() => {
-              this.toggle();
+              this.handleAddNewUser();
             }}
           >
             <FormattedMessage id="common.add" />

@@ -118,8 +118,6 @@ class TableUser extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers;
-    const intl = this.useIntl();
-    var titleDelete = <FormattedMessage id="common.delete" />;
 
     return (
       <div className="table-customers-container">
@@ -173,7 +171,7 @@ class TableUser extends Component {
                         </button>
                         <button
                           className="btn-delete"
-                          title={intl.formattedMessage(titleDelete)}
+                          // title={intl.formattedMessage(titleDelete)}
                           onClick={() => {
                             this.handleDeleteUser(item);
                           }}

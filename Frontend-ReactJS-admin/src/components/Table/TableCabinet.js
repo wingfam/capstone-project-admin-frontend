@@ -2,30 +2,194 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableCabinet.scss";
-import { getAllUsers } from "../../services/userService";
+import { createNewUserService, getAllUsers, editUserService, deleteUserService } from "../../services/userService";
 import { Link } from "react-router-dom";
+import ModalCabinet from "../Modal/ModalCabinet";
+import { emitter } from "../../utils/emitter";
+import { toast } from "react-toastify";
+import ModalEditCabinet from "../Modal/ModalEditCabinet";
 
 class TableCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [],
+      arrCabinets: [],
+      isOpenModalCabinet: false,
+      isOpenModalEditCabinet: false,
+      cabinetEdit: {},
     };
   }
 
   async componentDidMount() {
+    await this.getAllCabinetsFromReact();
+  }
+
+  getAllCabinetsFromReact = async () => {
     let response = await getAllUsers("ALL");
     if (response && response.errCode === 0) {
       this.setState({
-        arrUsers: response.users,
+        arrCabinets: response.users,
       });
     }
-  }
+  };
+
+  handleAddNewCabinets = () => {
+    this.setState({
+      isOpenModalCabinet: true,
+    });
+  };
+
+  toggleCabinetModal = () => {
+    this.setState({
+      isOpenModalCabinet: !this.state.isOpenModalCabinet,
+    });
+  };
+
+  toggleCabinetEditModal = () => {
+    this.setState({
+      isOpenModalEditCabinet: !this.state.isOpenModalEditCabinet,
+    });
+  };
+
+  createNewCabinet = async (data) => {
+    try {
+      let response = await createNewUserService(data);
+      if (response && response.errCode !== 0) {
+        alert(response.errMessage);
+        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        await this.getAllCabinetsFromReact();
+        this.setState({
+          isOpenModalUser: false,
+        });
+        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        emitter.emit("EVENT_CLEAR_MODAL_DATA");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  doEditCabinet = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalEditCabinet: false,
+        });
+        await this.getAllCabinetsFromReact();
+        toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        alert(res.errCode);
+        toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleEditCabinet = (user) => {
+    this.setState({
+      isOpenModalEditCabinet: true,
+      editCabinet: user,
+    });
+  };
+
+  handleDeleteCabinet = async (user) => {
+    try {
+      let res = await deleteUserService(user.id);
+      if (res && res.errCode === 0) {
+        await this.getAllCabinetsFromReact();
+        toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        alert(res.errMessage);
+        toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   render() {
-    let arrUsers = this.state.arrUsers;
+    let arrCabinets = this.state.arrCabinets;
     return (
       <div className="table-cabinet-container">
+        <ModalCabinet
+          isOpen={this.state.isOpenModalCabinet}
+          toggleFromParent={this.toggleCabinetModal}
+          createNewUser={this.createNewCabinet}
+        />
+        {this.state.isOpenModalEditCabinet && (
+          <ModalEditCabinet
+            isOpen={this.state.isOpenModalEditCabinet}
+            toggleFromParent={this.toggleCabinetEditModal}
+            currentCabinet={this.state.editCabinet}
+            editCabinet={this.doEditCabinet}
+          />
+        )}
+        <div className="mx-1">
+          <button
+            className="btn px-3"
+            style={{ background: "#21a5ff", color: "#FEFFFF", fontSize: "16px" }}
+            onClick={() => this.handleAddNewCabinets()}
+          >
+            <i className="fas fa-plus"></i> &nbsp; <FormattedMessage id={"table.add-cabinet"} />
+          </button>
+        </div>
         <div className="cabinets-table mt-3 mx-1">
           <table className="cabinets">
             <tbody>
@@ -43,8 +207,8 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+              {arrCabinets &&
+                arrCabinets.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
@@ -53,10 +217,13 @@ class TableCabinet extends Component {
                       <td>{item.createdAt}</td>
                       <td>{item.lastName}</td>
                       <td>
-                        <button className="btn-edit">
+                        <button className="btn-edit"
+                          onClick={() => { this.handleEditCabinet(item) }}
+                        >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button className="btn-delete">
+                        <button className="btn-delete"
+                          onClick={() => { this.handleDeleteCabinet(item) }}>
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>

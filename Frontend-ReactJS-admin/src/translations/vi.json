@@ -10,7 +10,8 @@
     "alerts": "Cảnh báo",
     "detail": "Hồ sơ",
     "history-order": "Lịch sử đặt tủ",
-    "edit-user": "Chỉnh sửa thông tin khách hàng"
+    "edit-user": "Chỉnh sửa thông tin khách hàng",
+    "edit-cabinet": "Chỉnh sửa thông tin tủ"
   },
 
   "table": {
