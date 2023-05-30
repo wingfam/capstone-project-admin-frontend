@@ -3,9 +3,6 @@ import { connect } from "react-redux";
 import Header from "../containers/Header/Header";
 import TableCabinet from "../components/Table/TableCabinet";
 import { FormattedMessage } from "react-intl";
-import { emitter } from "../utils/emitter";
-import { createNewUserService } from "../services/userService";
-
 
 class Cabinet extends Component {
   constructor(props) {

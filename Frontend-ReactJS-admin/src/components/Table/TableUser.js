@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableUser.scss";
 import {
@@ -155,7 +155,9 @@ class TableUser extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/user-detail">{item.lastName} {item.firstName}</Link>
+                        <Link to="/system/user-detail">
+                          {item.lastName} {item.firstName}
+                        </Link>
                       </td>
                       <td>{item.email}</td>
                       <td className="text-center">{item.phonenumber}</td>

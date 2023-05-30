@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableCabinet.scss";
-import { createNewUserService, getAllUsers, editUserService, deleteUserService } from "../../services/userService";
+import {
+  createNewUserService,
+  getAllUsers,
+  editUserService,
+  deleteUserService,
+} from "../../services/userService";
 import { Link } from "react-router-dom";
 import ModalCabinet from "../Modal/ModalCabinet";
 import { emitter } from "../../utils/emitter";
@@ -69,7 +74,7 @@ class TableCabinet extends Component {
       } else {
         await this.getAllCabinetsFromReact();
         this.setState({
-          isOpenModalUser: false,
+          isOpenModalCabinet: false,
         });
         toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
           position: "top-right",
@@ -171,7 +176,7 @@ class TableCabinet extends Component {
         <ModalCabinet
           isOpen={this.state.isOpenModalCabinet}
           toggleFromParent={this.toggleCabinetModal}
-          createNewUser={this.createNewCabinet}
+          createNewCabinet={this.createNewCabinet}
         />
         {this.state.isOpenModalEditCabinet && (
           <ModalEditCabinet
@@ -184,10 +189,15 @@ class TableCabinet extends Component {
         <div className="mx-1">
           <button
             className="btn px-3"
-            style={{ background: "#21a5ff", color: "#FEFFFF", fontSize: "16px" }}
+            style={{
+              background: "#21a5ff",
+              color: "#FEFFFF",
+              fontSize: "16px",
+            }}
             onClick={() => this.handleAddNewCabinets()}
           >
-            <i className="fas fa-plus"></i> &nbsp; <FormattedMessage id={"table.add-cabinet"} />
+            <i className="fas fa-plus"></i> &nbsp;{" "}
+            <FormattedMessage id={"table.add-cabinet"} />
           </button>
         </div>
         <div className="cabinets-table mt-3 mx-1">
@@ -217,13 +227,20 @@ class TableCabinet extends Component {
                       <td>{item.createdAt}</td>
                       <td>{item.lastName}</td>
                       <td>
-                        <button className="btn-edit"
-                          onClick={() => { this.handleEditCabinet(item) }}
+                        <button
+                          className="btn-edit"
+                          onClick={() => {
+                            this.handleEditCabinet(item);
+                          }}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
-                        <button className="btn-delete"
-                          onClick={() => { this.handleDeleteCabinet(item) }}>
+                        <button
+                          className="btn-delete"
+                          onClick={() => {
+                            this.handleDeleteCabinet(item);
+                          }}
+                        >
                           <i className="fas fa-trash"></i>
                         </button>
                       </td>
