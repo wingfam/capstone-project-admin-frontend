@@ -9,11 +9,8 @@ class ModalEditCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      phonenumber: "",
-      firstName: "",
-      lastName: "",
-      address: "",
+      nameCabinet: "",
+      statusCabinet: "",
     };
     this.listenToEmitter();
   }
@@ -21,25 +18,19 @@ class ModalEditCabinet extends Component {
   listenToEmitter = () => {
     emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
       this.setState({
-        email: "",
-        phonenumber: "",
-        firstName: "",
-        lastName: "",
-        address: "",
+        nameCabinet: "",
+        statusCabinet: "",
       });
     });
   };
 
   componentDidMount() {
-    let user = this.props.currentCabinet;
-    if (user && !_.isEmpty(user)) {
+    let cabinet = this.props.currentCabinet;
+    if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        id: user.id,
-        email: user.email,
-        phonenumber: user.phonenumber,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        address: user.address,
+        id: cabinet.id,
+        nameCabinet: cabinet.nameCabinet,
+        statusCabinet: cabinet.statusCabinet,
       });
     }
   }
@@ -58,7 +49,7 @@ class ModalEditCabinet extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["email", "phonenumber", "lastName", "address"];
+    let arrInput = ["nameCabinet", "statusCabinet"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -98,64 +89,26 @@ class ModalEditCabinet extends Component {
           <div className="modal-edit-cabinet-body">
             <div className="input-container">
               <label>
-                {" "}
-                <FormattedMessage id="table.email" />{" "}
+                <FormattedMessage id="table.name-cabinet" />
               </label>
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "email");
+                  this.handleOnChangeInput(event, "nameCabinet");
                 }}
-                value={this.state.email}
-                disabled
+                value={this.state.nameCabinet}
               />
             </div>
             <div className="input-container">
               <label>
-                <FormattedMessage id="table.phone" />
+                <FormattedMessage id="table.status-cabinet" />
               </label>
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "phonenumber");
+                  this.handleOnChangeInput(event, "statusCabinet");
                 }}
-                value={this.state.phonenumber}
-              />
-            </div>
-            <div className="input-container">
-              <label>
-                <FormattedMessage id="table.lastname" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "lastName");
-                }}
-                value={this.state.lastName}
-              />
-            </div>
-            <div className="input-container">
-              <label>
-                <FormattedMessage id="table.firstname" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "firstName");
-                }}
-                value={this.state.firstName}
-              />
-            </div>
-            <div className="input-container max-width-input">
-              <label>
-                <FormattedMessage id="table.address" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "address");
-                }}
-                value={this.state.address}
+                value={this.state.statusCabinet}
               />
             </div>
           </div>

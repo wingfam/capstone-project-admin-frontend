@@ -8,12 +8,8 @@ class ModalCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      firstName: "",
-      password: "",
-      lastName: "Minh",
-      address: "Long An",
-      phoneNumber: "0931765012",
+      nameCabinet: "",
+      statusCabinet: "",
       arrUsers: [],
     };
     this.listenToEmitter();
@@ -22,9 +18,8 @@ class ModalCabinet extends Component {
   listenToEmitter = () => {
     emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
       this.setState({
-        email: "",
-        firstName: "",
-        password: "",
+        nameCabinet: "",
+        statusCabinet: "",
       });
     });
   };
@@ -43,7 +38,7 @@ class ModalCabinet extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["lastName", "password"];
+    let arrInput = ["nameCabinet"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -83,36 +78,26 @@ class ModalCabinet extends Component {
           <div className="modal-cabinet-body">
             <div className="input-container">
               <label>
-                <FormattedMessage id="table.email" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "email");
-                }}
-                value={this.state.email}
-              />
-            </div>
-            <div className="input-container">
-              <label>
                 <FormattedMessage id="table.name-cabinet" />
               </label>
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "firstName");
+                  this.handleOnChangeInput(event, "nameCabinet");
                 }}
-                value={this.state.firstName}
+                value={this.state.nameCabinet}
               />
             </div>
             <div className="input-container">
-              <label>Password</label>
+              <label>
+                <FormattedMessage id="table.status-cabinet" />
+              </label>
               <input
-                type="password"
+                type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "password");
+                  this.handleOnChangeInput(event, "statusCabinet");
                 }}
-                value={this.state.password}
+                value={this.state.statusCabinet}
               />
             </div>
           </div>
