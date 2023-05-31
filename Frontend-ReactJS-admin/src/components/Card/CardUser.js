@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import "./CardUser.scss";
 
@@ -67,12 +66,5 @@ const CardUser = () => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  return {};
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardUser);
+export default CardUser;

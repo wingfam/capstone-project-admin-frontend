@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
 import "./TableCabinet.scss";
-import {
-  createNewUserService,
-  getAllUsers,
-  editUserService,
-  deleteUserService,
-} from "../../services/userService";
 import { Link } from "react-router-dom";
 import ModalCabinet from "../Modal/ModalCabinet";
 import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
+import { createNewCabinetService, deleteCabinetService, editCabinetService, getAllCabinets } from "../../services/cabinetService";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -30,10 +24,10 @@ class TableCabinet extends Component {
   }
 
   getAllCabinetsFromReact = async () => {
-    let response = await getAllUsers("ALL");
+    let response = await getAllCabinets("ALL");
     if (response && response.errCode === 0) {
       this.setState({
-        arrCabinets: response.users,
+        arrCabinets: response.cabinets,
       });
     }
   };
@@ -58,7 +52,7 @@ class TableCabinet extends Component {
 
   createNewCabinet = async (data) => {
     try {
-      let response = await createNewUserService(data);
+      let response = await createNewCabinetService(data);
       if (response && response.errCode !== 0) {
         alert(response.errMessage);
         toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
@@ -95,7 +89,7 @@ class TableCabinet extends Component {
 
   doEditCabinet = async (user) => {
     try {
-      let res = await editUserService(user);
+      let res = await editCabinetService(user);
       if (res && res.errCode === 0) {
         this.setState({
           isOpenModalEditCabinet: false,
@@ -138,7 +132,7 @@ class TableCabinet extends Component {
 
   handleDeleteCabinet = async (user) => {
     try {
-      let res = await deleteUserService(user.id);
+      let res = await deleteCabinetService(user.id);
       if (res && res.errCode === 0) {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
@@ -222,10 +216,10 @@ class TableCabinet extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/history">{item.firstName}</Link>
+                        <Link to="/system/history">{item.nameCabinet}</Link>
                       </td>
                       <td>{item.createdAt}</td>
-                      <td>{item.lastName}</td>
+                      <td>{item.statusCabinet}</td>
                       <td>
                         <button
                           className="btn-edit"
@@ -255,12 +249,4 @@ class TableCabinet extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableCabinet);
+export default TableCabinet;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
 import "./ModalCabinet.scss";
 import { emitter } from "../../utils/emitter";
 
@@ -142,12 +141,4 @@ class ModalCabinet extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalCabinet);
+export default ModalCabinet;

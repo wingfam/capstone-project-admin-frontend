@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import "./CardHistory.scss";
 
@@ -36,12 +35,5 @@ const CardHistory = () => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  return {};
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardHistory);
+export default CardHistory;

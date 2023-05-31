@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Header from "../containers/Header/Header";
 import TableCabinet from "../components/Table/TableCabinet";
 import { FormattedMessage } from "react-intl";
@@ -12,10 +11,6 @@ class Cabinet extends Component {
     };
   }
 
-  changeLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
-  };
-
   render() {
     return (
       <div className="cabinet-container">
@@ -25,14 +20,4 @@ class Cabinet extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.app.language,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Cabinet);
+export default Cabinet;

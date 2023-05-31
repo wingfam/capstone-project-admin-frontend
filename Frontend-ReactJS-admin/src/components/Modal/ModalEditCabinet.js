@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { connect } from "react-redux";
 import { emitter } from "../../utils/emitter";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
@@ -185,12 +184,4 @@ class ModalEditCabinet extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalEditCabinet);
+export default ModalEditCabinet;

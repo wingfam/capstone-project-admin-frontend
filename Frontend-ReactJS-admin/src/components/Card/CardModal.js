@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import "./CardModal.scss";
 import { FormattedMessage } from "react-intl";
 
@@ -33,12 +32,4 @@ const CardModal = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardModal);
+export default CardModal;

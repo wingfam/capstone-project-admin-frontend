@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
 import "./TableHistory.scss";
 import { getAllUsers } from "../../services/userService";
 
@@ -75,12 +74,4 @@ class TableHistory extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableHistory);
+export default TableHistory;

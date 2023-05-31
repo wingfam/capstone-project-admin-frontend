@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import CardModal from "../components/Card/CardModal";
 import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
@@ -15,11 +14,4 @@ class Notification extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Notification);
+export default Notification;

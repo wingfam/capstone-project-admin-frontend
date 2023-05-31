@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import CardHistory from "../components/Card/CardHistory";
 import CardUser from "../components/Card/CardUser";
 import Header from "../containers/Header/Header";
@@ -17,11 +16,4 @@ class DetailUser extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(DetailUser);
+export default DetailUser;

@@ -5,6 +5,7 @@ import * as actions from "../../store/actions";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
+import SearchBox from "../../components/SearchBox/SearchBox";
 
 class Header extends Component {
 
@@ -30,28 +31,31 @@ class Header extends Component {
             </span>
           </div>
           <div className="header-right-content">
-            <div className="language-content">
-              <div
-                className={
-                  language === LANGUAGES.VI
-                    ? "language-vi active"
-                    : "language-vi"
-                }
-              >
-                <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
-                  VN
-                </span>
-              </div>
-              <div
-                className={
-                  language === LANGUAGES.EN
-                    ? "language-en active"
-                    : "language-en"
-                }
-              >
-                <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
-                  EN
-                </span>
+            <SearchBox />
+            <div className="btn-right-content">
+              <div className="language-content">
+                <div
+                  className={
+                    language === LANGUAGES.VI
+                      ? "language-vi active"
+                      : "language-vi"
+                  }
+                >
+                  <span onClick={() => this.changeLanguage(LANGUAGES.VI)}>
+                    VN
+                  </span>
+                </div>
+                <div
+                  className={
+                    language === LANGUAGES.EN
+                      ? "language-en active"
+                      : "language-en"
+                  }
+                >
+                  <span onClick={() => this.changeLanguage(LANGUAGES.EN)}>
+                    EN
+                  </span>
+                </div>
               </div>
             </div>
             <div className="btn btn-bell">

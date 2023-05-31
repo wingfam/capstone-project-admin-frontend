@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
 
@@ -14,11 +13,4 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default Dashboard;
