@@ -87,9 +87,9 @@ class TableCabinet extends Component {
     }
   };
 
-  doEditCabinet = async (user) => {
+  doEditCabinet = async (cabinet) => {
     try {
-      let res = await editCabinetService(user);
+      let res = await editCabinetService(cabinet);
       if (res && res.errCode === 0) {
         this.setState({
           isOpenModalEditCabinet: false,
@@ -123,16 +123,16 @@ class TableCabinet extends Component {
     }
   };
 
-  handleEditCabinet = (user) => {
+  handleEditCabinet = (cabinet) => {
     this.setState({
       isOpenModalEditCabinet: true,
-      editCabinet: user,
+      editCabinet: cabinet,
     });
   };
 
-  handleDeleteCabinet = async (user) => {
+  handleDeleteCabinet = async (cabinet) => {
     try {
-      let res = await deleteCabinetService(user.id);
+      let res = await deleteCabinetService(cabinet.id);
       if (res && res.errCode === 0) {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
@@ -219,7 +219,21 @@ class TableCabinet extends Component {
                         <Link to="/system/history">{item.nameCabinet}</Link>
                       </td>
                       <td>{item.createdAt}</td>
-                      <td>{item.statusCabinet}</td>
+                      <td className="text-center">
+                        {(() => {
+                          switch (item.statusCabinet) {
+                            case 0:
+                              return (
+                                <FormattedMessage id="table.disable" />
+                              );
+                            case 1:
+                              return (
+                                <FormattedMessage id="table.enable" />
+                              )
+                            default:
+                          }
+                        })()}
+                      </td>
                       <td>
                         <button
                           className="btn-edit"

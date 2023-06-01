@@ -10,7 +10,7 @@
     "alerts": "Alerts",
     "detail": "Detail",
     "history-order": "History order",
-    "edit-user": "Chỉnh sửa thông tin khách hàng"
+    "edit-user": "Edit user"
   },
 
   "table": {
@@ -29,7 +29,9 @@
     "booking-valid-date": "Booking valid date",
     "serial": "Serial",
     "add-cabinet": "Add locker",
-    "address": "Địa chỉ"
+    "address": "Address",
+    "enable": "Enable",
+    "disable": "Disable"
   },
 
   "slidebar": {

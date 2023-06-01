@@ -16,7 +16,7 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
-    let unread = 0;
+    let unread = 1;
     return (
       <div className="header-container">
         <div className="header-content">

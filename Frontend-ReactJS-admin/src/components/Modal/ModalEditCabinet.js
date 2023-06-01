@@ -100,16 +100,15 @@ class ModalEditCabinet extends Component {
               />
             </div>
             <div className="input-container">
-              <label>
-                <FormattedMessage id="table.status-cabinet" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
+              <div className="form-group col-3">
+                <label><FormattedMessage id="table.status-cabinet" /></label>
+                <select name="statusCabinet" className="form-control" onChange={(event) => {
                   this.handleOnChangeInput(event, "statusCabinet");
-                }}
-                value={this.state.statusCabinet}
-              />
+                }} value={this.state.statusCabinet}>
+                  <option value="1">Enable</option>
+                  <option value="0">Disable</option>
+                </select>
+              </div>
             </div>
           </div>
         </ModalBody>

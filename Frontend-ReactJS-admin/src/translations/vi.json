@@ -30,7 +30,9 @@
     "booking-valid-date": "Ngày hết hạn",
     "serial": "STT",
     "add-cabinet": "Thêm tủ",
-    "address": "Địa chỉ"
+    "address": "Địa chỉ",
+    "enable": "Hoạt động",
+    "disable": "Không hoạt động"
   },
 
   "slidebar": {

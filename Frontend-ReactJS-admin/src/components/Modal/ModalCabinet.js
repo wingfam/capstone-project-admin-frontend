@@ -9,7 +9,7 @@ class ModalCabinet extends Component {
     super(props);
     this.state = {
       nameCabinet: "",
-      statusCabinet: "",
+      statusCabinet: "1",
       arrUsers: [],
     };
     this.listenToEmitter();
@@ -89,16 +89,21 @@ class ModalCabinet extends Component {
               />
             </div>
             <div className="input-container">
-              <label>
-                <FormattedMessage id="table.status-cabinet" />
-              </label>
-              <input
+              <div class="form-group col-3">
+                <label><FormattedMessage id="table.status-cabinet" /></label>
+                <select name="statusCabinet" className="form-control" disabled>
+                  <option value="1">Enable</option>
+                  <option value="0">Disable</option>
+                </select>
+              </div>
+              {/* <input
                 type="text"
                 onChange={(event) => {
                   this.handleOnChangeInput(event, "statusCabinet");
                 }}
                 value={this.state.statusCabinet}
-              />
+                disabled
+              /> */}
             </div>
           </div>
         </ModalBody>
