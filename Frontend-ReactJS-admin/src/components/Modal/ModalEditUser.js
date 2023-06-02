@@ -77,7 +77,7 @@ class ModalEditUser extends Component {
   };
 
   render() {
-    let userid = this.props.currentUser
+    let userid = this.props.currentUser;
     console.log(userid.id);
     return (
       <Modal
@@ -101,7 +101,7 @@ class ModalEditUser extends Component {
             <div className="input-container">
               <label>
                 {" "}
-                <FormattedMessage id="table.email" />{" "}
+                <FormattedMessage id="table.email" />
               </label>
               <input
                 type="text"

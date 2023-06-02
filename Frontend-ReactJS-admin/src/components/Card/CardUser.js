@@ -2,6 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
+import { getAllUsers } from "../../services/userService";
 // import _ from "lodash";
 
 class CardUser extends Component {
@@ -9,17 +10,32 @@ class CardUser extends Component {
     super(props);
     this.state = {
       email: "",
-      phonenumber: "",
+      phone: "",
       firstName: "",
       lastName: "",
       address: "",
+      arrUsers: [],
     };
   }
 
-  componentDidMount() {
-    const id = this.state;
-    console.log(id);
+  async componentDidMount() {
+    await this.getAllUsersFromReact();
   }
+
+  getAllUsersFromReact = async () => {
+    let response = await getAllUsers(window.location.href.split("/")[5]);
+    if (response && response.errCode === 0) {
+      this.setState({
+        arrUsers: response.users,
+        id: response.users.id,
+        email: response.users.email,
+        phone: response.users.phonenumber,
+        firstName: response.users.firstName,
+        lastName: response.users.lastName,
+        address: response.users.address,
+      });
+    }
+  };
 
   handleOnChangeInput = (event, id) => {
     let copyState = { ...this.state };
@@ -30,9 +46,6 @@ class CardUser extends Component {
   };
 
   render() {
-    // const search = this.props.location.search;
-    // const idName = new URLSearchParams(search).get("id");
-    // console.log(idName);
     return (
       <div className="container-user-card">
         <div className="card">
@@ -42,15 +55,15 @@ class CardUser extends Component {
             </i>
           </h5>
           <div className="row g-0">
-            <div className="col-md-2 text-center">
+            <div className="col-md-3 text-center">
               <img src={"/images/NO_IMG.png"} className="img-fluid" alt="..." />
             </div>
-            <div className="col-md-10">
+            <div className="col-md-9">
               <div className="card-body">
                 <div className="form-content">
                   <div>
                     <label>
-                      <FormattedMessage id="table.name" />{" "}
+                      <FormattedMessage id="table.name" />
                     </label>
                     <input
                       type="text"
@@ -63,7 +76,7 @@ class CardUser extends Component {
                   </div>
                   <div>
                     <label>
-                      <FormattedMessage id="table.phone" />{" "}
+                      <FormattedMessage id="table.phone" />
                     </label>
                     <input
                       type="text"
@@ -76,7 +89,7 @@ class CardUser extends Component {
                   </div>
                   <div>
                     <label>
-                      <FormattedMessage id="table.email" />{" "}
+                      <FormattedMessage id="table.email" />
                     </label>
                     <input
                       type="text"
@@ -89,7 +102,7 @@ class CardUser extends Component {
                   </div>
                   <div>
                     <label>
-                      <FormattedMessage id="table.address" />{" "}
+                      <FormattedMessage id="table.address" />
                     </label>
                     <input
                       type="text"

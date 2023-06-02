@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardUser.scss";
 // import _ from "lodash";
 import { useParams } from "react-router-dom";
+import { getAllUsers } from "../../services/userService";
 
 const CardEditUser = () => {
   const id = useParams();
-  console.log(id);
+  const [userA, setUserA] = useState();
+
+  useEffect((id) => {
+    let response = getAllUsers(id);
+    console.log(response);
+    if (response && response.errCode === 0) {
+      setUserA(response.data);
+      console.log(userA);
+    }
+  });
 
   return (
     <div className="container-user-card">
