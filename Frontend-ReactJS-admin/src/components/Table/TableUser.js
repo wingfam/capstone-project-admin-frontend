@@ -82,6 +82,12 @@ class TableUser extends Component {
     });
   };
 
+  handleEditModalUser = (user) => {
+    this.setState({
+      editUser: user,
+    })
+  }
+
   handleDeleteUser = async (user) => {
     try {
       let res = await deleteUserService(user.id);
@@ -154,7 +160,13 @@ class TableUser extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/user-detail">
+                        <Link
+                          to={{
+                            pathname: `/system/user-detail/${item.id}`,
+                          }}
+                          onClick={() => { this.handleEditModalUser(item) }}
+                        >
+
                           {item.lastName} {item.firstName}
                         </Link>
                       </td>
@@ -172,12 +184,11 @@ class TableUser extends Component {
                         </button>
                         <button
                           className="btn-delete"
-                          // title={intl.formattedMessage(titleDelete)}
                           onClick={() => {
                             this.handleDeleteUser(item);
                           }}
                         >
-                          <i className="fas fa-trash"></i>
+                          <i className="fas fa-ban"></i>
                         </button>
                       </td>
                     </tr>

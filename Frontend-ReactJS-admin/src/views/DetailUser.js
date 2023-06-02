@@ -3,6 +3,7 @@ import CardHistory from "../components/Card/CardHistory";
 import CardUser from "../components/Card/CardUser";
 import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
+import CardEditUser from "../components/Card/CardEditUser";
 
 class DetailUser extends Component {
   render() {

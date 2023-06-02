@@ -77,6 +77,8 @@ class ModalEditUser extends Component {
   };
 
   render() {
+    let userid = this.props.currentUser
+    console.log(userid.id);
     return (
       <Modal
         isOpen={this.props.isOpen}
