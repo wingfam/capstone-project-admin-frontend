@@ -24,6 +24,7 @@ class System extends Component {
               <Route path="/system/notification" component={Notification} />
               <Route path="/system/user-manage" component={UserManage} />
               <Route path="/system/user-detail" component={DetailUser} />
+              <Route path="/system/user-detail/:id" component={DetailUser} />
               <Route path="/system/history" component={History} />
               <Route
                 component={() => {

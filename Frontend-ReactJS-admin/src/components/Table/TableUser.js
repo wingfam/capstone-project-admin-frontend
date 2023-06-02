@@ -85,8 +85,8 @@ class TableUser extends Component {
   handleEditModalUser = (user) => {
     this.setState({
       editUser: user,
-    })
-  }
+    });
+  };
 
   handleDeleteUser = async (user) => {
     try {
@@ -164,9 +164,7 @@ class TableUser extends Component {
                           to={{
                             pathname: `/system/user-detail/${item.id}`,
                           }}
-                          onClick={() => { this.handleEditModalUser(item) }}
                         >
-
                           {item.lastName} {item.firstName}
                         </Link>
                       </td>

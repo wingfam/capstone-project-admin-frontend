@@ -2,9 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
-import _ from "lodash";
-import { useParams } from "react-router-dom";
-import { getAllUsers } from "../../services/userService";
+// import _ from "lodash";
 
 class CardUser extends Component {
   constructor(props) {
@@ -15,21 +13,12 @@ class CardUser extends Component {
       firstName: "",
       lastName: "",
       address: "",
-    }
+    };
   }
 
   componentDidMount() {
-    let user = this.props.currentUser;
-    if (user && !_.isEmpty(user)) {
-      this.setState({
-        id: user.id,
-        email: user.email,
-        phonenumber: user.phonenumber,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        address: user.address,
-      });
-    }
+    const id = this.state;
+    console.log(id);
   }
 
   handleOnChangeInput = (event, id) => {
@@ -41,8 +30,9 @@ class CardUser extends Component {
   };
 
   render() {
-    let userid = this.props.currentUser
-    console.log(userid);
+    // const search = this.props.location.search;
+    // const idName = new URLSearchParams(search).get("id");
+    // console.log(idName);
     return (
       <div className="container-user-card">
         <div className="card">
@@ -59,7 +49,9 @@ class CardUser extends Component {
               <div className="card-body">
                 <div className="form-content">
                   <div>
-                    <label> <FormattedMessage id="table.name" /> </label>
+                    <label>
+                      <FormattedMessage id="table.name" />{" "}
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -70,7 +62,9 @@ class CardUser extends Component {
                     />
                   </div>
                   <div>
-                    <label> <FormattedMessage id="table.phone" /> </label>
+                    <label>
+                      <FormattedMessage id="table.phone" />{" "}
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -81,7 +75,9 @@ class CardUser extends Component {
                     />
                   </div>
                   <div>
-                    <label> <FormattedMessage id="table.email" /> </label>
+                    <label>
+                      <FormattedMessage id="table.email" />{" "}
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -92,7 +88,9 @@ class CardUser extends Component {
                     />
                   </div>
                   <div>
-                    <label> <FormattedMessage id="table.address" /> </label>
+                    <label>
+                      <FormattedMessage id="table.address" />{" "}
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -117,7 +115,7 @@ class CardUser extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 export default CardUser;

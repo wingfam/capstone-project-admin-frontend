@@ -63,6 +63,7 @@ class App extends Component {
                 <Route path="/system/order" component={Order} />
                 <Route path="/system/notification" component={Notification} />
                 <Route path="/system/user-detail" component={DetailUser} />
+                <Route path="/system/user-detail/:id" component={DetailUser} />
                 <Route path="/system/history" component={History} />
               </Switch>
             </span>

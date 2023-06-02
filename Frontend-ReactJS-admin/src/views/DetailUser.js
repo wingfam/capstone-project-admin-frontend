@@ -11,6 +11,7 @@ class DetailUser extends Component {
       <div>
         <Header data={<FormattedMessage id="title.detail-user" />} />
         <CardUser />
+        {/* <CardEditUser /> */}
         <CardHistory />
       </div>
     );
