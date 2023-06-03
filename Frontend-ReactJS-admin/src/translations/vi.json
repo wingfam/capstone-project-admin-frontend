@@ -47,13 +47,15 @@
     "add": "Thêm",
     "edit": "Sửa",
     "delete": "Xóa",
+    "ban": "Cấm",
     "decentralize": "Phân quyền",
     "close": "Đóng",
     "save": "Lưu",
     "refresh": "Refresh",
     "accept": "Chấp nhận",
     "confirm": "Xác nhận",
-    "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?"
+    "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
+    "search":"Tìm kiếm..."
   },
 
   "login": {

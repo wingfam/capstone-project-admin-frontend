@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
 import {
   getAllUsers,
@@ -58,7 +58,6 @@ class TableUser extends Component {
           theme: "light",
         });
       } else {
-        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-user-error" />, {
           position: "top-right",
           autoClose: 5000,
@@ -78,12 +77,6 @@ class TableUser extends Component {
   handleEditUser = (user) => {
     this.setState({
       isOpenModalEditUser: true,
-      editUser: user,
-    });
-  };
-
-  handleEditModalUser = (user) => {
-    this.setState({
       editUser: user,
     });
   };
@@ -123,7 +116,7 @@ class TableUser extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers;
-
+    const { intl } = this.props;
     return (
       <div className="table-customers-container">
         {this.state.isOpenModalEditUser && (
@@ -177,6 +170,7 @@ class TableUser extends Component {
                           onClick={() => {
                             this.handleEditUser(item);
                           }}
+                          title={intl.formatMessage({ id: "common.edit" })}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
@@ -185,6 +179,7 @@ class TableUser extends Component {
                           onClick={() => {
                             this.handleDeleteUser(item);
                           }}
+                          title={intl.formatMessage({ id: "common.ban" })}
                         >
                           <i className="fas fa-ban"></i>
                         </button>
@@ -200,4 +195,4 @@ class TableUser extends Component {
   }
 }
 
-export default TableUser;
+export default injectIntl(TableUser);

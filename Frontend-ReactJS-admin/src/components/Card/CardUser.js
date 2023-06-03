@@ -2,7 +2,8 @@ import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
-import { getAllUsers } from "../../services/userService";
+import { editUserService, getAllUsers } from "../../services/userService";
+import { toast } from "react-toastify";
 
 class CardUser extends Component {
   constructor(props) {
@@ -18,10 +19,10 @@ class CardUser extends Component {
   }
 
   async componentDidMount() {
-    await this.getAllUsersFromReact();
+    await this.getUsersFromReact();
   }
 
-  getAllUsersFromReact = async () => {
+  getUsersFromReact = async () => {
     let response = await getAllUsers(window.location.href.split("/")[5]);
     if (response && response.errCode === 0) {
       this.setState({
@@ -46,21 +47,63 @@ class CardUser extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["email", "phonenumber", "lastName", "address"];
+    let arrInput = ["email", "phoneNumber", "firstName", "lastName", "address"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
         alert("Missing parameter: " + arrInput[i]);
+        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         break;
       }
     }
     return isValid;
   };
 
+  doEditUser = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        await this.getUsersFromReact();
+        toast.success(<FormattedMessage id="toast.edit-user-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleSaveUserDetail = () => {
     let isValid = this.checkValidateInput();
     if (isValid === true) {
-      this.props.editCabinet(this.state);
+      this.doEditUser(this.state);
     }
   };
 
@@ -149,10 +192,21 @@ class CardUser extends Component {
                   />
                 </div>
                 <span className="offset-md-9">
-                  <button type="button" className="btn-save" title={intl.formatMessage({ id: 'common.save' })}  >
+                  <button
+                    type="button"
+                    className="btn-save"
+                    title={intl.formatMessage({ id: "common.save" })}
+                    onClick={() => {
+                      this.handleSaveUserDetail();
+                    }}
+                  >
                     <i className="fas fa-save"></i>
                   </button>
-                  <button type="button" className="btn-trash" title={intl.formatMessage({ id: 'common.close' })}>
+                  <button
+                    type="button"
+                    className="btn-trash"
+                    title={intl.formatMessage({ id: "common.close" })}
+                  >
                     <i className="fas fa-ban"></i>
                   </button>
                 </span>

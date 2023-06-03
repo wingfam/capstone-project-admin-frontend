@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableCabinet.scss";
 import { Link } from "react-router-dom";
 import ModalCabinet from "../Modal/ModalCabinet";
 import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
-import { createNewCabinetService, deleteCabinetService, editCabinetService, getAllCabinets } from "../../services/cabinetService";
+import {
+  createNewCabinetService,
+  deleteCabinetService,
+  editCabinetService,
+  getAllCabinets,
+} from "../../services/cabinetService";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -165,6 +170,7 @@ class TableCabinet extends Component {
 
   render() {
     let arrCabinets = this.state.arrCabinets;
+    const { intl } = this.props;
     return (
       <div className="table-cabinet-container">
         <ModalCabinet
@@ -223,13 +229,9 @@ class TableCabinet extends Component {
                         {(() => {
                           switch (item.statusCabinet) {
                             case 0:
-                              return (
-                                <FormattedMessage id="table.disable" />
-                              );
+                              return <FormattedMessage id="table.disable" />;
                             case 1:
-                              return (
-                                <FormattedMessage id="table.enable" />
-                              )
+                              return <FormattedMessage id="table.enable" />;
                             default:
                           }
                         })()}
@@ -240,6 +242,7 @@ class TableCabinet extends Component {
                           onClick={() => {
                             this.handleEditCabinet(item);
                           }}
+                          title={intl.formatMessage({ id: "common.edit" })}
                         >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
@@ -248,6 +251,7 @@ class TableCabinet extends Component {
                           onClick={() => {
                             this.handleDeleteCabinet(item);
                           }}
+                          title={intl.formatMessage({ id: "common.delete" })}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
@@ -263,4 +267,4 @@ class TableCabinet extends Component {
   }
 }
 
-export default TableCabinet;
+export default injectIntl(TableCabinet);

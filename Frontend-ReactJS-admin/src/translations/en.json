@@ -14,8 +14,8 @@
   },
 
   "table": {
-    "lastname": "Lastname",
-    "firstname": "Name",
+    "lastname": "Last Name",
+    "firstname": "First Name",
     "name": "Full name",
     "email": "Email",
     "phone": "Phone number",
@@ -46,13 +46,15 @@
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
+    "ban": "Ban",
     "decentralize": "Decentralize",
     "close": "Close",
     "save": "Save",
     "refresh": "Refresh",
     "accept": "Accept",
     "confirm": "Confirm",
-    "confirm-this-task": "Are you sure to process this task?"
+    "confirm-this-task": "Are you sure to process this task?",
+    "search":"Search..."
   },
 
   "login": {

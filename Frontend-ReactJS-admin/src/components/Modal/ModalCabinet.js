@@ -90,20 +90,14 @@ class ModalCabinet extends Component {
             </div>
             <div className="input-container">
               <div className="form-group col-3">
-                <label><FormattedMessage id="table.status-cabinet" /></label>
+                <label>
+                  <FormattedMessage id="table.status-cabinet" />
+                </label>
                 <select name="statusCabinet" className="form-control" disabled>
                   <option value="1">Enable</option>
                   <option value="0">Disable</option>
                 </select>
               </div>
-              {/* <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "statusCabinet");
-                }}
-                value={this.state.statusCabinet}
-                disabled
-              /> */}
             </div>
           </div>
         </ModalBody>
