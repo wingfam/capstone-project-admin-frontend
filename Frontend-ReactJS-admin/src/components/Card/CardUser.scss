@@ -21,43 +21,63 @@
       }
     }
 
+    .img-content {
+      .img-fluid {
+        margin: 5px;
+        margin-top: 25px;
+      }
+    }
+
     .card-body {
       .form-content {
         border-radius: 7px;
         margin-top: 5px;
         text-align: left;
 
-        div {
-          margin-top: 10px;
+        .form-name {
+          display: flex;
+        }
+      }
 
-          .form-control {
-            height: 40px;
+      div {
+        margin-top: 10px;
+
+        .form-control {
+          height: 40px;
+          font-size: $base-size;
+
+          .form-lastname {
+            width: 500px !important;
           }
         }
+      }
 
-        span {
-          .btn-pen {
-            width: 10%;
-            height: 35px;
-            border-radius: 7px;
-            border: none;
-            background: orange;
-            color: white;
-            font-size: 20px;
-            margin-top: 10px;
-            margin-right: 10px;
-          }
+      label {
+        font-size: $base-size;
+      }
 
-          .btn-trash {
-            width: 10%;
-            height: 35px;
-            border-radius: 7px;
-            border: none;
-            background: red;
-            color: white;
-            font-size: 20px;
-            margin-top: 10px;
-          }
+      span {
+        .btn-save {
+          width: 12%;
+          height: 35px;
+          border-radius: 7px;
+          border: none;
+          background: $colormain;
+          color: white;
+          font-size: 20px;
+          margin-top: 10px;
+          margin-right: 5px;
+        }
+
+        .btn-trash {
+          width: 12%;
+          height: 35px;
+          border-radius: 7px;
+          border: none;
+          background: red;
+          color: white;
+          font-size: 20px;
+          margin-top: 10px;
         }
       }
     }

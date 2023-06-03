@@ -16,7 +16,7 @@
 
   "table": {
     "lastname": "Họ",
-    "firstname": "Tên khách hàng",
+    "firstname": "Tên",
     "name": "Họ và Tên",
     "email": "Email",
     "phone": "Số điện thoại",

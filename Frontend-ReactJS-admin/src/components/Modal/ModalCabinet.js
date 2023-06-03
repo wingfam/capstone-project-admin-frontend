@@ -89,7 +89,7 @@ class ModalCabinet extends Component {
               />
             </div>
             <div className="input-container">
-              <div class="form-group col-3">
+              <div className="form-group col-3">
                 <label><FormattedMessage id="table.status-cabinet" /></label>
                 <select name="statusCabinet" className="form-control" disabled>
                   <option value="1">Enable</option>
