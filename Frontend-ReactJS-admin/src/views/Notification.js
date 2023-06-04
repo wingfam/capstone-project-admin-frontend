@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import CardModal from "../components/Card/CardModal";
 import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
+import CardNotification from "../components/Card/CardNotification";
 
 class Notification extends Component {
   render() {
     return (
       <div>
         <Header data={<FormattedMessage id="title.notification" />} />
-        <CardModal />
+        <CardNotification />
       </div>
     );
   }

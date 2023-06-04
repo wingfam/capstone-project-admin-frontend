@@ -23,6 +23,7 @@
     "action": "Thao tác",
     "name-cabinet": "Tên tủ",
     "status-cabinet": "Trạng thái tủ",
+    "status-user": "Trạng thái người dùng",
     "code-order": "Mã đặt tủ",
     "code-cabinet": "Mã mở tủ",
     "booking-date": "Ngày đặt",
@@ -32,7 +33,8 @@
     "add-cabinet": "Thêm tủ",
     "address": "Địa chỉ",
     "enable": "Hoạt động",
-    "disable": "Không hoạt động"
+    "disable": "Không hoạt động",
+    "ban": "Cấm"
   },
 
   "slidebar": {
@@ -55,7 +57,7 @@
     "accept": "Chấp nhận",
     "confirm": "Xác nhận",
     "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-    "search":"Tìm kiếm..."
+    "search": "Tìm kiếm..."
   },
 
   "login": {
@@ -66,8 +68,8 @@
   },
 
   "toast": {
-    "delete-user-success": "Cấm khách hàng thành công!",
-    "delete-user-error": "Cấm khách hàng không thành công!",
+    "ban-user-success": "Cấm khách hàng thành công!",
+    "ban-user-error": "Cấm khách hàng không thành công!",
     "edit-user-success": "Chỉnh sửa khách hàng thành công!",
     "edit-user-error": "Chỉnh sửa khách hàng không thành công!",
     "create-cabinet-success": "Tạo tủ thành công!",

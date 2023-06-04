@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
-import { editUserService, getAllUsers } from "../../services/userService";
+import { banUserService, editUserService, getAllUsers } from "../../services/userService";
 import { toast } from "react-toastify";
 
 class CardUser extends Component {
@@ -10,10 +10,11 @@ class CardUser extends Component {
     super(props);
     this.state = {
       email: "",
-      phone: "",
+      phonenumber: "",
       firstName: "",
       lastName: "",
       address: "",
+      statusUser: "",
       arrUsers: [],
     };
   }
@@ -29,10 +30,11 @@ class CardUser extends Component {
         arrUsers: response.users,
         id: response.users.id,
         email: response.users.email,
-        phone: response.users.phonenumber,
+        phonenumber: response.users.phonenumber,
         firstName: response.users.firstName,
         lastName: response.users.lastName,
         address: response.users.address,
+        statusUser: response.users.statusUser,
       });
     }
   };
@@ -47,7 +49,7 @@ class CardUser extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["email", "phoneNumber", "firstName", "lastName", "address"];
+    let arrInput = ["email", "phonenumber", "statusUser", "firstName", "lastName", "address"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -100,11 +102,47 @@ class CardUser extends Component {
     }
   };
 
+  doBanUser = async (user) => {
+    try {
+      let res = await banUserService(user);
+      if (res && res.errCode === 0) {
+        await this.getUsersFromReact();
+        toast.success(<FormattedMessage id="toast.ban-user-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(<FormattedMessage id="toast.ban-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleSaveUserDetail = () => {
     let isValid = this.checkValidateInput();
     if (isValid === true) {
       this.doEditUser(this.state);
     }
+  };
+
+  handleBanUserDetail = () => {
+    this.doBanUser(this.state);
   };
 
   render() {
@@ -151,18 +189,31 @@ class CardUser extends Component {
                     />
                   </div>
                 </div>
-                <div>
-                  <label>
-                    <FormattedMessage id="table.phone" />
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "phone");
-                    }}
-                    value={this.state.phone}
-                  />
+                <div className="form-phone">
+                  <div className="col-6 me-5">
+                    <label>
+                      <FormattedMessage id="table.phone" />
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "phonenumber");
+                      }}
+                      value={this.state.phonenumber}
+                    />
+                  </div>
+                  <div className="col-5 ms-4">
+                    <label>
+                      <FormattedMessage id="table.status-user" />
+                    </label>
+                    <select name="statusCabinet" className="form-control" onChange={(event) => {
+                      this.handleOnChangeInput(event, "statusUser");
+                    }} value={this.state.statusUser}>
+                      <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
+                      <option value="0">{intl.formatMessage({ id: "table.ban" })}</option>
+                    </select>
+                  </div>
                 </div>
                 <div>
                   <label>
@@ -205,7 +256,10 @@ class CardUser extends Component {
                   <button
                     type="button"
                     className="btn-trash"
-                    title={intl.formatMessage({ id: "common.close" })}
+                    title={intl.formatMessage({ id: "common.ban" })}
+                    onClick={() => {
+                      this.handleBanUserDetail();
+                    }}
                   >
                     <i className="fas fa-ban"></i>
                   </button>

@@ -1,8 +1,8 @@
 import React from "react";
-import "./CardModal.scss";
+import "./CardNotification.scss";
 import { FormattedMessage } from "react-intl";
 
-const CardModal = () => {
+const CardNotification = () => {
   return (
     <div className="container-card">
       <div className="card">
@@ -32,4 +32,4 @@ const CardModal = () => {
   );
 };
 
-export default CardModal;
+export default CardNotification;

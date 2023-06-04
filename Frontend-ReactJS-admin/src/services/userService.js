@@ -16,6 +16,10 @@ const editUserService = (inputData) => {
   return axios.put("/api/edit-user", inputData);
 };
 
+const banUserService = (inputData) => {
+  return axios.put("/api/ban-user", inputData);
+};
+
 const deleteUserService = (userId) => {
   return axios.delete("/api/delete-user", {
     data: {
@@ -24,4 +28,4 @@ const deleteUserService = (userId) => {
   });
 };
 
-export { handleLoginApi, getAllUsers, createNewUserService, editUserService, deleteUserService };
+export { handleLoginApi, getAllUsers, createNewUserService, editUserService, deleteUserService, banUserService };

@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { emitter } from "../../utils/emitter";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -68,6 +68,7 @@ class ModalEditCabinet extends Component {
   };
 
   render() {
+    const { intl } = this.props;
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -100,13 +101,13 @@ class ModalEditCabinet extends Component {
               />
             </div>
             <div className="input-container">
-              <div className="form-group col-3">
+              <div className="form-group col-5">
                 <label><FormattedMessage id="table.status-cabinet" /></label>
                 <select name="statusCabinet" className="form-control" onChange={(event) => {
                   this.handleOnChangeInput(event, "statusCabinet");
                 }} value={this.state.statusCabinet}>
-                  <option value="1">Enable</option>
-                  <option value="0">Disable</option>
+                  <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
+                  <option value="0">{intl.formatMessage({ id: "table.disable" })}</option>
                 </select>
               </div>
             </div>
@@ -136,4 +137,4 @@ class ModalEditCabinet extends Component {
   }
 }
 
-export default ModalEditCabinet;
+export default injectIntl(ModalEditCabinet);

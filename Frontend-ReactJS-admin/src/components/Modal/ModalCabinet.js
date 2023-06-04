@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import "./ModalCabinet.scss";
 import { emitter } from "../../utils/emitter";
 
@@ -57,6 +57,7 @@ class ModalCabinet extends Component {
   };
 
   render() {
+    const { intl } = this.props;
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -89,13 +90,13 @@ class ModalCabinet extends Component {
               />
             </div>
             <div className="input-container">
-              <div className="form-group col-3">
+              <div className="form-group col-5">
                 <label>
                   <FormattedMessage id="table.status-cabinet" />
                 </label>
                 <select name="statusCabinet" className="form-control" disabled>
-                  <option value="1">Enable</option>
-                  <option value="0">Disable</option>
+                  <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
+                  <option value="0">{intl.formatMessage({ id: "table.disable" })}</option>
                 </select>
               </div>
             </div>
@@ -106,7 +107,7 @@ class ModalCabinet extends Component {
             color="primary"
             className="px-3"
             onClick={() => {
-              this.handleAddNewCabinet();
+              this.handleAddNewCabinet(0);
             }}
           >
             <FormattedMessage id="common.add" />
@@ -125,4 +126,4 @@ class ModalCabinet extends Component {
   }
 }
 
-export default ModalCabinet;
+export default injectIntl(ModalCabinet);

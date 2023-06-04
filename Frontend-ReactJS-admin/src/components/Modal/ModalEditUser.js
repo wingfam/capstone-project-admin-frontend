@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { emitter } from "../../utils/emitter";
 import _ from "lodash";
 import "./ModalEditUser.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 
 class ModalEditUser extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class ModalEditUser extends Component {
       firstName: "",
       lastName: "",
       address: "",
+      statusUser: "",
     };
     this.listenToEmitter();
   }
@@ -40,6 +41,7 @@ class ModalEditUser extends Component {
         firstName: user.firstName,
         lastName: user.lastName,
         address: user.address,
+        statusUser: user.statusUser,
       });
     }
   }
@@ -77,8 +79,7 @@ class ModalEditUser extends Component {
   };
 
   render() {
-    let userid = this.props.currentUser;
-    console.log(userid.id);
+    const { intl } = this.props;
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -98,32 +99,6 @@ class ModalEditUser extends Component {
         </ModalHeader>
         <ModalBody>
           <div className="modal-edit-user-body">
-            <div className="input-container">
-              <label>
-                {" "}
-                <FormattedMessage id="table.email" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "email");
-                }}
-                value={this.state.email}
-                disabled
-              />
-            </div>
-            <div className="input-container">
-              <label>
-                <FormattedMessage id="table.phone" />
-              </label>
-              <input
-                type="text"
-                onChange={(event) => {
-                  this.handleOnChangeInput(event, "phonenumber");
-                }}
-                value={this.state.phonenumber}
-              />
-            </div>
             <div className="input-container">
               <label>
                 <FormattedMessage id="table.lastname" />
@@ -146,6 +121,41 @@ class ModalEditUser extends Component {
                   this.handleOnChangeInput(event, "firstName");
                 }}
                 value={this.state.firstName}
+              />
+            </div>
+            <div className="input-container">
+              <label>
+                <FormattedMessage id="table.phone" />
+              </label>
+              <input
+                type="text"
+                onChange={(event) => {
+                  this.handleOnChangeInput(event, "phonenumber");
+                }}
+                value={this.state.phonenumber}
+              />
+            </div>
+            <div className="input-container">
+              <label>
+                <FormattedMessage id="table.status-user" />
+              </label>
+              <select name="statusUser" className="form-control" onChange={(event) => {
+                this.handleOnChangeInput(event, "statusUser");
+              }} value={this.state.statusUser}>
+                <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
+                <option value="0">{intl.formatMessage({ id: "table.ban" })}</option>
+              </select>
+            </div>
+            <div className="input-container max-width-input">
+              <label>
+                <FormattedMessage id="table.email" />
+              </label>
+              <input
+                type="text"
+                onChange={(event) => {
+                  this.handleOnChangeInput(event, "email");
+                }}
+                value={this.state.email}
               />
             </div>
             <div className="input-container max-width-input">
@@ -186,4 +196,4 @@ class ModalEditUser extends Component {
   }
 }
 
-export default ModalEditUser;
+export default injectIntl(ModalEditUser);

@@ -22,6 +22,7 @@
     "action": "Action",
     "name-cabinet": "Name locker",
     "status-cabinet": "Status locker",
+    "status-user": "Status user",
     "code-order": "Code order",
     "code-cabinet": "Code unlock",
     "booking-date": "Booking date",
@@ -31,7 +32,8 @@
     "add-cabinet": "Add locker",
     "address": "Address",
     "enable": "Enable",
-    "disable": "Disable"
+    "disable": "Disable",
+    "ban": "Ban"
   },
 
   "slidebar": {
@@ -54,7 +56,7 @@
     "accept": "Accept",
     "confirm": "Confirm",
     "confirm-this-task": "Are you sure to process this task?",
-    "search":"Search..."
+    "search": "Search..."
   },
 
   "login": {
@@ -65,8 +67,8 @@
   },
 
   "toast": {
-    "delete-user-success": "Delete customer succeeds!",
-    "delete-user-error": "Delete customer not succeeds!",
+    "ban-user-success": "Delete customer succeeds!",
+    "ban-user-error": "Delete customer not succeeds!",
     "edit-user-success": "Edit customer succeeds!",
     "edit-user-error": "Edit customer not succeeds!",
     "create-cabinet-success": "Create cabinet succeeds!",

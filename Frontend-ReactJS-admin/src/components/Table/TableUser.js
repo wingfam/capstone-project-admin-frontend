@@ -3,11 +3,12 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
 import {
   getAllUsers,
-  editUserService,
-  deleteUserService,
+  // editUserService,
+  // deleteUserService,
+  banUserService,
 } from "../../services/userService";
 import { Link } from "react-router-dom";
-import ModalEditUser from "../Modal/ModalEditUser";
+// import ModalEditUser from "../Modal/ModalEditUser";
 import { toast } from "react-toastify";
 
 class TableUser extends Component {
@@ -15,7 +16,6 @@ class TableUser extends Component {
     super(props);
     this.state = {
       arrUsers: [],
-      isOpenModalEditUser: false,
       userEdit: {},
     };
   }
@@ -33,60 +33,60 @@ class TableUser extends Component {
     }
   };
 
-  toggleUserEditModal = () => {
-    this.setState({
-      isOpenModalEditUser: !this.state.isOpenModalEditUser,
-    });
-  };
+  // toggleUserEditModal = () => {
+  //   this.setState({
+  //     isOpenModalEditUser: !this.state.isOpenModalEditUser,
+  //   });
+  // };
 
-  doEditUser = async (user) => {
+  // doEditUser = async (user) => {
+  //   try {
+  //     let res = await editUserService(user);
+  //     if (res && res.errCode === 0) {
+  //       this.setState({
+  //         isOpenModalEditUser: false,
+  //       });
+  //       await this.getAllUsersFromReact();
+  //       toast.success(<FormattedMessage id="toast.edit-user-success" />, {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //     } else {
+  //       toast.error(<FormattedMessage id="toast.edit-user-error" />, {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  // handleEditUser = (user) => {
+  //   this.setState({
+  //     isOpenModalEditUser: true,
+  //     editUser: user,
+  //   });
+  // };
+
+  handleBanUser = async (user) => {
     try {
-      let res = await editUserService(user);
-      if (res && res.errCode === 0) {
-        this.setState({
-          isOpenModalEditUser: false,
-        });
-        await this.getAllUsersFromReact();
-        toast.success(<FormattedMessage id="toast.edit-user-success" />, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  handleEditUser = (user) => {
-    this.setState({
-      isOpenModalEditUser: true,
-      editUser: user,
-    });
-  };
-
-  handleDeleteUser = async (user) => {
-    try {
-      let res = await deleteUserService(user.id);
+      let res = await banUserService(user);
       if (res && res.errCode === 0) {
         await this.getAllUsersFromReact();
-        toast.success(<FormattedMessage id="toast.delete-user-success" />, {
+        toast.success(<FormattedMessage id="toast.ban-user-success" />, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -98,7 +98,7 @@ class TableUser extends Component {
         });
       } else {
         alert(res.errMessage);
-        toast.error(<FormattedMessage id="toast.delete-user-error" />, {
+        toast.error(<FormattedMessage id="toast.ban-user-error" />, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -116,17 +116,18 @@ class TableUser extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers;
+    console.log("Check: ", arrUsers)
     const { intl } = this.props;
     return (
       <div className="table-customers-container">
-        {this.state.isOpenModalEditUser && (
+        {/* {this.state.isOpenModalEditUser && (
           <ModalEditUser
             isOpen={this.state.isOpenModalEditUser}
             toggleFromParent={this.toggleUserEditModal}
             currentUser={this.state.editUser}
             editUser={this.doEditUser}
           />
-        )}
+        )} */}
 
         <div className="customers-table mt-3 mx-1 ">
           <table className="customers">
@@ -143,6 +144,9 @@ class TableUser extends Component {
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.address" />
+                </th>
+                <th className="col-1">
+                  <FormattedMessage id="table.status-user" />
                 </th>
                 <th className="col-1">
                   <FormattedMessage id="table.action" />
@@ -164,8 +168,17 @@ class TableUser extends Component {
                       <td>{item.email}</td>
                       <td className="text-center">{item.phonenumber}</td>
                       <td>{item.address}</td>
+                      <td className="text-center">{(() => {
+                        switch (item.statusUser) {
+                          case 0:
+                            return <FormattedMessage id="table.ban" />;
+                          case 1:
+                            return <FormattedMessage id="table.enable" />;
+                          default:
+                        }
+                      })()}</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn-edit"
                           onClick={() => {
                             this.handleEditUser(item);
@@ -173,11 +186,11 @@ class TableUser extends Component {
                           title={intl.formatMessage({ id: "common.edit" })}
                         >
                           <i className="fas fa-pencil-alt"></i>
-                        </button>
+                        </button> */}
                         <button
                           className="btn-delete"
                           onClick={() => {
-                            this.handleDeleteUser(item);
+                            this.handleBanUser(item);
                           }}
                           title={intl.formatMessage({ id: "common.ban" })}
                         >
