@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { emitter } from "../../utils/emitter";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -12,17 +11,7 @@ class ModalEditCabinet extends Component {
       nameCabinet: "",
       statusCabinet: "",
     };
-    this.listenToEmitter();
   }
-
-  listenToEmitter = () => {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      this.setState({
-        nameCabinet: "",
-        statusCabinet: "",
-      });
-    });
-  };
 
   componentDidMount() {
     let cabinet = this.props.currentCabinet;

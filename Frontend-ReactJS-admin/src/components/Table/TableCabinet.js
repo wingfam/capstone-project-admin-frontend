@@ -20,7 +20,6 @@ class TableCabinet extends Component {
       arrCabinets: [],
       isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
-      cabinetEdit: {},
     };
   }
 
@@ -186,6 +185,7 @@ class TableCabinet extends Component {
             editCabinet={this.doEditCabinet}
           />
         )}
+
         <div className="mx-1">
           <button
             className="btn px-3"

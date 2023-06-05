@@ -173,6 +173,7 @@ class CardUser extends Component {
                         this.handleOnChangeInput(event, "lastName");
                       }}
                       value={this.state.lastName}
+                      disabled
                     />
                   </div>
                   <div className="col-5 ms-4">
@@ -186,6 +187,7 @@ class CardUser extends Component {
                         this.handleOnChangeInput(event, "firstName");
                       }}
                       value={this.state.firstName}
+                      disabled
                     />
                   </div>
                 </div>
@@ -201,6 +203,7 @@ class CardUser extends Component {
                         this.handleOnChangeInput(event, "phonenumber");
                       }}
                       value={this.state.phonenumber}
+                      disabled
                     />
                   </div>
                   <div className="col-5 ms-4">
@@ -240,6 +243,7 @@ class CardUser extends Component {
                       this.handleOnChangeInput(event, "address");
                     }}
                     value={this.state.address}
+                    disabled
                   />
                 </div>
                 <span className="offset-md-9">
@@ -261,7 +265,7 @@ class CardUser extends Component {
                       this.handleBanUserDetail();
                     }}
                   >
-                    <i className="fas fa-ban"></i>
+                    <i className="fas fa-user-lock"></i>
                   </button>
                 </span>
               </div>

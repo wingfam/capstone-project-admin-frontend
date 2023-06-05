@@ -10,7 +10,8 @@
     "alerts": "Alerts",
     "detail": "Detail",
     "history-order": "History order",
-    "edit-user": "Edit user"
+    "edit-user": "Edit user",
+    "warning": "warning"
   },
 
   "table": {
@@ -47,6 +48,7 @@
   "common": {
     "add": "Add",
     "edit": "Edit",
+    "unlock": "Unlock",
     "delete": "Delete",
     "ban": "Ban",
     "decentralize": "Decentralize",
@@ -69,6 +71,8 @@
   "toast": {
     "ban-user-success": "Delete customer succeeds!",
     "ban-user-error": "Delete customer not succeeds!",
+    "unban-user-success": "Open ban customer succeeds!",
+    "unban-user-error": "Open ban customer not succeeds!",
     "edit-user-success": "Edit customer succeeds!",
     "edit-user-error": "Edit customer not succeeds!",
     "create-cabinet-success": "Create cabinet succeeds!",
@@ -77,5 +81,10 @@
     "delete-cabinet-error": "Delete cabinet not succeeds!",
     "edit-cabinet-success": "Edit cabinet succeeds!",
     "edit-cabinet-error": "Edit cabinet not succeeds!"
+  },
+
+  "warning": {
+    "warning-ban": "Do you want to ban this customer?",
+    "warning-unban": "Do you want to unblock this customer?"
   }
 }

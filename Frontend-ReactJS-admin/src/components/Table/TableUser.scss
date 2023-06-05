@@ -45,16 +45,16 @@
       color: white;
     }
 
-    .btn-edit {
+    .btn-unlock {
       width: 50px;
       border: none;
       outline: none;
       background: transparent;
-      color: orange;
+      color: $common-green;
 
       &:hover {
         background-color: transparent !important;
-        color: orange !important;
+        color: $common-green !important;
       }
     }
 
@@ -63,11 +63,11 @@
       border: none;
       outline: none;
       background: transparent;
-      color: rgb(235, 15, 15);
+      color: $common-red;
 
       &:hover {
         background-color: transparent !important;
-        color: rgb(235, 15, 15) !important;
+        color: $common-red !important;
       }
     }
   }

@@ -3,20 +3,22 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
 import {
   getAllUsers,
-  // editUserService,
-  // deleteUserService,
   banUserService,
+  unBanUserService,
+  editUserService,
 } from "../../services/userService";
 import { Link } from "react-router-dom";
-// import ModalEditUser from "../Modal/ModalEditUser";
 import { toast } from "react-toastify";
+import ModalBan from "../Modal/ModalBan";
+import ModalUnBan from "../Modal/ModalUnBan";
 
 class TableUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrUsers: [],
-      userEdit: {},
+      isOpenModalBan: false,
+      isOpenModalUnBan: false,
     };
   }
 
@@ -33,58 +35,25 @@ class TableUser extends Component {
     }
   };
 
-  // toggleUserEditModal = () => {
-  //   this.setState({
-  //     isOpenModalEditUser: !this.state.isOpenModalEditUser,
-  //   });
-  // };
+  toggleBanModal = () => {
+    this.setState({
+      isOpenModalBan: !this.state.isOpenModalBan,
+    });
+  };
 
-  // doEditUser = async (user) => {
-  //   try {
-  //     let res = await editUserService(user);
-  //     if (res && res.errCode === 0) {
-  //       this.setState({
-  //         isOpenModalEditUser: false,
-  //       });
-  //       await this.getAllUsersFromReact();
-  //       toast.success(<FormattedMessage id="toast.edit-user-success" />, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //     } else {
-  //       toast.error(<FormattedMessage id="toast.edit-user-error" />, {
-  //         position: "top-right",
-  //         autoClose: 5000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  toggleUnBanModal = () => {
+    this.setState({
+      isOpenModalUnBan: !this.state.isOpenModalUnBan,
+    });
+  };
 
-  // handleEditUser = (user) => {
-  //   this.setState({
-  //     isOpenModalEditUser: true,
-  //     editUser: user,
-  //   });
-  // };
-
-  handleBanUser = async (user) => {
+  doBanUser = async (user) => {
     try {
-      let res = await banUserService(user);
+      let res = await editUserService(user);
       if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalBan: false,
+        });
         await this.getAllUsersFromReact();
         toast.success(<FormattedMessage id="toast.ban-user-success" />, {
           position: "top-right",
@@ -114,21 +83,75 @@ class TableUser extends Component {
     }
   };
 
+  doUnBanUser = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalUnBan: false,
+        });
+        await this.getAllUsersFromReact();
+        toast.success(<FormattedMessage id="toast.unban-user-success" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        alert(res.errMessage);
+        toast.error(<FormattedMessage id="toast.unban-user-error" />, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleBanUser = (user) => {
+    this.setState({
+      isOpenModalBan: true,
+      banUser: user,
+    });
+  };
+
+  handleUnBanUser = (user) => {
+    this.setState({
+      isOpenModalUnBan: true,
+      unBanUser: user,
+    });
+  };
+
   render() {
     let arrUsers = this.state.arrUsers;
-    console.log("Check: ", arrUsers)
     const { intl } = this.props;
     return (
       <div className="table-customers-container">
-        {/* {this.state.isOpenModalEditUser && (
-          <ModalEditUser
-            isOpen={this.state.isOpenModalEditUser}
-            toggleFromParent={this.toggleUserEditModal}
-            currentUser={this.state.editUser}
-            editUser={this.doEditUser}
-          />
-        )} */}
-
+        {this.state.isOpenModalBan && (
+          <ModalBan
+            isOpen={this.state.isOpenModalBan}
+            toggleFromParent={this.toggleBanModal}
+            currentUser={this.state.banUser}
+            banUser={this.doBanUser}
+          />)}
+        {this.state.isOpenModalUnBan && (
+          <ModalUnBan
+            isOpen={this.state.isOpenModalUnBan}
+            toggleFromParent={this.toggleUnBanModal}
+            currentUser={this.state.unBanUser}
+            unBanUser={this.doUnBanUser}
+          />)}
         <div className="customers-table mt-3 mx-1 ">
           <table className="customers">
             <tbody>
@@ -178,24 +201,35 @@ class TableUser extends Component {
                         }
                       })()}</td>
                       <td>
-                        {/* <button
-                          className="btn-edit"
-                          onClick={() => {
-                            this.handleEditUser(item);
-                          }}
-                          title={intl.formatMessage({ id: "common.edit" })}
-                        >
-                          <i className="fas fa-pencil-alt"></i>
-                        </button> */}
-                        <button
-                          className="btn-delete"
-                          onClick={() => {
-                            this.handleBanUser(item);
-                          }}
-                          title={intl.formatMessage({ id: "common.ban" })}
-                        >
-                          <i className="fas fa-ban"></i>
-                        </button>
+                        {(() => {
+                          switch (item.statusUser) {
+                            case 0:
+                              return (
+                                <button
+                                  className="btn-unlock"
+                                  onClick={() => {
+                                    this.handleUnBanUser(item);
+                                  }}
+                                  title={intl.formatMessage({ id: "common.unlock" })}
+                                >
+                                  <i className="fas fa-user-check"></i>
+                                </button>
+                              )
+                            case 1:
+                              return (
+                                <button
+                                  className="btn-delete"
+                                  onClick={() => {
+                                    this.handleBanUser(item);
+                                  }}
+                                  title={intl.formatMessage({ id: "common.ban" })}
+                                >
+                                  <i className="fas fa-user-lock"></i>
+                                </button>
+                              )
+                            default:
+                          }
+                        })()}
                       </td>
                     </tr>
                   );

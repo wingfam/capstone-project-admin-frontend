@@ -11,7 +11,8 @@
     "detail": "Hồ sơ",
     "history-order": "Lịch sử đặt tủ",
     "edit-user": "Chỉnh sửa thông tin khách hàng",
-    "edit-cabinet": "Chỉnh sửa thông tin tủ"
+    "edit-cabinet": "Chỉnh sửa thông tin tủ",
+    "warning": "Cảnh báo!!!"
   },
 
   "table": {
@@ -48,6 +49,7 @@
   "common": {
     "add": "Thêm",
     "edit": "Sửa",
+    "unlock": "Mở cấm",
     "delete": "Xóa",
     "ban": "Cấm",
     "decentralize": "Phân quyền",
@@ -70,6 +72,8 @@
   "toast": {
     "ban-user-success": "Cấm khách hàng thành công!",
     "ban-user-error": "Cấm khách hàng không thành công!",
+    "unban-user-success": "Mở cấm khách hàng thành công!",
+    "unban-user-error": "Mở cấm khách hàng không thành công!",
     "edit-user-success": "Chỉnh sửa khách hàng thành công!",
     "edit-user-error": "Chỉnh sửa khách hàng không thành công!",
     "create-cabinet-success": "Tạo tủ thành công!",
@@ -78,5 +82,10 @@
     "delete-cabinet-error": "Xóa tủ không thành công!",
     "edit-cabinet-success": "Chỉnh sửa tủ thành công!",
     "edit-cabinet-error": "Chỉnh sửa tủ không thành công!"
+  },
+
+  "warning": {
+    "warning-ban": "Bạn có muốn cấm khách hàng này?",
+    "warning-unban": "Bạn có muốn mở cấm khách hàng này?"
   }
 }
