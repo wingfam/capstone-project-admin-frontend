@@ -2,7 +2,11 @@ import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
-import { banUserService, editUserService, getAllUsers } from "../../services/userService";
+import {
+  banUserService,
+  editUserService,
+  getAllUsers,
+} from "../../services/userService";
 import { toast } from "react-toastify";
 
 class CardUser extends Component {
@@ -49,7 +53,14 @@ class CardUser extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["email", "phonenumber", "statusUser", "firstName", "lastName", "address"];
+    let arrInput = [
+      "email",
+      "phonenumber",
+      "statusUser",
+      "firstName",
+      "lastName",
+      "address",
+    ];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -210,11 +221,20 @@ class CardUser extends Component {
                     <label>
                       <FormattedMessage id="table.status-user" />
                     </label>
-                    <select name="statusCabinet" className="form-control" onChange={(event) => {
-                      this.handleOnChangeInput(event, "statusUser");
-                    }} value={this.state.statusUser}>
-                      <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
-                      <option value="0">{intl.formatMessage({ id: "table.ban" })}</option>
+                    <select
+                      name="statusCabinet"
+                      className="form-control"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "statusUser");
+                      }}
+                      value={this.state.statusUser}
+                    >
+                      <option value="1">
+                        {intl.formatMessage({ id: "table.enable" })}
+                      </option>
+                      <option value="0">
+                        {intl.formatMessage({ id: "table.ban" })}
+                      </option>
                     </select>
                   </div>
                 </div>
