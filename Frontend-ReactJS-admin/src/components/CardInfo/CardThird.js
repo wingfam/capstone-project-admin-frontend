@@ -1,17 +1,17 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 // import { FormattedMessage } from "react-intl";
-import "./CardFirst.scss";
+import "./CardThird.scss";
 
-const CardFirst = () => {
+const CardThird = () => {
   return (
-    <div className="container-first-card">
+    <div className="container-third-card">
       <div className="card">
         <div className="card-body">
           <div className="d-flex align-items-center">
             <h5 className="mb-0 text-white">123456</h5>
             <div className="ms-auto">
-              <i className="fas fa-shopping-cart"></i>
+              <i className="fas fa-box"></i>
             </div>
           </div>
           <div
@@ -29,7 +29,7 @@ const CardFirst = () => {
           </div>
           <div className="d-flex align-items-center text-white">
             <p className="mb-0">
-              <FormattedMessage id="card-info.total-booking" />
+              <FormattedMessage id="card-info.total-locker" />
             </p>
             <p className="mb-0 ms-auto">
               +10%
@@ -44,4 +44,4 @@ const CardFirst = () => {
   );
 };
 
-export default CardFirst;
+export default CardThird;

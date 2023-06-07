@@ -87,5 +87,17 @@
   "warning": {
     "warning-ban": "Bạn có muốn cấm khách hàng này?",
     "warning-unban": "Bạn có muốn mở cấm khách hàng này?"
-  }
+  },
+
+"card-info":{
+  "total-booking":"Tổng đơn đặt hàng:",
+  "total-user":"Tổng người dùng:",
+  "total-locker":"Tổng tủ:",
+  "total-notification":"Tổng cảnh báo:"
+},
+
+"chart":{
+  "line-chart":"Biểu đồ đường",
+  "bar-chart":"Biểu đồ cột"
+}
 }

@@ -86,5 +86,17 @@
   "warning": {
     "warning-ban": "Do you want to ban this customer?",
     "warning-unban": "Do you want to unblock this customer?"
+  },
+
+  "card-info":{
+    "total-booking":"Total Bookings",
+    "total-user":"Total Customers",
+    "total-locker":"Total Lockers",
+    "total-notification":"Total Notifications"
+  },
+  
+  "chart":{
+    "line-chart":"Line Chart",
+    "bar-chart":"Bar Chart"
   }
 }

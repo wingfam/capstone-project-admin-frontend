@@ -3,8 +3,11 @@ import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
 import ChartBar from "../components/Chart/ChartBar";
 import LineChart from "../components/Chart/LineChart";
-import "../styles/Dashboard.scss"
+import "../styles/Dashboard.scss";
 import CardFirst from "../components/CardInfo/CardFirst";
+import CardSecond from "../components/CardInfo/CardSecond";
+import CardThird from "../components/CardInfo/CardThird";
+import CardFourth from "../components/CardInfo/CardFourth";
 
 class Dashboard extends Component {
   render() {
@@ -16,13 +19,13 @@ class Dashboard extends Component {
             <CardFirst />
           </div>
           <div className="col">
-            <CardFirst />
+            <CardSecond />
           </div>
           <div className="col">
-            <CardFirst />
+            <CardThird />
           </div>
           <div className="col">
-            <CardFirst />
+            <CardFourth />
           </div>
         </div>
         <div className="row mt-5">
@@ -35,7 +38,6 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-
       </div>
     );
   }

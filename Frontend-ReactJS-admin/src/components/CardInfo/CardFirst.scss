@@ -3,11 +3,11 @@
 .container-first-card {
   margin-top: 20px;
   color: $common-white;
+  font-size: $base-size ;
 
   .card {
     border-radius: 10px;
-    border-color: $common-green;
-    background-color: $colormain !important;
+    background: linear-gradient(45deg, #6a11cb, #2575fc) !important;
 
     .card-body {
       //   background-color: aqua !important ;
