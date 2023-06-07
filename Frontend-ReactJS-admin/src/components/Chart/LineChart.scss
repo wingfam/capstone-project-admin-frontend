@@ -1,0 +1,20 @@
+@import "../../styles/common.scss";
+
+.linechart-container {
+  .card {
+    border-radius: 10px;
+    width: 100%;
+    .card-header {
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+
+    .card-body {
+      .linechart-context {
+        display: block;
+        width: 664px;
+        margin: 20px;
+      }
+    }
+  }
+}
