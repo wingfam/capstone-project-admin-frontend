@@ -3,17 +3,18 @@ import { CategoryScale } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { data } from "../data";
 import Chart from "chart.js/auto";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import "./ChartBar.scss";
 
 Chart.register(CategoryScale);
 function ChartBar() {
+  const intl = useIntl();
   const [chartData] = useState({
-    labels: data.dataChart.map((vdata) => vdata.weekday),
+    labels: data.dataMonth.map((vdata) => vdata.weekday),
     datasets: [
       {
-        label: "Doanh thu(VND)",
-        data: data.dataChart.map((vdata) => vdata.userGain),
+        label: intl.formatMessage({ id: "chart.orders" }),
+        data: data.dataMonth.map((vdata) => vdata.userGain),
         backgroundColor: [
           "#CD853F",
           "#50AF95",
@@ -24,7 +25,7 @@ function ChartBar() {
           "#8DEEEE",
         ],
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   });
@@ -34,7 +35,7 @@ function ChartBar() {
         <div className="card mb-4">
           <div className="card-header">
             <i className="fas fa-chart-bar">
-              &nbsp; <FormattedMessage id="table.address" />
+              &nbsp; <FormattedMessage id="chart.bar-chart" />
             </i>
           </div>
           <div className="card-body">
@@ -45,7 +46,7 @@ function ChartBar() {
                   plugins: {
                     title: {
                       display: true,
-                      text: "Doanh thu trong 1 tuần",
+                      text: intl.formatMessage({ id: "chart.month-chart" }),
                     },
                     legend: {
                       display: false,

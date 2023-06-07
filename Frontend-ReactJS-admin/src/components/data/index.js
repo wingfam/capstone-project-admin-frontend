@@ -1,46 +1,97 @@
 export const data = {
-    dataChart: [
-        {
-            id: 1,
-            weekday: "Thứ 2",
-            userGain: 800000,
-            userLost: 823,
-        },
-        {
-            id: 2,
-            weekday: "Thứ 3",
-            userGain: 670000,
-            userLost: 823,
-        },
-        {
-            id: 3,
-            weekday: "Thứ 4",
-            userGain: 650000,
-            userLost: 555,
-        },
-        {
-            id: 4,
-            weekday: "Thứ 5",
-            userGain: 900000,
-            userLost: 4555,
-        },
-        {
-            id: 5,
-            weekday: "Thứ 6",
-            userGain: 785000,
-            userLost: 345,
-        },
-        {
-            id: 6,
-            weekday: "Thứ 7",
-            userGain: 990000,
-            userLost: 345,
-        },
-        {
-            id: 7,
-            weekday: "Chủ nhật",
-            userGain: 895000,
-            userLost: 345,
-        },
-    ],
+  dataChart: [
+    {
+      id: 1,
+      weekday: "Thứ 2",
+      userGain: 5,
+    },
+    {
+      id: 2,
+      weekday: "Thứ 3",
+      userGain: 10,
+    },
+    {
+      id: 3,
+      weekday: "Thứ 4",
+      userGain: 8,
+    },
+    {
+      id: 4,
+      weekday: "Thứ 5",
+      userGain: 8,
+    },
+    {
+      id: 5,
+      weekday: "Thứ 6",
+      userGain: 15,
+    },
+    {
+      id: 6,
+      weekday: "Tháng 7",
+      userGain: 12,
+    },
+    {
+      id: 7,
+      weekday: "Chủ nhật",
+      userGain: 11,
+    },
+  ],
+
+  dataMonth: [
+    {
+      id: 1,
+      weekday: "Tháng 1",
+      userGain: 122,
+    },
+    {
+      id: 2,
+      weekday: "Tháng 2",
+      userGain: 112,
+    },
+    {
+      id: 3,
+      weekday: "Tháng 3",
+      userGain: 200,
+    },
+    {
+      id: 4,
+      weekday: "Tháng 4",
+      userGain: 160,
+    },
+    {
+      id: 5,
+      weekday: "Tháng 6",
+      userGain: 220,
+    },
+    {
+      id: 6,
+      weekday: "Tháng 7",
+      userGain: 145,
+    },
+    {
+      id: 7,
+      weekday: "Tháng 8",
+      userGain: 230,
+    },
+    {
+      id: 7,
+      weekday: "Tháng 9",
+      userGain: 165,
+    },
+    {
+      id: 7,
+      weekday: "Tháng 10",
+      userGain: 148,
+    },
+    {
+      id: 7,
+      weekday: "Tháng 11",
+      userGain: 123,
+    },
+    {
+      id: 7,
+      weekday: "Tháng 12",
+      userGain: 250,
+    },
+  ],
 };

@@ -90,14 +90,17 @@
   },
 
 "card-info":{
-  "total-booking":"Tổng đơn đặt hàng:",
-  "total-user":"Tổng người dùng:",
-  "total-locker":"Tổng tủ:",
-  "total-notification":"Tổng cảnh báo:"
+  "total-booking":"Tổng đơn đặt hàng",
+  "total-user":"Tổng người dùng",
+  "total-locker":"Tổng tủ",
+  "total-notification":"Tổng cảnh báo"
 },
 
 "chart":{
   "line-chart":"Biểu đồ đường",
-  "bar-chart":"Biểu đồ cột"
+  "bar-chart":"Biểu đồ cột",
+  "week-chart":"Đơn đặt hàng hằng ngày",
+  "month-chart":"Đơn đặt hàng hằng tháng",
+  "orders":"Đơn đặt hàng"
 }
 }

@@ -97,6 +97,9 @@
   
   "chart":{
     "line-chart":"Line Chart",
-    "bar-chart":"Bar Chart"
+    "bar-chart":"Bar Chart",
+    "week-chart":"Daily Orders",
+    "month-chart":"Monthly Orders",
+    "orders":"Orders"
   }
 }
