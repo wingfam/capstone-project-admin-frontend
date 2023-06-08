@@ -40,7 +40,6 @@
     .header-right-content {
       width: 22%;
       display: flex;
-      margin-right: 10px;
       .language-content {
         margin-top: 5px;
         width: 20px;
@@ -102,11 +101,22 @@
         i {
           margin: 50%;
           align-items: center;
-          font-size: $base-size + 4px;
+          font-size: $base-size + 5px;
           color: $colormain;
 
           .btn-unread {
+            margin: 0;
             position: absolute;
+            top: 30%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 17px;
+            color: $common-text-color;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: $common-red;
           }
         }
       }

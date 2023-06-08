@@ -6,7 +6,7 @@
     "user-manage": "quản lý khách hàng",
     "history": "Lịch sử đặt hàng",
     "order": "Đơn đặt hàng",
-    "dashboard": "dashboard",
+    "dashboard": "Báo cáo",
     "alerts": "Cảnh báo",
     "detail": "Hồ sơ",
     "history-order": "Lịch sử đặt tủ",
@@ -43,7 +43,7 @@
     "user": "Khách hàng",
     "history": "Lịch sử đặt hàng",
     "order": "Đơn đặt hàng",
-    "dashboard": "Dashboard"
+    "dashboard": "Báo cáo"
   },
 
   "common": {
@@ -89,18 +89,18 @@
     "warning-unban": "Bạn có muốn mở cấm khách hàng này?"
   },
 
-"card-info":{
-  "total-booking":"Tổng đơn đặt hàng",
-  "total-user":"Tổng người dùng",
-  "total-locker":"Tổng tủ",
-  "total-notification":"Tổng cảnh báo"
-},
+  "card-info": {
+    "total-booking": "Tổng đơn đặt hàng",
+    "total-user": "Tổng người dùng",
+    "total-locker": "Tổng tủ",
+    "total-notification": "Tổng cảnh báo"
+  },
 
-"chart":{
-  "line-chart":"Biểu đồ đường",
-  "bar-chart":"Biểu đồ cột",
-  "week-chart":"Đơn đặt hàng hằng ngày",
-  "month-chart":"Đơn đặt hàng hằng tháng",
-  "orders":"Đơn đặt hàng"
-}
+  "chart": {
+    "line-chart": "Biểu đồ đường",
+    "bar-chart": "Biểu đồ cột",
+    "week-chart": "Đơn đặt hàng hằng ngày",
+    "month-chart": "Đơn đặt hàng hằng tháng",
+    "orders": "Đơn đặt hàng"
+  }
 }

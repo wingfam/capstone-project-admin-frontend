@@ -1,16 +1,16 @@
 @import "../../styles/common.scss";
 
 .container-third-card {
-    margin-top: 20px;
-    color: $common-white;
-    font-size: $base-size ;
+  margin-top: 25px;
+  color: $common-white;
+  font-size: $base-size;
 
-    .card {
-        border-radius: 10px;
-        background: linear-gradient(45deg, #ee0979, #ff6a00) !important;
+  .card {
+    border-radius: 10px;
+    background: linear-gradient(45deg, #ee0979, #ff6a00) !important;
 
-        .card-body {
-            //   background-color: aqua !important ;
-        }
+    .card-body {
+      //   background-color: aqua !important ;
     }
+  }
 }

@@ -10,7 +10,7 @@ const CardNotification = () => {
           <i className="fas fa-bell">&nbsp; <FormattedMessage id="title.alerts" /></i>
         </h5>
         <div className="card-body">
-          <div className="card-content">
+          <div className="card-read-content">
             <p className="card-text">
               This is a wider card with supporting text below as a natural
               lead-in to additional content. This content is a little bit
@@ -19,7 +19,7 @@ const CardNotification = () => {
           </div>
         </div>
         <div className="card-body">
-          <div className="card-content">
+          <div className="card-unread-content">
             <p className="card-text">
               This is a wider card with supporting text below as a natural
               lead-in to additional content. This content is a little bit

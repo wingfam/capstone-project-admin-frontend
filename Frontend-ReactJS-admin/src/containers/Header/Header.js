@@ -16,7 +16,7 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
-    let unread = 1;
+    let unread = 0;
     return (
       <div className="header-container">
         <div className="header-content">
@@ -65,7 +65,7 @@ class Header extends Component {
                     switch (unread) {
                       case 0:
                         return (
-                          <span className="position-absolute top-2 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                          <span className="top-1 start-100 btn-unread">9+
                             <span className="visually-hidden">New alerts</span>
                           </span>
                         );
