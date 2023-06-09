@@ -1,0 +1,27 @@
+@import "../../styles/common.scss";
+
+.container-button {
+  width: 100%;
+  .btn-read-noti {
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+    background: #fea21f;
+    opacity: 0.5;
+    border: none;
+    text-align: justify;
+    font-size: $base-size;
+    color: black;
+  }
+
+  .btn-unread-noti {
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+    background: #fea21f;
+    border: none;
+    text-align: justify;
+    font-size: $base-size;
+    color: black;
+  }
+}

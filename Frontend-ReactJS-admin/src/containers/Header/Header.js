@@ -6,8 +6,28 @@ import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
 import SearchBox from "../../components/SearchBox/SearchBox";
+import { getAllNotis } from "../../services/notiService";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrNotis: [],
+    };
+  }
+
+  async componentDidMount() {
+    await this.getNotisFromReact();
+  }
+
+  getNotisFromReact = async () => {
+    let response = await getAllNotis("ALL");
+    if (response && response.errCode === 0) {
+      this.setState({
+        arrNotis: response.notis,
+      });
+    }
+  };
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -16,7 +36,10 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
-    let unread = 0;
+    let arrNotis = this.state.arrNotis;
+    const sum = arrNotis.map(obj => obj.statusNoti)
+      .reduce((accumulator, current) => accumulator + current, 0);
+    console.log("Check sum: ", sum)
     return (
       <div className="header-container">
         <div className="header-content">
@@ -60,18 +83,11 @@ class Header extends Component {
             </div>
             <div className="btn btn-bell">
               <Link to="/system/notification">
-                <i className="fas fa-bell">
-                  {(() => {
-                    switch (unread) {
-                      case 0:
-                        return (
-                          <span className="top-1 start-100 btn-unread">9+
-                            <span className="visually-hidden">New alerts</span>
-                          </span>
-                        );
-                      default:
-                    }
-                  })()}
+                <i className="fas fa-bell" >
+                  {/* {arrNotis && arrNotis.reduce((item, index) => { */}
+                  <span className="top-1 start-100 btn-unread">{sum}
+                  </span>
+                  {/* })} */}
                 </i>
               </Link>
             </div>

@@ -26,6 +26,7 @@ class ModalCabinet extends Component {
 
   toggle = () => {
     this.props.toggleFromParent();
+    emitter.emit("EVENT_CLEAR_MODAL_DATA");
   };
 
   handleOnChangeInput = (event, id) => {

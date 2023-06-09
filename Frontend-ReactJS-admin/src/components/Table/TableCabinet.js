@@ -196,7 +196,7 @@ class TableCabinet extends Component {
             }}
             onClick={() => this.handleAddNewCabinets()}
           >
-            <i className="fas fa-plus"></i> &nbsp;{" "}
+            <i className="fas fa-plus"></i> &nbsp;
             <FormattedMessage id={"table.add-cabinet"} />
           </button>
         </div>

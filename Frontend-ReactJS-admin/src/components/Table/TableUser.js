@@ -3,8 +3,6 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
 import {
   getAllUsers,
-  banUserService,
-  unBanUserService,
   editUserService,
 } from "../../services/userService";
 import { Link } from "react-router-dom";
@@ -135,35 +133,8 @@ class TableUser extends Component {
 
   render() {
     let arrUsers = this.state.arrUsers;
-
     const abc = arrUsers.sort((a, b) => a.statusUser > b.statusUser ? -1 : 1)
     const { intl } = this.props;
-
-    console.log("Check abc: ", arrUsers);
-
-    // let inquiries = arrUsers.filter((data) => {
-    //   if (this.state.searchInquiries !== null) {
-    //     return data.user_code
-    //       .toLowerCase()
-    //       .includes(this.state.searchInquiries.toLowerCase());
-    //   }
-
-    //   return data;
-    // });
-
-    // if (this.state.answerStatus === 'answered') {
-    //   inquiries.sort((a, b) => {
-    //     if (a.answered < b.answered) return -1;
-    //     if (a.answered > b.answered) return 1;
-    //     return 0;
-    //   });
-    // } else if (this.state.answerStatus === 'unanswered') {
-    //   inquiries.sort((a, b) => {
-    //     if (a.answered > b.answered) return -1;
-    //     if (a.answered < b.answered) return 1;
-    //     return 0;
-    //   });
-    // }
     return (
       <div className="table-customers-container">
         {this.state.isOpenModalBan && (
