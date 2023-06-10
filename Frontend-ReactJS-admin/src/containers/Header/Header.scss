@@ -16,7 +16,6 @@
   z-index: 5;
 
   .header-content {
-    width: 100%;
     display: flex;
 
     .header-left-content {
@@ -32,13 +31,12 @@
     }
 
     .header-center-content {
-      width: 48%;
+      width: 50%;
       display: flex;
       margin-left: 10px;
     }
 
     .header-right-content {
-      width: 22%;
       display: flex;
       .language-content {
         margin-top: 5px;

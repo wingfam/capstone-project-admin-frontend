@@ -1,68 +1,60 @@
-import React from "react";
+import React, { Component } from "react";
 import "./CardNotification.scss";
-import { FormattedMessage } from "react-intl";
-import CardNoti from "./CardNoti";
-import { Component } from "react";
-import { editNotiService, getAllNotis } from "../../services/notiService";
+import _ from "lodash";
 
 class CardNotification extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      arrNotis: [],
+    constructor(props) {
+        super(props);
+        this.state = {
+            nameNoti: "",
+            nameCabinet: "",
+            contentNoti: "",
+            statusNoti: "",
+        };
+    }
+
+    componentDidMount() {
+        let noti = this.props.data;
+        if (noti && !_.isEmpty(noti)) {
+            this.setState({
+                id: noti.id,
+                nameNoti: noti.nameNoti,
+                nameCabinet: noti.nameCabinet,
+                contentNoti: noti.contentNoti,
+                statusNoti: 0,
+            });
+        }
     };
-  }
 
-  async componentDidMount() {
-    await this.getNotisFromReact();
-  }
+    handleReadNoti = () => {
+        this.props.readNoti(this.state);
+    };
 
-  getNotisFromReact = async () => {
-    let response = await getAllNotis("ALL");
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrNotis: response.notis,
-      });
+    render() {
+        let arrNotis = this.props.data;
+        return (
+            <div className="container-button">
+                {(() => {
+                    switch (arrNotis.statusNoti) {
+                        case 0:
+                            return (
+                                <button type="button" className="btn-read-noti">
+                                    {arrNotis.contentNoti}
+                                </button>
+                            );
+                        case 1:
+                            return (
+                                <button type="button" className="btn-unread-noti" onClick={() => { this.handleReadNoti() }} >
+                                    {arrNotis.contentNoti}
+                                </button>
+                            );
+                        default:
+                    }
+                })()}
+            </div>
+        );
     }
-  };
 
-  doEditNoti = async (noti) => {
-    try {
-      let res = await editNotiService(noti);
-      if (res && res.errCode === 0) {
-        await this.getNotisFromReact();
-      } else {
-        alert(res.errCode);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  render() {
-    let arrNotis = this.state.arrNotis;
-    return (
-      <div className="container-card">
-        <div className="card">
-          <h5 className="card-header">
-            <i className="fas fa-bell">&nbsp; <FormattedMessage id="title.alerts" /></i>
-          </h5>
-          {arrNotis && arrNotis
-            .map((item, index) => {
-              return (
-                <div className="card-body" key={index}>
-                  <CardNoti
-                    data={item}
-                    currentNoti={this.state.readNoti}
-                    readNoti={this.doEditNoti} />
-                </div>
-              )
-            })}
-
-        </div>
-      </div>
-    );
-  }
 };
 
 export default CardNotification;

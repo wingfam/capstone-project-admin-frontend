@@ -36,6 +36,10 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
+    let arrNoti = this.props.currentNoti;
+
+    console.log("Check Noti: ", arrNoti);
+
     let arrNotis = this.state.arrNotis;
     const sum = arrNotis.map(obj => obj.statusNoti)
       .reduce((accumulator, current) => accumulator + current, 0);
@@ -84,10 +88,47 @@ class Header extends Component {
             <div className="btn btn-bell">
               <Link to="/system/notification">
                 <i className="fas fa-bell" >
-                  {/* {arrNotis && arrNotis.reduce((item, index) => { */}
-                  <span className="top-1 start-100 btn-unread">{sum}
-                  </span>
-                  {/* })} */}
+                  {arrNoti === undefined ?
+                    (() => {
+                      switch (sum) {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                          return <span className="top-1 start-100 btn-unread">{sum}
+                          </span>;
+                        case 0:
+                          break;
+                        default:
+                          return <span className="top-1 start-100 btn-unread">9+
+                          </span>;
+                      }
+                    })() : (() => {
+                      switch (arrNoti) {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 9:
+                          return <span className="top-1 start-100 btn-unread">{arrNoti}
+                          </span>;
+                        case 0:
+                          break;
+                        default:
+                          return <span className="top-1 start-100 btn-unread">9+
+                          </span>;
+                      }
+                    })()
+                  }
                 </i>
               </Link>
             </div>
