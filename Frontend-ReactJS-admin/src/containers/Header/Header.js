@@ -7,6 +7,7 @@ import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import { getAllNotis } from "../../services/notiService";
+import { injectIntl } from "react-intl";
 
 class Header extends Component {
   constructor(props) {
@@ -38,12 +39,11 @@ class Header extends Component {
     let language = this.props.language;
     let arrNoti = this.props.currentNoti;
 
-    console.log("Check Noti: ", arrNoti);
-
     let arrNotis = this.state.arrNotis;
     const sum = arrNotis.map(obj => obj.statusNoti)
       .reduce((accumulator, current) => accumulator + current, 0);
-    console.log("Check sum: ", sum)
+
+    const { intl } = this.props;
     return (
       <div className="header-container">
         <div className="header-content">
@@ -58,7 +58,6 @@ class Header extends Component {
             </span>
           </div>
           <div className="header-right-content">
-            <SearchBox />
             <div className="btn-right-content">
               <div className="language-content">
                 <div
@@ -87,7 +86,7 @@ class Header extends Component {
             </div>
             <div className="btn btn-bell">
               <Link to="/system/notification">
-                <i className="fas fa-bell" >
+                <i className="fas fa-bell" title={intl.formatMessage({ id: "common.bell" })}>
                   {arrNoti === undefined ?
                     (() => {
                       switch (sum) {
@@ -132,7 +131,7 @@ class Header extends Component {
                 </i>
               </Link>
             </div>
-            <div className="btn btn-logout" onClick={this.props.processLogout}>
+            <div className="btn btn-logout" onClick={this.props.processLogout} title={intl.formatMessage({ id: "common.logout" })} >
               <i className="fas fa-sign-out-alt"></i>
             </div>
           </div>
@@ -158,4 +157,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Header));

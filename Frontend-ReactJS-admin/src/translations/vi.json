@@ -24,7 +24,7 @@
     "action": "Thao tác",
     "name-cabinet": "Tên tủ",
     "status-cabinet": "Trạng thái tủ",
-    "status-user": "Trạng thái người dùng",
+    "status-user": "Trạng thái",
     "code-order": "Mã đặt tủ",
     "code-cabinet": "Mã mở tủ",
     "booking-date": "Ngày đặt",
@@ -59,14 +59,19 @@
     "accept": "Chấp nhận",
     "confirm": "Xác nhận",
     "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-    "search": "Tìm kiếm..."
+    "search": "Tìm kiếm...",
+    "logout": "Đăng xuất",
+    "bell": "Thông báo"
   },
 
   "login": {
     "login": "Đăng nhập",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
-    "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+    "username-wrong": "Sai tên đăng nhập!",
+    "password-wrong": "Sai mật khẩu!",
+    "username-input": "Nhập tên người dùng của bạn",
+    "password-input": "Nhập mật khẩu của bạn"
   },
 
   "toast": {
@@ -81,7 +86,9 @@
     "delete-cabinet-success": "Xóa tủ thành công!",
     "delete-cabinet-error": "Xóa tủ không thành công!",
     "edit-cabinet-success": "Chỉnh sửa tủ thành công!",
-    "edit-cabinet-error": "Chỉnh sửa tủ không thành công!"
+    "edit-cabinet-error": "Chỉnh sửa tủ không thành công!",
+    "login-success": "Đăng nhập thành công",
+    "login-error": "Đăng nhập thất bại"
   },
 
   "warning": {

@@ -58,14 +58,19 @@
     "accept": "Accept",
     "confirm": "Confirm",
     "confirm-this-task": "Are you sure to process this task?",
-    "search": "Search..."
+    "search": "Search...",
+    "logout": "Logout",
+    "bell": "Notifications"
   },
 
   "login": {
     "login": "Login",
     "username": "Username",
     "password": "Password",
-    "userpass-wrong": "Invalid username or password!"
+    "username-wrong": "Wrong username!",
+    "password-wrong": "Wrong password!",
+    "username-input": "Enter your username",
+    "password-input": "Enter your password"
   },
 
   "toast": {
@@ -80,7 +85,9 @@
     "delete-cabinet-success": "Delete cabinet succeeds!",
     "delete-cabinet-error": "Delete cabinet not succeeds!",
     "edit-cabinet-success": "Edit cabinet succeeds!",
-    "edit-cabinet-error": "Edit cabinet not succeeds!"
+    "edit-cabinet-error": "Edit cabinet not succeeds!",
+    "login-success": "Login succeeds",
+    "login-error": "Login fail"
   },
 
   "warning": {
@@ -88,18 +95,18 @@
     "warning-unban": "Do you want to unblock this customer?"
   },
 
-  "card-info":{
-    "total-booking":"Total Bookings",
-    "total-user":"Total Customers",
-    "total-locker":"Total Lockers",
-    "total-notification":"Total Notifications"
+  "card-info": {
+    "total-booking": "Total Bookings",
+    "total-user": "Total Customers",
+    "total-locker": "Total Lockers",
+    "total-notification": "Total Notifications"
   },
-  
-  "chart":{
-    "line-chart":"Line Chart",
-    "bar-chart":"Bar Chart",
-    "week-chart":"Daily Orders",
-    "month-chart":"Monthly Orders",
-    "orders":"Orders"
+
+  "chart": {
+    "line-chart": "Line Chart",
+    "bar-chart": "Bar Chart",
+    "week-chart": "Daily Orders",
+    "month-chart": "Monthly Orders",
+    "orders": "Orders"
   }
 }

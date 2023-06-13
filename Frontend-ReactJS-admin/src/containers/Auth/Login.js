@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import { handleLoginApi } from "../../services/userService";
+import { toast } from "react-toastify";
 
 class Login extends Component {
   constructor(props) {
@@ -21,6 +22,16 @@ class Login extends Component {
     const { navigate } = this.props;
     const redirectPath = "/system/dashboard";
     navigate(`${redirectPath}`);
+    toast.success(<FormattedMessage id="toast.login-success" />, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   handleOnChangeUserName = (event) => {
@@ -38,17 +49,18 @@ class Login extends Component {
   handleLogin = async () => {
     this.setState({
       errMessage: "",
+      errCode: "",
     });
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
       if (data && data.errCode !== 0) {
         this.setState({
           errMessage: data.message,
+          errCode: data.errCode,
         });
       }
       if (data && data.errCode === 0) {
         this.props.userLoginSuccess(data.user);
-        console.log("Login succeeds!");
         this.redirectToSystemPage();
       }
     } catch (error) {
@@ -57,9 +69,18 @@ class Login extends Component {
           this.setState({
             errMessage: error.response.data.message,
           });
+          toast.error(<FormattedMessage id="toast.unban-user-error" />, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       }
-      console.log("Minh Leo: ", error.response);
     }
   };
 
@@ -75,6 +96,7 @@ class Login extends Component {
     }
   };
   render() {
+    const { intl } = this.props;
     return (
       <div className="login-background">
         <div className="login-container">
@@ -85,7 +107,7 @@ class Login extends Component {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter your username"
+                placeholder={intl.formatMessage({ id: "login.username-input" })}
                 value={this.state.username}
                 onChange={(event) => this.handleOnChangeUserName(event)}
               />
@@ -96,7 +118,7 @@ class Login extends Component {
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
                   className="form-control"
-                  placeholder="Enter your password"
+                  placeholder={intl.formatMessage({ id: "login.password-input" })}
                   value={this.state.password}
                   onChange={(event) => this.handleOnChangePassword(event)}
                   onKeyDown={this.handleEnter}
@@ -117,7 +139,16 @@ class Login extends Component {
               </div>
             </div>
             <div className="col-12" style={{ color: "red" }}>
-              {this.state.errMessage}
+              {(() => {
+                switch (this.state.errCode) {
+                  case 1:
+                    return (<FormattedMessage id="login.username-wrong" />
+                    );
+                  case 3:
+                    return <FormattedMessage id="login.password-wrong" />;
+                  default:
+                }
+              })()}
             </div>
             <div className="col-12">
               <button
@@ -150,4 +181,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Login));

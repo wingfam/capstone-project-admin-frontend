@@ -21,27 +21,28 @@
     .header-left-content {
       margin: 15px 0 0 10px;
       display: flex;
-      width: 30%;
+      width: 32%;
 
       i {
         align-items: center;
         color: gray;
-        font-size: 20px;
+        font-size: $base-size + 7px;
       }
     }
 
     .header-center-content {
-      width: 50%;
+      width: 58%;
       display: flex;
       margin-left: 10px;
     }
 
     .header-right-content {
       display: flex;
+      font-size: 20px;
       .language-content {
-        margin-top: 5px;
         width: 20px;
         margin-left: 10px;
+        margin-right: 10px;
 
         .language-vi {
           cursor: pointer;
@@ -85,7 +86,7 @@
           margin-top: 50%;
           margin-left: 85%;
           align-items: center;
-          font-size: $base-size + 4px;
+          font-size: $base-size + 7px;
         }
       }
 
@@ -99,7 +100,7 @@
         i {
           margin: 50%;
           align-items: center;
-          font-size: $base-size + 5px;
+          font-size: $base-size + 7px;
           color: $colormain;
 
           .btn-unread {
