@@ -12,6 +12,7 @@ import {
   editCabinetService,
   getAllCabinets,
 } from "../../services/cabinetService";
+import Paging from "../Paging";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -20,6 +21,10 @@ class TableCabinet extends Component {
       arrCabinets: [],
       isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
+      currentProducts: [],
+      currentPage: null,
+      totalPages: null,
+      totalItems: 0,
     };
   }
 
@@ -167,6 +172,27 @@ class TableCabinet extends Component {
     }
   };
 
+  UNSAFE_componentWillMount() {
+    const totalItems = this.getProducts().length;
+    this.setState({ totalItems });
+  }
+
+  onPageChanged = (page) => {
+    let arrCabinets = this.getProducts();
+    const { currentPage, totalPages, pageLimit } = page;
+    const offset = (currentPage - 1) * pageLimit;
+    const currentProducts = arrCabinets.slice(offset, offset + pageLimit);
+    this.setState({ currentPage, currentProducts, totalPages });
+  };
+
+  getProducts = () => {
+    let arrCabinets = this.state.arrCabinets;
+    arrCabinets = arrCabinets.concat(arrCabinets);
+    arrCabinets = arrCabinets.concat(arrCabinets);
+    arrCabinets = arrCabinets.concat(arrCabinets);
+    return arrCabinets;
+  };
+
   render() {
     let arrCabinets = this.state.arrCabinets;
     const { intl } = this.props;
@@ -186,82 +212,97 @@ class TableCabinet extends Component {
           />
         )}
 
-        <div className="mx-1">
-          <button
-            className="btn px-3"
-            style={{
-              background: "#21a5ff",
-              color: "#FEFFFF",
-              fontSize: "16px",
-            }}
-            onClick={() => this.handleAddNewCabinets()}
-          >
-            <i className="fas fa-plus"></i> &nbsp;
-            <FormattedMessage id={"table.add-cabinet"} />
-          </button>
+        <div className="card">
+          <div className="card-body">
+
+            <button
+              className="btn-add-cabinet"
+              style={{
+                background: "#21a5ff",
+                color: "#FEFFFF",
+                fontSize: "16px",
+              }}
+              onClick={() => this.handleAddNewCabinets()}
+            >
+              <i className="fas fa-plus"></i> &nbsp;
+              <FormattedMessage id={"table.add-cabinet"} />
+            </button>
+
+
+            <div className="cabinets-table mt-3 mx-1">
+              <table className="cabinets">
+                <tbody>
+                  <tr>
+                    <th className="col-2">
+                      <FormattedMessage id="table.name-cabinet" />
+                    </th>
+                    <th className="col-2">
+                      <FormattedMessage id="table.create-cabinet-date" />
+                    </th>
+                    <th className="col-2">
+                      <FormattedMessage id="table.status-cabinet" />
+                    </th>
+                    <th className="col-2">
+                      <FormattedMessage id="table.action" />
+                    </th>
+                  </tr>
+                  {arrCabinets &&
+                    arrCabinets.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <Link to="/system/history">{item.nameCabinet}</Link>
+                          </td>
+                          <td>{item.createdAt}</td>
+                          <td className="text-center">
+                            {(() => {
+                              switch (item.statusCabinet) {
+                                case 0:
+                                  return <FormattedMessage id="table.disable" />;
+                                case 1:
+                                  return <FormattedMessage id="table.enable" />;
+                                default:
+                              }
+                            })()}
+                          </td>
+                          <td>
+                            <button
+                              className="btn-edit"
+                              onClick={() => {
+                                this.handleEditCabinet(item);
+                              }}
+                              title={intl.formatMessage({ id: "common.edit" })}
+                            >
+                              <i className="fas fa-pencil-alt"></i>
+                            </button>
+                            <button
+                              className="btn-delete"
+                              onClick={() => {
+                                this.handleDeleteCabinet(item);
+                              }}
+                              title={intl.formatMessage({ id: "common.delete" })}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+              <Paging
+                totalRecords={this.state.totalItems}
+                pageLimit={9}
+                pageNeighbours={3}
+                onPageChanged={this.onPageChanged}
+                sizing=""
+                alignment="justify-content-center"
+              />
+            </div>
+
+          </div>
         </div>
-        <div className="cabinets-table mt-3 mx-1">
-          <table className="cabinets">
-            <tbody>
-              <tr>
-                <th className="col-2">
-                  <FormattedMessage id="table.name-cabinet" />
-                </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.create-cabinet-date" />
-                </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.status-cabinet" />
-                </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.action" />
-                </th>
-              </tr>
-              {arrCabinets &&
-                arrCabinets.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <Link to="/system/history">{item.nameCabinet}</Link>
-                      </td>
-                      <td>{item.createdAt}</td>
-                      <td className="text-center">
-                        {(() => {
-                          switch (item.statusCabinet) {
-                            case 0:
-                              return <FormattedMessage id="table.disable" />;
-                            case 1:
-                              return <FormattedMessage id="table.enable" />;
-                            default:
-                          }
-                        })()}
-                      </td>
-                      <td>
-                        <button
-                          className="btn-edit"
-                          onClick={() => {
-                            this.handleEditCabinet(item);
-                          }}
-                          title={intl.formatMessage({ id: "common.edit" })}
-                        >
-                          <i className="fas fa-pencil-alt"></i>
-                        </button>
-                        <button
-                          className="btn-delete"
-                          onClick={() => {
-                            this.handleDeleteCabinet(item);
-                          }}
-                          title={intl.formatMessage({ id: "common.delete" })}
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
+
       </div>
     );
   }

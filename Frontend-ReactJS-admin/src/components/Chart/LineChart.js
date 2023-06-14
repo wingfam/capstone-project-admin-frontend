@@ -50,8 +50,27 @@ function LineChart() {
                     title: {
                       display: true,
                       text: intl.formatMessage({ id: "chart.week-chart" }),
+                      font: {
+                        size: 17
+                      }
                     },
                   },
+                  scales: {
+                    y: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        }
+                      }
+                    }
+                  }
                 }}
               />
             </div>

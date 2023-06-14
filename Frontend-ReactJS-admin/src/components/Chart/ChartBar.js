@@ -47,11 +47,30 @@ function ChartBar() {
                     title: {
                       display: true,
                       text: intl.formatMessage({ id: "chart.month-chart" }),
+                      font: {
+                        size: 17
+                      }
                     },
                     legend: {
                       display: false,
                     },
                   },
+                  scales: {
+                    y: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        }
+                      }
+                    }
+                  }
                 }}
               />
             </div>

@@ -19,7 +19,7 @@ class ModalCabinet extends Component {
     emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
       this.setState({
         nameCabinet: "",
-        statusCabinet: "",
+        statusCabinet: 1,
       });
     });
   };
@@ -105,8 +105,7 @@ class ModalCabinet extends Component {
         </ModalBody>
         <ModalFooter>
           <Button
-            color="primary"
-            className="px-3"
+            className="px-3 btn-add"
             onClick={() => {
               this.handleAddNewCabinet(0);
             }}
