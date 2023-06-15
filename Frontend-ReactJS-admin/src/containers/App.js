@@ -72,7 +72,7 @@ class App extends Component {
             // className="toast-container"
             // toastClassName="toast-item"
             // bodyClassName="toast-item-body"
-            // autoClose={5000}
+            // autoClose={3000}
             // hideProgressBar={false}
             // pauseOnHover={true}
             // pauseOnFocusLoss={true}

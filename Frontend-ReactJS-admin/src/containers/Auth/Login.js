@@ -24,7 +24,7 @@ class Login extends Component {
     navigate(`${redirectPath}`);
     toast.success(<FormattedMessage id="toast.login-success" />, {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -71,7 +71,7 @@ class Login extends Component {
           });
           toast.error(<FormattedMessage id="toast.unban-user-error" />, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -101,9 +101,13 @@ class Login extends Component {
       <div className="login-background">
         <div className="login-container">
           <div className="login-content row">
-            <div className="col-12 text-login"><FormattedMessage id="login.login" /></div>
+            <div className="col-12 text-login">
+              <FormattedMessage id="login.login" />
+            </div>
             <div className="col-12 form-group login-input">
-              <label><FormattedMessage id="login.username" />:</label>
+              <label>
+                <FormattedMessage id="login.username" />:
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -113,12 +117,16 @@ class Login extends Component {
               />
             </div>
             <div className="col-12 form-group login-input">
-              <label><FormattedMessage id="login.password" />: </label>
+              <label>
+                <FormattedMessage id="login.password" />:{" "}
+              </label>
               <div className="custom-input-password">
                 <input
                   type={this.state.isShowPassword ? "text" : "password"}
                   className="form-control"
-                  placeholder={intl.formatMessage({ id: "login.password-input" })}
+                  placeholder={intl.formatMessage({
+                    id: "login.password-input",
+                  })}
                   value={this.state.password}
                   onChange={(event) => this.handleOnChangePassword(event)}
                   onKeyDown={this.handleEnter}
@@ -142,8 +150,7 @@ class Login extends Component {
               {(() => {
                 switch (this.state.errCode) {
                   case 1:
-                    return (<FormattedMessage id="login.username-wrong" />
-                    );
+                    return <FormattedMessage id="login.username-wrong" />;
                   case 3:
                     return <FormattedMessage id="login.password-wrong" />;
                   default:

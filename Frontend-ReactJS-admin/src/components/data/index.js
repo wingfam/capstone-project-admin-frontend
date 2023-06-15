@@ -94,4 +94,49 @@ export const data = {
       userGain: 250,
     },
   ],
+
+  products: [
+    {
+      id: 1,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 2,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 3,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 4,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 5,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 6,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+    {
+      id: 7,
+      nameCabinet: "cabinet1",
+      statusCabinet: 1,
+      createdAt: "2023-06-05 19:55:27",
+    },
+  ],
 };

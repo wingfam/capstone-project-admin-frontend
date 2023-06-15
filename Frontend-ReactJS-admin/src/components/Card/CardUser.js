@@ -67,7 +67,7 @@ class CardUser extends Component {
         alert("Missing parameter: " + arrInput[i]);
         toast.error(<FormattedMessage id="toast.edit-user-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -88,7 +88,7 @@ class CardUser extends Component {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.edit-user-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -99,7 +99,7 @@ class CardUser extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.edit-user-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -120,7 +120,7 @@ class CardUser extends Component {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.ban-user-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -131,7 +131,7 @@ class CardUser extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.ban-user-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

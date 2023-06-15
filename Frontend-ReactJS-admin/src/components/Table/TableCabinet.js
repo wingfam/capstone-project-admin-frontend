@@ -66,7 +66,7 @@ class TableCabinet extends Component {
         alert(response.errMessage);
         toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -81,7 +81,7 @@ class TableCabinet extends Component {
         });
         toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -106,7 +106,7 @@ class TableCabinet extends Component {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -118,7 +118,7 @@ class TableCabinet extends Component {
         alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -146,7 +146,7 @@ class TableCabinet extends Component {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -158,7 +158,7 @@ class TableCabinet extends Component {
         alert(res.errMessage);
         toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -172,29 +172,31 @@ class TableCabinet extends Component {
     }
   };
 
-  UNSAFE_componentWillMount() {
-    const totalItems = this.getProducts().length;
-    this.setState({ totalItems });
-  }
-
-  onPageChanged = (page) => {
-    let arrCabinets = this.getProducts();
-    const { currentPage, totalPages, pageLimit } = page;
-    const offset = (currentPage - 1) * pageLimit;
-    const currentProducts = arrCabinets.slice(offset, offset + pageLimit);
-    this.setState({ currentPage, currentProducts, totalPages });
-  };
-
   getProducts = () => {
+    this.componentDidMount();
     let arrCabinets = this.state.arrCabinets;
     arrCabinets = arrCabinets.concat(arrCabinets);
     arrCabinets = arrCabinets.concat(arrCabinets);
-    arrCabinets = arrCabinets.concat(arrCabinets);
+    console.log("Check cabinet: ", arrCabinets.length);
     return arrCabinets;
   };
 
+  totalItemsCabinet = () => {
+    const totalItems = this.getProducts().length;
+    this.setState({ totalItems });
+    console.log("Check totalItem: ", totalItems);
+  };
+
+  onPageChanged = (page) => {
+    let arrCabinet = this.getProducts();
+    this.totalItemsCabinet();
+    const { currentPage, totalPages, pageLimit } = page;
+    const offset = (currentPage - 1) * pageLimit;
+    const currentProducts = arrCabinet.slice(offset, offset + pageLimit);
+    this.setState({ currentPage, currentProducts, totalPages });
+  };
+
   render() {
-    let arrCabinets = this.state.arrCabinets;
     const { intl } = this.props;
     return (
       <div className="table-cabinet-container">
@@ -214,7 +216,6 @@ class TableCabinet extends Component {
 
         <div className="card">
           <div className="card-body">
-
             <button
               className="btn-add-cabinet"
               style={{
@@ -227,8 +228,7 @@ class TableCabinet extends Component {
               <i className="fas fa-plus"></i> &nbsp;
               <FormattedMessage id={"table.add-cabinet"} />
             </button>
-
-
+            {this.state.totalItems}
             <div className="cabinets-table mt-3 mx-1">
               <table className="cabinets">
                 <tbody>
@@ -246,8 +246,8 @@ class TableCabinet extends Component {
                       <FormattedMessage id="table.action" />
                     </th>
                   </tr>
-                  {arrCabinets &&
-                    arrCabinets.map((item, index) => {
+                  {this.state.currentProducts &&
+                    this.state.currentProducts.map((item, index) => {
                       return (
                         <tr key={index}>
                           <td>
@@ -258,7 +258,9 @@ class TableCabinet extends Component {
                             {(() => {
                               switch (item.statusCabinet) {
                                 case 0:
-                                  return <FormattedMessage id="table.disable" />;
+                                  return (
+                                    <FormattedMessage id="table.disable" />
+                                  );
                                 case 1:
                                   return <FormattedMessage id="table.enable" />;
                                 default:
@@ -280,7 +282,9 @@ class TableCabinet extends Component {
                               onClick={() => {
                                 this.handleDeleteCabinet(item);
                               }}
-                              title={intl.formatMessage({ id: "common.delete" })}
+                              title={intl.formatMessage({
+                                id: "common.delete",
+                              })}
                             >
                               <i className="fas fa-trash"></i>
                             </button>
@@ -292,17 +296,15 @@ class TableCabinet extends Component {
               </table>
               <Paging
                 totalRecords={this.state.totalItems}
-                pageLimit={9}
-                pageNeighbours={3}
+                pageLimit={5}
+                pageNeighbours={2}
                 onPageChanged={this.onPageChanged}
                 sizing=""
                 alignment="justify-content-center"
               />
             </div>
-
           </div>
         </div>
-
       </div>
     );
   }

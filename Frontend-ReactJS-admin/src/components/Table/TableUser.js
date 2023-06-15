@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
-import {
-  getAllUsers,
-  editUserService,
-} from "../../services/userService";
+import { getAllUsers, editUserService } from "../../services/userService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalBan from "../Modal/ModalBan";
@@ -60,7 +57,7 @@ class TableUser extends Component {
         await this.getAllUsersFromReact();
         toast.success(<FormattedMessage id="toast.ban-user-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -72,7 +69,7 @@ class TableUser extends Component {
         alert(res.errMessage);
         toast.error(<FormattedMessage id="toast.ban-user-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -96,7 +93,7 @@ class TableUser extends Component {
         await this.getAllUsersFromReact();
         toast.success(<FormattedMessage id="toast.unban-user-success" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -108,7 +105,7 @@ class TableUser extends Component {
         alert(res.errMessage);
         toast.error(<FormattedMessage id="toast.unban-user-error" />, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -159,7 +156,9 @@ class TableUser extends Component {
 
   render() {
     let arrUser = this.state.arrUsers;
-    const arrUsers = arrUser.sort((a, b) => a.statusUser > b.statusUser ? -1 : 1)
+    const arrUsers = arrUser.sort((a, b) =>
+      a.statusUser > b.statusUser ? -1 : 1
+    );
     const { intl } = this.props;
     return (
       <div className="table-customers-container">
@@ -169,14 +168,16 @@ class TableUser extends Component {
             toggleFromParent={this.toggleBanModal}
             currentUser={this.state.banUser}
             banUser={this.doBanUser}
-          />)}
+          />
+        )}
         {this.state.isOpenModalUnBan && (
           <ModalUnBan
             isOpen={this.state.isOpenModalUnBan}
             toggleFromParent={this.toggleUnBanModal}
             currentUser={this.state.unBanUser}
             unBanUser={this.doUnBanUser}
-          />)}
+          />
+        )}
         <div className="card">
           <div className="card-body">
             <div className="customers-table mt-3 mx-1 ">
@@ -202,65 +203,71 @@ class TableUser extends Component {
                       <FormattedMessage id="table.action" />
                     </th>
                   </tr>
-                  {arrUsers && arrUsers.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <Link
-                            to={{
-                              pathname: `/system/user-detail/${item.id}`,
-                            }}
-                          >
-                            {item.lastName} {item.firstName}
-                          </Link>
-                        </td>
-                        <td>{item.email}</td>
-                        <td className="text-center">{item.phonenumber}</td>
-                        <td>{item.address}</td>
-                        <td className="text-center">{(() => {
-                          switch (item.statusUser) {
-                            case 0:
-                              return (<FormattedMessage id="table.ban" />
-                              );
-                            case 1:
-                              return <FormattedMessage id="table.enable" />;
-                            default:
-                          }
-                        })()}</td>
-                        <td>
-                          {(() => {
-                            switch (item.statusUser) {
-                              case 0:
-                                return (
-                                  <button
-                                    className="btn-unlock"
-                                    onClick={() => {
-                                      this.handleUnBanUser(item);
-                                    }}
-                                    title={intl.formatMessage({ id: "common.unlock" })}
-                                  >
-                                    <i className="fas fa-user-check"></i>
-                                  </button>
-                                )
-                              case 1:
-                                return (
-                                  <button
-                                    className="btn-delete"
-                                    onClick={() => {
-                                      this.handleBanUser(item);
-                                    }}
-                                    title={intl.formatMessage({ id: "common.ban" })}
-                                  >
-                                    <i className="fas fa-user-lock"></i>
-                                  </button>
-                                )
-                              default:
-                            }
-                          })()}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {arrUsers &&
+                    arrUsers.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <Link
+                              to={{
+                                pathname: `/system/user-detail/${item.id}`,
+                              }}
+                            >
+                              {item.lastName} {item.firstName}
+                            </Link>
+                          </td>
+                          <td>{item.email}</td>
+                          <td className="text-center">{item.phonenumber}</td>
+                          <td>{item.address}</td>
+                          <td className="text-center">
+                            {(() => {
+                              switch (item.statusUser) {
+                                case 0:
+                                  return <FormattedMessage id="table.ban" />;
+                                case 1:
+                                  return <FormattedMessage id="table.enable" />;
+                                default:
+                              }
+                            })()}
+                          </td>
+                          <td>
+                            {(() => {
+                              switch (item.statusUser) {
+                                case 0:
+                                  return (
+                                    <button
+                                      className="btn-unlock"
+                                      onClick={() => {
+                                        this.handleUnBanUser(item);
+                                      }}
+                                      title={intl.formatMessage({
+                                        id: "common.unlock",
+                                      })}
+                                    >
+                                      <i className="fas fa-user-check"></i>
+                                    </button>
+                                  );
+                                case 1:
+                                  return (
+                                    <button
+                                      className="btn-delete"
+                                      onClick={() => {
+                                        this.handleBanUser(item);
+                                      }}
+                                      title={intl.formatMessage({
+                                        id: "common.ban",
+                                      })}
+                                    >
+                                      <i className="fas fa-user-lock"></i>
+                                    </button>
+                                  );
+                                default:
+                              }
+                            })()}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -274,7 +281,6 @@ class TableUser extends Component {
             alignment="justify-content-center"
           />
         </div>
-
       </div>
     );
   }
