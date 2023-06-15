@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
 import { getAllUsers } from "../../services/userService";
+import Paging from "../Paging";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrUsers: [],
+      currentProducts: [],
+      currentPage: null,
+      totalPages: null,
+      totalItems: 0,
     };
   }
 
@@ -19,11 +24,37 @@ class TableOrder extends Component {
       });
     }
   }
+  getProducts = async () => {
+    await this.componentDidMount()
+    let arrUsers = this.state.arrUsers;
+    arrUsers = arrUsers.concat(arrUsers);
+    arrUsers = arrUsers.concat(arrUsers);
+    return arrUsers;
+  };
+
+  UNSAFE_componentWillMount() {
+    let totalItems = this.getProducts().toString().length;
+    this.setState({ totalItems });
+  }
+
+  onPageChanged = async (page) => {
+    let arrUser = await this.getProducts();
+    const { currentPage, totalPages, pageLimit } = page;
+    const offset = (currentPage - 1) * pageLimit;
+    const currentProducts = arrUser.slice(offset, offset + pageLimit);
+    this.setState({ currentPage, currentProducts, totalPages });
+  };
 
   render() {
-    let arrUsers = this.state.arrUsers;
     return (
       <div className="table-orders-container">
+        <Paging
+          totalRecords={this.state.totalItems}
+          pageLimit={5}
+          pageNeighbours={1}
+          onPageChanged={this.onPageChanged}
+          sizing=""
+        />
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <tbody>
@@ -50,8 +81,8 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.code-cabinet" />
                 </th>
               </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+              {this.state.currentProducts &&
+                this.state.currentProducts.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.firstName}</td>

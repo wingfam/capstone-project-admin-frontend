@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import "./Paging.scss";
 
 const LEFT_PAGE = "LEFT";
 const RIGHT_PAGE = "RIGHT";
@@ -129,55 +130,57 @@ class Paging extends Component {
         const pages = this.fetchPageNumbers();
 
         return (
-            <div aria-label="Page navigation">
-                <ul className={`pagination ${this.sizing} ${this.alignment}`}>
-                    {pages.map((page, index) => {
-                        if (page === LEFT_PAGE)
-                            return (
-                                <li key={index} className="page-item">
-                                    <button
-                                        className="page-link"
-                                        aria-label="Previous"
-                                        onClick={this.handleMoveLeft}
-                                    >
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span className="sr-only">Previous</span>
-                                    </button>
-                                </li>
-                            );
+            <nav aria-label="Page navigation" className="page-container">
+                <ul className={`pagination${this.sizing} ${this.alignment}`}>
+                    {
+                        pages.map((page, index) => {
+                            if (page === LEFT_PAGE)
+                                return (
+                                    <li key={index} className="page-item">
+                                        <button
+                                            className="page-link"
+                                            aria-label="Previous"
+                                            onClick={this.handleMoveLeft}
+                                        >
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span className="sr-only">Previous</span>
+                                        </button>
+                                    </li>
+                                );
 
-                        if (page === RIGHT_PAGE)
+                            if (page === RIGHT_PAGE)
+                                return (
+                                    <li key={index} className="page-item">
+                                        <a
+                                            className="page-link"
+                                            href="#!"
+                                            aria-label="Next"
+                                            onClick={this.handleMoveRight}
+                                        >
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span className="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                );
+
                             return (
-                                <li key={index} className="page-item">
+                                <li
+                                    key={index}
+                                    className={`page-item${currentPage === page ? " active" : ""}`}
+                                >
                                     <a
                                         className="page-link"
                                         href="#!"
-                                        aria-label="Next"
-                                        onClick={this.handleMoveRight}
+                                        onClick={(e) => this.handleClick(page, e)}
                                     >
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span className="sr-only">Next</span>
+                                        {page}
                                     </a>
                                 </li>
                             );
-
-                        return (
-                            <li
-                                key={index}
-                                className={`page-item${currentPage === page ? " active" : ""}`}
-                            >
-                                <a
-                                    className="page-link"
-                                    href="#!"
-                                    onClick={(e) => this.handleClick(page, e)}
-                                >
-                                    {page}
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+                        })
+                    }
+                </ul >
+            </nav>
         );
     }
 }
