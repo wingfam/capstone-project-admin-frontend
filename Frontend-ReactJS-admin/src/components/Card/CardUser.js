@@ -5,7 +5,7 @@ import { Component } from "react";
 import {
   banUserService,
   editUserService,
-  getAllUsers,
+  getAUsers,
 } from "../../services/userService";
 import { toast } from "react-toastify";
 
@@ -28,19 +28,17 @@ class CardUser extends Component {
   }
 
   getUsersFromReact = async () => {
-    let response = await getAllUsers(window.location.href.split("/")[5]);
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrUsers: response.users,
-        id: response.users.id,
-        email: response.users.email,
-        phonenumber: response.users.phonenumber,
-        firstName: response.users.firstName,
-        lastName: response.users.lastName,
-        address: response.users.address,
-        statusUser: response.users.statusUser,
-      });
-    }
+    let response = await getAUsers(window.location.href.split("/")[5]);
+    console.log("Check user: ", response);
+    console.log("Check ResidentId: ", response[0].ResidentId);
+    this.setState({
+      ResidentId: response[0].ResidentId,
+      Email: response[0].Email,
+      Phone: response[0].Phone,
+      Fullname: response[0].Fullname,
+      IsAvaiable: response[0].IsAvaiable,
+    });
+
   };
 
   handleOnChangeInput = (event, id) => {
@@ -54,12 +52,10 @@ class CardUser extends Component {
   checkValidateInput = () => {
     let isValid = true;
     let arrInput = [
-      "email",
-      "phonenumber",
-      "statusUser",
-      "firstName",
-      "lastName",
-      "address",
+      "Email",
+      "Phone",
+      "IsAvaiable",
+      "Fullname",
     ];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
@@ -172,35 +168,19 @@ class CardUser extends Component {
             </div>
             <div className="col-md-9 card-body">
               <div className="form-content">
-                <div className="form-name">
-                  <div className="col-6 me-5">
-                    <label>
-                      <FormattedMessage id="table.lastname" />
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control form-lastname"
-                      onChange={(event) => {
-                        this.handleOnChangeInput(event, "lastName");
-                      }}
-                      value={this.state.lastName}
-                      disabled
-                    />
-                  </div>
-                  <div className="col-5 ms-4">
-                    <label>
-                      <FormattedMessage id="table.firstname" />
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      onChange={(event) => {
-                        this.handleOnChangeInput(event, "firstName");
-                      }}
-                      value={this.state.firstName}
-                      disabled
-                    />
-                  </div>
+                <div>
+                  <label>
+                    <FormattedMessage id="table.name" />
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control form-lastname"
+                    onChange={(event) => {
+                      this.handleOnChangeInput(event, "Fullname");
+                    }}
+                    value={this.state.Fullname}
+                    disabled
+                  />
                 </div>
                 <div className="form-phone">
                   <div className="col-6 me-5">
@@ -213,7 +193,7 @@ class CardUser extends Component {
                       onChange={(event) => {
                         this.handleOnChangeInput(event, "phonenumber");
                       }}
-                      value={this.state.phonenumber}
+                      value={this.state.Phone}
                       disabled
                     />
                   </div>
@@ -225,14 +205,14 @@ class CardUser extends Component {
                       name="statusCabinet"
                       className="form-control"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "statusUser");
+                        this.handleOnChangeInput(event, "IsAvaiable");
                       }}
-                      value={this.state.statusUser}
+                      value={this.state.IsAvaiable}
                     >
-                      <option value="1">
+                      <option value="true">
                         {intl.formatMessage({ id: "table.enable" })}
                       </option>
-                      <option value="0">
+                      <option value="false">
                         {intl.formatMessage({ id: "table.ban" })}
                       </option>
                     </select>
@@ -246,27 +226,13 @@ class CardUser extends Component {
                     type="text"
                     className="form-control"
                     onChange={(event) => {
-                      this.handleOnChangeInput(event, "email");
+                      this.handleOnChangeInput(event, "Email");
                     }}
-                    value={this.state.email}
+                    value={this.state.Email}
                     disabled
                   />
                 </div>
-                <div>
-                  <label>
-                    <FormattedMessage id="table.address" />
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "address");
-                    }}
-                    value={this.state.address}
-                    disabled
-                  />
-                </div>
-                <span className="offset-md-9">
+                <span className="offset-md-9 span-btn">
                   <button
                     type="button"
                     className="btn-save"

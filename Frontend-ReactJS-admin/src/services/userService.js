@@ -1,11 +1,16 @@
 import axios from "../axios";
 
-const handleLoginApi = (userEmail, userPassword) => {
-  return axios.post("/api/login", { email: userEmail, password: userPassword });
+const handleLoginApi = (adminEmail, adminPassword) => {
+  return axios.post("/api/v1/admin/verify-login", { email: adminEmail, password: adminPassword });
+  // return axios.post("/api/login", { email: userEmail, password: userPassword });
 };
 
-const getAllUsers = (inputId) => {
-  return axios.get(`/api/get-all-users?id=${inputId}`);
+const getAllUsers = () => {
+  return axios.get("/api/v1/home/get-residents");
+};
+
+const getAUsers = (inputId) => {
+  return axios.get(`/api/v1/home/search-resident?residentId=${inputId}`);
 };
 
 const createNewUserService = (data) => {
@@ -32,4 +37,4 @@ const deleteUserService = (userId) => {
   });
 };
 
-export { handleLoginApi, getAllUsers, createNewUserService, editUserService, deleteUserService, banUserService, unBanUserService };
+export { handleLoginApi, getAllUsers, getAUsers, createNewUserService, editUserService, deleteUserService, banUserService, unBanUserService };

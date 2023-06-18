@@ -22,12 +22,12 @@ class TableUser extends Component {
   }
 
   getAllUsersFromReact = async () => {
-    let response = await getAllUsers("ALL");
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrUsers: response.users,
-      });
-    }
+    let response = await getAllUsers();
+    // if (response && response.errCode === 0) {
+    this.setState({
+      arrUsers: response,
+    });
+    // }
   };
 
   toggleBanModal = () => {
@@ -130,9 +130,10 @@ class TableUser extends Component {
 
   render() {
     let arrUser = this.state.arrUsers;
-    const arrUsers = arrUser.sort((a, b) =>
-      a.statusUser > b.statusUser ? -1 : 1
-    );
+    // const arrUsers = arrUser.sort((a, b) =>
+    //   a.IsAvaiable > b.IsAvaiable ? -1 : 1
+    // );
+
     const { intl } = this.props;
     return (
       <div className="table-customers-container">
@@ -165,9 +166,6 @@ class TableUser extends Component {
                 <th className="col-1">
                   <FormattedMessage id="table.phone" />
                 </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.address" />
-                </th>
                 <th className="col-1">
                   <FormattedMessage id="table.status-user" />
                 </th>
@@ -175,28 +173,27 @@ class TableUser extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+              {arrUser &&
+                arrUser.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <Link
                           to={{
-                            pathname: `/system/user-detail/${item.id}`,
+                            pathname: `/system/user-detail/${item.ResidentId}`,
                           }}
                         >
-                          {item.lastName} {item.firstName}
+                          {item.Fullname} {item.ResidentId}
                         </Link>
                       </td>
-                      <td>{item.email}</td>
-                      <td className="text-center">{item.phonenumber}</td>
-                      <td>{item.address}</td>
+                      <td>{item.Email}</td>
+                      <td className="text-center">{item.Phone}</td>
                       <td className="text-center">
                         {(() => {
-                          switch (item.statusUser) {
-                            case 0:
+                          switch (item.IsAvaiable) {
+                            case false:
                               return <FormattedMessage id="table.ban" />;
-                            case 1:
+                            case true:
                               return <FormattedMessage id="table.enable" />;
                             default:
                           }
@@ -204,8 +201,8 @@ class TableUser extends Component {
                       </td>
                       <td>
                         {(() => {
-                          switch (item.statusUser) {
-                            case 0:
+                          switch (item.IsAvaiable) {
+                            case false:
                               return (
                                 <button
                                   className="btn-unlock"
@@ -219,7 +216,7 @@ class TableUser extends Component {
                                   <i className="fas fa-user-check"></i>
                                 </button>
                               );
-                            case 1:
+                            case true:
                               return (
                                 <button
                                   className="btn-delete"

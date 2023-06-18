@@ -68,19 +68,7 @@ class App extends Component {
               </Switch>
             </span>
 
-            <ToastContainer
-            // className="toast-container"
-            // toastClassName="toast-item"
-            // bodyClassName="toast-item-body"
-            // autoClose={3000}
-            // hideProgressBar={false}
-            // pauseOnHover={true}
-            // pauseOnFocusLoss={true}
-            // closeOnClick={true}
-            // draggable={true}
-            // theme="light"
-            // closeButton={<CustomToastCloseButton />}
-            />
+            <ToastContainer />
           </div>
         </Router>
       </Fragment>

@@ -23,23 +23,42 @@
 
     .img-content {
       .img-fluid {
-        margin: 5px;
-        margin-top: 25px;
+        margin: 2px;
       }
     }
 
     .card-body {
       .form-content {
         border-radius: 7px;
-        margin-top: 5px;
+        margin-top: 15px;
         text-align: left;
-
-        .form-name {
-          display: flex;
-        }
 
         .form-phone {
           display: flex;
+        }
+
+        .span-btn {
+          .btn-save {
+            width: 12%;
+            height: 35px;
+            border-radius: 7px;
+            border: none;
+            background: $colormain;
+            color: white;
+            font-size: 20px;
+            margin-right: 5px;
+            margin-top: 20px;
+          }
+
+          .btn-trash {
+            width: 12%;
+            height: 35px;
+            border-radius: 7px;
+            border: none;
+            background: red;
+            color: white;
+            font-size: 20px;
+          }
         }
       }
 
@@ -58,31 +77,6 @@
 
       label {
         font-size: $base-size;
-      }
-
-      span {
-        .btn-save {
-          width: 12%;
-          height: 35px;
-          border-radius: 7px;
-          border: none;
-          background: $colormain;
-          color: white;
-          font-size: 20px;
-          margin-top: 10px;
-          margin-right: 5px;
-        }
-
-        .btn-trash {
-          width: 12%;
-          height: 35px;
-          border-radius: 7px;
-          border: none;
-          background: red;
-          color: white;
-          font-size: 20px;
-          margin-top: 10px;
-        }
       }
     }
   }

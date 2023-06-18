@@ -14,7 +14,7 @@ class Login extends Component {
       username: "",
       password: "",
       isShowPassword: false,
-      errMessage: "",
+      Message: "",
     };
   }
 
@@ -48,28 +48,35 @@ class Login extends Component {
 
   handleLogin = async () => {
     this.setState({
-      errMessage: "",
-      errCode: "",
+      Message: "",
+      LoginStatus: "",
     });
+    const account = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    console.log("Check account: ", account);
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
-      if (data && data.errCode !== 0) {
+      console.log("Check data: ", data);
+      if (data && data.LoginStatus !== 0) {
         this.setState({
-          errMessage: data.message,
-          errCode: data.errCode,
+          Message: data.Message,
+          LoginStatus: data.LoginStatus,
         });
       }
-      if (data && data.errCode === 0) {
-        this.props.userLoginSuccess(data.user);
+      if (data && data.LoginStatus === 0) {
+        this.props.userLoginSuccess(data.admin);
         this.redirectToSystemPage();
       }
     } catch (error) {
       if (error.response) {
         if (error.response.data) {
           this.setState({
-            errMessage: error.response.data.message,
+            Message: error.response.data.Message,
           });
-          toast.error(<FormattedMessage id="toast.unban-user-error" />, {
+          console.log("Check error: ", error.response.data);
+          toast.error(<FormattedMessage id="toast.login-error" />, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -114,6 +121,7 @@ class Login extends Component {
                 placeholder={intl.formatMessage({ id: "login.username-input" })}
                 value={this.state.username}
                 onChange={(event) => this.handleOnChangeUserName(event)}
+                onKeyDown={this.handleEnter}
               />
             </div>
             <div className="col-12 form-group login-input">
@@ -148,10 +156,10 @@ class Login extends Component {
             </div>
             <div className="col-12" style={{ color: "red" }}>
               {(() => {
-                switch (this.state.errCode) {
-                  case 1:
+                switch (this.state.LoginStatus) {
+                  case 2:
                     return <FormattedMessage id="login.username-wrong" />;
-                  case 3:
+                  case 1:
                     return <FormattedMessage id="login.password-wrong" />;
                   default:
                 }
