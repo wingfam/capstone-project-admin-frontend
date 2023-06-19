@@ -180,17 +180,17 @@ class TableUser extends Component {
                       <td>
                         <Link
                           to={{
-                            pathname: `/system/user-detail/${item.ResidentId}`,
+                            pathname: `/system/user-detail/${item.residentId}`,
                           }}
                         >
-                          {item.Fullname} {item.ResidentId}
+                          {item.fullname}
                         </Link>
                       </td>
-                      <td>{item.Email}</td>
-                      <td className="text-center">{item.Phone}</td>
+                      <td>{item.email}</td>
+                      <td className="text-center">{item.phone}</td>
                       <td className="text-center">
                         {(() => {
-                          switch (item.IsAvaiable) {
+                          switch (item.isAvaiable) {
                             case false:
                               return <FormattedMessage id="table.ban" />;
                             case true:
@@ -201,7 +201,7 @@ class TableUser extends Component {
                       </td>
                       <td>
                         {(() => {
-                          switch (item.IsAvaiable) {
+                          switch (item.isAvaiable) {
                             case false:
                               return (
                                 <button

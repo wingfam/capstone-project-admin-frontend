@@ -1,16 +1,16 @@
 import axios from "../axios";
 
 const handleLoginApi = (adminEmail, adminPassword) => {
-  return axios.post("/api/v1/admin/verify-login", { email: adminEmail, password: adminPassword });
+  return axios.post("/api/v1/admin/verify-login", { username: adminEmail, password: adminPassword });
   // return axios.post("/api/login", { email: userEmail, password: userPassword });
 };
 
 const getAllUsers = () => {
-  return axios.get("/api/v1/home/get-residents");
+  return axios.get("/api/v1/home/get-all");
 };
 
 const getAUsers = (inputId) => {
-  return axios.get(`/api/v1/home/search-resident?residentId=${inputId}`);
+  return axios.get(`/api/v1/home/search?residentId=${inputId}`);
 };
 
 const createNewUserService = (data) => {
@@ -22,19 +22,15 @@ const editUserService = (inputData) => {
 };
 
 const banUserService = (inputData) => {
-  return axios.put("/api/ban-user", inputData);
+  return axios.put("/api/v1/home/delete", inputData);
 };
 
 const unBanUserService = (inputData) => {
   return axios.put("/api/unban-user", inputData);
 };
 
-const deleteUserService = (userId) => {
-  return axios.delete("/api/delete-user", {
-    data: {
-      id: userId,
-    },
-  });
+const deleteUserService = (residentId) => {
+  return axios.delete(`/api/v1/home/delete?residentId=${residentId}`);
 };
 
 export { handleLoginApi, getAllUsers, getAUsers, createNewUserService, editUserService, deleteUserService, banUserService, unBanUserService };

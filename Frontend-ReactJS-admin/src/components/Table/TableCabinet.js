@@ -28,12 +28,12 @@ class TableCabinet extends Component {
   }
 
   getAllCabinetsFromReact = async () => {
-    let response = await getAllCabinets("ALL");
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrCabinets: response.cabinets,
-      });
-    }
+    let response = await getAllCabinets();
+    // if (response && response.errCode === 0) {
+    this.setState({
+      arrCabinets: response,
+    });
+    // }
   };
 
   handleAddNewCabinets = () => {
@@ -57,7 +57,7 @@ class TableCabinet extends Component {
   createNewCabinet = async (data) => {
     try {
       let response = await createNewCabinetService(data);
-      if (response && response.errCode !== 0) {
+      if (response && response.errCode === 0) {
         alert(response.errMessage);
         toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
           position: "top-right",
@@ -94,7 +94,7 @@ class TableCabinet extends Component {
   doEditCabinet = async (cabinet) => {
     try {
       let res = await editCabinetService(cabinet);
-      if (res && res.errCode === 0) {
+      if (res && res.errCode === 1) {
         this.setState({
           isOpenModalEditCabinet: false,
         });
@@ -136,8 +136,9 @@ class TableCabinet extends Component {
 
   handleDeleteCabinet = async (cabinet) => {
     try {
-      let res = await deleteCabinetService(cabinet.id);
-      if (res && res.errCode === 0) {
+      let res = await deleteCabinetService(cabinet.lockerId);
+      console.log("Check res: ", res)
+      if (res && res === 1) {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
           position: "top-right",
@@ -168,7 +169,10 @@ class TableCabinet extends Component {
   };
 
   render() {
-    const arrCabinets = this.state.arrCabinets
+    const arrCabinet = this.state.arrCabinets;
+    const arrCabinets = arrCabinet.sort((a, b) =>
+      a.lockerStatus > b.lockerStatus ? -1 : 1
+    );
     const { intl } = this.props;
     return (
       <div className="table-cabinet-container">
@@ -219,17 +223,17 @@ class TableCabinet extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/history">{item.nameCabinet}</Link>
+                        <Link to="/system/history">{item.lockerName}</Link>
                       </td>
-                      <td>{item.createdAt}</td>
+                      <td>{item.validDate}</td>
                       <td className="text-center">
                         {(() => {
-                          switch (item.statusCabinet) {
-                            case 0:
+                          switch (item.lockerStatus) {
+                            case false:
                               return (
                                 <FormattedMessage id="table.disable" />
                               );
-                            case 1:
+                            case true:
                               return <FormattedMessage id="table.enable" />;
                             default:
                           }

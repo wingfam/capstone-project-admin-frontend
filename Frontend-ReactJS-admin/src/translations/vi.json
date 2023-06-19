@@ -71,7 +71,8 @@
     "username-wrong": "Sai tên đăng nhập!",
     "password-wrong": "Sai mật khẩu!",
     "username-input": "Nhập tên người dùng của bạn",
-    "password-input": "Nhập mật khẩu của bạn"
+    "password-input": "Nhập mật khẩu của bạn",
+    "no-data": "Không tìm thấy người dùng"
   },
 
   "toast": {

@@ -4,6 +4,7 @@ import "./CardUser.scss";
 import { Component } from "react";
 import {
   banUserService,
+  deleteUserService,
   editUserService,
   getAUsers,
 } from "../../services/userService";
@@ -14,11 +15,9 @@ class CardUser extends Component {
     super(props);
     this.state = {
       email: "",
-      phonenumber: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      statusUser: "",
+      phone: "",
+      fullname: "",
+      IsAvaiable: "",
       arrUsers: [],
     };
   }
@@ -29,14 +28,12 @@ class CardUser extends Component {
 
   getUsersFromReact = async () => {
     let response = await getAUsers(window.location.href.split("/")[5]);
-    console.log("Check user: ", response);
-    console.log("Check ResidentId: ", response[0].ResidentId);
     this.setState({
-      ResidentId: response[0].ResidentId,
-      Email: response[0].Email,
-      Phone: response[0].Phone,
-      Fullname: response[0].Fullname,
-      IsAvaiable: response[0].IsAvaiable,
+      residentId: response.residentId,
+      email: response.email,
+      phone: response.phone,
+      fullname: response.fullname,
+      isAvaiable: response.isAvaiable,
     });
 
   };
@@ -52,10 +49,10 @@ class CardUser extends Component {
   checkValidateInput = () => {
     let isValid = true;
     let arrInput = [
-      "Email",
-      "Phone",
-      "IsAvaiable",
-      "Fullname",
+      "email",
+      "phone",
+      "isAvaiable",
+      "fullname",
     ];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
@@ -111,31 +108,31 @@ class CardUser extends Component {
 
   doBanUser = async (user) => {
     try {
-      let res = await banUserService(user);
-      if (res && res.errCode === 0) {
-        await this.getUsersFromReact();
-        toast.success(<FormattedMessage id="toast.ban-user-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(<FormattedMessage id="toast.ban-user-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      await deleteUserService(window.location.href.split("/")[5]);
+      // if (res && res.errCode === 0) {
+      await this.getUsersFromReact();
+      toast.success(<FormattedMessage id="toast.ban-user-success" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      // } else {
+      //   toast.error(<FormattedMessage id="toast.ban-user-error" />, {
+      //     position: "top-right",
+      //     autoClose: 3000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "light",
+      //   });
+      // }
     } catch (e) {
       console.log(e);
     }
@@ -176,9 +173,9 @@ class CardUser extends Component {
                     type="text"
                     className="form-control form-lastname"
                     onChange={(event) => {
-                      this.handleOnChangeInput(event, "Fullname");
+                      this.handleOnChangeInput(event, "fullname");
                     }}
-                    value={this.state.Fullname}
+                    value={this.state.fullname}
                     disabled
                   />
                 </div>
@@ -191,9 +188,9 @@ class CardUser extends Component {
                       type="text"
                       className="form-control"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "phonenumber");
+                        this.handleOnChangeInput(event, "phone");
                       }}
-                      value={this.state.Phone}
+                      value={this.state.phone}
                       disabled
                     />
                   </div>
@@ -205,9 +202,9 @@ class CardUser extends Component {
                       name="statusCabinet"
                       className="form-control"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "IsAvaiable");
+                        this.handleOnChangeInput(event, "isAvaiable");
                       }}
-                      value={this.state.IsAvaiable}
+                      value={this.state.isAvaiable}
                     >
                       <option value="true">
                         {intl.formatMessage({ id: "table.enable" })}
@@ -226,9 +223,9 @@ class CardUser extends Component {
                     type="text"
                     className="form-control"
                     onChange={(event) => {
-                      this.handleOnChangeInput(event, "Email");
+                      this.handleOnChangeInput(event, "e mail");
                     }}
-                    value={this.state.Email}
+                    value={this.state.email}
                     disabled
                   />
                 </div>

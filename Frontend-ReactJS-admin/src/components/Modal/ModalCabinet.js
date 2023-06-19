@@ -8,9 +8,8 @@ class ModalCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameCabinet: "",
-      statusCabinet: "1",
-      arrUsers: [],
+      lockerName: "",
+      lockerStatus: true,
     };
     this.listenToEmitter();
   }
@@ -18,8 +17,8 @@ class ModalCabinet extends Component {
   listenToEmitter = () => {
     emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
       this.setState({
-        nameCabinet: "",
-        statusCabinet: 1,
+        lockerName: "",
+        lockerStatus: true,
       });
     });
   };
@@ -39,7 +38,7 @@ class ModalCabinet extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["nameCabinet"];
+    let arrInput = ["lockerName"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -85,9 +84,9 @@ class ModalCabinet extends Component {
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "nameCabinet");
+                  this.handleOnChangeInput(event, "lockerName");
                 }}
-                value={this.state.nameCabinet}
+                value={this.state.lockerName}
               />
             </div>
             <div className="input-container">

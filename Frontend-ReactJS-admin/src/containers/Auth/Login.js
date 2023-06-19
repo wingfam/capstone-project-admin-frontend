@@ -157,10 +157,12 @@ class Login extends Component {
             <div className="col-12" style={{ color: "red" }}>
               {(() => {
                 switch (this.state.LoginStatus) {
-                  case 2:
-                    return <FormattedMessage id="login.username-wrong" />;
                   case 1:
                     return <FormattedMessage id="login.password-wrong" />;
+                  case 2:
+                    return <FormattedMessage id="login.username-wrong" />;
+                  case 3:
+                    return <FormattedMessage id="login.no-data" />;
                   default:
                 }
               })()}

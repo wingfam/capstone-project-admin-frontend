@@ -8,19 +8,27 @@ class ModalEditCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameCabinet: "",
-      statusCabinet: "",
+      lockerId: "",
+      locker_id: "",
+      locker_name: "",
+      locker_status: "",
+      unlock_code: ""
     };
   }
 
   componentDidMount() {
     let cabinet = this.props.currentCabinet;
+    console.log("Check locker: ", cabinet);
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        id: cabinet.id,
-        nameCabinet: cabinet.nameCabinet,
-        statusCabinet: cabinet.statusCabinet,
+        locker_id: cabinet.lockerId,
+        lockerId: cabinet.lockerId,
+        locker_name: cabinet.lockerName,
+        locker_status: cabinet.lockerStatus,
+        unlock_code: "123456",
       });
+      console.log("Check locker_id: ", cabinet.lockerId);
+      console.log("Check locker_name: ", this.state.lockerId);
     }
   }
 
@@ -38,7 +46,7 @@ class ModalEditCabinet extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["nameCabinet", "statusCabinet"];
+    let arrInput = ["locker_name", "locker_status"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -84,19 +92,19 @@ class ModalEditCabinet extends Component {
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "nameCabinet");
+                  this.handleOnChangeInput(event, "locker_name");
                 }}
-                value={this.state.nameCabinet}
+                value={this.state.locker_name}
               />
             </div>
             <div className="input-container">
               <div className="form-group col-5">
                 <label><FormattedMessage id="table.status-cabinet" /></label>
                 <select name="statusCabinet" className="form-control" onChange={(event) => {
-                  this.handleOnChangeInput(event, "statusCabinet");
-                }} value={this.state.statusCabinet}>
-                  <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
-                  <option value="0">{intl.formatMessage({ id: "table.disable" })}</option>
+                  this.handleOnChangeInput(event, "locker_status");
+                }} value={this.state.locker_status}>
+                  <option value="true">{intl.formatMessage({ id: "table.enable" })}</option>
+                  <option value="false">{intl.formatMessage({ id: "table.disable" })}</option>
                 </select>
               </div>
             </div>

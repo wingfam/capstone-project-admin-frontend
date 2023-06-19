@@ -70,7 +70,8 @@
     "username-wrong": "Wrong username!",
     "password-wrong": "Wrong password!",
     "username-input": "Enter your username",
-    "password-input": "Enter your password"
+    "password-input": "Enter your password",
+    "no-data": "Not found customer"
   },
 
   "toast": {
