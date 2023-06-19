@@ -3,34 +3,51 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
+import { getAUsers } from "../../services/userService";
+import { getACabinets } from "../../services/cabinetService";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       lockerId: "",
-      locker_id: "",
-      locker_name: "",
-      locker_status: "",
-      unlock_code: ""
+      lockerName: "",
+      lockerStatus: "",
+      unlockCode: "",
     };
   }
 
-  componentDidMount() {
-    let cabinet = this.props.currentCabinet;
-    console.log("Check locker: ", cabinet);
-    if (cabinet && !_.isEmpty(cabinet)) {
-      this.setState({
-        locker_id: cabinet.lockerId,
-        lockerId: cabinet.lockerId,
-        locker_name: cabinet.lockerName,
-        locker_status: cabinet.lockerStatus,
-        unlock_code: "123456",
-      });
-      console.log("Check locker_id: ", cabinet.lockerId);
-      console.log("Check locker_name: ", this.state.lockerId);
-    }
+  // componentWillMount() {
+  //   let locker = this.props.currentCabinet;
+  //   if (locker && !_.isEmpty(locker)) {
+  //     console.log("Check acbinet: ", locker);
+  //     this.setState({
+  //       locker_id: locker.lockerId,
+  //       locker_name: locker.lockerName,
+  //       locker_status: locker.lockerStatus,
+  //       unlock_code: "123456",
+  //     });
+  //     console.log("Check locker_id: ", this.state.locker_id);
+  //     console.log("Check locker_name: ", this.state.locker_name);
+  //     console.log("Check locker_status: ", this.state.locker_status);
+  //     console.log("Check locker_code: ", this.state.unlock_code);
+  //   }
+  // }
+
+  async componentDidMount() {
+    await this.getUsersFromReact();
   }
+
+  getUsersFromReact = async () => {
+    let response = await getACabinets(this.props.currentCabinet.lockerId);
+    this.setState({
+      lockerId: response.lockerId,
+      lockerName: response.lockerName,
+      lockerStatus: response.lockerStatus,
+      unlockCode: "123456",
+    });
+    console.log("Check lockerId: ", this.state.lockerId);
+  };
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -46,7 +63,7 @@ class ModalEditCabinet extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = ["locker_name", "locker_status"];
+    let arrInput = ["lockerName", "lockerStatus"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;
@@ -92,19 +109,30 @@ class ModalEditCabinet extends Component {
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "locker_name");
+                  this.handleOnChangeInput(event, "lockerName");
                 }}
-                value={this.state.locker_name}
+                value={this.state.lockerName}
               />
             </div>
             <div className="input-container">
               <div className="form-group col-5">
-                <label><FormattedMessage id="table.status-cabinet" /></label>
-                <select name="statusCabinet" className="form-control" onChange={(event) => {
-                  this.handleOnChangeInput(event, "locker_status");
-                }} value={this.state.locker_status}>
-                  <option value="true">{intl.formatMessage({ id: "table.enable" })}</option>
-                  <option value="false">{intl.formatMessage({ id: "table.disable" })}</option>
+                <label>
+                  <FormattedMessage id="table.status-cabinet" />
+                </label>
+                <select
+                  name="statusCabinet"
+                  className="form-control"
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event, "lockerStatus");
+                  }}
+                  value={this.state.lockerStatus}
+                >
+                  <option value={true}>
+                    {intl.formatMessage({ id: "table.enable" })}
+                  </option>
+                  <option value={false}>
+                    {intl.formatMessage({ id: "table.disable" })}
+                  </option>
                 </select>
               </div>
             </div>

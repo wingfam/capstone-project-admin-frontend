@@ -3,7 +3,6 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./CardUser.scss";
 import { Component } from "react";
 import {
-  banUserService,
   deleteUserService,
   editUserService,
   getAUsers,
@@ -18,7 +17,6 @@ class CardUser extends Component {
       phone: "",
       fullname: "",
       IsAvaiable: "",
-      arrUsers: [],
     };
   }
 
@@ -35,7 +33,7 @@ class CardUser extends Component {
       fullname: response.fullname,
       isAvaiable: response.isAvaiable,
     });
-
+    console.log("Check response: ", response);
   };
 
   handleOnChangeInput = (event, id) => {
@@ -48,12 +46,7 @@ class CardUser extends Component {
 
   checkValidateInput = () => {
     let isValid = true;
-    let arrInput = [
-      "email",
-      "phone",
-      "isAvaiable",
-      "fullname",
-    ];
+    let arrInput = ["email", "phone", "isAvaiable", "fullname"];
     for (let i = 0; i < arrInput.length; i++) {
       if (!this.state[arrInput[i]]) {
         isValid = false;

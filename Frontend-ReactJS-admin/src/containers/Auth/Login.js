@@ -51,14 +51,8 @@ class Login extends Component {
       Message: "",
       LoginStatus: "",
     });
-    const account = {
-      username: this.state.username,
-      password: this.state.password
-    }
-    console.log("Check account: ", account);
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
-      console.log("Check data: ", data);
       if (data && data.LoginStatus !== 0) {
         this.setState({
           Message: data.Message,

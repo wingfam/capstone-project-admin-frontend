@@ -91,10 +91,10 @@ class TableCabinet extends Component {
     }
   };
 
-  doEditCabinet = async (cabinet) => {
+  doEditCabinet = async (locker) => {
     try {
-      let res = await editCabinetService(cabinet);
-      if (res && res.errCode === 1) {
+      let res = await editCabinetService(locker);
+      if (res && res === 1) {
         this.setState({
           isOpenModalEditCabinet: false,
         });
@@ -127,17 +127,17 @@ class TableCabinet extends Component {
     }
   };
 
-  handleEditCabinet = (cabinet) => {
+  handleEditCabinet = (locker) => {
     this.setState({
       isOpenModalEditCabinet: true,
-      editCabinet: cabinet,
+      editCabinet: locker,
     });
   };
 
   handleDeleteCabinet = async (cabinet) => {
     try {
       let res = await deleteCabinetService(cabinet.lockerId);
-      console.log("Check res: ", res)
+      console.log("Check res: ", res);
       if (res && res === 1) {
         await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
@@ -230,9 +230,7 @@ class TableCabinet extends Component {
                         {(() => {
                           switch (item.lockerStatus) {
                             case false:
-                              return (
-                                <FormattedMessage id="table.disable" />
-                              );
+                              return <FormattedMessage id="table.disable" />;
                             case true:
                               return <FormattedMessage id="table.enable" />;
                             default:
