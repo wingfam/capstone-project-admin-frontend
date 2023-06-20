@@ -3,8 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { getAUsers } from "../../services/userService";
-import { getACabinets } from "../../services/cabinetService";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -12,42 +10,22 @@ class ModalEditCabinet extends Component {
     this.state = {
       lockerId: "",
       lockerName: "",
-      lockerStatus: "",
       unlockCode: "",
+      lockerStatus: false,
     };
   }
 
-  // componentWillMount() {
-  //   let locker = this.props.currentCabinet;
-  //   if (locker && !_.isEmpty(locker)) {
-  //     console.log("Check acbinet: ", locker);
-  //     this.setState({
-  //       locker_id: locker.lockerId,
-  //       locker_name: locker.lockerName,
-  //       locker_status: locker.lockerStatus,
-  //       unlock_code: "123456",
-  //     });
-  //     console.log("Check locker_id: ", this.state.locker_id);
-  //     console.log("Check locker_name: ", this.state.locker_name);
-  //     console.log("Check locker_status: ", this.state.locker_status);
-  //     console.log("Check locker_code: ", this.state.unlock_code);
-  //   }
-  // }
-
-  async componentDidMount() {
-    await this.getUsersFromReact();
+  componentWillMount() {
+    let locker = this.props.currentCabinet;
+    if (locker && !_.isEmpty(locker)) {
+      this.setState({
+        lockerId: locker.lockerId,
+        lockerName: locker.lockerName,
+        lockerStatus: locker.lockerStatus,
+        unlockCode: "123456",
+      });
+    }
   }
-
-  getUsersFromReact = async () => {
-    let response = await getACabinets(this.props.currentCabinet.lockerId);
-    this.setState({
-      lockerId: response.lockerId,
-      lockerName: response.lockerName,
-      lockerStatus: response.lockerStatus,
-      unlockCode: "123456",
-    });
-    console.log("Check lockerId: ", this.state.lockerId);
-  };
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -61,24 +39,16 @@ class ModalEditCabinet extends Component {
     });
   };
 
-  checkValidateInput = () => {
-    let isValid = true;
-    let arrInput = ["lockerName", "lockerStatus"];
-    for (let i = 0; i < arrInput.length; i++) {
-      if (!this.state[arrInput[i]]) {
-        isValid = false;
-        alert("Missing parameter: " + arrInput[i]);
-        break;
-      }
-    }
-    return isValid;
+  handleOnChangeInputStatus = (event, id) => {
+    let copyState = { ...this.state };
+    copyState[id] = (event.target.value) === "true" ? true : false;
+    this.setState({
+      ...copyState,
+    });
   };
 
   handleSaveCabinet = () => {
-    let isValid = this.checkValidateInput();
-    if (isValid === true) {
-      this.props.editCabinet(this.state);
-    }
+    this.props.editCabinet(this.state);
   };
 
   render() {
@@ -120,17 +90,16 @@ class ModalEditCabinet extends Component {
                   <FormattedMessage id="table.status-cabinet" />
                 </label>
                 <select
-                  name="statusCabinet"
                   className="form-control"
                   onChange={(event) => {
-                    this.handleOnChangeInput(event, "lockerStatus");
+                    this.handleOnChangeInputStatus(event, "lockerStatus");
                   }}
                   value={this.state.lockerStatus}
                 >
-                  <option value={true}>
+                  <option value="true">
                     {intl.formatMessage({ id: "table.enable" })}
                   </option>
-                  <option value={false}>
+                  <option value="false">
                     {intl.formatMessage({ id: "table.disable" })}
                   </option>
                 </select>

@@ -10,6 +10,7 @@ class ModalCabinet extends Component {
     this.state = {
       lockerName: "",
       lockerStatus: true,
+      unlockCode: "123456"
     };
     this.listenToEmitter();
   }
@@ -19,6 +20,7 @@ class ModalCabinet extends Component {
       this.setState({
         lockerName: "",
         lockerStatus: true,
+        unlockCode: "123456"
       });
     });
   };
