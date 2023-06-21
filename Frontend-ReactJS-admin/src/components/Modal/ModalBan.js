@@ -8,26 +8,17 @@ class ModalBan extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            phonenumber: "",
-            firstName: "",
-            lastName: "",
-            address: "",
-            statusUser: "0",
+            isAvaiable: "",
         };
     }
 
     componentDidMount() {
         let user = this.props.currentUser;
+        console.log("Check id:", user.residentId)
         if (user && !_.isEmpty(user)) {
             this.setState({
-                id: user.id,
-                email: user.email,
-                phonenumber: user.phonenumber,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                address: user.address,
-                statusUser: 0,
+                residentId: user.residentId,
+                isAvaiable: false,
             });
         }
     }

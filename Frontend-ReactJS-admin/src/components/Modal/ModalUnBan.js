@@ -8,12 +8,7 @@ class ModalUnBan extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            phonenumber: "",
-            firstName: "",
-            lastName: "",
-            address: "",
-            statusUser: "",
+            isAvaiable: "",
         };
     }
 
@@ -21,13 +16,8 @@ class ModalUnBan extends Component {
         let user = this.props.currentUser;
         if (user && !_.isEmpty(user)) {
             this.setState({
-                id: user.id,
-                email: user.email,
-                phonenumber: user.phonenumber,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                address: user.address,
-                statusUser: 1,
+                residentId: user.residentId,
+                isAvaiable: true,
             });
         }
     }
@@ -38,7 +28,7 @@ class ModalUnBan extends Component {
 
     handleSaveUser = () => {
         this.props.unBanUser(this.state);
-        console.log("Check status: ", this.state.statusUser);
+        console.log("Check status: ", this.state.isAvaiable);
     };
 
     render() {

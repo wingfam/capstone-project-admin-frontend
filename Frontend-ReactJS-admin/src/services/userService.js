@@ -17,16 +17,16 @@ const createNewUserService = (data) => {
   return axios.post("/api/create-new-user", data);
 };
 
-const editUserService = (inputData) => {
-  return axios.put("/api/edit-user", inputData);
+const editUserService = (residentId, isAvailable) => {
+  return axios.put(`/api/v1/home/edit-resident?residentId=${residentId}&isAvailable=${isAvailable}`);
 };
 
 const banUserService = (inputData) => {
   return axios.put("/api/v1/home/delete", inputData);
 };
 
-const unBanUserService = (inputData) => {
-  return axios.put("/api/unban-user", inputData);
+const unBanUserService = (residentId, isAvailable) => {
+  return axios.put(`/api/v1/home/edit-resident?residentId=${residentId}&isAvailable=${isAvailable}`);
 };
 
 const deleteUserService = (residentId) => {

@@ -44,8 +44,8 @@ class TableUser extends Component {
 
   doBanUser = async (user) => {
     try {
-      let res = await editUserService(user);
-      if (res && res.errCode === 0) {
+      let res = await editUserService(user.residentId, user.isAvaiable);
+      if (res && res === 1) {
         this.setState({
           isOpenModalBan: false,
         });
@@ -80,8 +80,8 @@ class TableUser extends Component {
 
   doUnBanUser = async (user) => {
     try {
-      let res = await editUserService(user);
-      if (res && res.errCode === 0) {
+      let res = await editUserService(user.residentId, user.isAvaiable);
+      if (res && res === 1) {
         this.setState({
           isOpenModalUnBan: false,
         });
@@ -130,9 +130,9 @@ class TableUser extends Component {
 
   render() {
     let arrUser = this.state.arrUsers;
-    // const arrUsers = arrUser.sort((a, b) =>
-    //   a.IsAvaiable > b.IsAvaiable ? -1 : 1
-    // );
+    const arrUsers = arrUser.sort((a, b) =>
+      a.isAvaiable > b.isAvaiable ? -1 : 1
+    );
 
     const { intl } = this.props;
     return (
@@ -173,8 +173,8 @@ class TableUser extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrUser &&
-                arrUser.map((item, index) => {
+              {arrUsers &&
+                arrUsers.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>

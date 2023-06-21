@@ -16,7 +16,7 @@ class CardUser extends Component {
       email: "",
       phone: "",
       fullname: "",
-      IsAvaiable: "",
+      isAvaiable: "",
     };
   }
 
@@ -36,41 +36,26 @@ class CardUser extends Component {
     console.log("Check response: ", response);
   };
 
-  handleOnChangeInput = (event, id) => {
+  // handleOnChangeInput = (event, id) => {
+  //   let copyState = { ...this.state };
+  //   copyState[id] = event.target.value;
+  //   this.setState({
+  //     ...copyState,
+  //   });
+  // };
+
+  handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = event.target.value;
+    copyState[id] = (event.target.value) === "true" ? true : false;
     this.setState({
       ...copyState,
     });
   };
 
-  checkValidateInput = () => {
-    let isValid = true;
-    let arrInput = ["email", "phone", "isAvaiable", "fullname"];
-    for (let i = 0; i < arrInput.length; i++) {
-      if (!this.state[arrInput[i]]) {
-        isValid = false;
-        alert("Missing parameter: " + arrInput[i]);
-        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        break;
-      }
-    }
-    return isValid;
-  };
-
   doEditUser = async (user) => {
     try {
-      let res = await editUserService(user);
-      if (res && res.errCode === 0) {
+      let res = await editUserService(user.residentId, user.isAvaiable);
+      if (res && res === 1) {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.edit-user-success" />, {
           position: "top-right",
@@ -132,10 +117,7 @@ class CardUser extends Component {
   };
 
   handleSaveUserDetail = () => {
-    let isValid = this.checkValidateInput();
-    if (isValid === true) {
-      this.doEditUser(this.state);
-    }
+    this.doEditUser(this.state);
   };
 
   handleBanUserDetail = () => {
@@ -165,9 +147,9 @@ class CardUser extends Component {
                   <input
                     type="text"
                     className="form-control form-lastname"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "fullname");
-                    }}
+                    // onChange={(event) => {
+                    //   this.handleOnChangeInput(event, "fullname");
+                    // }}
                     value={this.state.fullname}
                     disabled
                   />
@@ -180,9 +162,9 @@ class CardUser extends Component {
                     <input
                       type="text"
                       className="form-control"
-                      onChange={(event) => {
-                        this.handleOnChangeInput(event, "phone");
-                      }}
+                      // onChange={(event) => {
+                      //   this.handleOnChangeInput(event, "phone");
+                      // }}
                       value={this.state.phone}
                       disabled
                     />
@@ -195,7 +177,7 @@ class CardUser extends Component {
                       name="statusCabinet"
                       className="form-control"
                       onChange={(event) => {
-                        this.handleOnChangeInput(event, "isAvaiable");
+                        this.handleOnChangeInputStatus(event, "isAvaiable");
                       }}
                       value={this.state.isAvaiable}
                     >
