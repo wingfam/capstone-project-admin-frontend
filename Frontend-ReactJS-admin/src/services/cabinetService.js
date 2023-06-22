@@ -12,12 +12,12 @@ const createNewCabinetService = (data) => {
   return axios.post("/api/v1/locker/add-locker", data);
 };
 
-const editCabinetService = (inputData) => {
-  return axios.put("/api/v1/locker/edit", inputData);
+const editCabinetService = (lockerId, inputData) => {
+  return axios.put(`/api/v1/locker/edit?lockerId=${lockerId}`, inputData);
 };
 
 const deleteCabinetService = (lockerId) => {
-  return axios.delete(`/api/v1/locker/delete?locker_id=${lockerId}`);
+  return axios.delete(`/api/v1/locker/delete?lockerId=${lockerId}`);
 };
 
 export {

@@ -21,7 +21,6 @@ const CardFourth = () => {
             <div
               className="progress-bar d-flex"
               role="progressbar"
-              style={{ width: "55%" }}
               aria-valuenow="25"
               aria-valuemin="0"
               aria-valuemax="100"

@@ -23,11 +23,9 @@ class TableUser extends Component {
 
   getAllUsersFromReact = async () => {
     let response = await getAllUsers();
-    // if (response && response.errCode === 0) {
     this.setState({
       arrUsers: response,
     });
-    // }
   };
 
   toggleBanModal = () => {
@@ -44,8 +42,8 @@ class TableUser extends Component {
 
   doBanUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user.isAvaiable);
-      if (res && res === 1) {
+      let res = await editUserService(user.residentId, user);
+      if (res && res.errCode === 0) {
         this.setState({
           isOpenModalBan: false,
         });
@@ -80,8 +78,8 @@ class TableUser extends Component {
 
   doUnBanUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user.isAvaiable);
-      if (res && res === 1) {
+      let res = await editUserService(user.residentId, user);
+      if (res && res.errCode === 0) {
         this.setState({
           isOpenModalUnBan: false,
         });

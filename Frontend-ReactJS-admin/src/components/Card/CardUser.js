@@ -54,8 +54,8 @@ class CardUser extends Component {
 
   doEditUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user.isAvaiable);
-      if (res && res === 1) {
+      let res = await editUserService(user.residentId, user);
+      if (res && res.errCode === 0) {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.edit-user-success" />, {
           position: "top-right",
@@ -86,31 +86,31 @@ class CardUser extends Component {
 
   doBanUser = async (user) => {
     try {
-      await deleteUserService(window.location.href.split("/")[5]);
-      // if (res && res.errCode === 0) {
-      await this.getUsersFromReact();
-      toast.success(<FormattedMessage id="toast.ban-user-success" />, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      // } else {
-      //   toast.error(<FormattedMessage id="toast.ban-user-error" />, {
-      //     position: "top-right",
-      //     autoClose: 3000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: "light",
-      //   });
-      // }
+      let res = await deleteUserService(window.location.href.split("/")[5]);
+      if (res && res.errCode === 0) {
+        await this.getUsersFromReact();
+        toast.success(<FormattedMessage id="toast.ban-user-success" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(<FormattedMessage id="toast.ban-user-error" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } catch (e) {
       console.log(e);
     }
