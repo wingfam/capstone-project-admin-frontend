@@ -5,7 +5,6 @@ import * as actions from "../../store/actions";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
-import SearchBox from "../../components/SearchBox/SearchBox";
 import { getAllNotis } from "../../services/notiService";
 import { injectIntl } from "react-intl";
 
@@ -22,12 +21,12 @@ class Header extends Component {
   }
 
   getNotisFromReact = async () => {
-    let response = await getAllNotis("ALL");
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrNotis: response.notis,
-      });
-    }
+    let response = await getAllNotis();
+    // if (response && response.errCode === 0) {
+    this.setState({
+      arrNotis: response.notis,
+    });
+    // }
   };
 
   changeLanguage = (language) => {

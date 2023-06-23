@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can install:
 
-### `npm install react-bootstrap-table-next --save --legacy-peer-deps`
+### `npm install --legacy-peer-deps`
 
 In the project directory, you can run:
 

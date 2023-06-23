@@ -12,6 +12,7 @@ import {
   editCabinetService,
   getAllCabinets,
 } from "../../services/cabinetService";
+// import analytics from "../../containers/config";
 import moment from "moment/moment";
 
 class TableCabinet extends Component {
@@ -24,8 +25,8 @@ class TableCabinet extends Component {
     };
   }
 
-  async componentDidMount() {
-    await this.getAllCabinetsFromReact();
+  async componentWillMount() {
+    await this.getAllCabinetsFromReact()
   }
 
   getAllCabinetsFromReact = async () => {
@@ -135,49 +136,43 @@ class TableCabinet extends Component {
 
   handleDeleteCabinet = async (cabinet) => {
     try {
-      let res = await deleteCabinetService(cabinet.lockerId);
-      console.log("Check res: ", res);
-      if (res && res.errCode === 0) {
-        await this.getAllCabinetsFromReact();
-        toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        alert(res.errMessage);
-        toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      await deleteCabinetService(cabinet.lockerId).then(res => {
+        console.log("Check res: ", res);
+        if (res && res.errCode === 0) {
+          this.getAllCabinetsFromReact();
+          toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          alert(res.errMessage);
+          toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }, 1000);
+
     } catch (e) {
       console.log(e);
     }
   };
 
   render() {
-    const arrCabinet = this.state.arrCabinets;
-    const arrCabinetsId = arrCabinet.sort((a, b) =>
-      a.validDate > b.validDate ? -1 : 1
-    );
-    const arrCabinets = arrCabinetsId.sort((a, b) =>
-      a.lockerStatus > b.lockerStatus ? -1 : 1
-    );
-    const date = moment(new Date());
-    const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
     const { intl } = this.props;
+    const arrCabinet = this.state.arrCabinets;
     return (
       <div className="table-cabinet-container">
         <ModalCabinet
@@ -222,14 +217,22 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrCabinets &&
-                arrCabinets.map((item, index) => {
+              {arrCabinet &&
+                arrCabinet.sort((a, b) =>
+                  a.validDate > b.validDate ? -1 : 1
+                ).sort((a, b) =>
+                  a.lockerStatus > b.lockerStatus ? -1 : 1
+                ).map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <Link to="/system/history">{item.lockerName}</Link>
                       </td>
-                      <td className="text-center">{item.validDate = formattedDate}</td>
+                      <td className="text-center">{(() => {
+                        const date = moment(item.validDate);
+                        const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
+                        return formattedDate;
+                      })()}</td>
                       <td className="text-center">
                         {(() => {
                           switch (item.lockerStatus) {
