@@ -10,10 +10,11 @@ import {
   createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
-  getAllCabinets,
 } from "../../services/cabinetService";
-// import analytics from "../../containers/config";
+// import database from "../firebase";
 import moment from "moment/moment";
+import firebase from 'firebase/app';
+import "firebase/database";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -23,18 +24,34 @@ class TableCabinet extends Component {
       isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
     };
+    let database = firebase.database();
+    this.usersRef = database.ref('Locker');
   }
 
-  async componentWillMount() {
-    await this.getAllCabinetsFromReact()
-  }
+  componentDidMount() {
+    this.usersRef.on('value', (snapshot) => {
+      const arrCabinets = snapshot.val();
+      const dataArray = Object.values(arrCabinets);
 
-  getAllCabinetsFromReact = async () => {
-    let response = await getAllCabinets();
-    this.setState({
-      arrCabinets: response,
+      this.setState({
+        arrCabinets: dataArray,
+      });
+      console.log("Check arrCabinets1: ", this.state.arrCabinets);
     });
-  };
+
+    this.usersRef.on('child_added', (snapshot) => {
+      const newCabinet = snapshot.val();
+
+      this.setState((prevState) => ({
+        arrCabinets: [...prevState.arrCabinets, newCabinet],
+      }));
+      console.log("Check arrCabinets2: ", this.state.arrCabinets);
+    });
+  }
+
+  componentWillUnmount() {
+    this.usersRef.off()
+  }
 
   handleAddNewCabinets = () => {
     this.setState({
@@ -70,7 +87,6 @@ class TableCabinet extends Component {
           theme: "light",
         });
       } else {
-        await this.getAllCabinetsFromReact();
         this.setState({
           isOpenModalCabinet: false,
         });
@@ -98,7 +114,6 @@ class TableCabinet extends Component {
         this.setState({
           isOpenModalEditCabinet: false,
         });
-        await this.getAllCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -139,7 +154,6 @@ class TableCabinet extends Component {
       await deleteCabinetService(cabinet.lockerId).then(res => {
         console.log("Check res: ", res);
         if (res && res.errCode === 0) {
-          this.getAllCabinetsFromReact();
           toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
             position: "top-right",
             autoClose: 3000,
