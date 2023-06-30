@@ -12,7 +12,8 @@
     "history-order": "Lịch sử đặt tủ",
     "edit-user": "Chỉnh sửa thông tin khách hàng",
     "edit-cabinet": "Chỉnh sửa thông tin tủ",
-    "warning": "Cảnh báo!!!"
+    "warning": "Cảnh báo!!!",
+    "box": "quản lý hộp"
   },
 
   "table": {
@@ -24,13 +25,15 @@
     "action": "Thao tác",
     "name-cabinet": "Tên tủ",
     "status-cabinet": "Trạng thái tủ",
+    "name-box": "Tên hộp",
+    "status-box": "Trạng thái hộp",
+    "status-box-store": "Trạng thái lưu trữ",
     "status-user": "Trạng thái",
     "code-order": "Mã đặt tủ",
     "code-cabinet": "Mã mở tủ",
     "booking-date": "Ngày đặt",
     "create-cabinet-date": "Ngày tạo tủ",
     "booking-valid-date": "Ngày hết hạn",
-    "serial": "STT",
     "add-cabinet": "Thêm tủ",
     "address": "Địa chỉ",
     "enable": "Hoạt động",

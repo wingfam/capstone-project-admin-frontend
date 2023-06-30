@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 class Order extends Component {
   render() {
     return (
-      <div className="order-container">
+      <div>
         <Header data={<FormattedMessage id="title.order" />} />
         <TableOrder />
       </div>

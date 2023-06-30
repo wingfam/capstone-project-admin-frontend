@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 const getAllNotis = (inputId) => {
-    return axios.get(`/api/get-all-notis?id=${inputId}`);
+    return axios.get(`/api/get-all`);
 };
 
 const editNotiService = (inputData) => {

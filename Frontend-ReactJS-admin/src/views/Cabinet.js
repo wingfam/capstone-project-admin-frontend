@@ -4,16 +4,10 @@ import TableCabinet from "../components/Table/TableCabinet";
 import { FormattedMessage } from "react-intl";
 
 class Cabinet extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpenModalUser: false,
-    };
-  }
 
   render() {
     return (
-      <div className="cabinet-container">
+      <div>
         <Header data={<FormattedMessage id={"title.cabinet"} />} />
         <TableCabinet />
       </div>

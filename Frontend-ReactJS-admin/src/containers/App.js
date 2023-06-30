@@ -20,6 +20,7 @@ import Notification from "../views/Notification";
 import DetailUser from "../views/DetailUser";
 import History from "../views/History";
 import firebase from 'firebase/app';
+import Box from "../views/Box";
 import "firebase/database";
 
 class App extends Component {
@@ -51,9 +52,6 @@ class App extends Component {
     });
   }
 
-
-
-
   render() {
     return (
       <Fragment>
@@ -80,9 +78,9 @@ class App extends Component {
                 <Route path="/system/user-detail" component={DetailUser} />
                 <Route path="/system/user-detail/:id" component={DetailUser} />
                 <Route path="/system/history" component={History} />
+                <Route path="/system/box" component={Box} />
               </Switch>
             </span>
-
             <ToastContainer />
           </div>
         </Router>

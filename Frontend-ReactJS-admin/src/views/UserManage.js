@@ -12,7 +12,7 @@ class UserManage extends Component {
 
   render() {
     return (
-      <div className="users-container">
+      <div>
         <Header data={<FormattedMessage id="title.user-manage" />} />
         <TableUser />
       </div>

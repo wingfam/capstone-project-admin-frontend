@@ -1,61 +1,84 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableHistory.scss";
-import { getAllUsers } from "../../services/userService";
-import Paging from "../Paging";
-
+// import Paging from "../Paging";
+import firebase from 'firebase/app';
+import "firebase/database";
 class TableHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [],
       currentProducts: [],
       currentPage: null,
       totalPages: null,
       totalItems: 0,
+      arrResident: [],
+      arrResidents: []
     };
+    let database = firebase.database();
+    this.usersRef = database.ref('Resident');
   }
 
-  async componentDidMount() {
-    let response = await getAllUsers("ALL");
-    if (response && response.errCode === 0) {
+  componentDidMount() {
+    this.usersRef.on('value', (snapshot) => {
+      const arrResident = snapshot.val();
+      const dataArray = Object.values(arrResident);
       this.setState({
-        arrUsers: response.users,
+        arrResident: dataArray,
       });
-    }
+      // console.log("Check data data:", this.state.arrResident);
+      return arrResident
+    });
+
+    this.usersRef.on('child_added', (snapshot) => {
+      const newResident = snapshot.val();
+
+      this.setState((prevState) => ({
+        arrResidents: [...prevState.arrResidents, newResident],
+      }));
+    });
   }
 
-  getProducts = async () => {
-    await this.componentDidMount()
-    let arrUsers = this.state.arrUsers;
-    arrUsers = arrUsers.concat(arrUsers);
-    arrUsers = arrUsers.concat(arrUsers);
-    return arrUsers;
-  };
-
-  UNSAFE_componentWillMount() {
-    let totalItems = this.getProducts().toString().length;
-    this.setState({ totalItems });
+  componentWillUnmount() {
+    this.usersRef.off()
   }
 
-  onPageChanged = async (page) => {
-    let arrUser = await this.getProducts();
-    const { currentPage, totalPages, pageLimit } = page;
-    const offset = (currentPage - 1) * pageLimit;
-    const currentProducts = arrUser.slice(offset, offset + pageLimit);
-    this.setState({ currentPage, currentProducts, totalPages });
-  };
+  // getProducts = async () => {
+  //   let histories = await this.props.data;
+  //   console.log("Check res: ", histories);
+  //   this.setState({
+  //     arrUsers: histories,
+  //   });
+  //   let products = this.state.arrUsers;
+  //   console.log("Check product: ", products);
+  //   return products;
+  // };
+
+  // UNSAFE_componentWillMount() {
+  //   let totalItems = this.getProducts().toString().length;
+  //   console.log("Check total: ", totalItems);
+  //   this.setState({ totalItems });
+  // }
+
+  // onPageChanged = async (page) => {
+  //   let arrUser = await this.getProducts();
+  //   const { currentPage, totalPages, pageLimit } = page;
+  //   console.log("check page: ", page);
+  //   const offset = (currentPage - 1) * pageLimit;
+  //   const currentProducts = arrUser.slice(offset, offset + pageLimit);
+  //   this.setState({ currentPage, currentProducts, totalPages });
+  // };
 
   render() {
     return (
       <div className="table-histories-container">
-        <Paging
+        {/* <Paging
           totalRecords={this.state.totalItems}
-          pageLimit={5}
-          pageNeighbours={1}
+          pageLimit={9}
+          pageNeighbours={3}
           onPageChanged={this.onPageChanged}
           sizing=""
-        />
+        /> */}
         <div className="histories-table mt-3 mx-1">
 
           <table className="histories">
@@ -83,19 +106,19 @@ class TableHistory extends Component {
                   <FormattedMessage id="table.code-cabinet" />
                 </th>
               </tr>
-              {this.state.currentProducts &&
-                this.state.currentProducts.map((item, index) => {
+              {this.state.arrResident &&
+                this.state.arrResident.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.firstName}</td>
+                      <td>{item.fullname}</td>
                       <td>
-                        {item.lastName} {item.firstName}
+                        {item.fullname}
                       </td>
-                      <td className="text-center">{item.phonenumber}</td>
-                      <td className="text-center">{item.firstName}</td>
+                      <td className="text-center">{item.phone}</td>
+                      <td className="text-center">{item.fullname}</td>
                       <td>{item.createdAt}</td>
                       <td>{item.updatedAt}</td>
-                      <td>{item.firstName}</td>
+                      <td>{item.fullname}</td>
                     </tr>
                   );
                 })}

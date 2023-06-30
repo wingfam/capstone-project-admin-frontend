@@ -9,6 +9,7 @@ import Dashboard from "../views/Dashboard";
 import Notification from "../views/Notification";
 import DetailUser from "../views/DetailUser";
 import History from "../views/History";
+import Box from "../views/Box";
 
 class System extends Component {
   render() {
@@ -26,6 +27,7 @@ class System extends Component {
               <Route path="/system/user-detail" component={DetailUser} />
               <Route path="/system/user-detail/:id" component={DetailUser} />
               <Route path="/system/history" component={History} />
+              <Route path="/system/box" component={Box} />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

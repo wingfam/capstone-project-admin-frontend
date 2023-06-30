@@ -27,7 +27,7 @@ class CardUser extends Component {
   getUsersFromReact = async () => {
     let response = await getAUsers(window.location.href.split("/")[5]);
     this.setState({
-      residentId: response.residentId,
+      id: response.id,
       email: response.email,
       phone: response.phone,
       fullname: response.fullname,
@@ -54,7 +54,7 @@ class CardUser extends Component {
 
   doEditUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user);
+      let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.edit-user-success" />, {

@@ -16,7 +16,7 @@ class ModalUnBan extends Component {
         let user = this.props.currentUser;
         if (user && !_.isEmpty(user)) {
             this.setState({
-                residentId: user.residentId,
+                id: user.id,
                 isAvaiable: true,
             });
         }
@@ -28,7 +28,6 @@ class ModalUnBan extends Component {
 
     handleSaveUser = () => {
         this.props.unBanUser(this.state);
-        console.log("Check status: ", this.state.isAvaiable);
     };
 
     render() {

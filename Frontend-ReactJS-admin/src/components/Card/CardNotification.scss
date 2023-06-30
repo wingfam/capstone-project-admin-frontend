@@ -1,27 +1,50 @@
 @import "../../styles/common.scss";
 
-.container-button {
-  width: 100%;
-  .btn-read-noti {
-    width: 100%;
-    height: 70px;
-    border-radius: 10px;
-    background: #fea21f;
-    opacity: 0.5;
-    border: none;
-    text-align: justify;
-    font-size: $base-size;
-    color: black;
-  }
+.container-card {
+  width: calc(80% + 24px);
+  margin: 50px 50px 50px 100px;
 
-  .btn-unread-noti {
-    width: 100%;
-    height: 70px;
-    border-radius: 10px;
-    background: #fea21f;
-    border: none;
-    text-align: justify;
-    font-size: $base-size;
-    color: black;
+  .card {
+    border-radius: 7px;
+
+    .card-header {
+      background: $colormain;
+      color: white;
+      border-radius: 7px;
+      height: 60px;
+
+      i {
+        padding: 10px;
+        font-size: 25px;
+      }
+    }
+    .container-button {
+      .card-item {
+        width: 94%;
+        margin: 15px 3%;
+        .btn-read-noti {
+          width: 100%;
+          height: 70px;
+          border-radius: 10px;
+          background: #fea21f;
+          opacity: 0.5;
+          border: none;
+          text-align: justify;
+          font-size: $base-size;
+          color: black;
+        }
+
+        .btn-unread-noti {
+          width: 100%;
+          height: 70px;
+          border-radius: 10px;
+          background: #fea21f;
+          border: none;
+          text-align: justify;
+          font-size: $base-size;
+          color: black;
+        }
+      }
+    }
   }
 }

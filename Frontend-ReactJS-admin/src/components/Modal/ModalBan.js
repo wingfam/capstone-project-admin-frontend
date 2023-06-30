@@ -16,7 +16,7 @@ class ModalBan extends Component {
         let user = this.props.currentUser;
         if (user && !_.isEmpty(user)) {
             this.setState({
-                residentId: user.residentId,
+                id: user.id,
                 isAvaiable: false,
             });
         }

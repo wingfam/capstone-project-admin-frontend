@@ -11,7 +11,8 @@
     "detail": "Detail",
     "history-order": "History order",
     "edit-user": "Edit user",
-    "warning": "warning"
+    "warning": "warning!!!",
+    "box": "Box manage"
   },
 
   "table": {
@@ -21,16 +22,19 @@
     "email": "Email",
     "phone": "Phone number",
     "action": "Action",
-    "name-cabinet": "Name locker",
-    "status-cabinet": "Status locker",
+    "name-cabinet": "Name cabinet",
+    "status-cabinet": "Status cabinet",
     "status-user": "Status user",
+    "name-box": "Name box",
+    "status-box": "Status box",
+    "status-box-store": "Status store",
     "code-order": "Code order",
     "code-cabinet": "Code unlock",
     "booking-date": "Booking date",
-    "create-cabinet-date": "Locker creation date",
+    "create-cabinet-date": "Cabinet creation date",
     "booking-valid-date": "Booking valid date",
     "serial": "Serial",
-    "add-cabinet": "Add locker",
+    "add-cabinet": "Add cabinet",
     "address": "Address",
     "enable": "Enable",
     "disable": "Disable",

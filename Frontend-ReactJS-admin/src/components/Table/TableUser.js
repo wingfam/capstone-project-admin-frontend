@@ -1,32 +1,48 @@
 import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
-import { getAllUsers, editUserService } from "../../services/userService";
+import { editUserService } from "../../services/userService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalBan from "../Modal/ModalBan";
 import ModalUnBan from "../Modal/ModalUnBan";
+import firebase from 'firebase/app';
+import "firebase/database";
 
 class TableUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [],
+      arrResidents: [],
       isOpenModalBan: false,
       isOpenModalUnBan: false,
     };
+    let database = firebase.database();
+    this.usersRef = database.ref('Resident');
   }
 
-  async componentWillMount() {
-    await this.getAllUsersFromReact();
-  }
+  componentDidMount() {
+    this.usersRef.on('value', (snapshot) => {
+      const arrResidents = snapshot.val();
+      const dataArray = Object.values(arrResidents);
 
-  getAllUsersFromReact = async () => {
-    let response = await getAllUsers();
-    this.setState({
-      arrUsers: response,
+      this.setState({
+        arrResidents: dataArray,
+      });
     });
-  };
+
+    this.usersRef.on('child_added', (snapshot) => {
+      const newResident = snapshot.val();
+
+      this.setState((prevState) => ({
+        arrResidents: [...prevState.arrResidents, newResident],
+      }));
+    });
+  }
+
+  componentWillUnmount() {
+    this.usersRef.off()
+  }
 
   toggleBanModal = () => {
     this.setState({
@@ -42,12 +58,11 @@ class TableUser extends Component {
 
   doBanUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user);
+      let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
         this.setState({
           isOpenModalBan: false,
         });
-        await this.getAllUsersFromReact();
         toast.success(<FormattedMessage id="toast.ban-user-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -78,12 +93,11 @@ class TableUser extends Component {
 
   doUnBanUser = async (user) => {
     try {
-      let res = await editUserService(user.residentId, user);
+      let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
         this.setState({
           isOpenModalUnBan: false,
         });
-        await this.getAllUsersFromReact();
         toast.success(<FormattedMessage id="toast.unban-user-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -127,8 +141,8 @@ class TableUser extends Component {
   };
 
   render() {
-    let arrUser = this.state.arrUsers;
-    const arrUsers = arrUser.sort((a, b) =>
+    let arrResident = this.state.arrResidents;
+    const arrResidents = arrResident.sort((a, b) =>
       a.isAvaiable > b.isAvaiable ? -1 : 1
     );
 
@@ -171,14 +185,14 @@ class TableUser extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+              {arrResidents &&
+                arrResidents.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <Link
                           to={{
-                            pathname: `/system/user-detail/${item.residentId}`,
+                            pathname: `/system/user-detail/${item.id}`,
                           }}
                         >
                           {item.fullname}

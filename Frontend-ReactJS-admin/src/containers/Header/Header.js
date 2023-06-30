@@ -5,8 +5,9 @@ import * as actions from "../../store/actions";
 import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
-import { getAllNotis } from "../../services/notiService";
 import { injectIntl } from "react-intl";
+import firebase from 'firebase/app';
+import "firebase/database";
 
 class Header extends Component {
   constructor(props) {
@@ -14,20 +15,32 @@ class Header extends Component {
     this.state = {
       arrNotis: [],
     };
+    let database = firebase.database();
+    this.usersRef = database.ref('AccessWarning');
   }
 
-  async componentDidMount() {
-    await this.getNotisFromReact();
-  }
+  componentDidMount() {
+    this.usersRef.on('value', (snapshot) => {
+      const arrNotis = snapshot.val();
+      const dataArray = Object.values(arrNotis);
 
-  getNotisFromReact = async () => {
-    let response = await getAllNotis();
-    // if (response && response.errCode === 0) {
-    this.setState({
-      arrNotis: response.notis,
+      this.setState({
+        arrNotis: dataArray,
+      });
     });
-    // }
-  };
+
+    this.usersRef.on('child_added', (snapshot) => {
+      const newNoti = snapshot.val();
+
+      this.setState((prevState) => ({
+        arrNotis: [...prevState.arrNotis, newNoti],
+      }));
+    });
+  }
+
+  componentWillUnmount() {
+    this.usersRef.off()
+  }
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -36,10 +49,9 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
-    let arrNoti = this.props.currentNoti;
 
-    let arrNotis = this.state.arrNotis;
-    const sum = arrNotis.map(obj => obj.statusNoti)
+    let arrNoti = this.state.arrNotis;
+    const arrNotis = arrNoti.map(obj => obj.status)
       .reduce((accumulator, current) => accumulator + current, 0);
 
     const { intl } = this.props;
@@ -86,46 +98,26 @@ class Header extends Component {
             <div className="btn btn-bell">
               <Link to="/system/notification">
                 <i className="fas fa-bell" title={intl.formatMessage({ id: "common.bell" })}>
-                  {arrNoti === undefined ?
-                    (() => {
-                      switch (sum) {
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
-                        case 9:
-                          return <span className="top-1 start-100 btn-unread">{sum}
-                          </span>;
-                        case 0:
-                          break;
-                        default:
-                          return <span className="top-1 start-100 btn-unread">9+
-                          </span>;
-                      }
-                    })() : (() => {
-                      switch (arrNoti) {
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
-                        case 9:
-                          return <span className="top-1 start-100 btn-unread">{arrNoti}
-                          </span>;
-                        case 0:
-                          break;
-                        default:
-                          return <span className="top-1 start-100 btn-unread">9+
-                          </span>;
-                      }
-                    })()
+                  {(() => {
+                    switch (arrNotis) {
+                      case 1:
+                      case 2:
+                      case 3:
+                      case 4:
+                      case 5:
+                      case 6:
+                      case 7:
+                      case 8:
+                      case 9:
+                        return <span className="top-1 start-100 btn-unread">{arrNotis}
+                        </span>;
+                      case 0:
+                        break;
+                      default:
+                        return <span className="top-1 start-100 btn-unread">9+
+                        </span>;
+                    }
+                  })()
                   }
                 </i>
               </Link>

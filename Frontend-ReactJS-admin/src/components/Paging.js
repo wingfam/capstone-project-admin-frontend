@@ -25,10 +25,8 @@ class Paging extends Component {
             pageLimit = 30,
             pageNeighbours = 0,
             sizing = "",
-            alignment = "",
         } = props;
         this.sizing = typeof sizing === "string" ? sizing : "";
-        this.alignment = typeof alignment === "string" ? alignment : "";
         this.pageLimit = typeof pageLimit === "number" ? pageLimit : 30;
         this.totalRecords = typeof totalRecords === "number" ? totalRecords : 0;
 
@@ -124,7 +122,7 @@ class Paging extends Component {
     render() {
         // if (!this.totalRecords) return null;
 
-        // if (this.totalPages === 1) return null;
+        if (this.totalPages === 1) return null;
 
         const { currentPage } = this.state;
         const pages = this.fetchPageNumbers();

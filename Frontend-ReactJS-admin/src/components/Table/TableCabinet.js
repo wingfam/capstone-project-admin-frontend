@@ -11,7 +11,6 @@ import {
   deleteCabinetService,
   editCabinetService,
 } from "../../services/cabinetService";
-// import database from "../firebase";
 import moment from "moment/moment";
 import firebase from 'firebase/app';
 import "firebase/database";
@@ -36,7 +35,6 @@ class TableCabinet extends Component {
       this.setState({
         arrCabinets: dataArray,
       });
-      console.log("Check arrCabinets1: ", this.state.arrCabinets);
     });
 
     this.usersRef.on('child_added', (snapshot) => {
@@ -45,7 +43,6 @@ class TableCabinet extends Component {
       this.setState((prevState) => ({
         arrCabinets: [...prevState.arrCabinets, newCabinet],
       }));
-      console.log("Check arrCabinets2: ", this.state.arrCabinets);
     });
   }
 
@@ -225,6 +222,9 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.create-cabinet-date" />
                 </th>
                 <th className="col-2">
+                  <FormattedMessage id="table.address" />
+                </th>
+                <th className="col-2">
                   <FormattedMessage id="table.status-cabinet" />
                 </th>
                 <th className="col-2">
@@ -240,13 +240,16 @@ class TableCabinet extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/history">{item.lockerName}</Link>
+                        <Link to="/system/box">{item.lockerName}</Link>
                       </td>
                       <td className="text-center">{(() => {
                         const date = moment(item.validDate);
                         const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
                         return formattedDate;
                       })()}</td>
+                      <td>
+                        {item.lockerName}
+                      </td>
                       <td className="text-center">
                         {(() => {
                           switch (item.lockerStatus) {
