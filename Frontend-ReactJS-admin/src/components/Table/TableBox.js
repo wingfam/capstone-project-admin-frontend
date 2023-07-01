@@ -10,6 +10,7 @@ import {
     createNewCabinetService,
     deleteCabinetService,
     editCabinetService,
+    getACabinets,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
 import firebase from 'firebase/app';
@@ -22,16 +23,21 @@ class TableBox extends Component {
             arrCabinets: [],
             isOpenModalCabinet: false,
             isOpenModalEditCabinet: false,
+            lockerName: "",
         };
         let database = firebase.database();
         this.usersRef = database.ref('Locker');
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let response = await getACabinets(window.location.href.split("/")[5]);
+        this.setState({
+            lockerNameAddress: response.lockerName,
+        })
+
         this.usersRef.on('value', (snapshot) => {
             const arrCabinets = snapshot.val();
             const dataArray = Object.values(arrCabinets);
-
             this.setState({
                 arrCabinets: dataArray,
             });
@@ -39,12 +45,13 @@ class TableBox extends Component {
 
         this.usersRef.on('child_added', (snapshot) => {
             const newCabinet = snapshot.val();
-
             this.setState((prevState) => ({
                 arrCabinets: [...prevState.arrCabinets, newCabinet],
             }));
         });
     }
+
+
 
     componentWillUnmount() {
         this.usersRef.off()
@@ -199,18 +206,29 @@ class TableBox extends Component {
                         editCabinet={this.doEditCabinet}
                     />
                 )}
-                <button
-                    className="btn-add-box"
-                    style={{
-                        background: "#21a5ff",
-                        color: "#FEFFFF",
-                        fontSize: "16px",
-                    }}
-                    onClick={() => this.handleAddNewCabinets()}
-                >
-                    <i className="fas fa-plus"></i> &nbsp;
-                    <FormattedMessage id={"table.add-cabinet"} />
-                </button>
+                <div className="table-box-content">
+                    <div className="text-address-box">
+                        <div>
+                            Tên tủ: {this.state.lockerNameAddress}
+                        </div>
+                        <div>
+                            Vị trí tủ: {this.state.lockerNameAddress}
+                        </div>
+                    </div>
+
+                    <button
+                        className="btn-add-box"
+                        style={{
+                            background: "#21a5ff",
+                            color: "#FEFFFF",
+                            fontSize: "16px",
+                        }}
+                        onClick={() => this.handleAddNewCabinets()}
+                    >
+                        <i className="fas fa-plus"></i> &nbsp;
+                        <FormattedMessage id={"table.add-cabinet"} />
+                    </button>
+                </div>
                 <div className="boxs-table mt-3 mx-1">
                     <table className="boxs">
                         <tbody>
@@ -218,8 +236,8 @@ class TableBox extends Component {
                                 <th className="col-2">
                                     <FormattedMessage id="table.name-box" />
                                 </th>
-                                <th className="col-2">
-                                    <FormattedMessage id="table.address" />
+                                <th className="col-1">
+                                    <FormattedMessage id="table.size" />
                                 </th>
                                 <th className="col-2">
                                     <FormattedMessage id="table.status-box-store" />
@@ -242,13 +260,24 @@ class TableBox extends Component {
                                             <td>
                                                 <Link to="/system/box">{item.lockerName}</Link>
                                             </td>
-                                            <td className="text-center">{(() => {
+                                            <td className="text-center">
+                                                {/* {(() => {
                                                 const date = moment(item.validDate);
                                                 const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
                                                 return formattedDate;
-                                            })()}</td>
-                                            <td>
+                                            })()} */}
                                                 {item.lockerName}
+                                            </td>
+                                            <td className="text-center">
+                                                {(() => {
+                                                    switch (item.lockerStatus) {
+                                                        case false:
+                                                            return <FormattedMessage id="table.disable" />;
+                                                        case true:
+                                                            return <FormattedMessage id="table.enable" />;
+                                                        default:
+                                                    }
+                                                })()}
                                             </td>
                                             <td className="text-center">
                                                 {(() => {

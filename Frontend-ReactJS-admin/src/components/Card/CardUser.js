@@ -33,7 +33,6 @@ class CardUser extends Component {
       fullname: response.fullname,
       isAvaiable: response.isAvaiable,
     });
-    console.log("Check response: ", response);
   };
 
   // handleOnChangeInput = (event, id) => {
@@ -84,7 +83,7 @@ class CardUser extends Component {
     }
   };
 
-  doBanUser = async (user) => {
+  doBanUser = async () => {
     try {
       let res = await deleteUserService(window.location.href.split("/")[5]);
       if (res && res.errCode === 0) {

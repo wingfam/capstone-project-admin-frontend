@@ -3,15 +3,25 @@
 .table-cabinet-container {
   margin-top: 50px;
   font-family: Arial, Helvetica, sans-serif;
-  .btn-add-cabinet {
-    border: none;
-    border-radius: 7px;
-    width: 10%;
-    height: 35px;
-    font-size: $base-size;
-    float: right;
-    margin-right: 5px;
-    margin-bottom: 20px;
+  .table-cabinet-content {
+    display: flex;
+    .btn-cabinet {
+      width: 85%;
+      .btn-add-cabinet {
+        width: 10%;
+        border: none;
+        border-radius: 7px;
+        // width: 10%;
+        height: 35px;
+        font-size: $base-size;
+        margin-right: 5px;
+        margin-bottom: 20px;
+      }
+    }
+    .filter-content {
+      width: 15%;
+      font-size: 20px;
+    }
   }
 
   .cabinets {

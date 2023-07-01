@@ -10,10 +10,12 @@ import {
   createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
+  getACabinets,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
 import firebase from 'firebase/app';
 import "firebase/database";
+import FilterAddress from "../Filter/FilterAddress";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -31,7 +33,6 @@ class TableCabinet extends Component {
     this.usersRef.on('value', (snapshot) => {
       const arrCabinets = snapshot.val();
       const dataArray = Object.values(arrCabinets);
-
       this.setState({
         arrCabinets: dataArray,
       });
@@ -39,7 +40,6 @@ class TableCabinet extends Component {
 
     this.usersRef.on('child_added', (snapshot) => {
       const newCabinet = snapshot.val();
-
       this.setState((prevState) => ({
         arrCabinets: [...prevState.arrCabinets, newCabinet],
       }));
@@ -102,6 +102,11 @@ class TableCabinet extends Component {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  doFilterCabinet = (id) => {
+    // await getACabinets(id);
+    console.log("Check filter: ", id);
   };
 
   doEditCabinet = async (locker) => {
@@ -199,18 +204,26 @@ class TableCabinet extends Component {
             editCabinet={this.doEditCabinet}
           />
         )}
-        <button
-          className="btn-add-cabinet"
-          style={{
-            background: "#21a5ff",
-            color: "#FEFFFF",
-            fontSize: "16px",
-          }}
-          onClick={() => this.handleAddNewCabinets()}
-        >
-          <i className="fas fa-plus"></i> &nbsp;
-          <FormattedMessage id={"table.add-cabinet"} />
-        </button>
+        <div className="table-cabinet-content">
+          <div className="btn-cabinet" >
+            <button
+              className="btn-add-cabinet"
+              style={{
+                background: "#21a5ff",
+                color: "#FEFFFF",
+                fontSize: "16px",
+              }}
+              onClick={() => this.handleAddNewCabinets()}
+            >
+              <i className="fas fa-plus"></i> &nbsp;
+              <FormattedMessage id={"table.add-cabinet"} />
+            </button>
+          </div>
+          <FilterAddress
+            currentFilterCabinet={this.state.filterCabinet}
+            filterCabinet={this.doFilterCabinet}
+            className="filter-content" />
+        </div>
         <div className="cabinets-table mt-3 mx-1">
           <table className="cabinets">
             <tbody>
@@ -240,7 +253,12 @@ class TableCabinet extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        <Link to="/system/box">{item.lockerName}</Link>
+                        <Link
+                          to={{
+                            pathname: `/system/box/${item.id}`,
+                            state: { address: `${item.lockerName}` }
+                          }}>{item.lockerName}
+                        </Link>
                       </td>
                       <td className="text-center">{(() => {
                         const date = moment(item.validDate);

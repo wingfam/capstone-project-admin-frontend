@@ -38,7 +38,8 @@
     "address": "Address",
     "enable": "Enable",
     "disable": "Disable",
-    "ban": "Ban"
+    "ban": "Ban",
+    "size": "Size"
   },
 
   "slidebar": {

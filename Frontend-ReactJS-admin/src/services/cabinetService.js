@@ -5,7 +5,7 @@ const getAllCabinets = () => {
 };
 
 const getACabinets = (lockerId) => {
-  return axios.get(`/api/v1/locker/search?lockerId=${lockerId}`);
+  return axios.get(`/api/v1/locker/search?id=${lockerId}`);
 };
 
 const createNewCabinetService = (data) => {
@@ -13,11 +13,11 @@ const createNewCabinetService = (data) => {
 };
 
 const editCabinetService = (lockerId, inputData) => {
-  return axios.put(`/api/v1/locker/edit?lockerId=${lockerId}`, inputData);
+  return axios.put(`/api/v1/locker/edit?id=${lockerId}`, inputData);
 };
 
 const deleteCabinetService = (lockerId) => {
-  return axios.delete(`/api/v1/locker/delete?lockerId=${lockerId}`);
+  return axios.delete(`/api/v1/locker/delete?id=${lockerId}`);
 };
 
 export {

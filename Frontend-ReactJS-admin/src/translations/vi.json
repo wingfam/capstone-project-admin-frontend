@@ -38,7 +38,8 @@
     "address": "Địa chỉ",
     "enable": "Hoạt động",
     "disable": "Không hoạt động",
-    "ban": "Cấm"
+    "ban": "Cấm",
+    "size": "Kích thước"
   },
 
   "slidebar": {
