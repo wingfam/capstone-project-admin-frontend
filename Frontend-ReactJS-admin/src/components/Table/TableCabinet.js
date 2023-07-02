@@ -11,10 +11,11 @@ import {
   deleteCabinetService,
   editCabinetService,
   getACabinets,
+  getAllCabinets,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
-import firebase from 'firebase/app';
-import "firebase/database";
+// import firebase from 'firebase/app';
+// import "firebase/database";
 import FilterAddress from "../Filter/FilterAddress";
 
 class TableCabinet extends Component {
@@ -25,30 +26,41 @@ class TableCabinet extends Component {
       isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref('Locker');
+    // let database = firebase.database();
+    // this.usersRef = database.ref('Locker');
   }
 
-  componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
-      const arrCabinets = snapshot.val();
-      const dataArray = Object.values(arrCabinets);
-      this.setState({
-        arrCabinets: dataArray,
-      });
+  // componentDidMount() {
+  //   this.usersRef.on('value', (snapshot) => {
+  //     const arrCabinets = snapshot.val();
+  //     const dataArray = Object.values(arrCabinets);
+  //     this.setState({
+  //       arrCabinets: dataArray,
+  //     });
+  //   });
+
+  //   this.usersRef.on('child_added', (snapshot) => {
+  //     const newCabinet = snapshot.val();
+  //     this.setState((prevState) => ({
+  //       arrCabinets: [...prevState.arrCabinets, newCabinet],
+  //     }));
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.usersRef.off()
+  // }
+
+  async componentDidMount() {
+    await this.getCabinetsFromReact();
+  }
+
+  getCabinetsFromReact = async () => {
+    let response = await getAllCabinets();
+    this.setState({
+      arrCabinets: response,
     });
-
-    this.usersRef.on('child_added', (snapshot) => {
-      const newCabinet = snapshot.val();
-      this.setState((prevState) => ({
-        arrCabinets: [...prevState.arrCabinets, newCabinet],
-      }));
-    });
-  }
-
-  componentWillUnmount() {
-    this.usersRef.off()
-  }
+  };
 
   handleAddNewCabinets = () => {
     this.setState({
@@ -104,9 +116,12 @@ class TableCabinet extends Component {
     }
   };
 
-  doFilterCabinet = (id) => {
-    // await getACabinets(id);
-    console.log("Check filter: ", id);
+  doFilterCabinet = async (id) => {
+    let response = await getACabinets(id);
+    console.log("Check filter: ", response);
+    this.setState({
+      arrCabinets: response,
+    })
   };
 
   doEditCabinet = async (locker) => {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./FilterAddress.scss"
 import firebase from 'firebase/app';
 import "firebase/database";
-
 class FilterAddress extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +49,9 @@ class FilterAddress extends Component {
     render() {
         return (
             <div className="form-select-container" >
+                <div className="icon-content">
+                    <i className="fas fa-filter"></i>
+                </div>
                 <select className="form-select-content" onChange={(event) => { this.handleFilterAddress(event); }} >
                     <option defaultValue>Open this select menu</option>
                     {
