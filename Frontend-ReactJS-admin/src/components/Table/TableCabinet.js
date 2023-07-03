@@ -10,7 +10,7 @@ import {
   createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
-  getACabinets,
+  getACabinet,
   getAllCabinets,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
@@ -117,7 +117,7 @@ class TableCabinet extends Component {
   };
 
   doFilterCabinet = async (id) => {
-    let response = await getACabinets(id);
+    let response = await getACabinet(id);
     console.log("Check filter: ", response);
     this.setState({
       arrCabinets: response,
@@ -243,17 +243,17 @@ class TableCabinet extends Component {
           <table className="cabinets">
             <tbody>
               <tr>
-                <th className="col-2">
+                <th className="col-1">
                   <FormattedMessage id="table.name-cabinet" />
                 </th>
                 <th className="col-2">
-                  <FormattedMessage id="table.create-cabinet-date" />
-                </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.address" />
+                  <FormattedMessage id="table.location" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.status-cabinet" />
+                </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.create-cabinet-date" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.action" />
@@ -271,21 +271,16 @@ class TableCabinet extends Component {
                         <Link
                           to={{
                             pathname: `/system/box/${item.id}`,
-                            state: { address: `${item.lockerName}` }
-                          }}>{item.lockerName}
+                            state: { address: `${item.name}` }
+                          }}>{item.name}
                         </Link>
                       </td>
-                      <td className="text-center">{(() => {
-                        const date = moment(item.validDate);
-                        const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
-                        return formattedDate;
-                      })()}</td>
                       <td>
                         {item.lockerName}
                       </td>
                       <td className="text-center">
                         {(() => {
-                          switch (item.lockerStatus) {
+                          switch (item.isAvaiable) {
                             case false:
                               return <FormattedMessage id="table.disable" />;
                             case true:
@@ -294,6 +289,11 @@ class TableCabinet extends Component {
                           }
                         })()}
                       </td>
+                      <td className="text-center">{(() => {
+                        const date = moment(item.validDate);
+                        const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
+                        return formattedDate;
+                      })()}</td>
                       <td>
                         <button
                           className="btn-edit"

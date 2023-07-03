@@ -39,7 +39,8 @@
     "enable": "Enable",
     "disable": "Disable",
     "ban": "Ban",
-    "size": "Size"
+    "size": "Size",
+    "location": "Location"
   },
 
   "slidebar": {

@@ -10,7 +10,7 @@ import {
     createNewCabinetService,
     deleteCabinetService,
     editCabinetService,
-    getACabinets,
+    getACabinet,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
 import firebase from 'firebase/app';
@@ -30,7 +30,7 @@ class TableBox extends Component {
     }
 
     async componentDidMount() {
-        let response = await getACabinets(window.location.href.split("/")[5]);
+        let response = await getACabinet(window.location.href.split("/")[5]);
         this.setState({
             lockerNameAddress: response.lockerName,
         })

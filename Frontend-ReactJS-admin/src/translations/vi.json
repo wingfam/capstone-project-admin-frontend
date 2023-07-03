@@ -39,7 +39,8 @@
     "enable": "Hoạt động",
     "disable": "Không hoạt động",
     "ban": "Cấm",
-    "size": "Kích thước"
+    "size": "Kích thước",
+    "location": "Địa điểm"
   },
 
   "slidebar": {

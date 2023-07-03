@@ -12,7 +12,7 @@ class FilterAddress extends Component {
             lockerName: "",
         };
         let database = firebase.database();
-        this.usersRef = database.ref('Locker');
+        this.usersRef = database.ref('Cabinet');
     }
 
     componentDidMount() {
