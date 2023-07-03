@@ -8,10 +8,12 @@ class ModalEditCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lockerId: "",
-      lockerName: "",
-      unlockCode: "",
-      lockerStatus: false,
+      id: "",
+      name: "",
+      location: "",
+      masterCode: "",
+      isAvaiableCode: false,
+      isAvaiable: false,
     };
   }
 
@@ -19,10 +21,11 @@ class ModalEditCabinet extends Component {
     let locker = this.props.currentCabinet;
     if (locker && !_.isEmpty(locker)) {
       this.setState({
-        lockerId: locker.lockerId,
-        lockerName: locker.lockerName,
-        lockerStatus: locker.lockerStatus,
-        unlockCode: "123456",
+        id: locker.id,
+        name: locker.name,
+        masterCode: locker.masterCode,
+        isAvaiableCode: locker.isAvaiableCode,
+        isAvaiable: locker.isAvaiable,
       });
     }
   }
@@ -41,7 +44,15 @@ class ModalEditCabinet extends Component {
 
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = (event.target.value) === "true" ? true : false;
+    copyState[id] = event.target.value === "true" ? true : false;
+    this.setState({
+      ...copyState,
+    });
+  };
+
+  handleOnChangeCodeStatus = (event, id) => {
+    let copyState = { ...this.state };
+    copyState[id] = event.target.value === "checked" ? true : false;
     this.setState({
       ...copyState,
     });
@@ -79,11 +90,49 @@ class ModalEditCabinet extends Component {
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "lockerName");
+                  this.handleOnChangeInput(event, "name");
                 }}
-                value={this.state.lockerName}
+                value={this.state.name}
               />
             </div>
+            <div className="input-container">
+              <label>
+                <FormattedMessage id="table.location" />
+              </label>
+              <input
+                type="text"
+                onChange={(event) => {
+                  this.handleOnChangeInput(event, "location");
+                }}
+                value={this.state.location}
+              />
+            </div>
+
+            <div className="input-container">
+              <label>
+                <FormattedMessage id="table.master-code" />
+              </label>
+              <div className="input-container-code">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={(event) => {
+                    this.handleOnChangeCodeStatus(event, "isAvaiable");
+                  }}
+                  value={this.state.isAvaiable}
+                  checked={this.state.isAvaiable === true ? "checked" : ""}
+                />
+                <input
+                  className="form-input-code"
+                  type="text"
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event, "name");
+                  }}
+                  value={this.state.name}
+                />
+              </div>
+            </div>
+
             <div className="input-container">
               <div className="form-group col-5">
                 <label>
@@ -92,9 +141,9 @@ class ModalEditCabinet extends Component {
                 <select
                   className="form-control"
                   onChange={(event) => {
-                    this.handleOnChangeInputStatus(event, "lockerStatus");
+                    this.handleOnChangeInputStatus(event, "isAvaiable");
                   }}
-                  value={this.state.lockerStatus}
+                  value={this.state.isAvaiable}
                 >
                   <option value="true">
                     {intl.formatMessage({ id: "table.enable" })}

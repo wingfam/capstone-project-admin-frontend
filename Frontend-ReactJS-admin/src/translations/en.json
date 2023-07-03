@@ -40,7 +40,9 @@
     "disable": "Disable",
     "ban": "Ban",
     "size": "Size",
-    "location": "Location"
+    "location": "Location",
+    "master-code":"Master Code",
+    "available-code":"Status Master Code"
   },
 
   "slidebar": {

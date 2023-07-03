@@ -40,7 +40,9 @@
     "disable": "Không hoạt động",
     "ban": "Cấm",
     "size": "Kích thước",
-    "location": "Địa điểm"
+    "location": "Địa điểm",
+    "master-code":"Mã admin",
+    "available-code":"Trạng thái mã admin"
   },
 
   "slidebar": {

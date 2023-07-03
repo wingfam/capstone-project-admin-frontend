@@ -121,7 +121,7 @@ class TableCabinet extends Component {
     console.log("Check filter: ", response);
     this.setState({
       arrCabinets: response,
-    })
+    });
   };
 
   doEditCabinet = async (locker) => {
@@ -168,19 +168,22 @@ class TableCabinet extends Component {
 
   handleDeleteCabinet = async (cabinet) => {
     try {
-      await deleteCabinetService(cabinet.lockerId).then(res => {
+      await deleteCabinetService(cabinet.lockerId).then((res) => {
         console.log("Check res: ", res);
         if (res && res.errCode === 0) {
-          toast.success(<FormattedMessage id="toast.delete-cabinet-success" />, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.success(
+            <FormattedMessage id="toast.delete-cabinet-success" />,
+            {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
         } else {
           alert(res.errMessage);
           toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
@@ -195,7 +198,6 @@ class TableCabinet extends Component {
           });
         }
       }, 1000);
-
     } catch (e) {
       console.log(e);
     }
@@ -220,7 +222,7 @@ class TableCabinet extends Component {
           />
         )}
         <div className="table-cabinet-content">
-          <div className="btn-cabinet" >
+          <div className="btn-cabinet">
             <button
               className="btn-add-cabinet"
               style={{
@@ -237,7 +239,8 @@ class TableCabinet extends Component {
           <FilterAddress
             currentFilterCabinet={this.state.filterCabinet}
             filterCabinet={this.doFilterCabinet}
-            className="filter-content" />
+            className="filter-content"
+          />
         </div>
         <div className="cabinets-table mt-3 mx-1">
           <table className="cabinets">
@@ -260,65 +263,67 @@ class TableCabinet extends Component {
                 </th>
               </tr>
               {arrCabinet &&
-                arrCabinet.sort((a, b) =>
-                  a.validDate > b.validDate ? -1 : 1
-                ).sort((a, b) =>
-                  a.lockerStatus > b.lockerStatus ? -1 : 1
-                ).map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <Link
-                          to={{
-                            pathname: `/system/box/${item.id}`,
-                            state: { address: `${item.name}` }
-                          }}>{item.name}
-                        </Link>
-                      </td>
-                      <td>
-                        {item.lockerName}
-                      </td>
-                      <td className="text-center">
-                        {(() => {
-                          switch (item.isAvaiable) {
-                            case false:
-                              return <FormattedMessage id="table.disable" />;
-                            case true:
-                              return <FormattedMessage id="table.enable" />;
-                            default:
-                          }
-                        })()}
-                      </td>
-                      <td className="text-center">{(() => {
-                        const date = moment(item.validDate);
-                        const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
-                        return formattedDate;
-                      })()}</td>
-                      <td>
-                        <button
-                          className="btn-edit"
-                          onClick={() => {
-                            this.handleEditCabinet(item);
-                          }}
-                          title={intl.formatMessage({ id: "common.edit" })}
-                        >
-                          <i className="fas fa-pencil-alt"></i>
-                        </button>
-                        <button
-                          className="btn-delete"
-                          onClick={() => {
-                            this.handleDeleteCabinet(item);
-                          }}
-                          title={intl.formatMessage({
-                            id: "common.delete",
-                          })}
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                arrCabinet
+                  .sort((a, b) => (a.validDate > b.validDate ? -1 : 1))
+                  .sort((a, b) => (a.lockerStatus > b.lockerStatus ? -1 : 1))
+                  .map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <Link
+                            to={{
+                              pathname: `/system/box/${item.id}`,
+                              state: { address: `${item.name}` },
+                            }}
+                          >
+                            {item.name}
+                          </Link>
+                        </td>
+                        <td>{item.lockerName}</td>
+                        <td className="text-center">
+                          {(() => {
+                            switch (item.isAvaiable) {
+                              case false:
+                                return <FormattedMessage id="table.disable" />;
+                              case true:
+                                return <FormattedMessage id="table.enable" />;
+                              default:
+                            }
+                          })()}
+                        </td>
+                        <td className="text-center">
+                          {(() => {
+                            const date = moment(item.addDate).format(
+                              "DD-MM-YYYY T HH:mm"
+                            );
+                            return date;
+                          })()}
+                        </td>
+                        <td>
+                          <button
+                            className="btn-edit"
+                            onClick={() => {
+                              this.handleEditCabinet(item);
+                            }}
+                            title={intl.formatMessage({ id: "common.edit" })}
+                          >
+                            <i className="fas fa-pencil-alt"></i>
+                          </button>
+                          <button
+                            className="btn-delete"
+                            onClick={() => {
+                              this.handleDeleteCabinet(item);
+                            }}
+                            title={intl.formatMessage({
+                              id: "common.delete",
+                            })}
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
             </tbody>
           </table>
         </div>
