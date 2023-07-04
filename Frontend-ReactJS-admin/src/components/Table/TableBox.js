@@ -12,7 +12,7 @@ import {
     editCabinetService,
     getACabinet,
 } from "../../services/cabinetService";
-import moment from "moment/moment";
+// import moment from "moment/moment";
 import firebase from 'firebase/app';
 import "firebase/database";
 
@@ -26,13 +26,14 @@ class TableBox extends Component {
             lockerName: "",
         };
         let database = firebase.database();
-        this.usersRef = database.ref('Locker');
+        this.usersRef = database.ref('Box');
     }
 
     async componentDidMount() {
         let response = await getACabinet(window.location.href.split("/")[5]);
         this.setState({
-            lockerNameAddress: response.lockerName,
+            cabinetName: response.name,
+            cabinetLocaiton: response.Location.name
         })
 
         this.usersRef.on('value', (snapshot) => {
@@ -209,10 +210,10 @@ class TableBox extends Component {
                 <div className="table-box-content">
                     <div className="text-address-box">
                         <div>
-                            Tên tủ: {this.state.lockerNameAddress}
+                            <FormattedMessage id={"table.name-cabinet"} />:     {this.state.cabinetName}
                         </div>
                         <div>
-                            Vị trí tủ: {this.state.lockerNameAddress}
+                            <FormattedMessage id={"table.location-cabinet"} />: {this.state.cabinetLocaiton}
                         </div>
                     </div>
 
@@ -251,14 +252,12 @@ class TableBox extends Component {
                             </tr>
                             {arrCabinet &&
                                 arrCabinet.sort((a, b) =>
-                                    a.validDate > b.validDate ? -1 : 1
-                                ).sort((a, b) =>
-                                    a.lockerStatus > b.lockerStatus ? -1 : 1
+                                    a.addDate > b.addDate ? -1 : 1
                                 ).map((item, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>
-                                                <Link to="/system/box">{item.lockerName}</Link>
+                                                <Link to="/system/box">{item.name}</Link>
                                             </td>
                                             <td className="text-center">
                                                 {/* {(() => {
@@ -266,22 +265,22 @@ class TableBox extends Component {
                                                 const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
                                                 return formattedDate;
                                             })()} */}
-                                                {item.lockerName}
+                                                {item.size}
                                             </td>
                                             <td className="text-center">
                                                 {(() => {
-                                                    switch (item.lockerStatus) {
-                                                        case false:
-                                                            return <FormattedMessage id="table.disable" />;
+                                                    switch (item.isStore) {
                                                         case true:
-                                                            return <FormattedMessage id="table.enable" />;
+                                                            return <FormattedMessage id="table.store-good" />;
+                                                        case false:
+                                                            return <FormattedMessage id="table.store-not-good" />;
                                                         default:
                                                     }
                                                 })()}
                                             </td>
                                             <td className="text-center">
                                                 {(() => {
-                                                    switch (item.lockerStatus) {
+                                                    switch (item.isAvaiable) {
                                                         case false:
                                                             return <FormattedMessage id="table.disable" />;
                                                         case true:

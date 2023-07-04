@@ -6,11 +6,11 @@ const handleLoginApi = (adminEmail, adminPassword) => {
 };
 
 const getAllUsers = () => {
-  return axios.get("/api/v1/home/get-all");
+  return axios.get("/api/v1/resident/get-all");
 };
 
 const getAUsers = (inputId) => {
-  return axios.get(`/api/v1/home/search?id=${inputId}`);
+  return axios.get(`/api/v1/resident/search?id=${inputId}`);
 };
 
 const createNewUserService = (data) => {
@@ -18,19 +18,19 @@ const createNewUserService = (data) => {
 };
 
 const editUserService = (residentId, inputData) => {
-  return axios.put(`/api/v1/home/update?id=${residentId}`, inputData);
+  return axios.put(`/api/v1/resident/update?id=${residentId}`, inputData);
 };
 
 const banUserService = (residentId, inputData) => {
-  return axios.put(`/api/v1/home/delete?id=${residentId}`, inputData);
+  return axios.put(`/api/v1/resident/delete?id=${residentId}`, inputData);
 };
 
 const unBanUserService = (residentId, inputData) => {
-  return axios.put(`/api/v1/home/edit-resident?id=${residentId}`, inputData);
+  return axios.put(`/api/v1/resident/edit-resident?id=${residentId}`, inputData);
 };
 
 const deleteUserService = (residentId) => {
-  return axios.delete(`/api/v1/home/delete?id=${residentId}`);
+  return axios.delete(`/api/v1/resident/delete?id=${residentId}`);
 };
 
 export { handleLoginApi, getAllUsers, getAUsers, createNewUserService, editUserService, deleteUserService, banUserService, unBanUserService };

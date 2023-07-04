@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableUser.scss";
-import { editUserService } from "../../services/userService";
+import { editUserService, getAllUsers } from "../../services/userService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalBan from "../Modal/ModalBan";
 import ModalUnBan from "../Modal/ModalUnBan";
-import firebase from 'firebase/app';
-import "firebase/database";
+// import firebase from 'firebase/app';
+// import "firebase/database";
 
 class TableUser extends Component {
   constructor(props) {
@@ -17,32 +17,43 @@ class TableUser extends Component {
       isOpenModalBan: false,
       isOpenModalUnBan: false,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref('Resident');
+    // let database = firebase.database();
+    // this.usersRef = database.ref('Resident');
   }
 
-  componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
-      const arrResidents = snapshot.val();
-      const dataArray = Object.values(arrResidents);
+  // componentDidMount() {
+  //   this.usersRef.on('value', (snapshot) => {
+  //     const arrResidents = snapshot.val();
+  //     const dataArray = Object.values(arrResidents);
 
-      this.setState({
-        arrResidents: dataArray,
-      });
+  //     this.setState({
+  //       arrResidents: dataArray,
+  //     });
+  //   });
+
+  //   this.usersRef.on('child_added', (snapshot) => {
+  //     const newResident = snapshot.val();
+
+  //     this.setState((prevState) => ({
+  //       arrResidents: [...prevState.arrResidents, newResident],
+  //     }));
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.usersRef.off()
+  // }
+
+  async componentDidMount() {
+    await this.getResidentsFromReact();
+  }
+
+  getResidentsFromReact = async () => {
+    let response = await getAllUsers();
+    this.setState({
+      arrResidents: response,
     });
-
-    this.usersRef.on('child_added', (snapshot) => {
-      const newResident = snapshot.val();
-
-      this.setState((prevState) => ({
-        arrResidents: [...prevState.arrResidents, newResident],
-      }));
-    });
-  }
-
-  componentWillUnmount() {
-    this.usersRef.off()
-  }
+  };
 
   toggleBanModal = () => {
     this.setState({
@@ -145,7 +156,6 @@ class TableUser extends Component {
     const arrResidents = arrResident.sort((a, b) =>
       a.isAvaiable > b.isAvaiable ? -1 : 1
     );
-
     const { intl } = this.props;
     return (
       <div className="table-customers-container">
@@ -167,16 +177,16 @@ class TableUser extends Component {
         )}
         <div className="customers-table mt-3 mx-1 ">
           <table className="customers">
-            <tbody>
+            <thead>
               <tr>
                 <th className="col-2">
                   <FormattedMessage id={"table.name"} />
                 </th>
-                <th className="col-3">
+                <th className="col-2">
                   <FormattedMessage id="table.email" />
                 </th>
-                <th className="col-1">
-                  <FormattedMessage id="table.phone" />
+                <th className="col-3">
+                  <FormattedMessage id="table.address" />
                 </th>
                 <th className="col-1">
                   <FormattedMessage id="table.status-user" />
@@ -185,6 +195,8 @@ class TableUser extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
+            </thead>
+            <tbody>
               {arrResidents &&
                 arrResidents.map((item, index) => {
                   return (
@@ -199,7 +211,7 @@ class TableUser extends Component {
                         </Link>
                       </td>
                       <td>{item.email}</td>
-                      <td className="text-center">{item.phone}</td>
+                      <td className="text-center">{item.Location.name}</td>
                       <td className="text-center">
                         {(() => {
                           switch (item.isAvaiable) {

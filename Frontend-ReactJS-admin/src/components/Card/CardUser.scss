@@ -37,46 +37,58 @@
           display: flex;
         }
 
-        .span-btn {
-          .btn-save {
-            width: 12%;
-            height: 35px;
-            border-radius: 7px;
-            border: none;
-            background: $colormain;
-            color: white;
-            font-size: 20px;
-            margin-right: 5px;
+        .form-status-user-content {
+          display: flex;
+          margin-bottom: 25px;
+
+          .form-status-user {
+            width: 50%;
+          }
+          .span-btn {
+            width: 50%;
+            position: absolute;
             margin-top: 20px;
-          }
 
-          .btn-trash {
-            width: 12%;
-            height: 35px;
-            border-radius: 7px;
-            border: none;
-            background: red;
-            color: white;
-            font-size: 20px;
+            .btn-save {
+              width: 15%;
+              height: 35px;
+              border-radius: 7px;
+              border: none;
+              background: $colormain;
+              color: white;
+              font-size: 20px;
+              margin-right: 5px;
+              margin-top: 20px;
+            }
+
+            .btn-trash {
+              width: 15%;
+              height: 35px;
+              border-radius: 7px;
+              border: none;
+              background: red;
+              color: white;
+              font-size: 20px;
+            }
           }
         }
-      }
 
-      div {
-        margin-top: 10px;
+        div {
+          margin-top: 10px;
 
-        .form-control {
-          height: 40px;
+          .form-control {
+            height: 40px;
+            font-size: $base-size;
+
+            .form-lastname {
+              width: 500px !important;
+            }
+          }
+        }
+
+        label {
           font-size: $base-size;
-
-          .form-lastname {
-            width: 500px !important;
-          }
         }
-      }
-
-      label {
-        font-size: $base-size;
       }
     }
   }

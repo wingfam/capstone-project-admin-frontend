@@ -19,7 +19,7 @@ class TableOrder extends Component {
       totalItems: 0,
     };
     let database = firebase.database();
-    this.usersRef = database.ref('Resident');
+    this.usersRef = database.ref('BookingOrder');
   }
 
   componentDidMount() {
@@ -74,6 +74,7 @@ class TableOrder extends Component {
   // };
 
   render() {
+    console.log("Check data order:", this.state.arrResident);
     return (
       <div className="table-orders-container">
         {/* <Paging
@@ -103,25 +104,21 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.booking-valid-date" />
                 </th>
                 <th>
-                  <FormattedMessage id="table.status-cabinet" />
-                </th>
-                <th>
-                  <FormattedMessage id="table.code-cabinet" />
+                  <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
               {this.state.arrResident &&
                 this.state.arrResident.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.fullname}</td>
+                      <td>{item.boxId}</td>
                       <td>
                         {item.fullname}
                       </td>
                       <td className="text-center">{item.fullname}</td>
-                      <td>{item.createdAt}</td>
-                      <td>{item.updatedAt}</td>
+                      <td>{item.createDate}</td>
+                      <td>{item.validDate}</td>
                       <td className="text-center">{item.email}</td>
-                      <td>{item.phone}</td>
                     </tr>
                   );
                 })}

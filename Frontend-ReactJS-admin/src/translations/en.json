@@ -23,13 +23,14 @@
     "phone": "Phone number",
     "action": "Action",
     "name-cabinet": "Name cabinet",
+    "location-cabinet": "Location cabinet",
     "status-cabinet": "Status cabinet",
     "status-user": "Status user",
     "name-box": "Name box",
     "status-box": "Status box",
     "status-box-store": "Status store",
-    "code-order": "Code order",
-    "code-cabinet": "Code unlock",
+    "code-order": "Order code",
+    "code-box": "Unlock code",
     "booking-date": "Booking date",
     "create-cabinet-date": "Cabinet creation date",
     "booking-valid-date": "Booking valid date",
@@ -41,8 +42,10 @@
     "ban": "Ban",
     "size": "Size",
     "location": "Location",
-    "master-code":"Master Code",
-    "available-code":"Status Master Code"
+    "master-code": "Master Code",
+    "available-code": "Status Master Code",
+    "store-good": "Store goods",
+    "store-not-good": "Not store goods"
   },
 
   "slidebar": {

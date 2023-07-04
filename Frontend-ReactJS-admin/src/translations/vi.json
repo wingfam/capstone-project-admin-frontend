@@ -24,13 +24,15 @@
     "phone": "Số điện thoại",
     "action": "Thao tác",
     "name-cabinet": "Tên tủ",
+    "location-cabinet": "Địa điểm đặt tủ",
     "status-cabinet": "Trạng thái tủ",
     "name-box": "Tên hộp",
     "status-box": "Trạng thái hộp",
+    "status-booking": "Trạng thái đặt hộp",
     "status-box-store": "Trạng thái lưu trữ",
     "status-user": "Trạng thái",
     "code-order": "Mã đặt tủ",
-    "code-cabinet": "Mã mở tủ",
+    "code-box": "Mã mở hộp",
     "booking-date": "Ngày đặt",
     "create-cabinet-date": "Ngày tạo tủ",
     "booking-valid-date": "Ngày hết hạn",
@@ -41,8 +43,11 @@
     "ban": "Cấm",
     "size": "Kích thước",
     "location": "Địa điểm",
-    "master-code":"Mã admin",
-    "available-code":"Trạng thái mã admin"
+    "master-code": "Mã admin",
+    "available-code": "Trạng thái mã admin",
+    "store-good": "Có hàng",
+    "store-not-good": "Không có hàng",
+    "serial": "STT"
   },
 
   "slidebar": {

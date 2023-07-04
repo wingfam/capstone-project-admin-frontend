@@ -85,7 +85,7 @@ class TableHistory extends Component {
             <tbody>
               <tr>
                 <th>
-                  <FormattedMessage id="table.name-cabinet" />
+                  <FormattedMessage id="table.name-box" />
                 </th>
                 <th>
                   <FormattedMessage id="table.name" />
@@ -103,7 +103,7 @@ class TableHistory extends Component {
                   <FormattedMessage id="table.booking-valid-date" />
                 </th>
                 <th>
-                  <FormattedMessage id="table.code-cabinet" />
+                  <FormattedMessage id="table.code-box" />
                 </th>
               </tr>
               {this.state.arrResident &&

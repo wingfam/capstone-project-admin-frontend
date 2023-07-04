@@ -8,6 +8,7 @@ import {
   getAUsers,
 } from "../../services/userService";
 import { toast } from "react-toastify";
+import CardHistory from "./CardHistory";
 
 class CardUser extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class CardUser extends Component {
       email: "",
       phone: "",
       fullname: "",
+      address: "",
       isAvaiable: "",
     };
   }
@@ -31,6 +33,7 @@ class CardUser extends Component {
       email: response.email,
       phone: response.phone,
       fullname: response.fullname,
+      address: response.Location.name,
       isAvaiable: response.isAvaiable,
     });
   };
@@ -128,15 +131,12 @@ class CardUser extends Component {
     return (
       <div className="container-user-card">
         <div className="card">
-          <h5 className="card-header">
+          <h2 className="card-header">
             <i className="fas fa-id-card">
-              &nbsp; <FormattedMessage id="table.address" />
+              &nbsp; <FormattedMessage id="title.detail" />
             </i>
-          </h5>
+          </h2>
           <div className="row g-0">
-            <div className="col-md-3 text-center img-content">
-              <img src={"/images/NO_IMG.png"} className="img-fluid" alt="..." />
-            </div>
             <div className="col-md-9 card-body">
               <div className="form-content">
                 <div>
@@ -156,19 +156,33 @@ class CardUser extends Component {
                 <div className="form-phone">
                   <div className="col-6 me-5">
                     <label>
-                      <FormattedMessage id="table.phone" />
+                      <FormattedMessage id="table.email" />
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      // onChange={(event) => {
-                      //   this.handleOnChangeInput(event, "phone");
-                      // }}
-                      value={this.state.phone}
+                      value={this.state.email}
                       disabled
                     />
                   </div>
-                  <div className="col-5 ms-4">
+                  <div className="col-5 ms-5">
+
+                    <label>
+                      <FormattedMessage id="table.address" />
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={(event) => {
+                        this.handleOnChangeInput(event, "address");
+                      }}
+                      value={this.state.address}
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div className="form-status-user-content">
+                  <div className="form-status-user">
                     <label>
                       <FormattedMessage id="table.status-user" />
                     </label>
@@ -188,44 +202,35 @@ class CardUser extends Component {
                       </option>
                     </select>
                   </div>
+                  <span className="offset-md-9 span-btn">
+                    <button
+                      type="button"
+                      className="btn-save"
+                      title={intl.formatMessage({ id: "common.save" })}
+                      onClick={() => {
+                        this.handleSaveUserDetail();
+                      }}
+                    >
+                      <i className="fas fa-save"></i>
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-trash"
+                      title={intl.formatMessage({ id: "common.ban" })}
+                      onClick={() => {
+                        this.handleBanUserDetail();
+                      }}
+                    >
+                      <i className="fas fa-user-lock"></i>
+                    </button>
+                  </span>
                 </div>
-                <div>
-                  <label>
-                    <FormattedMessage id="table.email" />
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={(event) => {
-                      this.handleOnChangeInput(event, "e mail");
-                    }}
-                    value={this.state.email}
-                    disabled
-                  />
-                </div>
-                <span className="offset-md-9 span-btn">
-                  <button
-                    type="button"
-                    className="btn-save"
-                    title={intl.formatMessage({ id: "common.save" })}
-                    onClick={() => {
-                      this.handleSaveUserDetail();
-                    }}
-                  >
-                    <i className="fas fa-save"></i>
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-trash"
-                    title={intl.formatMessage({ id: "common.ban" })}
-                    onClick={() => {
-                      this.handleBanUserDetail();
-                    }}
-                  >
-                    <i className="fas fa-user-lock"></i>
-                  </button>
-                </span>
+
               </div>
+              <h3>
+                <i className="fas fa-history">&nbsp; <FormattedMessage id="title.history-order" /></i>
+              </h3>
+              <CardHistory />
             </div>
           </div>
         </div>

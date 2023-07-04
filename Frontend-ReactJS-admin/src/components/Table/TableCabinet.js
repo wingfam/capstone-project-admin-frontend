@@ -279,7 +279,7 @@ class TableCabinet extends Component {
                             {item.name}
                           </Link>
                         </td>
-                        <td>{item.lockerName}</td>
+                        <td>{item.Location.name}</td>
                         <td className="text-center">
                           {(() => {
                             switch (item.isAvaiable) {
