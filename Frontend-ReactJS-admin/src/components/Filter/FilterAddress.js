@@ -6,28 +6,27 @@ class FilterAddress extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrCabinets: [],
+            arrLocaitions: [],
             isOpenModalCabinet: false,
             isOpenModalEditCabinet: false,
-            lockerName: "",
         };
         let database = firebase.database();
-        this.usersRef = database.ref('Cabinet');
+        this.usersRef = database.ref('Location');
     }
 
     componentDidMount() {
         this.usersRef.on('value', (snapshot) => {
-            const arrCabinets = snapshot.val();
-            const dataArray = Object.values(arrCabinets);
+            const arrLocaitions = snapshot.val();
+            const dataArray = Object.values(arrLocaitions);
             this.setState({
-                arrCabinets: dataArray,
+                arrLocaitions: dataArray,
             });
         });
 
         this.usersRef.on('child_added', (snapshot) => {
-            const newCabinet = snapshot.val();
+            const newLocation = snapshot.val();
             this.setState((prevState) => ({
-                arrCabinets: [...prevState.arrCabinets, newCabinet],
+                arrLocaitions: [...prevState.arrLocaitions, newLocation],
             }));
         });
     }
@@ -55,9 +54,9 @@ class FilterAddress extends Component {
                 <select className="form-select-content" onChange={(event) => { this.handleFilterAddress(event); }} >
                     <option defaultValue>Open this select menu</option>
                     {
-                        this.state.arrCabinets && this.state.arrCabinets.map((item, index) => {
+                        this.state.arrLocaitions && this.state.arrLocaitions.map((item, index) => {
                             return (
-                                <option value={item.id} key={index} >{item.lockerName}
+                                <option value={item.id} key={index} >{item.name}
                                 </option>
                             )
                         })

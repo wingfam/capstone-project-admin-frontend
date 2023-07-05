@@ -12,6 +12,7 @@
     "history-order": "Lịch sử đặt tủ",
     "edit-user": "Chỉnh sửa thông tin khách hàng",
     "edit-cabinet": "Chỉnh sửa thông tin tủ",
+    "detail-cabinet": "Thông tin tủ",
     "warning": "Cảnh báo!!!",
     "box": "quản lý hộp"
   },
@@ -73,7 +74,8 @@
     "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
     "search": "Tìm kiếm...",
     "logout": "Đăng xuất",
-    "bell": "Thông báo"
+    "bell": "Thông báo",
+    "detail": "Chi tiết"
   },
 
   "login": {

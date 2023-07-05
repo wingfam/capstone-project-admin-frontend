@@ -282,11 +282,11 @@ class TableCabinet extends Component {
                         <td>{item.Location.name}</td>
                         <td className="text-center">
                           {(() => {
-                            switch (item.isAvaiable) {
-                              case false:
-                                return <FormattedMessage id="table.disable" />;
+                            switch (item.isAvailable) {
                               case true:
                                 return <FormattedMessage id="table.enable" />;
+                              case false:
+                                return <FormattedMessage id="table.disable" />;
                               default:
                             }
                           })()}
@@ -305,7 +305,7 @@ class TableCabinet extends Component {
                             onClick={() => {
                               this.handleEditCabinet(item);
                             }}
-                            title={intl.formatMessage({ id: "common.edit" })}
+                            title={intl.formatMessage({ id: "common.detail" })}
                           >
                             <i className="fas fa-pencil-alt"></i>
                           </button>

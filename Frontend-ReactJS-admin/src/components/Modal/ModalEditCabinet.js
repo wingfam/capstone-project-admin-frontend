@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
+import { getAllLocations } from "../../services/locationService";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -12,23 +13,35 @@ class ModalEditCabinet extends Component {
       name: "",
       location: "",
       masterCode: "",
-      isAvaiableCode: false,
-      isAvaiable: false,
+      arrLocations: [],
+      isAvaiableCode: "",
+      isAvailable: false,
     };
   }
 
-  componentWillMount() {
+  async componentDidMount() {
     let locker = this.props.currentCabinet;
+    let response = await getAllLocations();
     if (locker && !_.isEmpty(locker)) {
       this.setState({
         id: locker.id,
         name: locker.name,
         masterCode: locker.masterCode,
-        isAvaiableCode: locker.isAvaiableCode,
-        isAvaiable: locker.isAvaiable,
+        arrLocations: response,
+        location: locker.Location.name,
+        isAvailableCode: locker.isAvaiableCode,
+        isAvailable: locker.isAvailable,
       });
     }
+    // this.getLocationsFromReact()
   }
+
+  // getLocationsFromReact = async () => {
+  //   let response = await getAllLocations();
+  //   this.setState({
+  //     arrLocations: response,
+  //   });
+  // };
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -40,6 +53,7 @@ class ModalEditCabinet extends Component {
     this.setState({
       ...copyState,
     });
+    console.log("check data1:", this.state.name, this.state.location);
   };
 
   handleOnChangeInputStatus = (event, id) => {
@@ -50,12 +64,8 @@ class ModalEditCabinet extends Component {
     });
   };
 
-  handleOnChangeCodeStatus = (event, id) => {
-    let copyState = { ...this.state };
-    copyState[id] = event.target.value === "checked" ? true : false;
-    this.setState({
-      ...copyState,
-    });
+  handleOnChangeCodeStatus = (checked) => {
+    console.log("Check data code:", checked);
   };
 
   handleSaveCabinet = () => {
@@ -79,7 +89,7 @@ class ModalEditCabinet extends Component {
             this.toggle();
           }}
         >
-          <FormattedMessage id="title.edit-cabinet" />
+          <FormattedMessage id="title.detail-cabinet" />
         </ModalHeader>
         <ModalBody>
           <div className="modal-edit-cabinet-body">
@@ -99,13 +109,22 @@ class ModalEditCabinet extends Component {
               <label>
                 <FormattedMessage id="table.location" />
               </label>
-              <input
-                type="text"
+              <select
+                className="form-control"
                 onChange={(event) => {
                   this.handleOnChangeInput(event, "location");
                 }}
                 value={this.state.location}
-              />
+              >
+                {
+                  this.state.arrLocations && this.state.arrLocations.filter(newArr => newArr !== (this.state.location)).map((item, index) => {
+                    return (
+                      <option value={item.id} key={index} >{item.name}
+                      </option>
+                    )
+                  })
+                }
+              </select>
             </div>
 
             <div className="input-container">
@@ -116,12 +135,13 @@ class ModalEditCabinet extends Component {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  onChange={(event) => {
-                    this.handleOnChangeCodeStatus(event, "isAvaiable");
+                  onChange={(checked) => {
+                    this.handleOnChangeCodeStatus(checked);
                   }}
-                  value={this.state.isAvaiable}
-                  checked={this.state.isAvaiable === true ? "checked" : ""}
+                  value={this.state.isAvailable}
+                  checked={this.state.isAvailable === true ? "checked" : ""}
                 />
+
                 <input
                   className="form-input-code"
                   type="text"
