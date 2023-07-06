@@ -71,6 +71,7 @@ class TableUser extends Component {
     try {
       let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
+        await this.getResidentsFromReact();
         this.setState({
           isOpenModalBan: false,
         });
@@ -106,6 +107,7 @@ class TableUser extends Component {
     try {
       let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
+        await this.getResidentsFromReact();
         this.setState({
           isOpenModalUnBan: false,
         });
@@ -214,7 +216,7 @@ class TableUser extends Component {
                       <td className="text-center">{item.Location.name}</td>
                       <td className="text-center">
                         {(() => {
-                          switch (item.isAvaiable) {
+                          switch (item.isAvailable) {
                             case false:
                               return <FormattedMessage id="table.ban" />;
                             case true:
@@ -225,7 +227,7 @@ class TableUser extends Component {
                       </td>
                       <td>
                         {(() => {
-                          switch (item.isAvaiable) {
+                          switch (item.isAvailable) {
                             case false:
                               return (
                                 <button

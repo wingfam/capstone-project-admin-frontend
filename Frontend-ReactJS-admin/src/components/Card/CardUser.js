@@ -18,7 +18,7 @@ class CardUser extends Component {
       phone: "",
       fullname: "",
       address: "",
-      isAvaiable: "",
+      isAvailable: "",
     };
   }
 
@@ -34,7 +34,7 @@ class CardUser extends Component {
       phone: response.phone,
       fullname: response.fullname,
       address: response.Location.name,
-      isAvaiable: response.isAvaiable,
+      isAvailable: response.isAvailable,
     });
   };
 
@@ -48,7 +48,7 @@ class CardUser extends Component {
 
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = (event.target.value) === "true" ? true : false;
+    copyState[id] = event.target.value === "true" ? true : false;
     this.setState({
       ...copyState,
     });
@@ -166,7 +166,6 @@ class CardUser extends Component {
                     />
                   </div>
                   <div className="col-5 ms-5">
-
                     <label>
                       <FormattedMessage id="table.address" />
                     </label>
@@ -190,9 +189,9 @@ class CardUser extends Component {
                       name="statusCabinet"
                       className="form-control"
                       onChange={(event) => {
-                        this.handleOnChangeInputStatus(event, "isAvaiable");
+                        this.handleOnChangeInputStatus(event, "isAvailable");
                       }}
-                      value={this.state.isAvaiable}
+                      value={this.state.isAvailable}
                     >
                       <option value="true">
                         {intl.formatMessage({ id: "table.enable" })}
@@ -225,10 +224,11 @@ class CardUser extends Component {
                     </button>
                   </span>
                 </div>
-
               </div>
               <h3>
-                <i className="fas fa-history">&nbsp; <FormattedMessage id="title.history-order" /></i>
+                <i className="fas fa-history">
+                  &nbsp; <FormattedMessage id="title.history-order" />
+                </i>
               </h3>
               <CardHistory />
             </div>

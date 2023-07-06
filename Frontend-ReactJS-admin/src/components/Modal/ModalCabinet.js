@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./ModalCabinet.scss";
 import { emitter } from "../../utils/emitter";
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
 import "firebase/database";
 
 class ModalCabinet extends Component {
@@ -12,15 +12,16 @@ class ModalCabinet extends Component {
     this.state = {
       cabinetName: "",
       cabinetStatus: true,
-      arrLocations: []
+      cabinetLocation: "",
+      arrLocations: [],
     };
     this.listenToEmitter();
     let database = firebase.database();
-    this.usersRef = database.ref('Location');
+    this.usersRef = database.ref("Location");
   }
 
   componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
+    this.usersRef.on("value", (snapshot) => {
       const arrLocations = snapshot.val();
       const dataArray = Object.values(arrLocations);
       this.setState({
@@ -28,7 +29,7 @@ class ModalCabinet extends Component {
       });
     });
 
-    this.usersRef.on('child_added', (snapshot) => {
+    this.usersRef.on("child_added", (snapshot) => {
       const newLocation = snapshot.val();
       this.setState((prevState) => ({
         arrLocations: [...prevState.arrLocations, newLocation],
@@ -37,14 +38,14 @@ class ModalCabinet extends Component {
   }
 
   componentWillUnmount() {
-    this.usersRef.off()
+    this.usersRef.off();
   }
 
   listenToEmitter = () => {
     emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
       this.setState({
-        lockerName: "",
-        lockerStatus: true,
+        cabinetName: "",
+        cabinetStatus: true,
       });
     });
   };
@@ -83,7 +84,7 @@ class ModalCabinet extends Component {
   };
 
   render() {
-    // const { intl } = this.props;
+    const { intl } = this.props;
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -119,28 +120,37 @@ class ModalCabinet extends Component {
               <label>
                 <FormattedMessage id="table.location" />
               </label>
-              <select className="form-control" onChange={(event) => { this.handleOnChangeInput(event, "location"); }}>
-                {
-                  this.state.arrLocations && this.state.arrLocations.map((item, index) => {
+              <select
+                className="form-control"
+                onChange={(event) => {
+                  this.handleOnChangeInput(event, "location");
+                }}
+              >
+                {this.state.arrLocations &&
+                  this.state.arrLocations.map((item, index) => {
                     return (
-                      <option value={item.id} key={index} >{item.name}
+                      <option value={item.id} key={index}>
+                        {item.name}
                       </option>
-                    )
-                  })
-                }
+                    );
+                  })}
               </select>
             </div>
-            {/* <div className="input-container">
+            <div className="input-container">
               <div className="form-group col-5">
                 <label>
                   <FormattedMessage id="table.status-cabinet" />
                 </label>
                 <select name="statusCabinet" className="form-control" disabled>
-                  <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
-                  <option value="0">{intl.formatMessage({ id: "table.disable" })}</option>
+                  <option value="1">
+                    {intl.formatMessage({ id: "table.enable" })}
+                  </option>
+                  <option value="0">
+                    {intl.formatMessage({ id: "table.disable" })}
+                  </option>
                 </select>
               </div>
-            </div> */}
+            </div>
           </div>
         </ModalBody>
         <ModalFooter>

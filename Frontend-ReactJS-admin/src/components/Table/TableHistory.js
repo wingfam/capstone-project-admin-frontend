@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableHistory.scss";
 // import Paging from "../Paging";
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
 import "firebase/database";
 class TableHistory extends Component {
   constructor(props) {
@@ -12,35 +12,35 @@ class TableHistory extends Component {
       currentPage: null,
       totalPages: null,
       totalItems: 0,
-      arrResident: [],
-      arrResidents: []
+      arrBookingHistories: [],
     };
     let database = firebase.database();
-    this.usersRef = database.ref('Resident');
+    this.usersRef = database.ref("BookingHistory");
   }
 
   componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
-      const arrResident = snapshot.val();
-      const dataArray = Object.values(arrResident);
+    this.usersRef.on("value", (snapshot) => {
+      const arrBookingHistories = snapshot.val();
+      const dataArray = Object.values(arrBookingHistories);
       this.setState({
-        arrResident: dataArray,
+        arrBookingHistories: dataArray,
       });
-      // console.log("Check data data:", this.state.arrResident);
-      return arrResident
     });
 
-    this.usersRef.on('child_added', (snapshot) => {
-      const newResident = snapshot.val();
+    this.usersRef.on("child_added", (snapshot) => {
+      const newBookingHistory = snapshot.val();
 
       this.setState((prevState) => ({
-        arrResidents: [...prevState.arrResidents, newResident],
+        arrBookingHistories: [
+          ...prevState.arrBookingHistories,
+          newBookingHistory,
+        ],
       }));
     });
   }
 
   componentWillUnmount() {
-    this.usersRef.off()
+    this.usersRef.off();
   }
 
   // getProducts = async () => {
@@ -80,7 +80,6 @@ class TableHistory extends Component {
           sizing=""
         /> */}
         <div className="histories-table mt-3 mx-1">
-
           <table className="histories">
             <tbody>
               <tr>
@@ -91,34 +90,20 @@ class TableHistory extends Component {
                   <FormattedMessage id="table.name" />
                 </th>
                 <th>
-                  <FormattedMessage id="table.phone" />
-                </th>
-                <th>
-                  <FormattedMessage id="table.code-order" />
-                </th>
-                <th>
                   <FormattedMessage id="table.booking-date" />
                 </th>
                 <th>
                   <FormattedMessage id="table.booking-valid-date" />
                 </th>
-                <th>
-                  <FormattedMessage id="table.code-box" />
-                </th>
               </tr>
-              {this.state.arrResident &&
-                this.state.arrResident.map((item, index) => {
+              {this.state.arrBookingHistories &&
+                this.state.arrBookingHistories.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.fullname}</td>
-                      <td>
-                        {item.fullname}
-                      </td>
-                      <td className="text-center">{item.phone}</td>
-                      <td className="text-center">{item.fullname}</td>
-                      <td>{item.createdAt}</td>
-                      <td>{item.updatedAt}</td>
-                      <td>{item.fullname}</td>
+                      <td>{item.bookingId}</td>
+                      <td>{item.bookingId}</td>
+                      <td>{item.residentId}</td>
+                      <td>{item.residentId}</td>
                     </tr>
                   );
                 })}

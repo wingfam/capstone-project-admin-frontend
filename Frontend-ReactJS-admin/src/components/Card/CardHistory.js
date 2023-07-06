@@ -8,11 +8,21 @@ const CardHistory = () => {
       <table className="history">
         <thead>
           <tr>
-            <th className="col-1"><FormattedMessage id="table.serial" /></th>
-            <th className="col-2"><FormattedMessage id="table.name-cabinet" /></th>
-            <th className="col-2"><FormattedMessage id="table.code-cabinet" /></th>
-            <th className="col-4"><FormattedMessage id="table.booking-date" /></th>
-            <th className="col-4"><FormattedMessage id="table.booking-valid-date" /></th>
+            <th className="col-1">
+              <FormattedMessage id="table.serial" />
+            </th>
+            <th className="col-2">
+              <FormattedMessage id="table.name-box" />
+            </th>
+            <th className="col-2">
+              <FormattedMessage id="table.code-box" />
+            </th>
+            <th className="col-4">
+              <FormattedMessage id="table.booking-date" />
+            </th>
+            <th className="col-4">
+              <FormattedMessage id="table.booking-valid-date" />
+            </th>
           </tr>
         </thead>
         <tbody>

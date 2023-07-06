@@ -23,7 +23,6 @@ class ModalEditUser extends Component {
       this.setState({
         id: user.id,
         email: user.email,
-        phonenumber: user.phonenumber,
         firstName: user.firstName,
         lastName: user.lastName,
         address: user.address,
@@ -125,11 +124,20 @@ class ModalEditUser extends Component {
               <label>
                 <FormattedMessage id="table.status-user" />
               </label>
-              <select name="statusUser" className="form-control" onChange={(event) => {
-                this.handleOnChangeInput(event, "statusUser");
-              }} value={this.state.statusUser}>
-                <option value="1">{intl.formatMessage({ id: "table.enable" })}</option>
-                <option value="0">{intl.formatMessage({ id: "table.ban" })}</option>
+              <select
+                name="statusUser"
+                className="form-control"
+                onChange={(event) => {
+                  this.handleOnChangeInput(event, "statusUser");
+                }}
+                value={this.state.statusUser}
+              >
+                <option value="1">
+                  {intl.formatMessage({ id: "table.enable" })}
+                </option>
+                <option value="0">
+                  {intl.formatMessage({ id: "table.ban" })}
+                </option>
               </select>
             </div>
             <div className="input-container max-width-input">

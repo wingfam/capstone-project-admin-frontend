@@ -10,7 +10,7 @@ import {
   createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
-  getACabinet,
+  getACabinetByLocation,
   getAllCabinets,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
@@ -117,7 +117,7 @@ class TableCabinet extends Component {
   };
 
   doFilterCabinet = async (id) => {
-    let response = await getACabinet(id);
+    let response = await getACabinetByLocation(id);
     console.log("Check filter: ", response);
     this.setState({
       arrCabinets: response,
@@ -262,8 +262,8 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrCabinet &&
-                arrCabinet
+              {this.state.arrCabinets &&
+                this.state.arrCabinets
                   .sort((a, b) => (a.validDate > b.validDate ? -1 : 1))
                   .sort((a, b) => (a.lockerStatus > b.lockerStatus ? -1 : 1))
                   .map((item, index) => {

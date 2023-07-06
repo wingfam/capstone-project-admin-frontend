@@ -3,48 +3,56 @@ import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
 // import { getAllUsers } from "../../services/userService";
 // import Paging from "../Paging";
-import firebase from 'firebase/app';
+import firebase from "firebase/app";
 import "firebase/database";
+import { getAllBookingOrders } from "../../services/bookingOrder";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrUsers: [],
-      arrResident: [],
-      arrResidents: [],
+      arrBookingOrders: [],
       currentProducts: [],
       currentPage: null,
       totalPages: null,
       totalItems: 0,
     };
     let database = firebase.database();
-    this.usersRef = database.ref('BookingOrder');
+    this.usersRef = database.ref("BookingOrder");
   }
 
-  componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
-      const arrResident = snapshot.val();
-      const dataArray = Object.values(arrResident);
-      this.setState({
-        arrResident: dataArray,
-      });
-      // console.log("Check data data:", this.state.arrResident);
-      return arrResident
+  // componentDidMount() {
+  //   this.usersRef.on("value", (snapshot) => {
+  //     const arrBookingOrders = snapshot.val();
+  //     const dataArray = Object.values(arrBookingOrders);
+  //     this.setState({
+  //       arrBookingOrders: dataArray,
+  //     });
+  //   });
+
+  //   this.usersRef.on("child_added", (snapshot) => {
+  //     const newBookingOrder = snapshot.val();
+
+  //     this.setState((prevState) => ({
+  //       arrBookingOrders: [...prevState.arrBookingOrders, newBookingOrder],
+  //     }));
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.usersRef.off();
+  // }
+
+  async componentDidMount() {
+    await this.getBookingOrdersFromReact();
+  }
+
+  getBookingOrdersFromReact = async () => {
+    let response = await getAllBookingOrders();
+    this.setState({
+      arrBookingOrders: response,
     });
-
-    this.usersRef.on('child_added', (snapshot) => {
-      const newResident = snapshot.val();
-
-      this.setState((prevState) => ({
-        arrResidents: [...prevState.arrResidents, newResident],
-      }));
-    });
-  }
-
-  componentWillUnmount() {
-    this.usersRef.off()
-  }
+  };
 
   // async componentDidMount() {
   //   let response = await getAllUsers();
@@ -74,7 +82,7 @@ class TableOrder extends Component {
   // };
 
   render() {
-    console.log("Check data order:", this.state.arrResident);
+    console.log("Check data order:", this.state.arrBookingOrders);
     return (
       <div className="table-orders-container">
         {/* <Paging
@@ -95,7 +103,7 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.name" />
                 </th>
                 <th>
-                  <FormattedMessage id="table.code-order" />
+                  <FormattedMessage id="table.email" />
                 </th>
                 <th>
                   <FormattedMessage id="table.booking-date" />
@@ -107,18 +115,16 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
-              {this.state.arrResident &&
-                this.state.arrResident.map((item, index) => {
+              {this.state.arrBookingOrders &&
+                this.state.arrBookingOrders.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.boxId}</td>
-                      <td>
-                        {item.fullname}
-                      </td>
-                      <td className="text-center">{item.fullname}</td>
+                      <td>{item.Box.nameBox}</td>
+                      <td>{item.Resident.fullname}</td>
+                      <td className="text-center">{item.Resident.email}</td>
                       <td>{item.createDate}</td>
-                      <td>{item.validDate}</td>
-                      <td className="text-center">{item.email}</td>
+                      <td>{item.ValidDate}</td>
+                      <td>{item.status}</td>
                     </tr>
                   );
                 })}

@@ -14,7 +14,7 @@ class ModalEditCabinet extends Component {
       location: "",
       masterCode: "",
       arrLocations: [],
-      isAvaiableCode: "",
+      isAvailableCode: "",
       isAvailable: false,
     };
   }
@@ -29,7 +29,7 @@ class ModalEditCabinet extends Component {
         masterCode: locker.masterCode,
         arrLocations: response,
         location: locker.Location.name,
-        isAvailableCode: locker.isAvaiableCode,
+        isAvailableCode: locker.isAvailableCode,
         isAvailable: locker.isAvailable,
       });
     }
@@ -116,14 +116,16 @@ class ModalEditCabinet extends Component {
                 }}
                 value={this.state.location}
               >
-                {
-                  this.state.arrLocations && this.state.arrLocations.filter(newArr => newArr !== (this.state.location)).map((item, index) => {
-                    return (
-                      <option value={item.id} key={index} >{item.name}
-                      </option>
-                    )
-                  })
-                }
+                {this.state.arrLocations &&
+                  this.state.arrLocations
+                    .filter((newArr) => newArr !== this.state.location)
+                    .map((item, index) => {
+                      return (
+                        <option value={item.id} key={index}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
               </select>
             </div>
 
@@ -161,9 +163,9 @@ class ModalEditCabinet extends Component {
                 <select
                   className="form-control"
                   onChange={(event) => {
-                    this.handleOnChangeInputStatus(event, "isAvaiable");
+                    this.handleOnChangeInputStatus(event, "isAvailable");
                   }}
-                  value={this.state.isAvaiable}
+                  value={this.state.isAvailable}
                 >
                   <option value="true">
                     {intl.formatMessage({ id: "table.enable" })}
