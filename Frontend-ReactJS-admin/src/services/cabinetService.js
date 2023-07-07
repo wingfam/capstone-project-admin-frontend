@@ -10,7 +10,7 @@ const getACabinet = (lockerId) => {
 
 const getACabinetByLocation = (locationId) => {
   return axios.get(
-    `/api/v1/Cabinet/get-cabient-by-location?locationId=${locationId}`
+    `/api/v1/Cabinet/get-cabinet-by-location?locationId=${locationId}`
   );
 };
 

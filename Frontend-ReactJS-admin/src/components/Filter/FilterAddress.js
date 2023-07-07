@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./FilterAddress.scss";
 import firebase from "firebase/app";
 import "firebase/database";
+import { FormattedMessage, injectIntl } from "react-intl";
 class FilterAddress extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +41,7 @@ class FilterAddress extends Component {
   };
 
   render() {
+    const { intl } = this.props;
     return (
       <div className="form-select-container">
         <div className="icon-content">
@@ -51,7 +53,7 @@ class FilterAddress extends Component {
             this.handleFilterAddress(event);
           }}
         >
-          <option defaultValue>Open this select menu</option>
+          <option value="1"> {intl.formatMessage({ id: "common.get-all" })} </option>
           {this.state.arrLocaitions &&
             this.state.arrLocaitions.map((item, index) => {
               return (
@@ -65,4 +67,4 @@ class FilterAddress extends Component {
     );
   }
 }
-export default FilterAddress;
+export default injectIntl(FilterAddress);

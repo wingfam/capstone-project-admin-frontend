@@ -6,6 +6,7 @@ import "./TableOrder.scss";
 import firebase from "firebase/app";
 import "firebase/database";
 import { getAllBookingOrders } from "../../services/bookingOrder";
+import moment from "moment/moment";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -122,8 +123,19 @@ class TableOrder extends Component {
                       <td>{item.Box.nameBox}</td>
                       <td>{item.Resident.fullname}</td>
                       <td className="text-center">{item.Resident.email}</td>
-                      <td>{item.createDate}</td>
-                      <td>{item.ValidDate}</td>
+                      <td>
+                        {(() => {
+                          const date = moment(item.createDate).format(
+                            "DD-MM-YYYY T HH:mm"
+                          );
+                          return date;
+                        })()}</td>
+                      <td>{(() => {
+                        const date = moment(item.validDate).format(
+                          "DD-MM-YYYY T HH:mm"
+                        );
+                        return date;
+                      })()}</td>
                       <td>{item.status}</td>
                     </tr>
                   );

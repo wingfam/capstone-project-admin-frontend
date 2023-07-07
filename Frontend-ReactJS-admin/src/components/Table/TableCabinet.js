@@ -117,11 +117,14 @@ class TableCabinet extends Component {
   };
 
   doFilterCabinet = async (id) => {
-    let response = await getACabinetByLocation(id);
-    console.log("Check filter: ", response);
-    this.setState({
-      arrCabinets: response,
-    });
+    if (id === "1") {
+      await this.getCabinetsFromReact();
+    } else {
+      let response = await getACabinetByLocation(id);
+      this.setState({
+        arrCabinets: response,
+      });
+    }
   };
 
   doEditCabinet = async (locker) => {
@@ -205,7 +208,6 @@ class TableCabinet extends Component {
 
   render() {
     const { intl } = this.props;
-    const arrCabinet = this.state.arrCabinets;
     return (
       <div className="table-cabinet-container">
         <ModalCabinet

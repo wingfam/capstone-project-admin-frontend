@@ -71,7 +71,8 @@
     "confirm-this-task": "Are you sure to process this task?",
     "search": "Search...",
     "logout": "Logout",
-    "bell": "Notifications"
+    "bell": "Notifications",
+    "get-all": "Get all"
   },
 
   "login": {

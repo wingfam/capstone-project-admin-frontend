@@ -12,26 +12,29 @@ class ModalEditCabinet extends Component {
       id: "",
       name: "",
       location: "",
+      locationName: "",
       masterCode: "",
       arrLocations: [],
       isAvailableCode: "",
-      isAvailable: false,
+      isAvailable: "",
     };
   }
 
   async componentDidMount() {
-    let locker = this.props.currentCabinet;
+    let cabinet = this.props.currentCabinet;
     let response = await getAllLocations();
-    if (locker && !_.isEmpty(locker)) {
+    if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        id: locker.id,
-        name: locker.name,
-        masterCode: locker.masterCode,
+        id: cabinet.id,
+        name: cabinet.name,
+        masterCode: cabinet.MasterCode.code,
         arrLocations: response,
-        location: locker.Location.name,
-        isAvailableCode: locker.isAvailableCode,
-        isAvailable: locker.isAvailable,
+        locationName: cabinet.Location.name,
+        location: cabinet.Location.id,
+        isAvailableCode: cabinet.MasterCode.isAvailable,
+        isAvailable: cabinet.isAvailable,
       });
+      console.log("check data: ", this.state.location);
     }
     // this.getLocationsFromReact()
   }
@@ -114,11 +117,12 @@ class ModalEditCabinet extends Component {
                 onChange={(event) => {
                   this.handleOnChangeInput(event, "location");
                 }}
-                value={this.state.location}
+                value={this.state.locationName}
               >
+                <option>{this.state.locationName}</option>
                 {this.state.arrLocations &&
                   this.state.arrLocations
-                    .filter((newArr) => newArr !== this.state.location)
+                    .filter((newArr) => newArr !== this.state.locationName)
                     .map((item, index) => {
                       return (
                         <option value={item.id} key={index}>
@@ -137,20 +141,20 @@ class ModalEditCabinet extends Component {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  onChange={(checked) => {
-                    this.handleOnChangeCodeStatus(checked);
+                  onChange={() => {
+                    this.handleOnChangeCodeStatus();
                   }}
-                  value={this.state.isAvailable}
-                  checked={this.state.isAvailable === true ? "checked" : ""}
+                  value={this.state.isAvailableCode}
+                  checked={this.state.isAvailableCode === true ? "checked" : ""}
                 />
 
                 <input
                   className="form-input-code"
                   type="text"
                   onChange={(event) => {
-                    this.handleOnChangeInput(event, "name");
+                    this.handleOnChangeInput(event, "masterCode");
                   }}
-                  value={this.state.name}
+                  value={this.state.masterCode}
                 />
               </div>
             </div>
