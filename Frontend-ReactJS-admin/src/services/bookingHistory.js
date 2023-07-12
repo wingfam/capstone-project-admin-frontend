@@ -1,7 +1,11 @@
 import axios from "../axios";
 
 const getAllBookingHistorys = () => {
-  return axios.get("/api/v1/bookingHistory/get-all");
+  return axios.get("/api/v1/history/get-all");
 };
 
-export { getAllBookingHistorys };
+const getBookingHistoriesByResidentId = (residentId) => {
+  return axios.get(`/api/v1/history/get-history-by-resident?residentId=${residentId}`);
+};
+
+export { getAllBookingHistorys, getBookingHistoriesByResidentId };

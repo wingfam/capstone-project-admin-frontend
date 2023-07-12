@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableBox.scss";
 import { Link } from "react-router-dom";
-import ModalCabinet from "../Modal/ModalCabinet";
-import { emitter } from "../../utils/emitter";
+// import ModalCabinet from "../Modal/ModalCabinet";
+// import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
-  createNewCabinetService,
+  // createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
   getACabinet,
@@ -15,7 +15,6 @@ import {
 // import moment from "moment/moment";
 import firebase from "firebase/app";
 import "firebase/database";
-import { getABoxByCabinet } from "../../services/boxService";
 
 class TableBox extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class TableBox extends Component {
     this.state = {
       arrBox: [],
       arrBoxs: [],
-      isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
     };
     let database = firebase.database();
@@ -63,58 +61,10 @@ class TableBox extends Component {
   //     return response.id;
   //   }
 
-  handleAddNewCabinets = () => {
-    this.setState({
-      isOpenModalCabinet: true,
-    });
-  };
-
-  toggleCabinetModal = () => {
-    this.setState({
-      isOpenModalCabinet: !this.state.isOpenModalCabinet,
-    });
-  };
-
   toggleCabinetEditModal = () => {
     this.setState({
       isOpenModalEditCabinet: !this.state.isOpenModalEditCabinet,
     });
-  };
-
-  createNewCabinet = async (data) => {
-    try {
-      let response = await createNewCabinetService(data);
-      if (response && response.errCode === 1) {
-        alert(response.errMessage);
-        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        this.setState({
-          isOpenModalCabinet: false,
-        });
-        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        emitter.emit("EVENT_CLEAR_MODAL_DATA");
-      }
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   doEditCabinet = async (locker) => {
@@ -201,11 +151,6 @@ class TableBox extends Component {
     const arrBoxs = this.state.arrBoxs;
     return (
       <div className="table-box-container">
-        <ModalCabinet
-          isOpen={this.state.isOpenModalCabinet}
-          toggleFromParent={this.toggleCabinetModal}
-          createNewCabinet={this.createNewCabinet}
-        />
         {this.state.isOpenModalEditCabinet && (
           <ModalEditCabinet
             isOpen={this.state.isOpenModalEditCabinet}
@@ -225,19 +170,6 @@ class TableBox extends Component {
               {this.state.cabinetLocation}
             </div>
           </div>
-
-          <button
-            className="btn-add-box"
-            style={{
-              background: "#21a5ff",
-              color: "#FEFFFF",
-              fontSize: "16px",
-            }}
-            onClick={() => this.handleAddNewCabinets()}
-          >
-            <i className="fas fa-plus"></i> &nbsp;
-            <FormattedMessage id={"table.add-cabinet"} />
-          </button>
         </div>
         <div className="boxs-table mt-3 mx-1">
           <table className="boxs">

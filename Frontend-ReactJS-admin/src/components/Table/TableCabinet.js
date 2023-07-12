@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableCabinet.scss";
 import { Link } from "react-router-dom";
-import ModalCabinet from "../Modal/ModalCabinet";
-import { emitter } from "../../utils/emitter";
+// import ModalCabinet from "../Modal/ModalCabinet";
+// import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
-  createNewCabinetService,
+  // createNewCabinetService,
   deleteCabinetService,
   editCabinetService,
   getACabinetByLocation,
@@ -23,7 +23,7 @@ class TableCabinet extends Component {
     super(props);
     this.state = {
       arrCabinets: [],
-      isOpenModalCabinet: false,
+      // isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
     };
     // let database = firebase.database();
@@ -62,17 +62,17 @@ class TableCabinet extends Component {
     });
   };
 
-  handleAddNewCabinets = () => {
-    this.setState({
-      isOpenModalCabinet: true,
-    });
-  };
+  // handleAddNewCabinets = () => {
+  //   this.setState({
+  //     isOpenModalCabinet: true,
+  //   });
+  // };
 
-  toggleCabinetModal = () => {
-    this.setState({
-      isOpenModalCabinet: !this.state.isOpenModalCabinet,
-    });
-  };
+  // toggleCabinetModal = () => {
+  //   this.setState({
+  //     isOpenModalCabinet: !this.state.isOpenModalCabinet,
+  //   });
+  // };
 
   toggleCabinetEditModal = () => {
     this.setState({
@@ -80,41 +80,41 @@ class TableCabinet extends Component {
     });
   };
 
-  createNewCabinet = async (data) => {
-    try {
-      let response = await createNewCabinetService(data);
-      if (response && response.errCode === 1) {
-        alert(response.errMessage);
-        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        this.setState({
-          isOpenModalCabinet: false,
-        });
-        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        emitter.emit("EVENT_CLEAR_MODAL_DATA");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // createNewCabinet = async (data) => {
+  //   try {
+  //     let response = await createNewCabinetService(data);
+  //     if (response && response.errCode === 1) {
+  //       alert(response.errMessage);
+  //       toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+  //         position: "top-right",
+  //         autoClose: 3000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //     } else {
+  //       this.setState({
+  //         isOpenModalCabinet: false,
+  //       });
+  //       toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
+  //         position: "top-right",
+  //         autoClose: 3000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "light",
+  //       });
+  //       emitter.emit("EVENT_CLEAR_MODAL_DATA");
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   doFilterCabinet = async (id) => {
     if (id === "1") {
@@ -210,11 +210,6 @@ class TableCabinet extends Component {
     const { intl } = this.props;
     return (
       <div className="table-cabinet-container">
-        <ModalCabinet
-          isOpen={this.state.isOpenModalCabinet}
-          toggleFromParent={this.toggleCabinetModal}
-          createNewCabinet={this.createNewCabinet}
-        />
         {this.state.isOpenModalEditCabinet && (
           <ModalEditCabinet
             isOpen={this.state.isOpenModalEditCabinet}
@@ -224,7 +219,7 @@ class TableCabinet extends Component {
           />
         )}
         <div className="table-cabinet-content">
-          <div className="btn-cabinet">
+          {/* <div className="btn-cabinet">
             <button
               className="btn-add-cabinet"
               style={{
@@ -237,7 +232,7 @@ class TableCabinet extends Component {
               <i className="fas fa-plus"></i> &nbsp;
               <FormattedMessage id={"table.add-cabinet"} />
             </button>
-          </div>
+          </div> */}
           <FilterAddress
             currentFilterCabinet={this.state.filterCabinet}
             filterCabinet={this.doFilterCabinet}

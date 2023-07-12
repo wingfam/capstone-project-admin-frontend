@@ -34,7 +34,6 @@ class ModalEditCabinet extends Component {
         isAvailableCode: cabinet.MasterCode.isAvailable,
         isAvailable: cabinet.isAvailable,
       });
-      console.log("check data: ", this.state.location);
     }
     // this.getLocationsFromReact()
   }
@@ -56,7 +55,6 @@ class ModalEditCabinet extends Component {
     this.setState({
       ...copyState,
     });
-    console.log("check data1:", this.state.name, this.state.location);
   };
 
   handleOnChangeInputStatus = (event, id) => {
@@ -67,12 +65,17 @@ class ModalEditCabinet extends Component {
     });
   };
 
-  handleOnChangeCodeStatus = (checked) => {
-    console.log("Check data code:", checked);
+  handleOnChangeCodeStatus = (id) => {
+    let copyState = { ...this.state };
+    copyState[id] = document.getElementById("changeAvailable").checked;
+    this.setState({
+      ...copyState,
+    });
   };
 
   handleSaveCabinet = () => {
-    this.props.editCabinet(this.state);
+    // this.props.editCabinet(this.state);
+    console.log("check data: ", this.state);
   };
 
   render() {
@@ -113,16 +116,15 @@ class ModalEditCabinet extends Component {
                 <FormattedMessage id="table.location" />
               </label>
               <select
-                className="form-control"
+                className="form-control form-select"
                 onChange={(event) => {
                   this.handleOnChangeInput(event, "location");
                 }}
-                value={this.state.locationName}
+                value={this.state.location}
               >
-                <option>{this.state.locationName}</option>
                 {this.state.arrLocations &&
                   this.state.arrLocations
-                    .filter((newArr) => newArr !== this.state.locationName)
+                    .filter((newArr) => newArr !== this.state.location)
                     .map((item, index) => {
                       return (
                         <option value={item.id} key={index}>
@@ -137,12 +139,13 @@ class ModalEditCabinet extends Component {
               <label>
                 <FormattedMessage id="table.master-code" />
               </label>
-              <div className="input-container-code">
+              <div className="input-container-code form-check">
                 <input
-                  className="form-check-input"
+                  className="form-check-input checked"
                   type="checkbox"
-                  onChange={() => {
-                    this.handleOnChangeCodeStatus();
+                  id="changeAvailable"
+                  onClick={() => {
+                    this.handleOnChangeCodeStatus("isAvailableCode");
                   }}
                   value={this.state.isAvailableCode}
                   checked={this.state.isAvailableCode === true ? "checked" : ""}
@@ -165,7 +168,7 @@ class ModalEditCabinet extends Component {
                   <FormattedMessage id="table.status-cabinet" />
                 </label>
                 <select
-                  className="form-control"
+                  className="form-control form-select"
                   onChange={(event) => {
                     this.handleOnChangeInputStatus(event, "isAvailable");
                   }}

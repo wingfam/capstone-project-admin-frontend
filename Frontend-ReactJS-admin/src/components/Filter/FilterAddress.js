@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./FilterAddress.scss";
 import firebase from "firebase/app";
 import "firebase/database";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { injectIntl } from "react-intl";
 class FilterAddress extends Component {
   constructor(props) {
     super(props);

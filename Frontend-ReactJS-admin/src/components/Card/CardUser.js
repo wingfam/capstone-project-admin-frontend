@@ -18,7 +18,7 @@ class CardUser extends Component {
       phone: "",
       fullname: "",
       address: "",
-      isAvailable: "",
+      isAvailable: ""
     };
   }
 
@@ -37,6 +37,7 @@ class CardUser extends Component {
       isAvailable: response.isAvailable,
     });
   };
+
 
   // handleOnChangeInput = (event, id) => {
   //   let copyState = { ...this.state };
@@ -146,9 +147,6 @@ class CardUser extends Component {
                   <input
                     type="text"
                     className="form-control form-lastname"
-                    // onChange={(event) => {
-                    //   this.handleOnChangeInput(event, "fullname");
-                    // }}
                     value={this.state.fullname}
                     disabled
                   />
