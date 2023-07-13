@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
-// import { getAllUsers } from "../../services/userService";
-// import Paging from "../Paging";
-import firebase from "firebase/app";
-import "firebase/database";
 import { getAllBookingOrders } from "../../services/bookingOrder";
 import moment from "moment/moment";
+// import { getAllUsers } from "../../services/userService";
+// import Paging from "../Paging";
+// import firebase from "firebase/app";
+// import "firebase/database";
+// import { getAllBookingHistorys } from "../../services/bookingHistory";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrBookingOrders: [],
+      arrBookingOrder: [],
       currentProducts: [],
       currentPage: null,
       totalPages: null,
       totalItems: 0,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref("BookingOrder");
+    // let database = firebase.database();
+    // this.usersRef = database.ref("BookingOrder");
   }
 
   // componentDidMount() {
@@ -51,7 +52,7 @@ class TableOrder extends Component {
   getBookingOrdersFromReact = async () => {
     let response = await getAllBookingOrders();
     this.setState({
-      arrBookingOrders: response,
+      arrBookingOrder: response,
     });
   };
 
@@ -83,7 +84,7 @@ class TableOrder extends Component {
   // };
 
   render() {
-    console.log("Check data order:", this.state.arrBookingOrders);
+    console.log("Check data order:", this.state.arrBookingOrder);
     return (
       <div className="table-orders-container">
         {/* <Paging
@@ -98,7 +99,7 @@ class TableOrder extends Component {
             <tbody>
               <tr>
                 <th>
-                  <FormattedMessage id="table.name-cabinet" />
+                  <FormattedMessage id="table.name-box" />
                 </th>
                 <th>
                   <FormattedMessage id="table.name" />
@@ -116,13 +117,13 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
-              {this.state.arrBookingOrders &&
-                this.state.arrBookingOrders.map((item, index) => {
+              {this.state.arrBookingOrder &&
+                this.state.arrBookingOrder.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>{item.Box.nameBox}</td>
-                      <td>{item.Resident.fullname}</td>
-                      <td className="text-center">{item.Resident.email}</td>
+                      <td className="text-center">{item.Resident.isAvailable}</td>
+                      <td>{item.boxId}</td>
+                      <td className="text-center">{item.Box.nameBox}</td>
                       <td>
                         {(() => {
                           const date = moment(item.createDate).format(

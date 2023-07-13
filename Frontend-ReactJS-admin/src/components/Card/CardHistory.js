@@ -26,6 +26,7 @@ class CardHistory extends Component {
 
 
   render() {
+    console.log("check data: ", this.state.arrBookingHistory);
     return (
       <div className="container-history-table">
         <table className="history">
