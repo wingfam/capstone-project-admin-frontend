@@ -3,58 +3,25 @@ import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
 import { getAllBookingOrders } from "../../services/bookingOrder";
 import moment from "moment/moment";
-// import { getAllUsers } from "../../services/userService";
-// import Paging from "../Paging";
-// import firebase from "firebase/app";
-// import "firebase/database";
-// import { getAllBookingHistorys } from "../../services/bookingHistory";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrBookingOrder: [],
-      currentProducts: [],
-      currentPage: null,
-      totalPages: null,
-      totalItems: 0,
+      arrBookingHistories: []
     };
-    // let database = firebase.database();
-    // this.usersRef = database.ref("BookingOrder");
   }
-
-  // componentDidMount() {
-  //   this.usersRef.on("value", (snapshot) => {
-  //     const arrBookingOrders = snapshot.val();
-  //     const dataArray = Object.values(arrBookingOrders);
-  //     this.setState({
-  //       arrBookingOrders: dataArray,
-  //     });
-  //   });
-
-  //   this.usersRef.on("child_added", (snapshot) => {
-  //     const newBookingOrder = snapshot.val();
-
-  //     this.setState((prevState) => ({
-  //       arrBookingOrders: [...prevState.arrBookingOrders, newBookingOrder],
-  //     }));
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.usersRef.off();
-  // }
 
   async componentDidMount() {
-    await this.getBookingOrdersFromReact();
+    await this.getAllBookingHistory();
   }
 
-  getBookingOrdersFromReact = async () => {
-    let response = await getAllBookingOrders();
+  getAllBookingHistory = async () => {
+    let response = await getAllBookingOrders(window.location.href.split("/")[5]);
     this.setState({
-      arrBookingOrder: response,
-    });
-  };
+      arrBookingHistories: response
+    })
+  }
 
   // async componentDidMount() {
   //   let response = await getAllUsers();
@@ -84,16 +51,9 @@ class TableOrder extends Component {
   // };
 
   render() {
-    console.log("Check data order:", this.state.arrBookingOrder);
+    console.log("Check data order:", this.state.arrBookingHistories);
     return (
       <div className="table-orders-container">
-        {/* <Paging
-          totalRecords={this.state.totalItems}
-          pageLimit={5}
-          pageNeighbours={2}
-          onPageChanged={this.onPageChanged}
-          sizing=""
-        /> */}
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <tbody>
@@ -117,36 +77,45 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
-              {this.state.arrBookingOrder &&
-                this.state.arrBookingOrder.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className="text-center">{item.Resident.isAvailable}</td>
-                      <td>{item.boxId}</td>
-                      <td className="text-center">{item.Box.nameBox}</td>
-                      <td>
-                        {(() => {
-                          const date = moment(item.createDate).format(
-                            "DD-MM-YYYY T HH:mm"
-                          );
-                          return date;
-                        })()}</td>
-                      <td>{(() => {
+              {this.state.arrBookingHistories && this.state.arrBookingHistories.map((item, index) => {
+                return (
+                  <tr key={index} className="text-center">
+                    <td>
+                      {index + 1}
+                    </td>
+                    {/* <td>
+                      {item.Resident.fullname}
+                    </td> */}
+                    <td>
+                      {item.residentId}
+                    </td>
+                    <td>
+                      {(() => {
+                        const date = moment(item.createDate).format(
+                          "DD-MM-YYYY T HH:mm"
+                        );
+                        return date;
+                      })()}
+                    </td>
+                    <td>
+                      {(() => {
                         const date = moment(item.validDate).format(
                           "DD-MM-YYYY T HH:mm"
                         );
                         return date;
-                      })()}</td>
-                      <td>{item.status}</td>
-                    </tr>
-                  );
-                })}
+                      })()}
+
+                    </td>
+                    <td>{item.status} </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
       </div>
     );
-  }
+  };
 }
 
 export default TableOrder;

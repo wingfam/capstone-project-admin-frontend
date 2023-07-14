@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardHistory.scss";
-import { Component } from "react";
 import { getBookingHistoriesByResidentId } from "../../services/bookingHistory"
 import moment from "moment";
 
