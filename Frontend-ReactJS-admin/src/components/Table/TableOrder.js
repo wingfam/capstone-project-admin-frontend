@@ -51,7 +51,8 @@ class TableOrder extends Component {
   // };
 
   render() {
-    console.log("Check data order:", this.state.arrBookingHistories);
+    const arrBookingHistory = this.state.arrBookingHistories;
+
     return (
       <div className="table-orders-container">
         <div className="orders-table mt-3 mx-1">
@@ -77,39 +78,42 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
-              {this.state.arrBookingHistories && this.state.arrBookingHistories.map((item, index) => {
-                return (
-                  <tr key={index} className="text-center">
-                    <td>
-                      {index + 1}
-                    </td>
-                    {/* <td>
-                      {item.Resident.fullname}
-                    </td> */}
-                    <td>
-                      {item.residentId}
-                    </td>
-                    <td>
-                      {(() => {
-                        const date = moment(item.createDate).format(
-                          "DD-MM-YYYY T HH:mm"
-                        );
-                        return date;
-                      })()}
-                    </td>
-                    <td>
-                      {(() => {
-                        const date = moment(item.validDate).format(
-                          "DD-MM-YYYY T HH:mm"
-                        );
-                        return date;
-                      })()}
+              {arrBookingHistory && arrBookingHistory
+                .filter((a) => a.status !== "Done")
+                .sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
+                .map((item, index) => {
+                  return (
+                    <tr key={index} className="text-center">
+                      <td>
+                        {item.Box.nameBox}
+                      </td>
+                      <td>
+                        {item.Resident.fullname}
+                      </td>
+                      <td>
+                        {item.Resident.email}
+                      </td>
+                      <td>
+                        {(() => {
+                          const date = moment(item.createDate).format(
+                            "DD-MM-YYYY T HH:mm"
+                          );
+                          return date;
+                        })()}
+                      </td>
+                      <td>
+                        {(() => {
+                          const date = moment(item.validDate).format(
+                            "DD-MM-YYYY T HH:mm"
+                          );
+                          return date;
+                        })()}
 
-                    </td>
-                    <td>{item.status} </td>
-                  </tr>
-                )
-              })}
+                      </td>
+                      <td>{item.status} </td>
+                    </tr>
+                  )
+                })}
             </tbody>
           </table>
         </div>

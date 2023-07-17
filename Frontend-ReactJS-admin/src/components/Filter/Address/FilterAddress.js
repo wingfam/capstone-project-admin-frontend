@@ -8,8 +8,6 @@ class FilterAddress extends Component {
     super(props);
     this.state = {
       arrLocaitions: [],
-      isOpenModalCabinet: false,
-      isOpenModalEditCabinet: false,
     };
     let database = firebase.database();
     this.usersRef = database.ref("Location");

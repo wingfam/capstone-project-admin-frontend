@@ -146,9 +146,23 @@ class TableBox extends Component {
     }
   };
 
+  handleNoData = () => {
+    toast.error("Không có dữ liệu", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+
   render() {
     const { intl } = this.props;
     const arrBoxs = this.state.arrBoxs;
+    const result = arrBoxs.filter((a) => (a.cabinetId === window.location.href.split("/")[5]))
     return (
       <div className="table-box-container">
         {this.state.isOpenModalEditCabinet && (
@@ -173,7 +187,7 @@ class TableBox extends Component {
         </div>
         <div className="boxs-table mt-3 mx-1">
           <table className="boxs">
-            <tbody>
+            <thead>
               <tr>
                 <th className="col-2">
                   <FormattedMessage id="table.name-box" />
@@ -191,11 +205,64 @@ class TableBox extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {arrBoxs &&
-                arrBoxs
-                  .filter(
-                    (a) => a.cabinetId === window.location.href.split("/")[5]
-                  )
+            </thead>
+            <tbody className="text-center">
+              {result.length === 0 ? (
+                <tr>
+                  <td colSpan="5">Không có dữ liệu hiển thị</td>
+                </tr>
+              ) : (
+                result
+                  .sort((a, b) => (a.addDate > b.addDate ? -1 : 1))
+                  .map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          {item.nameBox}
+                        </td>
+                        <td className="text-center">{item.size}</td>
+                        <td className="text-center">
+                          {item.isStore ? (
+                            <FormattedMessage id="table.store-good" />
+                          ) : (
+                            <FormattedMessage id="table.store-not-good" />
+                          )}
+                        </td>
+                        <td className="text-center">
+                          {item.isAvailable ? (
+                            <FormattedMessage id="table.enable" />
+                          ) : (
+                            <FormattedMessage id="table.disable" />
+                          )}
+                        </td>
+                        <td>
+                          <button
+                            className="btn-edit"
+                            onClick={() => {
+                              this.handleEditCabinet(item);
+                            }}
+                            title={intl.formatMessage({ id: "common.edit" })}
+                          >
+                            <i className="fas fa-pencil-alt"></i>
+                          </button>
+                          <button
+                            className="btn-delete"
+                            onClick={() => {
+                              this.handleDeleteCabinet(item);
+                            }}
+                            title={intl.formatMessage({ id: "common.delete" })}
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+              )}
+            </tbody>
+            {/* <tbody className="text-center">
+              {
+                result.length === 0 ? (this.handleNoData()) : result
                   .sort((a, b) => (a.addDate > b.addDate ? -1 : 1))
                   .map((item, index) => {
                     return (
@@ -204,11 +271,6 @@ class TableBox extends Component {
                           <Link to="/system/box">{item.nameBox}</Link>
                         </td>
                         <td className="text-center">
-                          {/* {(() => {
-                                                const date = moment(item.validDate);
-                                                const formattedDate = date.format('YYYY-MM-DD T HH:mm:ss');
-                                                return formattedDate;
-                                            })()} */}
                           {item.size}
                         </td>
                         <td className="text-center">
@@ -262,7 +324,7 @@ class TableBox extends Component {
                       </tr>
                     );
                   })}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
       </div>

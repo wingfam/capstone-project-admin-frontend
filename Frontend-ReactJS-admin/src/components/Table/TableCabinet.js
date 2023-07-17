@@ -16,7 +16,7 @@ import {
 import moment from "moment/moment";
 // import firebase from 'firebase/app';
 // import "firebase/database";
-import FilterAddress from "../Filter/FilterAddress";
+import FilterAddress from "../Filter/Address/FilterAddress";
 
 class TableCabinet extends Component {
   constructor(props) {
