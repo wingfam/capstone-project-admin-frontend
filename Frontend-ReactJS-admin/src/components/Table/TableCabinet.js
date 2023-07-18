@@ -23,33 +23,10 @@ class TableCabinet extends Component {
     super(props);
     this.state = {
       arrCabinets: [],
-      // isOpenModalCabinet: false,
       isOpenModalEditCabinet: false,
     };
-    // let database = firebase.database();
-    // this.usersRef = database.ref('Locker');
   }
 
-  // componentDidMount() {
-  //   this.usersRef.on('value', (snapshot) => {
-  //     const arrCabinets = snapshot.val();
-  //     const dataArray = Object.values(arrCabinets);
-  //     this.setState({
-  //       arrCabinets: dataArray,
-  //     });
-  //   });
-
-  //   this.usersRef.on('child_added', (snapshot) => {
-  //     const newCabinet = snapshot.val();
-  //     this.setState((prevState) => ({
-  //       arrCabinets: [...prevState.arrCabinets, newCabinet],
-  //     }));
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.usersRef.off()
-  // }
 
   async componentDidMount() {
     await this.getCabinetsFromReact();
@@ -62,59 +39,11 @@ class TableCabinet extends Component {
     });
   };
 
-  // handleAddNewCabinets = () => {
-  //   this.setState({
-  //     isOpenModalCabinet: true,
-  //   });
-  // };
-
-  // toggleCabinetModal = () => {
-  //   this.setState({
-  //     isOpenModalCabinet: !this.state.isOpenModalCabinet,
-  //   });
-  // };
-
   toggleCabinetEditModal = () => {
     this.setState({
       isOpenModalEditCabinet: !this.state.isOpenModalEditCabinet,
     });
   };
-
-  // createNewCabinet = async (data) => {
-  //   try {
-  //     let response = await createNewCabinetService(data);
-  //     if (response && response.errCode === 1) {
-  //       alert(response.errMessage);
-  //       toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-  //         position: "top-right",
-  //         autoClose: 3000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //     } else {
-  //       this.setState({
-  //         isOpenModalCabinet: false,
-  //       });
-  //       toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
-  //         position: "top-right",
-  //         autoClose: 3000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       });
-  //       emitter.emit("EVENT_CLEAR_MODAL_DATA");
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   doFilterCabinet = async (id) => {
     if (id === "1") {
@@ -127,13 +56,14 @@ class TableCabinet extends Component {
     }
   };
 
-  doEditCabinet = async (locker) => {
+  doEditCabinet = async (cabinet) => {
     try {
-      let res = await editCabinetService(locker.lockerId, locker);
+      let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
         this.setState({
           isOpenModalEditCabinet: false,
         });
+        await this.getCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -208,6 +138,7 @@ class TableCabinet extends Component {
 
   render() {
     const { intl } = this.props;
+    console.log("Check cabinet:", this.state.arrCabinets);
     return (
       <div className="table-cabinet-container">
         {this.state.isOpenModalEditCabinet && (
@@ -219,20 +150,6 @@ class TableCabinet extends Component {
           />
         )}
         <div className="table-cabinet-content">
-          {/* <div className="btn-cabinet">
-            <button
-              className="btn-add-cabinet"
-              style={{
-                background: "#21a5ff",
-                color: "#FEFFFF",
-                fontSize: "16px",
-              }}
-              onClick={() => this.handleAddNewCabinets()}
-            >
-              <i className="fas fa-plus"></i> &nbsp;
-              <FormattedMessage id={"table.add-cabinet"} />
-            </button>
-          </div> */}
           <FilterAddress
             currentFilterCabinet={this.state.filterCabinet}
             filterCabinet={this.doFilterCabinet}
@@ -261,8 +178,7 @@ class TableCabinet extends Component {
               </tr>
               {this.state.arrCabinets &&
                 this.state.arrCabinets
-                  .sort((a, b) => (a.validDate > b.validDate ? -1 : 1))
-                  .sort((a, b) => (a.lockerStatus > b.lockerStatus ? -1 : 1))
+                  .sort((a, b) => (a.isAvailable > b.isAvailable ? -1 : 1))
                   .map((item, index) => {
                     return (
                       <tr key={index}>
@@ -270,7 +186,6 @@ class TableCabinet extends Component {
                           <Link
                             to={{
                               pathname: `/system/box/${item.id}`,
-                              state: { address: `${item.name}` },
                             }}
                           >
                             {item.name}

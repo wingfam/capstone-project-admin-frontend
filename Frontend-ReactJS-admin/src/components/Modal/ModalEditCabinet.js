@@ -11,9 +11,10 @@ class ModalEditCabinet extends Component {
     this.state = {
       id: "",
       name: "",
-      location: "",
+      locationId: "",
       locationName: "",
       masterCode: "",
+      masterCodeId: "",
       arrLocations: [],
       isAvailableCode: "",
       isAvailable: "",
@@ -28,22 +29,15 @@ class ModalEditCabinet extends Component {
         id: cabinet.id,
         name: cabinet.name,
         masterCode: cabinet.MasterCode.code,
+        masterCodeId: cabinet.MasterCode.id,
         arrLocations: response,
         locationName: cabinet.Location.name,
-        location: cabinet.Location.id,
+        locationId: cabinet.Location.id,
         isAvailableCode: cabinet.MasterCode.isAvailable,
         isAvailable: cabinet.isAvailable,
       });
     }
-    // this.getLocationsFromReact()
   }
-
-  // getLocationsFromReact = async () => {
-  //   let response = await getAllLocations();
-  //   this.setState({
-  //     arrLocations: response,
-  //   });
-  // };
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -74,7 +68,7 @@ class ModalEditCabinet extends Component {
   };
 
   handleSaveCabinet = () => {
-    // this.props.editCabinet(this.state);
+    this.props.editCabinet(this.state);
     console.log("check data: ", this.state);
   };
 
@@ -118,13 +112,13 @@ class ModalEditCabinet extends Component {
               <select
                 className="form-control form-select"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "location");
+                  this.handleOnChangeInput(event, "locationId");
                 }}
-                value={this.state.location}
+                value={this.state.locationId}
               >
                 {this.state.arrLocations &&
                   this.state.arrLocations
-                    .filter((newArr) => newArr !== this.state.location)
+                    .filter((newArr) => newArr !== this.state.locationId)
                     .map((item, index) => {
                       return (
                         <option value={item.id} key={index}>
@@ -141,7 +135,7 @@ class ModalEditCabinet extends Component {
               </label>
               <div className="input-container-code form-check">
                 <input
-                  className="form-check-input checked"
+                  className="form-check-input"
                   type="checkbox"
                   id="changeAvailable"
                   onClick={() => {

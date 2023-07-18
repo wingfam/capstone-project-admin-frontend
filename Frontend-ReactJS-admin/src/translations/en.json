@@ -72,7 +72,9 @@
     "search": "Search...",
     "logout": "Logout",
     "bell": "Notifications",
-    "get-all": "Get all"
+    "get-all": "Get all",
+    "find-resident": "---Resident---",
+    "find-box": "---Box---"
   },
 
   "login": {

@@ -4,8 +4,8 @@ const getAllCabinets = () => {
   return axios.get("/api/v1/Cabinet/get-all");
 };
 
-const getACabinet = (lockerId) => {
-  return axios.get(`/api/v1/Cabinet/search?id=${lockerId}`);
+const getACabinet = (cabinetId) => {
+  return axios.get(`/api/v1/cabinet/search?id=${cabinetId}`);
 };
 
 const getACabinetByLocation = (locationId) => {
@@ -15,15 +15,15 @@ const getACabinetByLocation = (locationId) => {
 };
 
 const createNewCabinetService = (data) => {
-  return axios.post("/api/v1/Cabinet/add-cabinet", data);
+  return axios.post("/api/v1/cabinet/add-cabinet", data);
 };
 
-const editCabinetService = (lockerId, inputData) => {
-  return axios.put(`/api/v1/Cabinet/edit-cabinet?id=${lockerId}`, inputData);
+const editCabinetService = (cabinetId, inputData) => {
+  return axios.put(`/api/v1/cabinet/edit-cabinet?id=${cabinetId}`, inputData);
 };
 
-const deleteCabinetService = (lockerId) => {
-  return axios.delete(`/api/v1/Cabinet/delete-cabinet?id=${lockerId}`);
+const deleteCabinetService = (cabinetId) => {
+  return axios.delete(`/api/v1/cabinet/delete-cabinet?id=${cabinetId}`);
 };
 
 export {

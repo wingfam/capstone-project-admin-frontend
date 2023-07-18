@@ -37,7 +37,7 @@ class TableOrder extends Component {
   //   return arrUsers;
   // };
 
-  // UNSAFE_componentWillMount() {
+  // componentWillUnmount() {
   //   let totalItems = this.getProducts().toString().length;
   //   this.setState({ totalItems });
   // }
@@ -108,7 +108,6 @@ class TableOrder extends Component {
                           );
                           return date;
                         })()}
-
                       </td>
                       <td>{item.status} </td>
                     </tr>

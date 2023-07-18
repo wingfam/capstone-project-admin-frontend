@@ -17,32 +17,7 @@ class TableUser extends Component {
       isOpenModalBan: false,
       isOpenModalUnBan: false,
     };
-    // let database = firebase.database();
-    // this.usersRef = database.ref('Resident');
   }
-
-  // componentDidMount() {
-  //   this.usersRef.on('value', (snapshot) => {
-  //     const arrResidents = snapshot.val();
-  //     const dataArray = Object.values(arrResidents);
-
-  //     this.setState({
-  //       arrResidents: dataArray,
-  //     });
-  //   });
-
-  //   this.usersRef.on('child_added', (snapshot) => {
-  //     const newResident = snapshot.val();
-
-  //     this.setState((prevState) => ({
-  //       arrResidents: [...prevState.arrResidents, newResident],
-  //     }));
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.usersRef.off()
-  // }
 
   async componentDidMount() {
     await this.getResidentsFromReact();

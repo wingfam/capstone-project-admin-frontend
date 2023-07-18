@@ -28,17 +28,14 @@ class FilterBox extends Component {
     render() {
         const { intl } = this.props;
         return (
-            <div className="form-select-container">
-                <div className="icon-content">
-                    <i className="fas fa-filter"></i>
-                </div>
+            <div className="select-box-container">
                 <select
-                    className="form-select-content"
+                    className="select-box-content text-center"
                     onChange={(event) => {
                         this.handleFilterBox(event);
                     }}
                 >
-                    <option value="1"> {intl.formatMessage({ id: "common.get-all" })} </option>
+                    <option value="1"> {intl.formatMessage({ id: "common.find-box" })} </option>
                     {this.state.arrBox &&
                         this.state.arrBox.map((item, index) => {
                             return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./FilterBox.scss";
+import "./FilterResident.scss";
 import { injectIntl } from "react-intl";
 import { getAllUsers } from "../../../services/userService";
 class FilterResident extends Component {
@@ -19,7 +19,6 @@ class FilterResident extends Component {
         this.setState({
             arrResident: data
         })
-        console.log("check data", this.state.arrResident);
     }
 
     handleFilterResident = (event) => {
@@ -29,17 +28,14 @@ class FilterResident extends Component {
     render() {
         const { intl } = this.props;
         return (
-            <div className="form-select-container">
-                <div className="icon-content">
-                    <i className="fas fa-filter"></i>
-                </div>
+            <div className="select-resident-container">
                 <select
-                    className="form-select-content"
+                    className="select-resident-content text-center"
                     onChange={(event) => {
                         this.handleFilterResident(event);
                     }}
                 >
-                    <option value="1"> {intl.formatMessage({ id: "common.get-all" })} </option>
+                    <option value="1"> {intl.formatMessage({ id: "common.find-resident" })} </option>
                     {this.state.arrResident &&
                         this.state.arrResident.map((item, index) => {
                             return (

@@ -1,0 +1,21 @@
+@import "../../styles/common.scss";
+
+.select-order-container {
+  display: flex;
+  margin-top: 3%;
+
+  .icon-content {
+    margin: 5px 10px;
+    font-size: 20px;
+    color: $colormain;
+  }
+  button {
+    margin-left: 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: $colormain;
+    color: white;
+    width: 7%;
+    font-size: $base-size;
+  }
+}

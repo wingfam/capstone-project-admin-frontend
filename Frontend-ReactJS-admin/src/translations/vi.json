@@ -76,7 +76,9 @@
     "logout": "Đăng xuất",
     "bell": "Thông báo",
     "detail": "Chi tiết",
-    "get-all": "Tất cả"
+    "get-all": "Tất cả",
+    "find-resident": "---Cư dân---",
+    "find-box": "---Tên hộp---"
   },
 
   "login": {

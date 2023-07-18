@@ -40,7 +40,10 @@
     "redux-state-sync": "^2.1.0",
     "redux-thunk": "^2.3.0",
     "typescript": "^4.3.2",
-    "react-datepicker": "4.16.0"
+    "react-datepicker": "4.16.0",
+    "react-date-range": "1.4.0",
+    "cdbreact": "1.5.18",
+    "react-bootstrap-date-picker": "5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
