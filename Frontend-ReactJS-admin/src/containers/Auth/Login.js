@@ -69,7 +69,6 @@ class Login extends Component {
           this.setState({
             Message: error.response.data.Message,
           });
-          console.log("Check error: ", error.response.data);
           toast.error(<FormattedMessage id="toast.login-error" />, {
             position: "top-right",
             autoClose: 3000,

@@ -4,6 +4,7 @@ import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { getAllLocations } from "../../services/locationService";
+// import { getMasterCodeById } from "../../services/masterCode";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -24,17 +25,20 @@ class ModalEditCabinet extends Component {
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
     let response = await getAllLocations();
+    // let res = await getMasterCodeById(cabinet.id)
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        id: cabinet.id,
         name: cabinet.name,
-        masterCode: cabinet.MasterCode.code,
-        masterCodeId: cabinet.MasterCode.id,
-        arrLocations: response,
-        locationName: cabinet.Location.name,
-        locationId: cabinet.Location.id,
-        isAvailableCode: cabinet.MasterCode.isAvailable,
         isAvailable: cabinet.isAvailable,
+        locationId: cabinet.Location.id,
+
+        id: cabinet.id,
+        arrLocations: response,
+
+        // masterCode: res.code,
+        // masterCodeId: res.id,
+        // locationName: cabinet.Location.name,
+        // isAvailableCode: res.isAvailable,
       });
     }
   }
@@ -142,7 +146,7 @@ class ModalEditCabinet extends Component {
                     this.handleOnChangeCodeStatus("isAvailableCode");
                   }}
                   value={this.state.isAvailableCode}
-                  checked={this.state.isAvailableCode === true ? "checked" : ""}
+                // checked={this.state.isAvailableCode}
                 />
 
                 <input

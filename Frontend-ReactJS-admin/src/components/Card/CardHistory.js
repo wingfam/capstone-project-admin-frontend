@@ -25,7 +25,7 @@ class CardHistory extends Component {
 
 
   render() {
-    console.log("check data: ", this.state.arrBookingHistory);
+    const arrBookingHistories = this.state.arrBookingHistory;
     return (
       <div className="container-history-table">
         <table className="history">
@@ -49,7 +49,13 @@ class CardHistory extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.arrBookingHistory && this.state.arrBookingHistory.map((item, index) => {
+            {arrBookingHistories.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="fs-4">
+                  Chưa có đơn đặt hàng
+                </td>
+              </tr>
+            ) : arrBookingHistories.map((item, index) => {
               return (
                 <tr key={index} className="text-center">
                   <td>

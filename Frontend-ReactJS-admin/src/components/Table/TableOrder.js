@@ -23,41 +23,15 @@ class TableOrder extends Component {
     })
   }
 
-  // async componentDidMount() {
-  //   let response = await getAllUsers();
-  //   this.setState({
-  //     arrUsers: response,
-  //   });
-  // }
-  // getProducts = async () => {
-  //   await this.componentDidMount()
-  //   let arrUsers = this.state.arrUsers;
-  //   arrUsers = arrUsers.concat(arrUsers);
-  //   arrUsers = arrUsers.concat(arrUsers);
-  //   return arrUsers;
-  // };
-
-  // componentWillUnmount() {
-  //   let totalItems = this.getProducts().toString().length;
-  //   this.setState({ totalItems });
-  // }
-
-  // onPageChanged = async (page) => {
-  //   let arrUser = await this.getProducts();
-  //   const { currentPage, totalPages, pageLimit } = page;
-  //   const offset = (currentPage - 1) * pageLimit;
-  //   const currentProducts = arrUser.slice(offset, offset + pageLimit);
-  //   this.setState({ currentPage, currentProducts, totalPages });
-  // };
-
   render() {
     const arrBookingHistory = this.state.arrBookingHistories;
+    const result = arrBookingHistory.filter((a) => a.status !== "Done")
 
     return (
       <div className="table-orders-container">
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
-            <tbody>
+            <thead>
               <tr>
                 <th>
                   <FormattedMessage id="table.name-box" />
@@ -78,9 +52,13 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
-              {arrBookingHistory && arrBookingHistory
-                .filter((a) => a.status !== "Done")
-                .sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
+            </thead>
+            <tbody>
+              {result.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="fs-4">Không có đơn đặt hàng đang thực hiện</td>
+                </tr>
+              ) : result.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
                 .map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
@@ -113,6 +91,7 @@ class TableOrder extends Component {
                     </tr>
                   )
                 })}
+
             </tbody>
           </table>
         </div>

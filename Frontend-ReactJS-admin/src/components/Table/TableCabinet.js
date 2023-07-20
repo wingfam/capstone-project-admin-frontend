@@ -60,20 +60,23 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
-        this.setState({
-          isOpenModalEditCabinet: false,
-        });
-        await this.getCabinetsFromReact();
-        toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        let response = await editCabinetService(cabinet.id, cabinet);
+        if (response && response.errCode === 0) {
+          this.setState({
+            isOpenModalEditCabinet: false,
+          });
+          await this.getCabinetsFromReact();
+          toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       } else {
         alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
@@ -102,7 +105,6 @@ class TableCabinet extends Component {
   handleDeleteCabinet = async (cabinet) => {
     try {
       await deleteCabinetService(cabinet.lockerId).then((res) => {
-        console.log("Check res: ", res);
         if (res && res.errCode === 0) {
           toast.success(
             <FormattedMessage id="toast.delete-cabinet-success" />,
@@ -138,7 +140,6 @@ class TableCabinet extends Component {
 
   render() {
     const { intl } = this.props;
-    console.log("Check cabinet:", this.state.arrCabinets);
     return (
       <div className="table-cabinet-container">
         {this.state.isOpenModalEditCabinet && (

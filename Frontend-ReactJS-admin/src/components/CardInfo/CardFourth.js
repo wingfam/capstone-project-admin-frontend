@@ -10,12 +10,12 @@ const CardFourth = () => {
         <div className="card-body">
           <div className="d-flex align-items-center">
             <h5 className="mb-0 text-white">123456</h5>
-            <div className="ms-auto">
+            <div className="ms-auto text-white">
               <i className="fas fa-bell"></i>
             </div>
           </div>
           <div
-            className="progress my-2 bg-opacity-25"
+            className="progress my-2 bg-white"
             style={{ height: "4px" }}
           >
             <div

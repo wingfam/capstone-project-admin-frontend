@@ -81,7 +81,7 @@ class TableBox extends Component {
             <tbody className="text-center">
               {result.length === 0 ? (
                 <tr>
-                  <td colSpan="5">Không có dữ liệu hiển thị</td>
+                  <td colSpan="5" className="fs-4">Không có dữ liệu hiển thị</td>
                 </tr>
               ) : (
                 result
