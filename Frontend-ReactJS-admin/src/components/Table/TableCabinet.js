@@ -17,6 +17,7 @@ import moment from "moment/moment";
 // import firebase from 'firebase/app';
 // import "firebase/database";
 import FilterAddress from "../Filter/Address/FilterAddress";
+import { editMasterCode } from "../../services/masterCode";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class TableCabinet extends Component {
     this.state = {
       arrCabinets: [],
       isOpenModalEditCabinet: false,
+
+      code: "",
+      cabinetId: "",
+      isAvailable: "",
     };
   }
 
@@ -60,7 +65,7 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
-        let response = await editCabinetService(cabinet.id, cabinet);
+        let response = await editMasterCode(cabinet.masterCodeId, { code: cabinet.code, isAvailable: cabinet.isAvailableCode, cabinetId: cabinet.id });
         if (response && response.errCode === 0) {
           this.setState({
             isOpenModalEditCabinet: false,

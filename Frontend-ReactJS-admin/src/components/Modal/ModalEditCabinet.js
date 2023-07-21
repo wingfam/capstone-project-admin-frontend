@@ -4,7 +4,7 @@ import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { getAllLocations } from "../../services/locationService";
-// import { getMasterCodeById } from "../../services/masterCode";
+import { getMasterCodeById } from "../../services/masterCode";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ModalEditCabinet extends Component {
       name: "",
       locationId: "",
       locationName: "",
-      masterCode: "",
+      code: "",
       masterCodeId: "",
       arrLocations: [],
       isAvailableCode: "",
@@ -25,7 +25,7 @@ class ModalEditCabinet extends Component {
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
     let response = await getAllLocations();
-    // let res = await getMasterCodeById(cabinet.id)
+    let res = await getMasterCodeById(cabinet.id)
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
         name: cabinet.name,
@@ -35,10 +35,10 @@ class ModalEditCabinet extends Component {
         id: cabinet.id,
         arrLocations: response,
 
-        // masterCode: res.code,
-        // masterCodeId: res.id,
-        // locationName: cabinet.Location.name,
-        // isAvailableCode: res.isAvailable,
+        code: res.code,
+        masterCodeId: res.id,
+        locationName: cabinet.Location.name,
+        isAvailableCode: res.isAvailable,
       });
     }
   }
@@ -146,16 +146,16 @@ class ModalEditCabinet extends Component {
                     this.handleOnChangeCodeStatus("isAvailableCode");
                   }}
                   value={this.state.isAvailableCode}
-                // checked={this.state.isAvailableCode}
+                  checked={this.state.isAvailableCode}
                 />
 
                 <input
                   className="form-input-code"
                   type="text"
                   onChange={(event) => {
-                    this.handleOnChangeInput(event, "masterCode");
+                    this.handleOnChangeInput(event, "code");
                   }}
-                  value={this.state.masterCode}
+                  value={this.state.code}
                 />
               </div>
             </div>

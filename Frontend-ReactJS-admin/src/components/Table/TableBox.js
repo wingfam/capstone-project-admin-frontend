@@ -90,7 +90,7 @@ class TableBox extends Component {
                     return (
                       <tr key={index}>
                         <td>
-                          {item.nameBox}
+                          {item.nameBox}--{this.state.cabinetName}
                         </td>
                         <td className="text-center">{item.size}</td>
                         <td className="text-center">
