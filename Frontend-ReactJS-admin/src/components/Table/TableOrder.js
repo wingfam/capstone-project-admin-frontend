@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
-import { getAllBookingOrders } from "../../services/bookingOrder";
+import { getAllBookingOrders, getBookingOrderById } from "../../services/bookingOrder";
 import moment from "moment/moment";
+import FilterOrder from "../Filter/FilterOrder";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -23,12 +24,25 @@ class TableOrder extends Component {
     })
   }
 
+  doFilterOrder = async (residentId, boxId) => {
+    console.log("Check: ", residentId, boxId);
+    let response = await getBookingOrderById(residentId, boxId);
+    this.setState({
+      arrBookingHistories: response
+    })
+  }
+
   render() {
     const arrBookingHistory = this.state.arrBookingHistories;
     const result = arrBookingHistory.filter((a) => a.status !== "Done")
 
     return (
       <div className="table-orders-container">
+        <div>
+          <FilterOrder
+            currentFilterOrder={this.state.filterOrder}
+            filterOrder={this.doFilterOrder} />
+        </div>
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <thead>

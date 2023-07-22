@@ -27,18 +27,17 @@ class FilterOrder extends Component {
         this.setState({
             boxId: id
         })
-        console.log("Check FilterBox:", id)
     };
 
     handleFilterResident = (id) => {
         this.setState({
             residentId: id
         })
-        console.log("Check FilterResident:", id)
     };
 
-    doFilterOrder = () => {
+    handleFilterOrder = () => {
         console.log("Check FilterOrder:", this.state.boxId, this.state.residentId)
+        this.props.filterOrder(this.state.residentId, this.state.boxId);
     }
 
     render() {
@@ -55,7 +54,7 @@ class FilterOrder extends Component {
                     currentFilterResident={this.state.filterResident}
                     filterResident={this.handleFilterResident}
                     className="filter-content" />
-                <button onClick={this.doFilterOrder}>
+                <button onClick={this.handleFilterOrder}>
                     Tìm kiếm
                 </button>
             </div>

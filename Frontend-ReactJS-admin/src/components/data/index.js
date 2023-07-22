@@ -27,7 +27,7 @@ export const data = {
     },
     {
       id: 6,
-      weekday: "Tháng 7",
+      weekday: "Thứ 7",
       userGain: 12,
     },
     {

@@ -199,7 +199,7 @@ class CardUser extends Component {
                       </option>
                     </select>
                   </div>
-                  <span className="offset-md-9 span-btn">
+                  <span className="offset-4 span-btn">
                     <button
                       type="button"
                       className="btn-save"
