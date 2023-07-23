@@ -47,22 +47,25 @@ class TableOrder extends Component {
           <table className="orders">
             <thead>
               <tr>
-                <th>
+                <th className="col-1">
+                  <FormattedMessage id="table.name-cabinet" />
+                </th>
+                <th className="col-1">
                   <FormattedMessage id="table.name-box" />
                 </th>
-                <th>
+                <th className="col-1">
                   <FormattedMessage id="table.name" />
                 </th>
-                <th>
-                  <FormattedMessage id="table.email" />
+                <th className="col-2">
+                  <FormattedMessage id="table.address" />
                 </th>
-                <th>
+                <th className="col-2">
                   <FormattedMessage id="table.booking-date" />
                 </th>
-                <th>
+                <th className="col-2">
                   <FormattedMessage id="table.booking-valid-date" />
                 </th>
-                <th>
+                <th className="col-2">
                   <FormattedMessage id="table.status-booking" />
                 </th>
               </tr>
@@ -70,12 +73,15 @@ class TableOrder extends Component {
             <tbody>
               {result.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="fs-4">Không có đơn đặt hàng đang thực hiện</td>
+                  <td colSpan="7" className="fs-4">Không có đơn đặt hàng đang thực hiện</td>
                 </tr>
               ) : result.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
                 .map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
+                      <td>
+                        {item.Box.Cabinet.name}
+                      </td>
                       <td>
                         {item.Box.nameBox}
                       </td>
@@ -83,7 +89,7 @@ class TableOrder extends Component {
                         {item.Resident.fullname}
                       </td>
                       <td>
-                        {item.Resident.email}
+                        {item.Resident.Location.name}
                       </td>
                       <td>
                         {(() => {
@@ -101,11 +107,10 @@ class TableOrder extends Component {
                           return date;
                         })()}
                       </td>
-                      <td>{item.status} </td>
+                      <td>{item.status}</td>
                     </tr>
                   )
                 })}
-
             </tbody>
           </table>
         </div>

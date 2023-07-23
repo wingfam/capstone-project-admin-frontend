@@ -30,6 +30,9 @@ class TableHistory extends Component {
             <tbody>
               <tr>
                 <th className="col-1">
+                  <FormattedMessage id="table.name-cabinet" />
+                </th>
+                <th className="col-1">
                   <FormattedMessage id="table.name-box" />
                 </th>
                 <th className="col-2">
@@ -49,6 +52,7 @@ class TableHistory extends Component {
                 this.state.arrBookingHistories.map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
+                      <td>{item.BookingOrder.Box.nameBox}</td>
                       <td>{item.BookingOrder.Box.nameBox}</td>
                       <td>{item.Resident.fullname}</td>
                       <td>{item.Resident.Location.name}</td>

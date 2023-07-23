@@ -178,7 +178,7 @@ class TableUser extends Component {
                 arrResidents.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <td>
+                      <td className="text-center">
                         <Link
                           to={{
                             pathname: `/system/user-detail/${item.id}`,
