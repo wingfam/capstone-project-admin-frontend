@@ -7,7 +7,9 @@
     .card-header {
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
-      font-size: $base-size;
+      font-size: 22px;
+      background-color: $colormain;
+      color: $common-text-color;
     }
 
     .card-body {
