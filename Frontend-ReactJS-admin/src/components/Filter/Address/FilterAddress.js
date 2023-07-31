@@ -7,7 +7,7 @@ class FilterAddress extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrLocaitions: [],
+      arrLocations: [],
     };
     let database = firebase.database();
     this.usersRef = database.ref("Location");
@@ -15,17 +15,17 @@ class FilterAddress extends Component {
 
   componentDidMount() {
     this.usersRef.on("value", (snapshot) => {
-      const arrLocaitions = snapshot.val();
-      const dataArray = Object.values(arrLocaitions);
+      const arrLocations = snapshot.val();
+      const dataArray = Object.values(arrLocations);
       this.setState({
-        arrLocaitions: dataArray,
+        arrLocations: dataArray,
       });
     });
 
     this.usersRef.on("child_added", (snapshot) => {
       const newLocation = snapshot.val();
       this.setState((prevState) => ({
-        arrLocaitions: [...prevState.arrLocaitions, newLocation],
+        arrLocations: [...prevState.arrLocations, newLocation],
       }));
     });
   }
@@ -51,9 +51,11 @@ class FilterAddress extends Component {
             this.handleFilterAddress(event);
           }}
         >
-          <option value="1"> {intl.formatMessage({ id: "common.get-all" })} </option>
-          {this.state.arrLocaitions &&
-            this.state.arrLocaitions.map((item, index) => {
+          <option value="1">
+            {intl.formatMessage({ id: "common.get-all" })}
+          </option>
+          {this.state.arrLocations &&
+            this.state.arrLocations.map((item, index) => {
               return (
                 <option value={item.id} key={index}>
                   {item.name}

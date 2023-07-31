@@ -62,6 +62,7 @@
     "unlock": "Unlock",
     "delete": "Delete",
     "ban": "Ban",
+    "unavailable": "Stop",
     "decentralize": "Decentralize",
     "close": "Close",
     "save": "Save",
@@ -102,7 +103,11 @@
     "edit-cabinet-success": "Edit cabinet succeeds!",
     "edit-cabinet-error": "Edit cabinet not succeeds!",
     "login-success": "Login succeeds",
-    "login-error": "Login fail"
+    "login-error": "Login fail",
+    "lock-box-success": "Lock box succeeds!",
+    "lock-box-error": "Lock box not succeeds!",
+    "unlock-box-error": "Unlock box not succeeds!",
+    "unlock-box-success": "Unlock box succeeds!"
   },
 
   "warning": {

@@ -6,6 +6,7 @@
 
   .table-box-content {
     display: flex;
+
     .btn-add-box {
       border: none;
       border-radius: 7px;
@@ -84,11 +85,34 @@
       border: none;
       outline: none;
       background: transparent;
-      color: rgb(235, 15, 15);
+      color: $common-red;
 
       &:hover {
         background-color: transparent !important;
-        color: rgb(235, 15, 15) !important;
+        color: $common-red !important;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: pointer;
+      }
+    }
+
+    .btn-unlock {
+      width: 50px;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: $common-green;
+
+      &:hover {
+        background-color: transparent !important;
+        color: $common-green !important;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: pointer;
       }
     }
   }

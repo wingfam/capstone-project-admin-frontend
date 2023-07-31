@@ -22,7 +22,7 @@ const editCabinetService = (cabinetId, inputData) => {
   return axios.put(`/api/v1/cabinet/edit-cabinet?id=${cabinetId}`, inputData);
 };
 
-const deleteCabinetService = (cabinetId) => {
+const unavailableCabinetService = (cabinetId) => {
   return axios.delete(`/api/v1/cabinet/delete-cabinet?id=${cabinetId}`);
 };
 
@@ -32,5 +32,5 @@ export {
   getACabinetByLocation,
   createNewCabinetService,
   editCabinetService,
-  deleteCabinetService,
+  unavailableCabinetService,
 };

@@ -5,7 +5,11 @@ const getAllBoxs = () => {
 };
 
 const getABoxByCabinet = (cabinetId) => {
-  return axios.get(`/api/v1/box/get-box-by-cabinent?cabinetId=${cabinetId}`);
+  return axios.get(`/api/v1/box/get-box-by-cabinet?cabinetId=${cabinetId}`);
 };
 
-export { getAllBoxs, getABoxByCabinet };
+const editBox = (boxId, isAvailable) => {
+  return axios.put(`/api/v1/box/edit?id=${boxId}`, isAvailable);
+};
+
+export { getAllBoxs, getABoxByCabinet, editBox };

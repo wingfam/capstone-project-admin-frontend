@@ -7,11 +7,10 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
-  // createNewCabinetService,
-  deleteCabinetService,
   editCabinetService,
   getACabinetByLocation,
   getAllCabinets,
+  unavailableCabinetService,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
 // import firebase from 'firebase/app';
@@ -31,7 +30,6 @@ class TableCabinet extends Component {
       isAvailable: "",
     };
   }
-
 
   async componentDidMount() {
     await this.getCabinetsFromReact();
@@ -65,7 +63,11 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
-        let response = await editMasterCode(cabinet.masterCodeId, { code: cabinet.code, isAvailable: cabinet.isAvailableCode, cabinetId: cabinet.id });
+        let response = await editMasterCode(cabinet.masterCodeId, {
+          code: cabinet.code,
+          isAvailable: cabinet.isAvailableCode,
+          cabinetId: cabinet.id,
+        });
         if (response && response.errCode === 0) {
           this.setState({
             isOpenModalEditCabinet: false,
@@ -100,16 +102,16 @@ class TableCabinet extends Component {
     }
   };
 
-  handleEditCabinet = (locker) => {
+  handleEditCabinet = (cabinet) => {
     this.setState({
       isOpenModalEditCabinet: true,
-      editCabinet: locker,
+      editCabinet: cabinet,
     });
   };
 
-  handleDeleteCabinet = async (cabinet) => {
+  handleUnavailableCabinet = async (cabinet) => {
     try {
-      await deleteCabinetService(cabinet.lockerId).then((res) => {
+      await unavailableCabinetService(cabinet.id).then((res) => {
         if (res && res.errCode === 0) {
           toast.success(
             <FormattedMessage id="toast.delete-cabinet-success" />,
@@ -124,6 +126,7 @@ class TableCabinet extends Component {
               theme: "light",
             }
           );
+          this.getCabinetsFromReact();
         } else {
           alert(res.errMessage);
           toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
@@ -230,13 +233,13 @@ class TableCabinet extends Component {
                           <button
                             className="btn-delete"
                             onClick={() => {
-                              this.handleDeleteCabinet(item);
+                              this.handleUnavailableCabinet(item);
                             }}
                             title={intl.formatMessage({
-                              id: "common.delete",
+                              id: "common.unavailable",
                             })}
                           >
-                            <i className="fas fa-trash"></i>
+                            <i className="fas fa-ban"></i>
                           </button>
                         </td>
                       </tr>

@@ -9,6 +9,12 @@
     font-size: 20px;
     color: $colormain;
   }
+
+  .select-order-content {
+    display: flex;
+    margin-top: 2px;
+  }
+
   button {
     margin-left: 10px;
     border: none;
@@ -16,6 +22,6 @@
     background-color: $colormain;
     color: white;
     width: 7%;
-    font-size: $base-size;
+    font-size: 20px;
   }
 }
