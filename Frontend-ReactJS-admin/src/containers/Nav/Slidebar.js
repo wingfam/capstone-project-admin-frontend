@@ -1,12 +1,13 @@
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Slidebar.scss";
+import logoImg from "../../assets/images/logo.png"
 import { FormattedMessage } from "react-intl";
 
 const Sidebar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const toggle = () => setIsOpen(!isOpen);
+  // const [isOpen, setIsOpen] = useState(true);
+  // const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
     {
       path: "/system/dashboard",
@@ -36,13 +37,13 @@ const Sidebar = ({ children }) => {
   ];
   return (
     <div className="container">
-      <div style={{ width: isOpen ? "300px" : "4%" }} className="sidebar">
-        <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-            Logo
-          </h1>
-          <div style={{ marginLeft: isOpen ? "55%" : "20%" }} className="bars">
-            <i className="fas fa-bars" onClick={toggle}></i>
+      <div className="sidebar">
+        <div className="top-section">
+          <div className="logo-img" >
+            <img src={logoImg} className="card-img" alt="..." />
+          </div>
+          <div className="title-logo" >
+            Smart Locker
           </div>
         </div>
         {menuItem.map((item, index) => (
@@ -52,15 +53,18 @@ const Sidebar = ({ children }) => {
             className="link"
             activeclassname="active"
           >
+
             <div className="icon">{item.icon}</div>
             <div
-              style={{ display: isOpen ? "block" : "none" }}
               className="link_text"
             >
               {item.name}
             </div>
           </NavLink>
         ))}
+        {/* <div style={{ marginLeft: isOpen ? "88%" : "70%", }} className="bars">
+          <i className="fas fa-exchange-alt" onClick={toggle}></i>
+        </div> */}
       </div>
       <main>{children}</main>
     </div>

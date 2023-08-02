@@ -11,18 +11,12 @@
         width: 10%;
         border: none;
         border-radius: 7px;
-        // width: 10%;
         height: 35px;
         font-size: $base-size;
         margin-right: 5px;
         margin-bottom: 20px;
       }
     }
-    // .filter-content {
-    //   right: 50px;
-    //   width: 15%;
-    //   font-size: 20px;
-    // }
   }
 
   .cabinets {
@@ -37,7 +31,7 @@
     th {
       border: 1px solid #ddd;
       padding: 8px;
-      font-size: 17px;
+      font-size: $base-size;
     }
 
     tr:first-child th {

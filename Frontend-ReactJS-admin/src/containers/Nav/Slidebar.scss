@@ -6,8 +6,9 @@
 
   .sidebar {
     background: $colormain;
-    color: #FEFFFF;
+    color: #feffff;
     height: 99vh;
+    width: 350px;
     transition: all 0.5s;
     padding-top: 10px;
     border-radius: 10px;
@@ -15,34 +16,44 @@
     position: sticky;
     top: 5px;
 
-    .top_section {
+    .top-section {
       display: flex;
       align-items: center;
       padding: 20px 15px;
+      margin-bottom: 20px;
 
-      .logo {
-        font-size: 30px;
+      .logo-img {
+        width: 25%;
+        .img {
+          width: 25%;
+          height: 25%;
+        }
       }
 
-      .bars {
-        display: flex;
+      .title-logo {
         font-size: 25px;
-        cursor: pointer;
       }
+    }
+
+    .bars {
+      cursor: pointer;
+      display: flex;
+      font-size: 30px;
+      display: block;
     }
 
     .link {
       display: flex;
-      color: #FEFFFF;
-      padding: 12px 20px;
+      color: #feffff;
+      padding: 15px 20px;
       gap: 15px;
       transition: all 0.5s;
       text-decoration: none;
-      margin: 3px 5px;
+      margin: 5px 5px;
 
       .icon,
       .link_text {
-        font-size: 20px;
+        font-size: 25px;
       }
     }
 
