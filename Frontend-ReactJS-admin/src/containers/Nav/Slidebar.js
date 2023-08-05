@@ -20,9 +20,9 @@ const Sidebar = ({ children }) => {
       icon: <i className="fas fa-table"></i>,
     },
     {
-      path: "/system/user-manage",
-      name: <FormattedMessage id="slidebar.user" />,
-      icon: <i className="fas fa-users"></i>,
+      path: "/system/business-manage",
+      name: <FormattedMessage id="slidebar.business" />,
+      icon: <i className="fas fa-user-tie"></i>,
     },
     {
       path: "/system/order",

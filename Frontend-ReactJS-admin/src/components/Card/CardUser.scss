@@ -14,10 +14,10 @@
       height: 60px;
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
+      font-size: 35px;
 
       i {
         padding: 10px;
-        font-size: 23px;
       }
     }
 
@@ -43,30 +43,18 @@
 
           .form-status-user {
             width: 25%;
+            margin-right: 100px;
           }
           .span-btn {
-            width: 50%;
-            position: absolute;
-            margin-top: 20px;
+            width: 60%;
+            margin-top: 40px;
 
             .btn-save {
-              width: 15%;
+              width: 17%;
               height: 35px;
               border-radius: 7px;
               border: none;
               background: $colormain;
-              color: white;
-              font-size: 20px;
-              margin-right: 5px;
-              margin-top: 20px;
-            }
-
-            .btn-trash {
-              width: 15%;
-              height: 35px;
-              border-radius: 7px;
-              border: none;
-              background: red;
               color: white;
               font-size: 20px;
             }

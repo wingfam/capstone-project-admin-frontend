@@ -2,10 +2,11 @@
   "title": {
     "notification": "Thông báo",
     "cabinet": "Quản lý tủ",
-    "detail-user": "Chi tiết khách hàng",
+    "detail-business": "Chi tiết doanh nghiệp",
     "user-manage": "quản lý khách hàng",
     "history": "Lịch sử đặt hàng",
     "order": "Đơn đặt hàng",
+    "business": "Doanh nghiệp",
     "dashboard": "Báo cáo",
     "alerts": "Cảnh báo",
     "detail": "Hồ sơ",
@@ -14,7 +15,8 @@
     "edit-cabinet": "Chỉnh sửa thông tin tủ",
     "detail-cabinet": "Thông tin tủ",
     "warning": "Cảnh báo!!!",
-    "box": "quản lý hộp"
+    "box": "quản lý hộp",
+    "owner-cabinet": "Tủ sơ hữu"
   },
 
   "table": {
@@ -48,7 +50,11 @@
     "available-code": "Trạng thái mã admin",
     "store-good": "Có hàng",
     "store-not-good": "Không có hàng",
-    "serial": "STT"
+    "serial": "STT",
+    "business-name": "Tên doanh nghiệp",
+    "total-box": "Số lượng hộp",
+    "not-order-processing": "Không có đơn đặt hàng đang thực hiện",
+    "not-box": "Chưa có tủ để hiển thị"
   },
 
   "slidebar": {
@@ -56,7 +62,8 @@
     "user": "Khách hàng",
     "history": "Lịch sử đặt hàng",
     "order": "Đơn đặt hàng",
-    "dashboard": "Báo cáo"
+    "dashboard": "Báo cáo",
+    "business": "Doanh nghiệp"
   },
 
   "common": {
@@ -94,18 +101,18 @@
   },
 
   "toast": {
-    "ban-user-success": "Cấm khách hàng thành công!",
-    "ban-user-error": "Cấm khách hàng không thành công!",
-    "unban-user-success": "Mở cấm khách hàng thành công!",
-    "unban-user-error": "Mở cấm khách hàng không thành công!",
-    "edit-user-success": "Chỉnh sửa khách hàng thành công!",
-    "edit-user-error": "Chỉnh sửa khách hàng không thành công!",
+    "ban-business-success": "Cấm doanh nghiệp thành công!",
+    "ban-business-error": "Cấm doanh nghiệp không thành công!",
+    "unban-business-success": "Mở cấm doanh nghiệp thành công!",
+    "unban-business-error": "Mở cấm doanh nghiệp không thành công!",
+    "edit-business-success": "Chỉnh sửa doanh nghiệp thành công!",
+    "edit-business-error": "Chỉnh sửa doanh nghiệp không thành công!",
     "lock-box-success": "Khóa hộp thành công!",
     "lock-box-error": "Khóa hộp không thành công!",
     "unlock-box-error": "Mở khóa hộp không thành công!",
     "unlock-box-success": "Mở khóa hộp thành công!",
-    "delete-cabinet-success": "Xóa tủ thành công!",
-    "delete-cabinet-error": "Xóa tủ không thành công!",
+    "stop-cabinet-success": "Dừng hoạt động tủ thành công!",
+    "stop-cabinet-error": "Dừng hoạt động tủ không thành công!",
     "edit-cabinet-success": "Chỉnh sửa tủ thành công!",
     "edit-cabinet-error": "Chỉnh sửa tủ không thành công!",
     "login-success": "Đăng nhập thành công",
@@ -113,8 +120,8 @@
   },
 
   "warning": {
-    "warning-ban": "Bạn có muốn cấm khách hàng này?",
-    "warning-unban": "Bạn có muốn mở cấm khách hàng này?"
+    "warning-ban": "Bạn có muốn dừng hoạt động doanh nghiệp này?",
+    "warning-unban": "Bạn có muốn mở dừng hoạt động doanh nghiệp này?"
   },
 
   "card-info": {

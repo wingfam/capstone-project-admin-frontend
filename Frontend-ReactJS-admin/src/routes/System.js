@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import UserManage from "../views/UserManage";
 import Sidebar from "../containers/Nav/Slidebar";
 import Cabinet from "../views/Cabinet";
 import Order from "../views/Order";
 import Dashboard from "../views/Dashboard";
 import Notification from "../views/Notification";
-import DetailUser from "../views/DetailUser";
+import DetailBusiness from "../views/DetailBusiness";
 import History from "../views/History";
 import Box from "../views/Box";
+import BusinessManage from "../views/BusinessManage";
 
 class System extends Component {
   render() {
@@ -23,9 +23,8 @@ class System extends Component {
               <Route path="/system/cabinet" component={Cabinet} />
               <Route path="/system/order" component={Order} />
               <Route path="/system/notification" component={Notification} />
-              <Route path="/system/user-manage" component={UserManage} />
-              <Route path="/system/user-detail" component={DetailUser} />
-              <Route path="/system/user-detail/:id" component={DetailUser} />
+              <Route path="/system/business-manage" component={BusinessManage} />
+              <Route path="/system/business-detail/:id" component={DetailBusiness} />
               <Route path="/system/history" component={History} />
               <Route path="/system/box" component={Box} />
               <Route

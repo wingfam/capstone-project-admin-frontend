@@ -13,10 +13,10 @@ class ModalBan extends Component {
   }
 
   componentDidMount() {
-    let user = this.props.currentUser;
-    if (user && !_.isEmpty(user)) {
+    let business = this.props.currentBusiness;
+    if (business && !_.isEmpty(business)) {
       this.setState({
-        id: user.id,
+        id: business.id,
         isAvailable: false,
       });
     }
@@ -26,8 +26,8 @@ class ModalBan extends Component {
     this.props.toggleFromParent();
   };
 
-  handleSaveUser = () => {
-    this.props.banUser(this.state);
+  handleSaveBusiness = () => {
+    this.props.banBusiness(this.state);
   };
 
   render() {
@@ -58,7 +58,7 @@ class ModalBan extends Component {
           <Button
             className="px-3 btn-accept"
             onClick={() => {
-              this.handleSaveUser();
+              this.handleSaveBusiness();
             }}
           >
             <FormattedMessage id="common.accept" />

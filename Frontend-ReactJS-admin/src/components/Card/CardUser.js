@@ -132,17 +132,17 @@ class CardUser extends Component {
     return (
       <div className="container-user-card">
         <div className="card">
-          <h2 className="card-header">
+          <div className="card-header">
             <i className="fas fa-id-card">
               &nbsp; <FormattedMessage id="title.detail" />
             </i>
-          </h2>
+          </div>
           <div className="row g-0">
             <div className="col-md-9 card-body">
               <div className="form-content">
                 <div>
                   <label>
-                    <FormattedMessage id="table.name" />
+                    <FormattedMessage id="table.business-name" />
                   </label>
                   <input
                     type="text"
@@ -154,7 +154,7 @@ class CardUser extends Component {
                 <div className="form-phone">
                   <div className="col-6 me-5">
                     <label>
-                      <FormattedMessage id="table.email" />
+                      <FormattedMessage id="table.address" />
                     </label>
                     <input
                       type="text"
@@ -165,7 +165,7 @@ class CardUser extends Component {
                   </div>
                   <div className="col-5 ms-5">
                     <label>
-                      <FormattedMessage id="table.address" />
+                      <FormattedMessage id="table.phone" />
                     </label>
                     <input
                       type="text"
@@ -199,7 +199,7 @@ class CardUser extends Component {
                       </option>
                     </select>
                   </div>
-                  <span className="offset-4 span-btn">
+                  <div className="span-btn">
                     <button
                       type="button"
                       className="btn-save"
@@ -210,22 +210,12 @@ class CardUser extends Component {
                     >
                       <i className="fas fa-save"></i>
                     </button>
-                    <button
-                      type="button"
-                      className="btn-trash"
-                      title={intl.formatMessage({ id: "common.ban" })}
-                      onClick={() => {
-                        this.handleBanUserDetail();
-                      }}
-                    >
-                      <i className="fas fa-user-lock"></i>
-                    </button>
-                  </span>
+                  </div>
                 </div>
               </div>
               <h3>
-                <i className="fas fa-history">
-                  &nbsp; <FormattedMessage id="title.history-order" />
+                <i className="fas fa-truck-loading">
+                  &nbsp; <FormattedMessage id="title.owner-cabinet" />
                 </i>
               </h3>
               <CardHistory />

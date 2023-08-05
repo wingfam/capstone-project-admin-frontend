@@ -22,7 +22,6 @@ class TableBox extends Component {
 
   async componentDidMount() {
     let response = await getACabinet(window.location.href.split("/")[5]);
-    console.log("Z", response.isAvailable);
     this.setState({
       cabinetName: response.name,
       cabinetLocation: response.Location.name,
@@ -64,7 +63,6 @@ class TableBox extends Component {
           progress: undefined,
           theme: "light",
         });
-        console.log("Check box 1", this.state.isAvailable);
       } else {
         toast.error(<FormattedMessage id="toast.unlock-box-error" />, {
           position: "top-right",
@@ -113,7 +111,6 @@ class TableBox extends Component {
     } catch (e) {
       console.log(e);
     }
-    console.log("Check box 2", this.state.isAvailable);
   };
 
   render() {
@@ -158,7 +155,7 @@ class TableBox extends Component {
               {result.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="fs-4">
-                    Không có dữ liệu hiển thị
+                    <FormattedMessage id="table.not-box" />
                   </td>
                 </tr>
               ) : (
@@ -180,9 +177,14 @@ class TableBox extends Component {
                         </td>
                         <td className="text-center">
                           {item.isAvailable ? (
-                            <FormattedMessage id="table.enable" />
+                            <div>
+                              <i className="fas fa-check text-success" />&nbsp;
+                              <FormattedMessage id="table.enable" />
+                            </div>
                           ) : (
-                            <FormattedMessage id="table.disable" />
+                            <div>
+                              <i className="fas fa-times text-danger" />&nbsp;
+                              <FormattedMessage id="table.disable" /></div>
                           )}
                         </td>
                         <td>

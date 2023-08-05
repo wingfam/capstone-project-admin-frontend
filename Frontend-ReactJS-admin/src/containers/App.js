@@ -17,11 +17,12 @@ import Dashboard from "../views/Dashboard";
 import Cabinet from "../views/Cabinet";
 import Order from "../views/Order";
 import Notification from "../views/Notification";
-import DetailUser from "../views/DetailUser";
+import DetailBusiness from "../views/DetailBusiness";
 import History from "../views/History";
 import firebase from 'firebase/app';
 import Box from "../views/Box";
 import "firebase/database";
+import BusinessManage from "../views/BusinessManage";
 
 class App extends Component {
   handlePersistorState = () => {
@@ -75,8 +76,8 @@ class App extends Component {
                 <Route path="/system/cabinet" component={Cabinet} />
                 <Route path="/system/order" component={Order} />
                 <Route path="/system/notification" component={Notification} />
-                <Route path="/system/user-detail" component={DetailUser} />
-                <Route path="/system/user-detail/:id" component={DetailUser} />
+                <Route path="/system/business-manage" component={BusinessManage} />
+                <Route path="/system/business-detail/:id" component={DetailBusiness} />
                 <Route path="/system/history" component={History} />
                 <Route path="/system/box" component={Box} />
               </Switch>

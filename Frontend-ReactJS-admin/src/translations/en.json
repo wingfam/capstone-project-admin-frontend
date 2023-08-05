@@ -1,9 +1,10 @@
 {
   "title": {
     "notification": "notification",
-    "cabinet": "locker manage",
-    "detail-user": "detail user",
+    "cabinet": "cabinet manage",
+    "detail-business": "detail business",
     "user-manage": "user manage",
+    "business": "Business",
     "history": "history",
     "order": "order",
     "dashboard": "dashboard",
@@ -12,7 +13,8 @@
     "history-order": "History order",
     "edit-user": "Edit user",
     "warning": "warning!!!",
-    "box": "Box manage"
+    "box": "Box manage",
+    "owner-cabinet": "Tủ sơ hữu"
   },
 
   "table": {
@@ -45,15 +47,20 @@
     "master-code": "Master Code",
     "available-code": "Status Master Code",
     "store-good": "Store goods",
-    "store-not-good": "Not store goods"
+    "store-not-good": "Not store goods",
+    "business-name": "Business's name",
+    "total-box": "Total box",
+    "not-order-processing": "No orders in progress",
+    "not-box": "No cabinets to display yet"
   },
 
   "slidebar": {
-    "cabinet": "Locker",
+    "cabinet": "Cabinet",
     "user": "Customer",
     "history": "History",
     "order": "Orders",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "business": "Business"
   },
 
   "common": {
@@ -75,7 +82,8 @@
     "bell": "Notifications",
     "get-all": "Get all",
     "find-resident": "---Resident---",
-    "find-box": "---Box---"
+    "find-box": "---Box---",
+    "detail": "Detail"
   },
 
   "login": {
@@ -90,16 +98,16 @@
   },
 
   "toast": {
-    "ban-user-success": "Delete customer succeeds!",
-    "ban-user-error": "Delete customer not succeeds!",
-    "unban-user-success": "Open ban customer succeeds!",
-    "unban-user-error": "Open ban customer not succeeds!",
-    "edit-user-success": "Edit customer succeeds!",
-    "edit-user-error": "Edit customer not succeeds!",
+    "ban-business-success": "Delete business succeeds!",
+    "ban-business-error": "Delete business not succeeds!",
+    "unban-business-success": "Open ban business succeeds!",
+    "unban-business-error": "Open ban business not succeeds!",
+    "edit-business-success": "Edit business succeeds!",
+    "edit-business-error": "Edit business not succeeds!",
     "create-cabinet-success": "Create cabinet succeeds!",
     "create-cabinet-error": "Create cabinet not succeeds!",
-    "delete-cabinet-success": "Delete cabinet succeeds!",
-    "delete-cabinet-error": "Delete cabinet not succeeds!",
+    "stop-cabinet-success": "Stop working cabinet succeeds!",
+    "stop-cabinet-error": "Stop working cabinet not succeeds!",
     "edit-cabinet-success": "Edit cabinet succeeds!",
     "edit-cabinet-error": "Edit cabinet not succeeds!",
     "login-success": "Login succeeds",

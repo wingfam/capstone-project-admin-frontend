@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Header from "../containers/Header/Header";
-import TableUser from "../components/Table/TableUser";
 import { FormattedMessage } from "react-intl";
+import TableBusiness from "../components/Table/TableBusiness";
 
-class UserManage extends Component {
+class BusinessManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,11 +13,11 @@ class UserManage extends Component {
   render() {
     return (
       <div>
-        <Header data={<FormattedMessage id="title.user-manage" />} />
-        <TableUser />
+        <Header data={<FormattedMessage id="title.business" />} />
+        <TableBusiness />
       </div>
     );
   }
 }
 
-export default UserManage;
+export default BusinessManage;

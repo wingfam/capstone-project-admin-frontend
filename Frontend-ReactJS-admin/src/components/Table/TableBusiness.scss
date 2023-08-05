@@ -1,38 +1,12 @@
 @import "../../styles/common.scss";
 
-.table-box-container {
+.table-business-container {
   margin-top: 50px;
-  font-family: Arial, Helvetica, sans-serif;
 
-  .table-box-content {
-    display: flex;
-
-    .btn-add-box {
-      border: none;
-      border-radius: 7px;
-      width: 10%;
-      height: 35px;
-      font-size: $base-size;
-      float: right;
-      margin-top: 7px;
-      margin-right: 5px;
-      margin-bottom: 20px;
-    }
-
-    .text-address-box {
-      width: 90%;
-      font-size: 20px;
-      margin: 0 0 0 10px;
-    }
-  }
-
-  .boxs {
+  .business {
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     border-radius: 5px;
-
-    tbody {
-      border-radius: 10px;
-    }
 
     td,
     th {
@@ -67,16 +41,16 @@
       color: white;
     }
 
-    .btn-edit {
+    .btn-unlock {
       width: 50px;
       border: none;
       outline: none;
       background: transparent;
-      color: orange;
+      color: $common-green;
 
       &:hover {
         background-color: transparent !important;
-        color: orange !important;
+        color: $common-green !important;
       }
     }
 
@@ -90,29 +64,6 @@
       &:hover {
         background-color: transparent !important;
         color: $common-red !important;
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: pointer;
-      }
-    }
-
-    .btn-unlock {
-      width: 50px;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: $common-green;
-
-      &:hover {
-        background-color: transparent !important;
-        color: $common-green !important;
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: pointer;
       }
     }
   }

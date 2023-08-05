@@ -46,11 +46,11 @@ class DatePicker extends Component {
     }
 
     handleBlur = (event) => {
+        event.preventDefault();
         const { onChange } = this.props;
         const value = event.target.value;
 
         // Take the blur event and process the string value
-        event.preventDefault();
         const valueMoment = moment(value, 'DD/MM/YYYY');
         onChange([valueMoment.toDate(), valueMoment.toDate()]);
     };

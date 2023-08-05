@@ -84,6 +84,10 @@
         background-color: transparent !important;
         color: rgb(235, 15, 15) !important;
       }
+
+      &.disabled {
+        opacity: 0.5;
+      }
     }
   }
 }

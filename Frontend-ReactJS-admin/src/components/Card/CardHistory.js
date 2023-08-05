@@ -35,16 +35,13 @@ class CardHistory extends Component {
                 <FormattedMessage id="table.serial" />
               </th>
               <th className="col-2">
-                <FormattedMessage id="table.name-box" />
+                <FormattedMessage id="table.name-cabinet" />
               </th>
-              <th className="col-2">
-                <FormattedMessage id="table.code-box" />
+              <th className="col-4">
+                <FormattedMessage id="table.address" />
               </th>
               <th className="col-4">
                 <FormattedMessage id="table.booking-date" />
-              </th>
-              <th className="col-4">
-                <FormattedMessage id="table.booking-valid-date" />
               </th>
             </tr>
           </thead>

@@ -73,7 +73,7 @@ class TableOrder extends Component {
             <tbody>
               {result.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="fs-4">Không có đơn đặt hàng đang thực hiện</td>
+                  <td colSpan="7" className="fs-4"><FormattedMessage id="table.not-order-processing" /> </td>
                 </tr>
               ) : result.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
                 .map((item, index) => {

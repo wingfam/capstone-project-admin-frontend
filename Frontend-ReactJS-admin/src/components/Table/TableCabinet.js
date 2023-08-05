@@ -173,13 +173,16 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.name-cabinet" />
                 </th>
                 <th className="col-2">
+                  <FormattedMessage id="table.business-name" />
+                </th>
+                <th className="col-2">
                   <FormattedMessage id="table.location" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.status-cabinet" />
                 </th>
                 <th className="col-2">
-                  <FormattedMessage id="table.create-cabinet-date" />
+                  <FormattedMessage id="table.total-box" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.action" />
@@ -230,17 +233,37 @@ class TableCabinet extends Component {
                           >
                             <i className="fas fa-pencil-alt"></i>
                           </button>
-                          <button
-                            className="btn-delete"
-                            onClick={() => {
-                              this.handleUnavailableCabinet(item);
-                            }}
-                            title={intl.formatMessage({
-                              id: "common.unavailable",
-                            })}
-                          >
-                            <i className="fas fa-ban"></i>
-                          </button>
+                          {(() => {
+                            switch (item.isAvailable) {
+                              case true:
+                                return (<button
+                                  className="btn-delete"
+                                  onClick={() => {
+                                    this.handleUnavailableCabinet(item);
+                                  }}
+                                  title={intl.formatMessage({
+                                    id: "common.unavailable",
+                                  })}
+                                >
+                                  <i className="fas fa-ban"></i>
+                                </button>);
+                              case false:
+                                return (<button
+                                  className="btn-delete disabled"
+                                  onClick={() => {
+                                    this.handleUnavailableCabinet(item);
+                                  }}
+                                  title={intl.formatMessage({
+                                    id: "common.unavailable",
+                                  })}
+                                  disabled
+                                >
+                                  <i className="fas fa-ban"></i>
+                                </button>);
+                              default:
+                            }
+                          })()}
+
                         </td>
                       </tr>
                     );

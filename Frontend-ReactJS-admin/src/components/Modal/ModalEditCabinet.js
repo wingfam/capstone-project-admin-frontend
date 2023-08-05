@@ -73,7 +73,6 @@ class ModalEditCabinet extends Component {
 
   handleSaveCabinet = () => {
     this.props.editCabinet(this.state);
-    console.log("check data: ", this.state);
   };
 
   render() {
