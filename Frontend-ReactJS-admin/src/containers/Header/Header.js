@@ -135,7 +135,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
-    isLoggedIn: state.user.isLoggedIn,
+    isLoggedIn: state.admin.isLoggedIn,
   };
 };
 

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalBan from "../Modal/ModalBan";
 import ModalUnBan from "../Modal/ModalUnBan";
+import { SyncLoader } from "react-spinners";
 // import firebase from 'firebase/app';
 // import "firebase/database";
 
@@ -16,11 +17,13 @@ class TableBusiness extends Component {
       arrBusiness: [],
       isOpenModalBan: false,
       isOpenModalUnBan: false,
+      showSpinner: true
     };
   }
 
   async componentDidMount() {
     await this.getBusinessFromReact();
+    this.setState({ showSpinner: false })
   }
 
   getBusinessFromReact = async () => {
@@ -159,13 +162,16 @@ class TableBusiness extends Component {
                 <th className="col-2">
                   <FormattedMessage id={"table.business-name"} />
                 </th>
-                <th className="col-2">
+                <th className="col-1">
                   <FormattedMessage id="table.phone" />
+                </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.email" />
                 </th>
                 <th className="col-3">
                   <FormattedMessage id="table.address" />
                 </th>
-                <th className="col-1">
+                <th className="col-2">
                   <FormattedMessage id="table.status-user" />
                 </th>
                 <th className="col-1">
@@ -174,80 +180,84 @@ class TableBusiness extends Component {
               </tr>
             </thead>
             <tbody>
-              {arrBusiness &&
-                arrBusiness.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className="text-center">
-                        <Link
-                          to={{
-                            pathname: `/system/business-detail/${item.id}`,
-                          }}
-                        >
-                          {item.fullname}
-                        </Link>
-                      </td>
-                      <td>{item.email}</td>
-                      <td className="text-center">{item.Location.name}</td>
-                      <td className="text-center">
-                        {(() => {
-                          switch (item.isAvailable) {
-                            case false:
-                              return (
-                                <div>
-                                  <i className="fas fa-times text-danger" />&nbsp;
-                                  <FormattedMessage id="table.disable" />
-                                </div>
-                              );
-                            case true:
-                              return (
-                                <div>
-                                  <i className="fas fa-check text-success" />&nbsp;
-                                  <FormattedMessage id="table.enable" />
-                                </div>
-                              );
-                            default:
-                          }
-                        })()}
-                      </td>
-                      <td>
-                        {(() => {
-                          switch (item.isAvailable) {
-                            case false:
-                              return (
-                                <button
-                                  className="btn-unlock"
-                                  onClick={() => {
-                                    this.handleUnBanBusiness(item);
-                                  }}
-                                  title={intl.formatMessage({
-                                    id: "common.unlock",
-                                  })}
-                                >
-                                  <i className="fas fa-user-check"></i>
-                                </button>
-                              );
-                            case true:
-                              return (
-                                <button
-                                  className="btn-delete"
-                                  onClick={() => {
-                                    this.handleBanBusiness(item);
-                                  }}
-                                  title={intl.formatMessage({
-                                    id: "common.ban",
-                                  })}
-                                >
-                                  <i className="fas fa-user-lock"></i>
-                                </button>
-                              );
-                            default:
-                          }
-                        })()}
-                      </td>
-                    </tr>
-                  );
-                })}
+              {this.state.showSpinner ?
+                (<SyncLoader
+                  color="#21a5ff"
+                  margin={10}
+                  speedMultiplier={0.75} />) : (arrBusiness && arrBusiness.map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td className="text-center">
+                          <Link
+                            to={{
+                              pathname: `/system/business-detail/${item.id}`,
+                            }}
+                          >
+                            {item.fullname}
+                          </Link>
+                        </td>
+                        <td className="text-center">0123456789</td>
+                        <td>{item.email}</td>
+                        <td className="text-center">{item.Location.name}</td>
+                        <td className="text-center">
+                          {(() => {
+                            switch (item.isAvailable) {
+                              case false:
+                                return (
+                                  <div>
+                                    <i className="fas fa-times text-danger" />&nbsp;
+                                    <FormattedMessage id="table.disable" />
+                                  </div>
+                                );
+                              case true:
+                                return (
+                                  <div>
+                                    <i className="fas fa-check text-success" />&nbsp;
+                                    <FormattedMessage id="table.enable" />
+                                  </div>
+                                );
+                              default:
+                            }
+                          })()}
+                        </td>
+                        <td>
+                          {(() => {
+                            switch (item.isAvailable) {
+                              case false:
+                                return (
+                                  <button
+                                    className="btn-unlock"
+                                    onClick={() => {
+                                      this.handleUnBanBusiness(item);
+                                    }}
+                                    title={intl.formatMessage({
+                                      id: "common.unlock",
+                                    })}
+                                  >
+                                    <i className="fas fa-user-check"></i>
+                                  </button>
+                                );
+                              case true:
+                                return (
+                                  <button
+                                    className="btn-delete"
+                                    onClick={() => {
+                                      this.handleBanBusiness(item);
+                                    }}
+                                    title={intl.formatMessage({
+                                      id: "common.ban",
+                                    })}
+                                  >
+                                    <i className="fas fa-user-lock"></i>
+                                  </button>
+                                );
+                              default:
+                            }
+                          })()}
+                        </td>
+                      </tr>
+                    );
+                  }))}
             </tbody>
           </table>
         </div>

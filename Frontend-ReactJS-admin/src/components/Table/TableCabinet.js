@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableCabinet.scss";
 import { Link } from "react-router-dom";
-// import ModalCabinet from "../Modal/ModalCabinet";
-// import { emitter } from "../../utils/emitter";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
@@ -13,8 +11,7 @@ import {
   unavailableCabinetService,
 } from "../../services/cabinetService";
 import moment from "moment/moment";
-// import firebase from 'firebase/app';
-// import "firebase/database";
+import { SyncLoader, PuffLoader } from "react-spinners";
 import FilterAddress from "../Filter/Address/FilterAddress";
 import { editMasterCode } from "../../services/masterCode";
 
@@ -24,6 +21,8 @@ class TableCabinet extends Component {
     this.state = {
       arrCabinets: [],
       isOpenModalEditCabinet: false,
+      showSpinner: true,
+      isLoading: true,
 
       code: "",
       cabinetId: "",
@@ -33,6 +32,7 @@ class TableCabinet extends Component {
 
   async componentDidMount() {
     await this.getCabinetsFromReact();
+    this.setState({ showSpinner: false })
   }
 
   getCabinetsFromReact = async () => {
@@ -113,8 +113,9 @@ class TableCabinet extends Component {
     try {
       await unavailableCabinetService(cabinet.id).then((res) => {
         if (res && res.errCode === 0) {
+          this.setState({ isLoading: false })
           toast.success(
-            <FormattedMessage id="toast.delete-cabinet-success" />,
+            <FormattedMessage id="toast.stop-cabinet-success" />,
             {
               position: "top-right",
               autoClose: 3000,
@@ -129,7 +130,7 @@ class TableCabinet extends Component {
           this.getCabinetsFromReact();
         } else {
           alert(res.errMessage);
-          toast.error(<FormattedMessage id="toast.delete-cabinet-error" />, {
+          toast.error(<FormattedMessage id="toast.stop-cabinet-error" />, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -188,86 +189,101 @@ class TableCabinet extends Component {
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>
-              {this.state.arrCabinets &&
-                this.state.arrCabinets
-                  .sort((a, b) => (a.isAvailable > b.isAvailable ? -1 : 1))
-                  .map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <Link
-                            to={{
-                              pathname: `/system/box/${item.id}`,
-                            }}
-                          >
-                            {item.name}
-                          </Link>
-                        </td>
-                        <td>{item.Location.name}</td>
-                        <td className="text-center">
-                          {(() => {
-                            switch (item.isAvailable) {
-                              case true:
-                                return <FormattedMessage id="table.enable" />;
-                              case false:
-                                return <FormattedMessage id="table.disable" />;
-                              default:
-                            }
-                          })()}
-                        </td>
-                        <td className="text-center">
-                          {(() => {
-                            const date = moment(item.addDate).format(
-                              "DD-MM-YYYY T HH:mm"
-                            );
-                            return date;
-                          })()}
-                        </td>
-                        <td>
-                          <button
-                            className="btn-edit"
-                            onClick={() => {
-                              this.handleEditCabinet(item);
-                            }}
-                            title={intl.formatMessage({ id: "common.detail" })}
-                          >
-                            <i className="fas fa-pencil-alt"></i>
-                          </button>
-                          {(() => {
-                            switch (item.isAvailable) {
-                              case true:
-                                return (<button
-                                  className="btn-delete"
-                                  onClick={() => {
-                                    this.handleUnavailableCabinet(item);
-                                  }}
-                                  title={intl.formatMessage({
-                                    id: "common.unavailable",
-                                  })}
-                                >
-                                  <i className="fas fa-ban"></i>
-                                </button>);
-                              case false:
-                                return (<button
-                                  className="btn-delete disabled"
-                                  onClick={() => {
-                                    this.handleUnavailableCabinet(item);
-                                  }}
-                                  title={intl.formatMessage({
-                                    id: "common.unavailable",
-                                  })}
-                                  disabled
-                                >
-                                  <i className="fas fa-ban"></i>
-                                </button>);
-                              default:
-                            }
-                          })()}
+              {this.state.showSpinner ? (<SyncLoader
+                color="#21a5ff"
+                margin={10}
+                speedMultiplier={0.75} />) : (this.state.arrCabinets &&
+                  this.state.arrCabinets
+                    .sort((a, b) => (a.isAvailable > b.isAvailable ? -1 : 1))
+                    .map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <Link
+                              to={{
+                                pathname: `/system/box/${item.id}`,
+                              }}
+                            >
+                              {item.name}
+                            </Link>
+                          </td>
+                          <td>{item.Location.name}</td>
+                          <td className="text-center">
+                            {(() => {
+                              switch (item.isAvailable) {
+                                case true:
+                                  return <FormattedMessage id="table.enable" />;
+                                case false:
+                                  return <FormattedMessage id="table.disable" />;
+                                default:
+                              }
+                            })()}
+                          </td>
+                          <td className="text-center">
+                            {(() => {
+                              const date = moment(item.addDate).format(
+                                "DD-MM-YYYY T HH:mm"
+                              );
+                              return date;
+                            })()}
+                          </td>
+                          <td>
+                            <button
+                              className="btn-edit"
+                              onClick={() => {
+                                this.handleEditCabinet(item);
+                              }}
+                              title={intl.formatMessage({ id: "common.detail" })}
+                            >
+                              <i className="fas fa-pencil-alt"></i>
+                            </button>
 
-                        </td>
-                      </tr>
-                    );
-                  })}
+                            {(() => {
+                              switch (item.isAvailable) {
+                                case true:
+                                  return (<button
+                                    className="btn-delete"
+                                    onClick={() => {
+                                      this.handleUnavailableCabinet(item);
+                                    }}
+                                    title={intl.formatMessage({
+                                      id: "common.unavailable",
+                                    })}
+                                  >
+                                    <i className="fas fa-ban"></i>
+                                  </button>);
+                                case false:
+                                  return (
+                                    this.state.isLoading ? (
+                                      <button
+                                        className="btn-delete disabled"
+                                        title={intl.formatMessage({
+                                          id: "common.unavailable",
+                                        })}
+                                        disabled
+                                      >
+                                        <i className="fas fa-ban"></i>
+                                      </button>) : (
+                                      <button
+                                        className="btn-delete disabled"
+                                        title={intl.formatMessage({
+                                          id: "common.unavailable",
+                                        })}
+                                      >
+                                        <PuffLoader
+                                          color="#36d7b7"
+                                          size={22}
+                                        />
+                                      </button>
+                                    ));
+                                default:
+                              }
+                            })()}
+
+                          </td>
+                        </tr>
+                      );
+                    }))}
             </tbody>
           </table>
         </div>

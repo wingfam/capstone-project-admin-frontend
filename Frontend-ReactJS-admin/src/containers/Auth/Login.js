@@ -60,7 +60,7 @@ class Login extends Component {
         });
       }
       if (data && data.LoginStatus === 0) {
-        this.props.userLoginSuccess(data.admin);
+        this.props.adminLoginSuccess(data.admin);
         this.redirectToSystemPage();
       }
     } catch (error) {
@@ -186,8 +186,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    userLoginSuccess: (userInfo) =>
-      dispatch(actions.userLoginSuccess(userInfo)),
+    adminLoginSuccess: (adminInfo) =>
+      dispatch(actions.adminLoginSuccess(adminInfo)),
   };
 };
 

@@ -31,52 +31,60 @@
       .form-content {
         border-radius: 7px;
         margin-top: 15px;
+        margin-bottom: 25px;
         text-align: left;
 
-        .form-phone {
+        .form-phone-content {
           display: flex;
+          margin-top: 15px;
         }
 
-        .form-status-user-content {
+        .form-address-content {
           display: flex;
-          margin-bottom: 25px;
+          margin-top: 15px;
 
-          .form-status-user {
-            width: 25%;
-            margin-right: 100px;
+          .form-address {
+            width: 50%;
           }
-          .span-btn {
-            width: 60%;
-            margin-top: 40px;
 
-            .btn-save {
-              width: 17%;
-              height: 35px;
-              border-radius: 7px;
-              border: none;
-              background: $colormain;
-              color: white;
-              font-size: 20px;
+          .form-status-user-content {
+            display: flex;
+            margin-left: 50px;
+
+            .form-status-user {
+              margin-left: 50px;
+              width: 200px;
+              select {
+                height: 40px;
+                font-size: $base-size;
+              }
+            }
+
+            .span-btn {
+              display: flex;
+              width: 60%;
+              margin-top: 30px;
+              margin-left: 40px;
+
+              .btn-save {
+                width: 100px;
+                height: 35px;
+                border-radius: 7px;
+                border: none;
+                background: $colormain;
+                color: white;
+                font-size: 20px;
+              }
             }
           }
         }
+      }
+      label {
+        font-size: $base-size + 2px;
+      }
 
-        div {
-          margin-top: 10px;
-
-          .form-control {
-            height: 40px;
-            font-size: $base-size;
-
-            .form-lastname {
-              width: 500px !important;
-            }
-          }
-        }
-
-        label {
-          font-size: $base-size;
-        }
+      input {
+        font-size: $base-size;
       }
     }
   }

@@ -6,6 +6,7 @@ import "firebase/database";
 import "./TableBox.scss";
 import { toast } from "react-toastify";
 import { editBox } from "../../services/boxService";
+import { SyncLoader } from "react-spinners";
 
 class TableBox extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class TableBox extends Component {
       arrBoxs: [],
       isAvailable: "",
       cabinetIsAvailable: "",
+      showSpinner: true
     };
     let database = firebase.database();
     this.usersRef = database.ref("Box");
@@ -42,6 +44,7 @@ class TableBox extends Component {
         arrBoxs: [...prevState.arrBoxs, newBox],
       }));
     });
+    this.setState({ showSpinner: false })
   }
 
   componentWillUnmount() {
@@ -152,122 +155,126 @@ class TableBox extends Component {
               </tr>
             </thead>
             <tbody className="text-center">
-              {result.length === 0 ? (
-                <tr>
-                  <td colSpan="5" className="fs-4">
-                    <FormattedMessage id="table.not-box" />
-                  </td>
-                </tr>
-              ) : (
-                result
-                  .sort((a, b) => (a.addDate > b.addDate ? -1 : 1))
-                  .map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          {item.nameBox}--{this.state.cabinetName}
-                        </td>
-                        {/* <td className="text-center">{item.size}</td> */}
-                        <td className="text-center">
-                          {item.isStore ? (
-                            <FormattedMessage id="table.store-good" />
-                          ) : (
-                            <FormattedMessage id="table.store-not-good" />
-                          )}
-                        </td>
-                        <td className="text-center">
-                          {item.isAvailable ? (
-                            <div>
-                              <i className="fas fa-check text-success" />&nbsp;
-                              <FormattedMessage id="table.enable" />
-                            </div>
-                          ) : (
-                            <div>
-                              <i className="fas fa-times text-danger" />&nbsp;
-                              <FormattedMessage id="table.disable" /></div>
-                          )}
-                        </td>
-                        <td>
-                          {(() => {
-                            switch (this.state.cabinetIsAvailable) {
-                              case false:
-                                return (() => {
-                                  switch (item.isAvailable) {
-                                    case false:
-                                      return (
-                                        <button
-                                          className="btn-unlock disabled"
-                                          onClick={() => {
-                                            this.doUnBox(item);
-                                          }}
-                                          title={intl.formatMessage({
-                                            id: "common.unlock",
-                                          })}
-                                          disabled
-                                        >
-                                          <i className="fas fa-lock-open"></i>
-                                        </button>
-                                      );
-                                    case true:
-                                      return (
-                                        <button
-                                          className="btn-delete disabled"
-                                          onClick={() => {
-                                            this.doLockBox(item);
-                                          }}
-                                          title={intl.formatMessage({
-                                            id: "common.ban",
-                                          })}
-                                          disabled
-                                        >
-                                          <i className="fas fa-lock"></i>
-                                        </button>
-                                      );
-                                    default:
-                                  }
-                                })();
-                              case true:
-                                return (() => {
-                                  switch (item.isAvailable) {
-                                    case false:
-                                      return (
-                                        <button
-                                          className="btn-unlock"
-                                          onClick={() => {
-                                            this.doUnBox(item);
-                                          }}
-                                          title={intl.formatMessage({
-                                            id: "common.unlock",
-                                          })}
-                                        >
-                                          <i className="fas fa-lock-open"></i>
-                                        </button>
-                                      );
-                                    case true:
-                                      return (
-                                        <button
-                                          className="btn-delete"
-                                          onClick={() => {
-                                            this.doLockBox(item);
-                                          }}
-                                          title={intl.formatMessage({
-                                            id: "common.ban",
-                                          })}
-                                        >
-                                          <i className="fas fa-lock"></i>
-                                        </button>
-                                      );
-                                    default:
-                                  }
-                                })();
-                              default:
-                            }
-                          })()}
-                        </td>
-                      </tr>
-                    );
-                  })
-              )}
+              {this.state.showSpinner ? (<SyncLoader
+                color="#21a5ff"
+                margin={10}
+                speedMultiplier={0.75} />) : (result.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="fs-4">
+                      <FormattedMessage id="table.not-box" />
+                    </td>
+                  </tr>
+                ) : (
+                  result && result
+                    .sort((a, b) => (a.addDate > b.addDate ? -1 : 1))
+                    .map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            {item.nameBox}--{this.state.cabinetName}
+                          </td>
+                          {/* <td className="text-center">{item.size}</td> */}
+                          <td className="text-center">
+                            {item.isStore ? (
+                              <FormattedMessage id="table.store-good" />
+                            ) : (
+                              <FormattedMessage id="table.store-not-good" />
+                            )}
+                          </td>
+                          <td className="text-center">
+                            {item.isAvailable ? (
+                              <div>
+                                <i className="fas fa-check text-success" />&nbsp;
+                                <FormattedMessage id="table.enable" />
+                              </div>
+                            ) : (
+                              <div>
+                                <i className="fas fa-times text-danger" />&nbsp;
+                                <FormattedMessage id="table.disable" /></div>
+                            )}
+                          </td>
+                          <td>
+                            {(() => {
+                              switch (this.state.cabinetIsAvailable) {
+                                case false:
+                                  return (() => {
+                                    switch (item.isAvailable) {
+                                      case false:
+                                        return (
+                                          <button
+                                            className="btn-unlock disabled"
+                                            onClick={() => {
+                                              this.doUnBox(item);
+                                            }}
+                                            title={intl.formatMessage({
+                                              id: "common.unlock",
+                                            })}
+                                            disabled
+                                          >
+                                            <i className="fas fa-lock-open"></i>
+                                          </button>
+                                        );
+                                      case true:
+                                        return (
+                                          <button
+                                            className="btn-delete disabled"
+                                            onClick={() => {
+                                              this.doLockBox(item);
+                                            }}
+                                            title={intl.formatMessage({
+                                              id: "common.ban",
+                                            })}
+                                            disabled
+                                          >
+                                            <i className="fas fa-lock"></i>
+                                          </button>
+                                        );
+                                      default:
+                                    }
+                                  })();
+                                case true:
+                                  return (() => {
+                                    switch (item.isAvailable) {
+                                      case false:
+                                        return (
+                                          <button
+                                            className="btn-unlock"
+                                            onClick={() => {
+                                              this.doUnBox(item);
+                                            }}
+                                            title={intl.formatMessage({
+                                              id: "common.unlock",
+                                            })}
+                                          >
+                                            <i className="fas fa-lock-open"></i>
+                                          </button>
+                                        );
+                                      case true:
+                                        return (
+                                          <button
+                                            className="btn-delete"
+                                            onClick={() => {
+                                              this.doLockBox(item);
+                                            }}
+                                            title={intl.formatMessage({
+                                              id: "common.ban",
+                                            })}
+                                          >
+                                            <i className="fas fa-lock"></i>
+                                          </button>
+                                        );
+                                      default:
+                                    }
+                                  })();
+                                default:
+                              }
+                            })()}
+                          </td>
+                        </tr>
+                      );
+                    })
+                ))}
+
             </tbody>
           </table>
         </div>

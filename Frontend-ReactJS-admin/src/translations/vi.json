@@ -54,6 +54,7 @@
     "business-name": "Tên doanh nghiệp",
     "total-box": "Số lượng hộp",
     "not-order-processing": "Không có đơn đặt hàng đang thực hiện",
+    "not-order-cabinet": "Chưa có tủ để hiển thị",
     "not-box": "Chưa có tủ để hiển thị"
   },
 

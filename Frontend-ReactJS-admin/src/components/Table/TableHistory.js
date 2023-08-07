@@ -3,16 +3,19 @@ import { FormattedMessage } from "react-intl";
 import "./TableHistory.scss";
 import { getAllBookingHistory } from "../../services/bookingHistory";
 import moment from "moment/moment";
+import { SyncLoader } from "react-spinners";
 class TableHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrBookingHistories: [],
+      showSpinner: true
     };
   }
 
   async componentDidMount() {
     await this.getHistoryFromReact()
+    this.setState({ showSpinner: false })
   }
 
   getHistoryFromReact = async () => {
@@ -23,6 +26,8 @@ class TableHistory extends Component {
   };
 
   render() {
+    let arrBookingHistory = this.state.arrBookingHistories;
+    const arrAbc = arrBookingHistory.sort((a, b) => (a.BookingOrder.createDate < b.BookingOrder.createDate ? 1 : -1));
     return (
       <div className="table-histories-container">
         <div className="histories-table mt-3 mx-1">
@@ -48,30 +53,35 @@ class TableHistory extends Component {
                   <FormattedMessage id="table.booking-valid-date" />
                 </th>
               </tr>
-              {this.state.arrBookingHistories &&
-                this.state.arrBookingHistories.map((item, index) => {
-                  return (
-                    <tr key={index} className="text-center">
-                      <td>{item.BookingOrder.Box.nameBox}</td>
-                      <td>{item.BookingOrder.Box.nameBox}</td>
-                      <td>{item.Resident.fullname}</td>
-                      <td>{item.Resident.Location.name}</td>
-                      <td>
-                        {(() => {
-                          const date = moment(item.BookingOrder.createDate).format(
-                            "DD-MM-YYYY T HH:mm"
-                          );
-                          return date;
-                        })()}</td>
-                      <td>{(() => {
-                        const date = moment(item.BookingOrder.validDate).format(
-                          "DD-MM-YYYY T HH:mm"
-                        );
-                        return date;
-                      })()}</td>
-                    </tr>
-                  );
-                })}
+              {this.state.showSpinner ? (
+                <SyncLoader
+                  color="#21a5ff"
+                  margin={10}
+                  speedMultiplier={0.75} />) : (arrAbc &&
+                    arrAbc.map((item, index) => {
+                      return (
+                        <tr key={index} className="text-center">
+                          <td>{item.BookingOrder.Box.nameBox}</td>
+                          <td>{item.BookingOrder.Box.nameBox}</td>
+                          <td>{item.Resident.fullname}</td>
+                          <td>{item.Resident.Location.name}</td>
+                          <td>
+                            {(() => {
+                              const date = moment(item.BookingOrder.createDate).format(
+                                "DD-MM-YYYY T HH:mm"
+                              );
+                              return date;
+                            })()}</td>
+                          <td>{(() => {
+                            const date = moment(item.BookingOrder.validDate).format(
+                              "DD-MM-YYYY T HH:mm"
+                            );
+                            return date;
+                          })()}</td>
+                        </tr>
+                      );
+                    }))}
+
             </tbody>
           </table>
         </div>

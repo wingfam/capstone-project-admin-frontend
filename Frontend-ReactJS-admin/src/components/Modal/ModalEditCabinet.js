@@ -5,6 +5,7 @@ import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { getAllLocations } from "../../services/locationService";
 import { getMasterCodeById } from "../../services/masterCode";
+import { ClipLoader } from "react-spinners";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class ModalEditCabinet extends Component {
       arrLocations: [],
       isAvailableCode: "",
       isAvailable: "",
+
+      showSpinner: false
     };
   }
 
@@ -73,6 +76,7 @@ class ModalEditCabinet extends Component {
 
   handleSaveCabinet = () => {
     this.props.editCabinet(this.state);
+    this.setState({ showSpinner: true })
   };
 
   render() {
@@ -183,14 +187,25 @@ class ModalEditCabinet extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button
+          {this.state.showSpinner ? (<Button
+            className="btn-edit px-3"
+            disabled
+          >
+            <ClipLoader
+              color="#36d7b7"
+              size={15}
+              speedMultiplier={0.75}
+            />&nbsp;
+            <FormattedMessage id="common.save" />
+          </Button>) : (<Button
             className="btn-edit px-3"
             onClick={() => {
               this.handleSaveCabinet();
             }}
           >
             <FormattedMessage id="common.save" />
-          </Button>
+          </Button>)}
+
           <Button
             color="secondary"
             className="px-3"

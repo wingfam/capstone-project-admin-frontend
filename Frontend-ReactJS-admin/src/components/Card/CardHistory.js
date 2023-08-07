@@ -49,7 +49,7 @@ class CardHistory extends Component {
             {arrBookingHistories.length === 0 ? (
               <tr>
                 <td colSpan="5" className="fs-4">
-                  Chưa có đơn đặt hàng
+                  <FormattedMessage id="table.not-order-cabinet" />
                 </td>
               </tr>
             ) : arrBookingHistories.map((item, index) => {

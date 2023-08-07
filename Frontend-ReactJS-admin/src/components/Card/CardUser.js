@@ -151,10 +151,10 @@ class CardUser extends Component {
                     disabled
                   />
                 </div>
-                <div className="form-phone">
+                <div className="form-phone-content">
                   <div className="col-6 me-5">
                     <label>
-                      <FormattedMessage id="table.address" />
+                      <FormattedMessage id="table.phone" />
                     </label>
                     <input
                       type="text"
@@ -165,53 +165,64 @@ class CardUser extends Component {
                   </div>
                   <div className="col-5 ms-5">
                     <label>
-                      <FormattedMessage id="table.phone" />
+                      <FormattedMessage id="table.email" />
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      onChange={(event) => {
-                        this.handleOnChangeInput(event, "address");
-                      }}
-                      value={this.state.address}
+                      value={this.state.email}
                       disabled
                     />
                   </div>
                 </div>
-                <div className="form-status-user-content">
-                  <div className="form-status-user">
+                <div className="form-address-content">
+                  <div className="form-address">
                     <label>
-                      <FormattedMessage id="table.status-user" />
+                      <FormattedMessage id="table.address" />
                     </label>
-                    <select
-                      name="statusCabinet"
+                    <input
+                      type="text"
                       className="form-control"
-                      onChange={(event) => {
-                        this.handleOnChangeInputStatus(event, "isAvailable");
-                      }}
-                      value={this.state.isAvailable}
-                    >
-                      <option value="true">
-                        {intl.formatMessage({ id: "table.enable" })}
-                      </option>
-                      <option value="false">
-                        {intl.formatMessage({ id: "table.ban" })}
-                      </option>
-                    </select>
+                      value={this.state.address}
+                      disabled
+                    />
                   </div>
-                  <div className="span-btn">
-                    <button
-                      type="button"
-                      className="btn-save"
-                      title={intl.formatMessage({ id: "common.save" })}
-                      onClick={() => {
-                        this.handleSaveUserDetail();
-                      }}
-                    >
-                      <i className="fas fa-save"></i>
-                    </button>
+                  <div className="form-status-user-content">
+                    <div className="form-status-user">
+                      <label>
+                        <FormattedMessage id="table.status-user" />
+                      </label>
+                      <select
+                        name="statusCabinet"
+                        className="form-control"
+                        onChange={(event) => {
+                          this.handleOnChangeInputStatus(event, "isAvailable");
+                        }}
+                        value={this.state.isAvailable}
+                      >
+                        <option value="true">
+                          {intl.formatMessage({ id: "table.enable" })}
+                        </option>
+                        <option value="false">
+                          {intl.formatMessage({ id: "table.ban" })}
+                        </option>
+                      </select>
+                    </div>
+                    <div className="span-btn">
+                      <button
+                        type="button"
+                        className="btn-save"
+                        title={intl.formatMessage({ id: "common.save" })}
+                        onClick={() => {
+                          this.handleSaveUserDetail();
+                        }}
+                      >
+                        <i className="fas fa-save"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
+
               </div>
               <h3>
                 <i className="fas fa-truck-loading">

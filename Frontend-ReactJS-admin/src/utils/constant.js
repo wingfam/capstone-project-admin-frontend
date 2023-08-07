@@ -5,15 +5,10 @@ export const path = {
     SYSTEM: '/system'
 };
 
-export const languages = {
-    VI: 'vi',
-    EN: 'en'
-};
- 
 export const LANGUAGES = {
     VI: "vi",
     EN: "en",
-  };
+};
 
 export const manageActions = {
     ADD: "ADD",
