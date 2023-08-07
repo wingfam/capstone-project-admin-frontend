@@ -102,6 +102,7 @@
   },
 
   "toast": {
+    "processing": "Đang xử lý",
     "ban-business-success": "Cấm doanh nghiệp thành công!",
     "ban-business-error": "Cấm doanh nghiệp không thành công!",
     "unban-business-success": "Mở cấm doanh nghiệp thành công!",
@@ -122,7 +123,7 @@
 
   "warning": {
     "warning-ban": "Bạn có muốn dừng hoạt động doanh nghiệp này?",
-    "warning-unban": "Bạn có muốn mở dừng hoạt động doanh nghiệp này?"
+    "warning-unban": "Bạn có muốn mở hoạt động doanh nghiệp này?"
   },
 
   "card-info": {

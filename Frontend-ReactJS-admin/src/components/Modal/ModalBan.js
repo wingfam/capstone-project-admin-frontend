@@ -3,12 +3,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import "./ModalBan.scss";
 import _ from "lodash";
+import { ClipLoader } from "react-spinners";
 
 class ModalBan extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAvailable: "",
+      showSpinner: true,
     };
   }
 
@@ -28,6 +30,7 @@ class ModalBan extends Component {
 
   handleSaveBusiness = () => {
     this.props.banBusiness(this.state);
+    this.setState({ showSpinner: false });
   };
 
   render() {
@@ -55,14 +58,22 @@ class ModalBan extends Component {
           </div>
         </ModalBody>
         <ModalFooter className="modal-ban-footer">
-          <Button
-            className="px-3 btn-accept"
-            onClick={() => {
-              this.handleSaveBusiness();
-            }}
-          >
-            <FormattedMessage id="common.accept" />
-          </Button>
+          {this.state.showSpinner ? (
+            <Button
+              className="px-3 btn-accept"
+              onClick={() => {
+                this.handleSaveBusiness();
+              }}
+            >
+              <FormattedMessage id="common.accept" />
+            </Button>
+          ) : (
+            <Button className="px-3 btn-accept" disabled>
+              <ClipLoader color="#ffffff" size={15} speedMultiplier={0.75} />
+              <FormattedMessage id="common.accept" />
+            </Button>
+          )}
+
           <Button
             className="px-3"
             onClick={() => {

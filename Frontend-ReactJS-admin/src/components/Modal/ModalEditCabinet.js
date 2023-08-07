@@ -21,14 +21,14 @@ class ModalEditCabinet extends Component {
       isAvailableCode: "",
       isAvailable: "",
 
-      showSpinner: false
+      showSpinner: false,
     };
   }
 
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
     let response = await getAllLocations();
-    let res = await getMasterCodeById(cabinet.id)
+    let res = await getMasterCodeById(cabinet.id);
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
         name: cabinet.name,
@@ -76,7 +76,7 @@ class ModalEditCabinet extends Component {
 
   handleSaveCabinet = () => {
     this.props.editCabinet(this.state);
-    this.setState({ showSpinner: true })
+    this.setState({ showSpinner: true });
   };
 
   render() {
@@ -187,24 +187,22 @@ class ModalEditCabinet extends Component {
           </div>
         </ModalBody>
         <ModalFooter>
-          {this.state.showSpinner ? (<Button
-            className="btn-edit px-3"
-            disabled
-          >
-            <ClipLoader
-              color="#36d7b7"
-              size={15}
-              speedMultiplier={0.75}
-            />&nbsp;
-            <FormattedMessage id="common.save" />
-          </Button>) : (<Button
-            className="btn-edit px-3"
-            onClick={() => {
-              this.handleSaveCabinet();
-            }}
-          >
-            <FormattedMessage id="common.save" />
-          </Button>)}
+          {this.state.showSpinner ? (
+            <Button className="btn-edit px-3" disabled>
+              <ClipLoader color="#21a5ff" size={15} speedMultiplier={0.75} />
+              &nbsp;
+              <FormattedMessage id="common.save" />
+            </Button>
+          ) : (
+            <Button
+              className="btn-edit px-3"
+              onClick={() => {
+                this.handleSaveCabinet();
+              }}
+            >
+              <FormattedMessage id="common.save" />
+            </Button>
+          )}
 
           <Button
             color="secondary"
