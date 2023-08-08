@@ -14,7 +14,8 @@
     "edit-user": "Edit user",
     "warning": "warning!!!",
     "box": "Box manage",
-    "owner-cabinet": "Owner cabinet"
+    "owner-cabinet": "Owner cabinet",
+    "cabinet-log":"Cabinet log"
   },
 
   "table": {
@@ -53,7 +54,11 @@
     "total-box": "Total box",
     "not-order-processing": "No orders in progress",
     "not-order-cabinet": "No cabinets to display yet",
-    "not-box": "No cabinets to display yet"
+    "not-box": "No cabinets to display yet",
+    "message-title":"Title",
+    "message-body":"Message",
+    "message-status":"Status", 
+    "create-date":"Create date"
   },
 
   "slidebar": {

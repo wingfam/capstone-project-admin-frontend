@@ -27,6 +27,7 @@ class ModalEditCabinet extends Component {
 
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
+    console.log("data", cabinet);
     let response = await getAllLocations();
     let res = await getMasterCodeById(cabinet.id);
     if (cabinet && !_.isEmpty(cabinet)) {

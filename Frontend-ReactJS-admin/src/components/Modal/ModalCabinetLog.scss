@@ -1,9 +1,14 @@
 @import "../../styles/common.scss";
 
-.modal-ban-container {
-  .modal-ban-header {
-    background-color: $common-red !important;
-    text-align: center;
+.modal-cabinet-container {
+  .modal-cabinet-header {
+
+    .modal-title {
+      background-color: $colormain;
+      font-size: 25px;
+
+    }
+
     button {
       background-color: transparent !important;
       border: none;
@@ -12,14 +17,14 @@
     }
   }
 
-  .modal-ban-body {
+  .modal-cabinet-body {
     font-size: $base-size;
     padding-bottom: 10px;
   }
 
-  .modal-ban-footer {
+  .modal-cabinet-footer {
     .btn-accept {
-      background-color: $common-red;
+      background-color: $colormain;
     }
   }
 }
