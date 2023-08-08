@@ -1,0 +1,25 @@
+@import "../../styles/common.scss";
+
+.modal-ban-container {
+  .modal-ban-header {
+    background-color: $common-red !important;
+    text-align: center;
+    button {
+      background-color: transparent !important;
+      border: none;
+      color: white;
+      font-size: 25px;
+    }
+  }
+
+  .modal-ban-body {
+    font-size: $base-size;
+    padding-bottom: 10px;
+  }
+
+  .modal-ban-footer {
+    .btn-accept {
+      background-color: $common-red;
+    }
+  }
+}

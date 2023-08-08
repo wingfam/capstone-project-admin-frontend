@@ -14,7 +14,7 @@
     "edit-user": "Edit user",
     "warning": "warning!!!",
     "box": "Box manage",
-    "owner-cabinet": "Tủ sơ hữu"
+    "owner-cabinet": "Owner cabinet"
   },
 
   "table": {
@@ -27,7 +27,8 @@
     "name-cabinet": "Name cabinet",
     "location-cabinet": "Location cabinet",
     "status-cabinet": "Status cabinet",
-    "status-user": "Status user",
+    "status-booking": "Status booking",
+    "status-business": "Status",
     "name-box": "Name box",
     "status-box": "Status box",
     "status-box-store": "Status store",
@@ -51,6 +52,7 @@
     "business-name": "Business's name",
     "total-box": "Total box",
     "not-order-processing": "No orders in progress",
+    "not-order-cabinet": "No cabinets to display yet",
     "not-box": "No cabinets to display yet"
   },
 
@@ -98,10 +100,10 @@
   },
 
   "toast": {
-    "ban-business-success": "Delete business succeeds!",
-    "ban-business-error": "Delete business not succeeds!",
-    "unban-business-success": "Open ban business succeeds!",
-    "unban-business-error": "Open ban business not succeeds!",
+    "ban-business-success": "Available business succeeds!",
+    "ban-business-error": "Available business not succeeds!",
+    "unban-business-success": "Unavailable business succeeds!",
+    "unban-business-error": "Unavailable business not succeeds!",
     "edit-business-success": "Edit business succeeds!",
     "edit-business-error": "Edit business not succeeds!",
     "create-cabinet-success": "Create cabinet succeeds!",
@@ -119,8 +121,8 @@
   },
 
   "warning": {
-    "warning-ban": "Do you want to ban this customer?",
-    "warning-unban": "Do you want to unblock this customer?"
+    "warning-ban": "Do you want to unavailable this business?",
+    "warning-unban": "Do you want to available this business?"
   },
 
   "card-info": {

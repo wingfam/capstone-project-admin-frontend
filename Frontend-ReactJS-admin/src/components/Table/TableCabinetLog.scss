@@ -1,25 +1,18 @@
 @import "../../styles/common.scss";
 
-.table-cabinet-container {
+.table-box-container {
   margin-top: 50px;
   font-family: Arial, Helvetica, sans-serif;
-  .table-cabinet-content {
-    display: flex;
-    .btn-cabinet {
-      width: 85%;
-      .btn-add-cabinet {
-        width: 10%;
-        border: none;
-        border-radius: 7px;
-        height: 35px;
-        font-size: $base-size;
-        margin-right: 5px;
-        margin-bottom: 20px;
-      }
+
+  .table-box-content {
+    .text-address-box {
+      width: 90%;
+      font-size: 20px;
+      margin: 0 0 0 10px;
     }
   }
 
-  .cabinets {
+  .boxs {
     width: 100%;
     border-radius: 5px;
 
@@ -60,36 +53,6 @@
       color: white;
     }
 
-    .btn-edit {
-      width: 50px;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: orange;
-
-      &:hover {
-        background-color: transparent !important;
-        color: orange !important;
-      }
-    }
-
-    .btn-delete {
-      width: 50px;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: rgb(235, 15, 15);
-
-      &:hover {
-        background-color: transparent !important;
-        color: rgb(235, 15, 15) !important;
-      }
-
-      &.disabled {
-        opacity: 0.5;
-      }
-    }
-
     .btn-info {
       width: 50px;
       border: none;
@@ -99,7 +62,7 @@
 
       &:hover {
         background-color: transparent !important;
-        color: $colormain !important;
+        color: $common-red !important;
       }
     }
   }

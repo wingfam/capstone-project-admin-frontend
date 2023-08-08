@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
-import "./CardUser.scss";
+import "./CardBusiness.scss";
 import { Component } from "react";
 import {
   deleteUserService,
@@ -10,7 +10,7 @@ import {
 import { toast } from "react-toastify";
 import CardHistory from "./CardHistory";
 
-class CardUser extends Component {
+class CardBusiness extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,15 +38,6 @@ class CardUser extends Component {
     });
   };
 
-
-  // handleOnChangeInput = (event, id) => {
-  //   let copyState = { ...this.state };
-  //   copyState[id] = event.target.value;
-  //   this.setState({
-  //     ...copyState,
-  //   });
-  // };
-
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
     copyState[id] = event.target.value === "true" ? true : false;
@@ -60,7 +51,7 @@ class CardUser extends Component {
       let res = await editUserService(user.id, user);
       if (res && res.errCode === 0) {
         await this.getUsersFromReact();
-        toast.success(<FormattedMessage id="toast.edit-user-success" />, {
+        toast.success(<FormattedMessage id="toast.edit-business-success" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -71,7 +62,7 @@ class CardUser extends Component {
           theme: "light",
         });
       } else {
-        toast.error(<FormattedMessage id="toast.edit-user-error" />, {
+        toast.error(<FormattedMessage id="toast.edit-business-error" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -92,7 +83,7 @@ class CardUser extends Component {
       let res = await deleteUserService(window.location.href.split("/")[5]);
       if (res && res.errCode === 0) {
         await this.getUsersFromReact();
-        toast.success(<FormattedMessage id="toast.ban-user-success" />, {
+        toast.success(<FormattedMessage id="toast.ban-business-success" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -103,7 +94,7 @@ class CardUser extends Component {
           theme: "light",
         });
       } else {
-        toast.error(<FormattedMessage id="toast.ban-user-error" />, {
+        toast.error(<FormattedMessage id="toast.ban-business-error" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -190,7 +181,7 @@ class CardUser extends Component {
                   <div className="form-status-user-content">
                     <div className="form-status-user">
                       <label>
-                        <FormattedMessage id="table.status-user" />
+                        <FormattedMessage id="table.status-business" />
                       </label>
                       <select
                         name="statusCabinet"
@@ -204,7 +195,7 @@ class CardUser extends Component {
                           {intl.formatMessage({ id: "table.enable" })}
                         </option>
                         <option value="false">
-                          {intl.formatMessage({ id: "table.ban" })}
+                          {intl.formatMessage({ id: "table.disable" })}
                         </option>
                       </select>
                     </div>
@@ -238,4 +229,4 @@ class CardUser extends Component {
   }
 }
 
-export default injectIntl(CardUser);
+export default injectIntl(CardBusiness);

@@ -16,7 +16,7 @@
     "detail-cabinet": "Thông tin tủ",
     "warning": "Cảnh báo!!!",
     "box": "quản lý hộp",
-    "owner-cabinet": "Tủ sơ hữu"
+    "owner-cabinet": "Tủ sở hữu"
   },
 
   "table": {
@@ -33,7 +33,7 @@
     "status-box": "Trạng thái hộp",
     "status-booking": "Trạng thái đặt hộp",
     "status-box-store": "Trạng thái lưu trữ",
-    "status-user": "Trạng thái",
+    "status-business": "Trạng thái",
     "code-order": "Mã đặt tủ",
     "code-box": "Mã mở hộp",
     "booking-date": "Ngày đặt",
@@ -103,10 +103,10 @@
 
   "toast": {
     "processing": "Đang xử lý",
-    "ban-business-success": "Cấm doanh nghiệp thành công!",
-    "ban-business-error": "Cấm doanh nghiệp không thành công!",
-    "unban-business-success": "Mở cấm doanh nghiệp thành công!",
-    "unban-business-error": "Mở cấm doanh nghiệp không thành công!",
+    "ban-business-success": "Dừng hoạt động doanh nghiệp thành công!",
+    "ban-business-error": "Dừng hoạt động doanh nghiệp không thành công!",
+    "unban-business-success": "Mở hoạt động doanh nghiệp thành công!",
+    "unban-business-error": "Mở hoạt động doanh nghiệp không thành công!",
     "edit-business-success": "Chỉnh sửa doanh nghiệp thành công!",
     "edit-business-error": "Chỉnh sửa doanh nghiệp không thành công!",
     "lock-box-success": "Khóa hộp thành công!",

@@ -14,6 +14,7 @@ import moment from "moment/moment";
 import { SyncLoader } from "react-spinners";
 import FilterAddress from "../Filter/Address/FilterAddress";
 import { editMasterCode } from "../../services/masterCode";
+import ModalCabinetLog from "../Modal/ModalCabinetLog";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class TableCabinet extends Component {
     this.state = {
       arrCabinets: [],
       isOpenModalEditCabinet: false,
+      isOpenModalCabinetLog: false,
       showSpinner: true,
 
       code: "",
@@ -44,6 +46,12 @@ class TableCabinet extends Component {
   toggleCabinetEditModal = () => {
     this.setState({
       isOpenModalEditCabinet: !this.state.isOpenModalEditCabinet,
+    });
+  };
+
+  toggleCabinetLogModal = () => {
+    this.setState({
+      isOpenModalCabinetLog: !this.state.isOpenModalCabinetLog,
     });
   };
 
@@ -101,10 +109,60 @@ class TableCabinet extends Component {
     }
   };
 
+  doCabinetLog = async (cabinet) => {
+    try {
+      let res = await editCabinetService(cabinet.id, cabinet);
+      if (res && res.errCode === 0) {
+        let response = await editMasterCode(cabinet.masterCodeId, {
+          code: cabinet.code,
+          isAvailable: cabinet.isAvailableCode,
+          cabinetId: cabinet.id,
+        });
+        if (response && response.errCode === 0) {
+          this.setState({
+            isOpenModalCabinetLog: false,
+          });
+          await this.getCabinetsFromReact();
+          toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      } else {
+        alert(res.errCode);
+        toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleEditCabinet = (cabinet) => {
     this.setState({
       isOpenModalEditCabinet: true,
       editCabinet: cabinet,
+    });
+  };
+
+  handleCabinetLog = (cabinet) => {
+    this.setState({
+      isOpenModalCabinetLog: true,
+      cabinetLog: cabinet,
     });
   };
 
@@ -144,6 +202,14 @@ class TableCabinet extends Component {
             toggleFromParent={this.toggleCabinetEditModal}
             currentCabinet={this.state.editCabinet}
             editCabinet={this.doEditCabinet}
+          />
+        )}
+        {this.state.isOpenModalCabinetLog && (
+          <ModalCabinetLog
+            isOpen={this.state.isOpenModalCabinetLog}
+            toggleFromParent={this.toggleCabinetLogModal}
+            currentCabinetLog={this.state.cabinetLog}
+            cabinetLog={this.doCabinetLog}
           />
         )}
         <div className="table-cabinet-content">
@@ -198,6 +264,7 @@ class TableCabinet extends Component {
                             {item.name}
                           </Link>
                         </td>
+                        <td>{item.Location.name}</td>
                         <td>{item.Location.name}</td>
                         <td className="text-center">
                           {(() => {
@@ -259,6 +326,11 @@ class TableCabinet extends Component {
                               default:
                             }
                           })()}
+                          <button className="btn-info" onClick={() => {
+                            this.handleCabinetLog(item);
+                          }}>
+                            <i className="fas fa-clipboard-list"></i>
+                          </button>
                         </td>
                       </tr>
                     );
