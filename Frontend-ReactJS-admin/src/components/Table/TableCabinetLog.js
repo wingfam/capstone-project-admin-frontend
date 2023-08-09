@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { FormattedMessage, injectIntl } from "react-intl";
-// import { getACabinet } from "../../services/cabinetService";
+import { FormattedMessage } from "react-intl";
 import firebase from "firebase/app";
 import "firebase/database";
 import "./TableCabinetLog.scss";
-import { toast } from "react-toastify";
-import { editBox } from "../../services/boxService";
 import { SyncLoader } from "react-spinners";
+import moment from "moment/moment";
 
 class TableCabinetLog extends Component {
   constructor(props) {
@@ -42,74 +40,8 @@ class TableCabinetLog extends Component {
     this.usersRef.off();
   }
 
-  doUnBox = async (box) => {
-    try {
-      this.setState({ isAvailable: true });
-      let res = await editBox(box.id, { isAvailable: true });
-      if (res && res.errCode === 0) {
-        toast.success(<FormattedMessage id="toast.unlock-box-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(<FormattedMessage id="toast.unlock-box-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  doLockBox = async (box) => {
-    try {
-      this.setState({ isAvailable: false });
-      let res = await editBox(box.id, { isAvailable: false });
-      if (res && res.errCode === 0) {
-        toast.success(<FormattedMessage id="toast.lock-box-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        alert(res.errCode);
-        toast.error(<FormattedMessage id="toast.lock-box-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   render() {
     const arrCabinetLog = this.state.arrCabinetLog;
-    const { intl } = this.props;
     return (
       <div className="table-box-container">
         <div className="boxs-table mt-3 mx-1">
@@ -158,17 +90,12 @@ class TableCabinetLog extends Component {
                         <td className="text-center">{item.messageTitle}</td>
                         <td>{item.messageBody}</td>
                         <td>
-                          <button
-                            className="btn-info "
-                            onClick={() => {
-                              this.doLockBox(item);
-                            }}
-                            title={intl.formatMessage({
-                              id: "common.ban",
-                            })}
-                          >
-                            <i className="fas fa-info"></i>
-                          </button>
+                          {(() => {
+                            const date = moment(item.createDate).format(
+                              "DD-MM-YYYY T HH:mm"
+                            );
+                            return date;
+                          })()}
                         </td>
                       </tr>
                     );
@@ -182,4 +109,4 @@ class TableCabinetLog extends Component {
   }
 }
 
-export default injectIntl(TableCabinetLog);
+export default TableCabinetLog;

@@ -209,7 +209,6 @@ class TableCabinet extends Component {
             isOpen={this.state.isOpenModalCabinetLog}
             toggleFromParent={this.toggleCabinetLogModal}
             currentCabinetLog={this.state.cabinetLog}
-            // cabinetLog={this.doCabinetLog}
           />
         )}
         <div className="table-cabinet-content">
