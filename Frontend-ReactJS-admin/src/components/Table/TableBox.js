@@ -14,8 +14,7 @@ class TableBox extends Component {
     this.state = {
       arrBox: [],
       arrBoxs: [],
-      isAvailable: "",
-      cabinetIsAvailable: "",
+      cabinetStatus: "",
       showSpinner: true
     };
     let database = firebase.database();
@@ -24,10 +23,11 @@ class TableBox extends Component {
 
   async componentDidMount() {
     let response = await getACabinet(window.location.href.split("/")[5]);
+    console.log("Check:", response);
     this.setState({
-      cabinetName: response.name,
+      cabinetName: response.nameCabinet,
       cabinetLocation: response.Location.name,
-      cabinetIsAvailable: response.isAvailable,
+      cabinetStatus: response.status,
     });
 
     this.usersRef.on("value", (snapshot) => {
@@ -118,6 +118,7 @@ class TableBox extends Component {
 
   render() {
     const arrBoxs = this.state.arrBoxs;
+    console.log("data", arrBoxs);
     const result = arrBoxs.filter(
       (a) => a.cabinetId === window.location.href.split("/")[5]
     );
@@ -173,16 +174,18 @@ class TableBox extends Component {
                           <td>
                             {item.nameBox}--{this.state.cabinetName}
                           </td>
-                          {/* <td className="text-center">{item.size}</td> */}
                           <td className="text-center">
-                            {item.isStore ? (
-                              <FormattedMessage id="table.store-good" />
-                            ) : (
-                              <FormattedMessage id="table.store-not-good" />
-                            )}
+                            {(() => {
+                              switch (item.status) {
+                                case 4:
+                                  return (<FormattedMessage id="table.store-good" />)
+                                default:
+                                  return (<FormattedMessage id="table.store-not-good" />)
+                              }
+                            })()}
                           </td>
                           <td className="text-center">
-                            {item.isAvailable ? (
+                            {item.status ? (
                               <div>
                                 <i className="fas fa-check text-success" />&nbsp;
                                 <FormattedMessage id="table.enable" />
@@ -195,11 +198,11 @@ class TableBox extends Component {
                           </td>
                           <td>
                             {(() => {
-                              switch (this.state.cabinetIsAvailable) {
-                                case false:
+                              switch (this.state.cabinetStatus) {
+                                case 0:
                                   return (() => {
-                                    switch (item.isAvailable) {
-                                      case false:
+                                    switch (item.status) {
+                                      case 0:
                                         return (
                                           <button
                                             className="btn-unlock disabled"
@@ -214,7 +217,8 @@ class TableBox extends Component {
                                             <i className="fas fa-lock-open"></i>
                                           </button>
                                         );
-                                      case true:
+                                      case 1:
+                                      case 4:
                                         return (
                                           <button
                                             className="btn-delete disabled"
@@ -232,10 +236,10 @@ class TableBox extends Component {
                                       default:
                                     }
                                   })();
-                                case true:
+                                case 1:
                                   return (() => {
-                                    switch (item.isAvailable) {
-                                      case false:
+                                    switch (item.status) {
+                                      case 0:
                                         return (
                                           <button
                                             className="btn-unlock"
@@ -249,7 +253,8 @@ class TableBox extends Component {
                                             <i className="fas fa-lock-open"></i>
                                           </button>
                                         );
-                                      case true:
+                                      case 1:
+                                      case 4:
                                         return (
                                           <button
                                             className="btn-delete"

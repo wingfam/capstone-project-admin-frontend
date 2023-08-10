@@ -6,7 +6,7 @@ const handleLoginApi = (adminEmail, adminPassword) => {
 };
 
 const getAllUsers = () => {
-  return axios.get("/api/v1/resident/get-all");
+  return axios.get("/api/v1/business/get-all");
 };
 
 const getAUsers = (inputId) => {

@@ -10,7 +10,6 @@ import {
   getAllCabinets,
   unavailableCabinetService,
 } from "../../services/cabinetService";
-import moment from "moment/moment";
 import { SyncLoader } from "react-spinners";
 import FilterAddress from "../Filter/Address/FilterAddress";
 import { editMasterCode } from "../../services/masterCode";
@@ -70,27 +69,17 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
-        let response = await editMasterCode(cabinet.masterCodeId, {
-          code: cabinet.code,
-          isAvailable: cabinet.isAvailableCode,
-          cabinetId: cabinet.id,
+        await this.getCabinetsFromReact();
+        toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
-        if (response && response.errCode === 0) {
-          this.setState({
-            isOpenModalEditCabinet: false,
-          });
-          await this.getCabinetsFromReact();
-          toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
       } else {
         alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
@@ -260,29 +249,24 @@ class TableCabinet extends Component {
                               pathname: `/system/box/${item.id}`,
                             }}
                           >
-                            {item.name}
+                            {item.nameCabinet}
                           </Link>
                         </td>
-                        <td>{item.Location.name}</td>
+                        <td>{item.Business.businessName}</td>
                         <td>{item.Location.name}</td>
                         <td className="text-center">
                           {(() => {
-                            switch (item.isAvailable) {
-                              case true:
+                            switch (item.status) {
+                              case 1:
                                 return <FormattedMessage id="table.enable" />;
-                              case false:
+                              case 0:
                                 return <FormattedMessage id="table.disable" />;
                               default:
                             }
                           })()}
                         </td>
                         <td className="text-center">
-                          {(() => {
-                            const date = moment(item.addDate).format(
-                              "DD-MM-YYYY T HH:mm"
-                            );
-                            return date;
-                          })()}
+                          {item.totalBox}
                         </td>
                         <td>
                           <button
@@ -295,8 +279,8 @@ class TableCabinet extends Component {
                             <i className="fas fa-pencil-alt"></i>
                           </button>
                           {(() => {
-                            switch (item.isAvailable) {
-                              case true:
+                            switch (item.status) {
+                              case 1:
                                 return (
                                   <button
                                     className="btn-delete"
@@ -310,7 +294,7 @@ class TableCabinet extends Component {
                                     <i className="fas fa-ban"></i>
                                   </button>
                                 );
-                              case false:
+                              case 0:
                                 return (
                                   <button
                                     className="btn-delete disabled"

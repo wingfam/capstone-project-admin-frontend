@@ -4,7 +4,6 @@ import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { getAllLocations } from "../../services/locationService";
-import { getMasterCodeById } from "../../services/masterCode";
 import { ClipLoader } from "react-spinners";
 
 class ModalEditCabinet extends Component {
@@ -15,11 +14,10 @@ class ModalEditCabinet extends Component {
       name: "",
       locationId: "",
       locationName: "",
-      code: "",
-      masterCodeId: "",
+      masterCode: "",
       arrLocations: [],
-      isAvailableCode: "",
-      isAvailable: "",
+      masterCodeStatus: "",
+      status: "",
 
       showSpinner: false,
     };
@@ -29,20 +27,18 @@ class ModalEditCabinet extends Component {
     let cabinet = this.props.currentCabinet;
     console.log("data", cabinet);
     let response = await getAllLocations();
-    let res = await getMasterCodeById(cabinet.id);
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        name: cabinet.name,
-        isAvailable: cabinet.isAvailable,
+        name: cabinet.nameCabinet,
+        status: cabinet.status,
         locationId: cabinet.Location.id,
 
         id: cabinet.id,
         arrLocations: response,
 
-        code: res.code,
-        masterCodeId: res.id,
+        masterCode: cabinet.masterCode,
         locationName: cabinet.Location.name,
-        isAvailableCode: res.isAvailable,
+        masterCodeStatus: cabinet.masterCodeStatus,
       });
     }
   }
@@ -61,7 +57,7 @@ class ModalEditCabinet extends Component {
 
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = event.target.value === "true" ? true : false;
+    copyState[id] = event.target.value === "1" ? "1" : "0";
     this.setState({
       ...copyState,
     });
@@ -108,9 +104,9 @@ class ModalEditCabinet extends Component {
               <input
                 type="text"
                 onChange={(event) => {
-                  this.handleOnChangeInput(event, "name");
+                  this.handleOnChangeInput(event, "nameCabinet");
                 }}
-                value={this.state.name}
+                value={this.state.nameCabinet}
               />
             </div>
             <div className="input-container">
@@ -147,19 +143,19 @@ class ModalEditCabinet extends Component {
                   type="checkbox"
                   id="changeAvailable"
                   onClick={() => {
-                    this.handleOnChangeCodeStatus("isAvailableCode");
+                    this.handleOnChangeCodeStatus("masterCodeStatus");
                   }}
-                  value={this.state.isAvailableCode}
-                  checked={this.state.isAvailableCode}
+                  value={this.state.masterCodeStatus}
+                  checked={this.state.masterCodeStatus}
                 />
 
                 <input
                   className="form-input-code"
                   type="text"
                   onChange={(event) => {
-                    this.handleOnChangeInput(event, "code");
+                    this.handleOnChangeInput(event, "masterCode");
                   }}
-                  value={this.state.code}
+                  value={this.state.masterCode}
                 />
               </div>
             </div>
@@ -172,14 +168,14 @@ class ModalEditCabinet extends Component {
                 <select
                   className="form-control form-select"
                   onChange={(event) => {
-                    this.handleOnChangeInputStatus(event, "isAvailable");
+                    this.handleOnChangeInputStatus(event, "status");
                   }}
-                  value={this.state.isAvailable}
+                  value={this.state.status}
                 >
-                  <option value="true">
+                  <option value="1">
                     {intl.formatMessage({ id: "table.enable" })}
                   </option>
-                  <option value="false">
+                  <option value="0">
                     {intl.formatMessage({ id: "table.disable" })}
                   </option>
                 </select>

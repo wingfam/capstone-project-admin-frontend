@@ -29,11 +29,6 @@ const Sidebar = ({ children }) => {
       name: <FormattedMessage id="slidebar.order" />,
       icon: <i className="fas fa-shopping-cart"></i>,
     },
-    {
-      path: "/system/history",
-      name: <FormattedMessage id="slidebar.history" />,
-      icon: <i className="fas fa-history"></i>,
-    },
   ];
   return (
     <div className="container">

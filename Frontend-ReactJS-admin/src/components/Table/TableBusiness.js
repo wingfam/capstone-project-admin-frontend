@@ -165,14 +165,11 @@ class TableBusiness extends Component {
                 <th className="col-1">
                   <FormattedMessage id="table.phone" />
                 </th>
-                <th className="col-2">
-                  <FormattedMessage id="table.email" />
-                </th>
-                <th className="col-3">
+                <th className="col-6">
                   <FormattedMessage id="table.address" />
                 </th>
                 <th className="col-2">
-                  <FormattedMessage id="table.status-user" />
+                  <FormattedMessage id="table.status-business" />
                 </th>
                 <th className="col-1">
                   <FormattedMessage id="table.action" />
@@ -193,23 +190,22 @@ class TableBusiness extends Component {
                               pathname: `/system/business-detail/${item.id}`,
                             }}
                           >
-                            {item.fullname}
+                            {item.businessName}
                           </Link>
                         </td>
-                        <td className="text-center">0123456789</td>
-                        <td>{item.email}</td>
-                        <td className="text-center">{item.Location.name}</td>
+                        <td className="text-center">{item.phone}</td>
+                        <td className="text-center">{item.address}</td>
                         <td className="text-center">
                           {(() => {
-                            switch (item.isAvailable) {
-                              case false:
+                            switch (item.status) {
+                              case 0:
                                 return (
                                   <div>
                                     <i className="fas fa-times text-danger" />&nbsp;
                                     <FormattedMessage id="table.disable" />
                                   </div>
                                 );
-                              case true:
+                              case 1:
                                 return (
                                   <div>
                                     <i className="fas fa-check text-success" />&nbsp;
@@ -222,8 +218,8 @@ class TableBusiness extends Component {
                         </td>
                         <td>
                           {(() => {
-                            switch (item.isAvailable) {
-                              case false:
+                            switch (item.status) {
+                              case 0:
                                 return (
                                   <button
                                     className="btn-unlock"
@@ -237,7 +233,7 @@ class TableBusiness extends Component {
                                     <i className="fas fa-user-check"></i>
                                   </button>
                                 );
-                              case true:
+                              case 1:
                                 return (
                                   <button
                                     className="btn-delete"

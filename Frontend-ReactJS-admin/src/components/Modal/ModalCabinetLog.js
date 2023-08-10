@@ -22,9 +22,9 @@ class ModalCabinetLog extends Component {
     let cabinetLog = this.props.currentCabinetLog;
     let response = await getACabinet(cabinetLog.id);
     this.setState({
-      cabinetName: response.name,
+      cabinetName: response.nameCabinet,
       cabinetId: response.id,
-      businessName: response.Location.name,
+      businessName: response.Business.businessName,
     });
   }
 
