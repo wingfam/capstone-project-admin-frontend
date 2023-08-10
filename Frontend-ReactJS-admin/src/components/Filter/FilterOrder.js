@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./FilterOrder.scss";
-import FilterResident from "./Resident/FilterResident";
 import FilterBox from "./Box/FilterBox";
 class FilterOrder extends Component {
   constructor(props) {
@@ -36,8 +35,7 @@ class FilterOrder extends Component {
   };
 
   handleFilterOrder = () => {
-    console.log("Check FilterOrder:", this.state.boxId, this.state.residentId);
-    this.props.filterOrder(this.state.residentId, this.state.boxId);
+    // this.props.filterOrder(this.state.residentId, this.state.boxId);
   };
 
   render() {
@@ -50,11 +48,6 @@ class FilterOrder extends Component {
           <FilterBox
             currentFilterBox={this.state.filterBox}
             filterBox={this.handleFilterBox}
-            className="filter-content"
-          />
-          <FilterResident
-            currentFilterResident={this.state.filterResident}
-            filterResident={this.handleFilterResident}
             className="filter-content"
           />
         </div>

@@ -11,9 +11,8 @@ import {
   unavailableCabinetService,
 } from "../../services/cabinetService";
 import { SyncLoader } from "react-spinners";
-import FilterAddress from "../Filter/Address/FilterAddress";
-import { editMasterCode } from "../../services/masterCode";
 import ModalCabinetLog from "../Modal/ModalCabinetLog";
+import FilterBusiness from "../Filter/Business/FilterBusiness";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -80,6 +79,9 @@ class TableCabinet extends Component {
           progress: undefined,
           theme: "light",
         });
+        this.setState({
+          isOpenModalEditCabinet: false,
+        });
       } else {
         alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
@@ -102,29 +104,21 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
-        let response = await editMasterCode(cabinet.masterCodeId, {
-          code: cabinet.code,
-          isAvailable: cabinet.isAvailableCode,
-          cabinetId: cabinet.id,
+        this.setState({
+          isOpenModalCabinetLog: false,
         });
-        if (response && response.errCode === 0) {
-          this.setState({
-            isOpenModalCabinetLog: false,
-          });
-          await this.getCabinetsFromReact();
-          toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
+        await this.getCabinetsFromReact();
+        toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } else {
-        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
           autoClose: 3000,
@@ -157,7 +151,7 @@ class TableCabinet extends Component {
 
   handleUnavailableCabinet = async (cabinet) => {
     try {
-      const res = unavailableCabinetService(cabinet.id);
+      let res = unavailableCabinetService(cabinet.id);
       await toast.promise(res, {
         pending: {
           render() {
@@ -201,7 +195,7 @@ class TableCabinet extends Component {
           />
         )}
         <div className="table-cabinet-content">
-          <FilterAddress
+          <FilterBusiness
             currentFilterCabinet={this.state.filterCabinet}
             filterCabinet={this.doFilterCabinet}
             className="filter-content"
@@ -253,21 +247,31 @@ class TableCabinet extends Component {
                           </Link>
                         </td>
                         <td>{item.Business.businessName}</td>
-                        <td>{item.Location.name}</td>
+                        <td>{item.Location.nameLocation}</td>
                         <td className="text-center">
                           {(() => {
                             switch (item.status) {
                               case 1:
-                                return <FormattedMessage id="table.enable" />;
+                                return (
+                                  <div>
+                                    <i className="fas fa-check text-success" />
+                                    &nbsp;
+                                    <FormattedMessage id="table.enable" />
+                                  </div>
+                                );
                               case 0:
-                                return <FormattedMessage id="table.disable" />;
+                                return (
+                                  <div>
+                                    <i className="fas fa-times text-danger" />
+                                    &nbsp;
+                                    <FormattedMessage id="table.disable" />{" "}
+                                  </div>
+                                );
                               default:
                             }
                           })()}
                         </td>
-                        <td className="text-center">
-                          {item.totalBox}
-                        </td>
+                        <td className="text-center">{item.totalBox}</td>
                         <td>
                           <button
                             className="btn-edit"

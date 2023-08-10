@@ -11,13 +11,15 @@ class ModalEditCabinet extends Component {
     super(props);
     this.state = {
       id: "",
-      name: "",
+      nameCabinet: "",
+      businessId: "",
+      businessName: "",
       locationId: "",
       locationName: "",
       masterCode: "",
       arrLocations: [],
       masterCodeStatus: "",
-      status: "",
+      status: 0,
 
       showSpinner: false,
     };
@@ -25,13 +27,14 @@ class ModalEditCabinet extends Component {
 
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
-    console.log("data", cabinet);
     let response = await getAllLocations();
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
-        name: cabinet.nameCabinet,
+        nameCabinet: cabinet.nameCabinet,
         status: cabinet.status,
         locationId: cabinet.Location.id,
+        businessId: cabinet.Business.id,
+        businessName: cabinet.Business.businessName,
 
         id: cabinet.id,
         arrLocations: response,
@@ -57,7 +60,7 @@ class ModalEditCabinet extends Component {
 
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = event.target.value === "1" ? "1" : "0";
+    copyState[id] = event.target.value === "1" ? 1 : 0;
     this.setState({
       ...copyState,
     });
@@ -126,7 +129,7 @@ class ModalEditCabinet extends Component {
                     .map((item, index) => {
                       return (
                         <option value={item.id} key={index}>
-                          {item.name}
+                          {item.nameLocation}
                         </option>
                       );
                     })}
@@ -160,6 +163,21 @@ class ModalEditCabinet extends Component {
               </div>
             </div>
 
+            <div className="input-container">
+              <div className="form-group col-5">
+                <label>
+                  <FormattedMessage id="table.business-name" />
+                </label>
+                <input
+                  type="text"
+                  onChange={(event) => {
+                    this.handleOnChangeInput(event, "businessName");
+                  }}
+                  value={this.state.businessName}
+                  disabled
+                />
+              </div>
+            </div>
             <div className="input-container">
               <div className="form-group col-5">
                 <label>

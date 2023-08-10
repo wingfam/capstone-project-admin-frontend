@@ -9,7 +9,7 @@ class ModalUnBan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAvailable: "",
+      status: 1,
       showSpinner: true,
     };
   }
@@ -19,7 +19,7 @@ class ModalUnBan extends Component {
     if (business && !_.isEmpty(business)) {
       this.setState({
         id: business.id,
-        isAvailable: true,
+        status: 1,
       });
     }
   }

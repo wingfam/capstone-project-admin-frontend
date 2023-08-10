@@ -3,10 +3,9 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import "./CardBusiness.scss";
 import { Component } from "react";
 import {
-  deleteUserService,
-  editUserService,
-  getAUsers,
-} from "../../services/userService";
+  editBusinessService,
+  getABusiness,
+} from "../../services/businessService";
 import { toast } from "react-toastify";
 import CardHistory from "./CardHistory";
 
@@ -14,27 +13,25 @@ class CardBusiness extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
       phone: "",
-      fullname: "",
+      businessName: "",
       address: "",
-      isAvailable: ""
+      status: "",
     };
   }
 
   async componentDidMount() {
-    await this.getUsersFromReact();
+    await this.getBusinessFromReact();
   }
 
-  getUsersFromReact = async () => {
-    let response = await getAUsers(window.location.href.split("/")[5]);
+  getBusinessFromReact = async () => {
+    let response = await getABusiness(window.location.href.split("/")[5]);
     this.setState({
       id: response.id,
-      email: response.email,
       phone: response.phone,
-      fullname: response.fullname,
-      address: response.Location.name,
-      isAvailable: response.isAvailable,
+      businessName: response.businessName,
+      address: response.address,
+      status: response.status,
     });
   };
 
@@ -46,9 +43,9 @@ class CardBusiness extends Component {
     });
   };
 
-  doEditUser = async (user) => {
+  doEditBusiness = async (user) => {
     try {
-      let res = await editUserService(user.id, user);
+      let res = await editBusinessService(user.id, user);
       if (res && res.errCode === 0) {
         await this.getUsersFromReact();
         toast.success(<FormattedMessage id="toast.edit-business-success" />, {
@@ -78,44 +75,8 @@ class CardBusiness extends Component {
     }
   };
 
-  doBanUser = async () => {
-    try {
-      let res = await deleteUserService(window.location.href.split("/")[5]);
-      if (res && res.errCode === 0) {
-        await this.getUsersFromReact();
-        toast.success(<FormattedMessage id="toast.ban-business-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(<FormattedMessage id="toast.ban-business-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  handleSaveUserDetail = () => {
-    this.doEditUser(this.state);
-  };
-
-  handleBanUserDetail = () => {
-    this.doBanUser(this.state);
+  handleSaveBusinessDetail = () => {
+    this.doEditBusiness(this.state);
   };
 
   render() {
@@ -138,43 +99,30 @@ class CardBusiness extends Component {
                   <input
                     type="text"
                     className="form-control form-lastname"
-                    value={this.state.fullname}
+                    value={this.state.businessName}
                     disabled
                   />
                 </div>
-                <div className="form-phone-content">
-                  <div className="col-6 me-5">
+                <div className="">
+                  <label>
+                    <FormattedMessage id="table.address" />
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.address}
+                    disabled
+                  />
+                </div>
+                <div className="form-address-content">
+                  <div className="form-address">
                     <label>
                       <FormattedMessage id="table.phone" />
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      value={this.state.email}
-                      disabled
-                    />
-                  </div>
-                  <div className="col-5 ms-5">
-                    <label>
-                      <FormattedMessage id="table.email" />
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={this.state.email}
-                      disabled
-                    />
-                  </div>
-                </div>
-                <div className="form-address-content">
-                  <div className="form-address">
-                    <label>
-                      <FormattedMessage id="table.address" />
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={this.state.address}
+                      value={this.state.phone}
                       disabled
                     />
                   </div>
@@ -187,14 +135,14 @@ class CardBusiness extends Component {
                         name="statusCabinet"
                         className="form-control"
                         onChange={(event) => {
-                          this.handleOnChangeInputStatus(event, "isAvailable");
+                          this.handleOnChangeInputStatus(event, "status");
                         }}
-                        value={this.state.isAvailable}
+                        value={this.state.status}
                       >
-                        <option value="true">
+                        <option value="1">
                           {intl.formatMessage({ id: "table.enable" })}
                         </option>
-                        <option value="false">
+                        <option value="0">
                           {intl.formatMessage({ id: "table.disable" })}
                         </option>
                       </select>
@@ -205,7 +153,7 @@ class CardBusiness extends Component {
                         className="btn-save"
                         title={intl.formatMessage({ id: "common.save" })}
                         onClick={() => {
-                          this.handleSaveUserDetail();
+                          this.handleSaveBusinessDetail();
                         }}
                       >
                         <i className="fas fa-save"></i>
@@ -213,7 +161,6 @@ class CardBusiness extends Component {
                     </div>
                   </div>
                 </div>
-
               </div>
               <h3>
                 <i className="fas fa-truck-loading">

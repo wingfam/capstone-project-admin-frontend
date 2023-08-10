@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { handleLoginApi } from "../../services/userService";
+import { handleLoginApi } from "../../services/businessService";
 import { toast } from "react-toastify";
 
 class Login extends Component {

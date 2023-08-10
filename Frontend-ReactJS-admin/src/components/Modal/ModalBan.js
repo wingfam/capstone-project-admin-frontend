@@ -9,7 +9,7 @@ class ModalBan extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAvailable: "",
+      status: 0,
       showSpinner: true,
     };
   }
@@ -19,7 +19,7 @@ class ModalBan extends Component {
     if (business && !_.isEmpty(business)) {
       this.setState({
         id: business.id,
-        isAvailable: false,
+        status: 0,
       });
     }
   }
