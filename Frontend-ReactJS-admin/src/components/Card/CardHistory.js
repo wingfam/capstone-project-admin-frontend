@@ -1,31 +1,31 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardHistory.scss";
-import { getBookingHistoriesByResidentId } from "../../services/bookingHistory"
 import moment from "moment";
+import { getCabinetByBusiness } from "../../services/cabinetService";
 
 class CardHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrBookingHistory: []
+      arrCabinet: []
     };
   }
 
   async componentDidMount() {
-    await this.getBookingHistoryByResidentId();
+    await this.getCabinetByBusinessId();
   }
 
-  getBookingHistoryByResidentId = async () => {
-    let response = await getBookingHistoriesByResidentId(window.location.href.split("/")[5]);
+  getCabinetByBusinessId = async () => {
+    let response = await getCabinetByBusiness(window.location.href.split("/")[5]);
     this.setState({
-      arrBookingHistory: response
+      arrCabinet: response
     })
   }
 
 
   render() {
-    const arrBookingHistories = this.state.arrBookingHistory;
+    const arrCabinet = this.state.arrCabinet;
     return (
       <div className="container-history-table">
         <table className="history">
@@ -46,40 +46,31 @@ class CardHistory extends Component {
             </tr>
           </thead>
           <tbody>
-            {arrBookingHistories.length === 0 ? (
+            {arrCabinet.length === 0 ? (
               <tr>
-                <td colSpan="5" className="fs-4">
+                <td colSpan="4" className="fs-4">
                   <FormattedMessage id="table.not-order-cabinet" />
                 </td>
               </tr>
-            ) : arrBookingHistories.map((item, index) => {
+            ) : arrCabinet.map((item, index) => {
               return (
                 <tr key={index} className="text-center">
                   <td>
                     {index + 1}
                   </td>
                   <td>
-                    {item.Resident.fullname}
+                    {item.nameCabinet}
                   </td>
                   <td>
-                    {item.Resident.password}
+                    {item.Location.address}
                   </td>
                   <td>
                     {(() => {
-                      const date = moment(item.BookingOrder.createDate).format(
+                      const date = moment(item.addrDate).format(
                         "DD-MM-YYYY T HH:mm"
                       );
                       return date;
                     })()}
-                  </td>
-                  <td>
-                    {(() => {
-                      const date = moment(item.BookingOrder.validDate).format(
-                        "DD-MM-YYYY T HH:mm"
-                      );
-                      return date;
-                    })()}
-
                   </td>
                 </tr>
               )

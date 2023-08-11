@@ -57,7 +57,7 @@ class TableCabinetLog extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.message-title" />
                 </th>
-                <th className="col-2">
+                <th className="col-3">
                   <FormattedMessage id="table.message-body" />
                 </th>
                 <th className="col-2">

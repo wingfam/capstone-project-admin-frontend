@@ -17,7 +17,7 @@
     "warning": "Cảnh báo!!!",
     "box": "quản lý hộp",
     "owner-cabinet": "Tủ sở hữu",
-    "cabinet-log":"Nhật ký tủ"
+    "cabinet-log": "Nhật ký tủ"
   },
 
   "table": {
@@ -57,10 +57,10 @@
     "not-order-processing": "Không có đơn đặt hàng đang thực hiện",
     "not-order-cabinet": "Chưa có tủ để hiển thị",
     "not-box": "Chưa có tủ để hiển thị",
-    "message-title":"Tiêu đề",
-    "message-body":"Tin nhắn",
-    "message-status":"Trạng thái",
-    "create-date":"Ngày tạo"
+    "message-title": "Tiêu đề",
+    "message-body": "Nội dung",
+    "message-status": "Trạng thái",
+    "create-date": "Ngày tạo"
   },
 
   "slidebar": {

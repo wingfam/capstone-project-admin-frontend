@@ -4,45 +4,60 @@ import "./TableOrder.scss";
 import { getAllBookingOrders, getBookingOrderById } from "../../services/bookingOrder";
 import moment from "moment/moment";
 import FilterOrder from "../Filter/FilterOrder";
+import firebase from "firebase/app";
+import "firebase/database";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrBookingHistories: []
+      arrBookingOrderLog: []
     };
+    let database = firebase.database();
+    this.usersRef = database.ref("BookingOrder");
   }
 
   async componentDidMount() {
-    await this.getAllBookingHistory();
+    this.usersRef.on("value", (snapshot) => {
+      const arrBookingOrderLog = snapshot.val();
+      const dataArray = Object.values(arrBookingOrderLog);
+      this.setState({
+        arrBookingOrderLog: dataArray,
+      });
+    });
+
+    this.usersRef.on("child_added", (snapshot) => {
+      const newBookingOrderLog = snapshot.val();
+      this.setState((prevState) => ({
+        arrBookingOrderLog: [...prevState.arrBookingOrderLog, newBookingOrderLog],
+      }));
+    });
   }
 
-  getAllBookingHistory = async () => {
-    let response = await getAllBookingOrders(window.location.href.split("/")[5]);
-    this.setState({
-      arrBookingHistories: response
-    })
+  componentWillUnmount() {
+    this.usersRef.off();
   }
 
-  doFilterOrder = async (residentId, boxId) => {
-    console.log("Check: ", residentId, boxId);
-    let response = await getBookingOrderById(residentId, boxId);
-    this.setState({
-      arrBookingHistories: response
-    })
-  }
+  // doFilterOrder = async (residentId, boxId) => {
+  //   console.log("Check: ", residentId, boxId);
+  //   let response = await getBookingOrderById(residentId, boxId);
+  //   this.setState({
+  //     arrBookingHistories: response
+  //   })
+  // }
 
   render() {
-    const arrBookingHistory = this.state.arrBookingHistories;
-    const result = arrBookingHistory.filter((a) => a.status !== "Done")
+    const arrBookingOrderLog = this.state.arrBookingOrderLog;
+    console.log("Check:", arrBookingOrderLog);
+    // const result = arrBookingHistory.filter((a) => a.status !== "Done")
 
     return (
       <div className="table-orders-container">
-        <div>
+        {/* <div>
           <FilterOrder
             currentFilterOrder={this.state.filterOrder}
             filterOrder={this.doFilterOrder} />
-        </div>
+        </div> */}
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <thead>
@@ -71,11 +86,7 @@ class TableOrder extends Component {
               </tr>
             </thead>
             <tbody>
-              {result.length === 0 ? (
-                <tr>
-                  <td colSpan="7" className="fs-4"><FormattedMessage id="table.not-order-processing" /> </td>
-                </tr>
-              ) : result.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
+              {/* {arrBookingOrderLog && arrBookingOrderLog
                 .map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
@@ -110,7 +121,7 @@ class TableOrder extends Component {
                       <td>{item.status}</td>
                     </tr>
                   )
-                })}
+                })} */}
             </tbody>
           </table>
         </div>

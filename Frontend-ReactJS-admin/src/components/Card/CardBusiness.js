@@ -37,17 +37,17 @@ class CardBusiness extends Component {
 
   handleOnChangeInputStatus = (event, id) => {
     let copyState = { ...this.state };
-    copyState[id] = event.target.value === "true" ? true : false;
+    copyState[id] = event.target.value === "1" ? 1 : 0;
     this.setState({
       ...copyState,
     });
   };
 
-  doEditBusiness = async (user) => {
+  doEditBusiness = async (business) => {
     try {
-      let res = await editBusinessService(user.id, user);
+      let res = await editBusinessService(business.id, business);
       if (res && res.errCode === 0) {
-        await this.getUsersFromReact();
+        await this.getBusinessFromReact();
         toast.success(<FormattedMessage id="toast.edit-business-success" />, {
           position: "top-right",
           autoClose: 3000,

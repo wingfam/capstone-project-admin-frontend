@@ -24,7 +24,7 @@ class TableBox extends Component {
     let response = await getACabinet(window.location.href.split("/")[5]);
     this.setState({
       cabinetName: response.nameCabinet,
-      cabinetLocation: response.Location.name,
+      cabinetLocation: response.Location.nameLocation,
       cabinetStatus: response.status,
     });
 
