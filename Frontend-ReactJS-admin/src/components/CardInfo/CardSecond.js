@@ -3,24 +3,24 @@ import { FormattedMessage } from "react-intl";
 // import { FormattedMessage } from "react-intl";
 import "./CardSecond.scss";
 import { Component } from "react";
-import { getTotalResident } from "../../services/dashBoard";
+import { getTotalBusiness } from "../../services/dashBoard";
 
 class CardSecond extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalResident: []
+      totalBusiness: []
     }
   }
 
   async componentDidMount() {
-    await this.getTotalResidentFromReact()
+    await this.getTotalBusinessFromReact()
   }
 
-  getTotalResidentFromReact = async () => {
-    let res = await getTotalResident();
+  getTotalBusinessFromReact = async () => {
+    let res = await getTotalBusiness();
     this.setState({
-      totalResident: res.count
+      totalBusiness: res.count
     })
   }
   render() {
@@ -29,7 +29,7 @@ class CardSecond extends Component {
         <div className="card">
           <div className="card-body">
             <div className="d-flex align-items-center">
-              <h3 className="mb-0 text-white">{this.state.totalResident}</h3>
+              <h3 className="mb-0 text-white">{this.state.totalBusiness}</h3>
               <div className="ms-auto text-white">
                 <i className="fas fa-users"></i>
               </div>

@@ -15,7 +15,7 @@
     "warning": "warning!!!",
     "box": "Box manage",
     "owner-cabinet": "Owner cabinet",
-    "cabinet-log":"Cabinet log"
+    "cabinet-log": "Cabinet log"
   },
 
   "table": {
@@ -55,10 +55,13 @@
     "not-order-processing": "No orders in progress",
     "not-order-cabinet": "No cabinets to display yet",
     "not-box": "No cabinets to display yet",
-    "message-title":"Title",
-    "message-body":"Message",
-    "message-status":"Status", 
-    "create-date":"Create date"
+    "message-title": "Title",
+    "message-body": "Message",
+    "message-status": "Status",
+    "create-date": "Create date",
+    "processing": "Processing",
+    "done": "Done",
+    "cancel": "Cancel"
   },
 
   "slidebar": {

@@ -1,41 +1,64 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
-import { getAllBookingOrders, getBookingOrderById } from "../../services/bookingOrder";
+import { getAllBookingOrders } from "../../services/bookingOrder";
+import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
-import FilterOrder from "../Filter/FilterOrder";
+// import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
+import FilterDate from "../Filter/Date/FilterDate";
 
 class TableOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrBookingOrderLog: []
+      arrBookingOrder: [],
+      arrBookingStatus: [],
+      showSpinner: true,
+      dateToday: new Date()
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
   }
 
   async componentDidMount() {
+    await this.getBookingOrderFromReact()
+
     this.usersRef.on("value", (snapshot) => {
-      const arrBookingOrderLog = snapshot.val();
-      const dataArray = Object.values(arrBookingOrderLog);
+      const arrBookingStatus = snapshot.val();
+      const dataArray = Object.values(arrBookingStatus);
       this.setState({
-        arrBookingOrderLog: dataArray,
+        arrBookingStatus: dataArray,
       });
     });
 
     this.usersRef.on("child_added", (snapshot) => {
-      const newBookingOrderLog = snapshot.val();
+      const newStatus = snapshot.val();
       this.setState((prevState) => ({
-        arrBookingOrderLog: [...prevState.arrBookingOrderLog, newBookingOrderLog],
+        arrBookingStatus: [...prevState.arrBookingStatus, newStatus],
       }));
     });
+    this.setState({ showSpinner: false });
+  }
+
+  getBookingOrderFromReact = async () => {
+    let response = await getAllBookingOrders();
+    this.setState
+      ({
+        arrBookingOrder: response
+      })
   }
 
   componentWillUnmount() {
     this.usersRef.off();
+  }
+
+  handleChangeDate = (event) => {
+    const date = moment(new Date(event)).format(
+      "DD-MM-YYYY"
+    );
+    console.log("Check change date:", date);
   }
 
   // doFilterOrder = async (residentId, boxId) => {
@@ -47,9 +70,8 @@ class TableOrder extends Component {
   // }
 
   render() {
-    const arrBookingOrderLog = this.state.arrBookingOrderLog;
-    console.log("Check:", arrBookingOrderLog);
-    // const result = arrBookingHistory.filter((a) => a.status !== "Done")
+    const arrBookingOrder = this.state.arrBookingOrder;
+    const arrBookingStatus = this.state.arrBookingStatus;
 
     return (
       <div className="table-orders-container">
@@ -58,6 +80,7 @@ class TableOrder extends Component {
             currentFilterOrder={this.state.filterOrder}
             filterOrder={this.doFilterOrder} />
         </div> */}
+        <FilterDate />
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <thead>
@@ -68,8 +91,8 @@ class TableOrder extends Component {
                 <th className="col-1">
                   <FormattedMessage id="table.name-box" />
                 </th>
-                <th className="col-1">
-                  <FormattedMessage id="table.name" />
+                <th className="col-2">
+                  <FormattedMessage id="table.business-name" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.address" />
@@ -86,21 +109,25 @@ class TableOrder extends Component {
               </tr>
             </thead>
             <tbody>
-              {/* {arrBookingOrderLog && arrBookingOrderLog
+              {this.state.showSpinner ? (<SyncLoader
+                color="#21a5ff"
+                margin={10}
+                speedMultiplier={0.75}
+              />) : (arrBookingOrder && arrBookingOrder
                 .map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
                       <td>
-                        {item.Box.Cabinet.name}
+                        {item.Box.Cabinet.nameCabinet}
                       </td>
                       <td>
                         {item.Box.nameBox}
                       </td>
                       <td>
-                        {item.Resident.fullname}
+                        {item.Business.businessName}
                       </td>
-                      <td>
-                        {item.Resident.Location.name}
+                      <td className="text-truncate" style={{ maxWidth: "150px" }}>
+                        {item.Business.address}
                       </td>
                       <td>
                         {(() => {
@@ -118,10 +145,27 @@ class TableOrder extends Component {
                           return date;
                         })()}
                       </td>
-                      <td>{item.status}</td>
+                      {arrBookingStatus && arrBookingStatus.filter((newArr) => newArr.id === item.id).map((data, index) => {
+                        return (
+                          <td key={index}>
+                            {(() => {
+                              switch (data.status) {
+                                case 3:
+                                  return <FormattedMessage id="table.processing" />
+                                case 4:
+                                  return <FormattedMessage id="table.store-good" />
+                                case 5:
+                                  return <FormattedMessage id="table.done" />
+                                default:
+                                  return <FormattedMessage id="table.cancel" />
+                              }
+                            })()}
+                          </td>
+                        )
+                      })}
                     </tr>
                   )
-                })} */}
+                }))}
             </tbody>
           </table>
         </div>

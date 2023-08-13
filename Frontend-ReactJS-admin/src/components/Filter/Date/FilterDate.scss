@@ -1,0 +1,15 @@
+@import "../../../styles/common.scss";
+
+.form-date-container {
+  display: flex;
+  margin-top: 3%;
+  .icon-content {
+    margin: 5px 10px;
+    font-size: 20px;
+    color: $colormain;
+  }
+  .date-calendar {
+    border-radius: 5px;
+    font-size: $base-size;
+  }
+}

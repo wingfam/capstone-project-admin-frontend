@@ -1,7 +1,7 @@
 import axios from "../axios";
 
-const getTotalResident = () => {
-    return axios.get("/get-total-resident");
+const getTotalBusiness = () => {
+    return axios.get("/get-total-business");
 };
 
 
@@ -17,4 +17,4 @@ const getTotalCabinet = () => {
     return axios.get("/get-total-cabinet");
 };
 
-export { getTotalResident, getTotalBox, getTotalOrder, getTotalCabinet };
+export { getTotalBusiness, getTotalBox, getTotalOrder, getTotalCabinet };

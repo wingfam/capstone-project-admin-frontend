@@ -60,7 +60,10 @@
     "message-title": "Tiêu đề",
     "message-body": "Nội dung",
     "message-status": "Trạng thái",
-    "create-date": "Ngày tạo"
+    "create-date": "Ngày tạo",
+    "processing": "Đang xử lý",
+    "done": "Hoàn thành",
+    "cancel": "Hủy"
   },
 
   "slidebar": {
