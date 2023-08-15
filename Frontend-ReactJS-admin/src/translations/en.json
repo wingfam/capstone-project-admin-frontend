@@ -93,7 +93,11 @@
     "get-all": "Get all",
     "find-resident": "---Resident---",
     "find-box": "---Box---",
-    "detail": "Detail"
+    "find-cabinet": "---Cabinet---",
+    "find-business": "---Business---",
+    "detail": "Detail",
+    "from": "From",
+    "to": "To"
   },
 
   "login": {

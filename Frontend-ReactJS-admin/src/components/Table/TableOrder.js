@@ -4,10 +4,10 @@ import "./TableOrder.scss";
 import { getAllBookingOrders } from "../../services/bookingOrder";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
-// import FilterOrder from "../Filter/FilterOrder";
+import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
-import FilterDate from "../Filter/Date/FilterDate";
+// import FilterDate from "../Filter/Date/FilterDate";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -75,12 +75,11 @@ class TableOrder extends Component {
 
     return (
       <div className="table-orders-container">
-        {/* <div>
+        <div>
           <FilterOrder
             currentFilterOrder={this.state.filterOrder}
             filterOrder={this.doFilterOrder} />
-        </div> */}
-        <FilterDate />
+        </div>
         <div className="orders-table mt-3 mx-1">
           <table className="orders">
             <thead>

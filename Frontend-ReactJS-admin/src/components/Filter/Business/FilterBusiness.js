@@ -35,24 +35,21 @@ class FilterBusiness extends Component {
   }
 
   handleFilterBusiness = (event) => {
-    this.props.filterCabinet(event.target.value);
+    this.props.filterBusiness(event.target.value);
   };
 
   render() {
     const { intl } = this.props;
     return (
-      <div className="form-select-container">
-        <div className="icon-content">
-          <i className="fas fa-filter"></i>
-        </div>
+      <div className="select-business-container">
         <select
-          className="form-select-content"
+          className="select-business-content"
           onChange={(event) => {
             this.handleFilterBusiness(event);
           }}
         >
-          <option value="1">
-            {intl.formatMessage({ id: "common.get-all" })}
+          <option value="1" defaultValue>
+            {intl.formatMessage({ id: "common.find-business" })}
           </option>
           {this.state.arrBusiness &&
             this.state.arrBusiness.map((item, index) => {

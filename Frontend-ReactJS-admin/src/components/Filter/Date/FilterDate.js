@@ -3,36 +3,57 @@ import "./FilterDate.scss";
 import moment from "moment/moment";
 import Flatpickr from 'react-flatpickr';
 import "flatpickr/dist/flatpickr.css";
+import { FormattedMessage } from "react-intl";
 class FilterDate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateToday: new Date()
+            dateToday: new Date(),
+            fromDateBegin: ""
         };
     }
 
-    componentDidMount() {
-    }
-
-    handleChangeDate = (event) => {
-        const date = moment(new Date(event)).format(
+    handleFilterFromDate = (event) => {
+        const fromDate = moment(new Date(event)).format(
             "DD-MM-YYYY"
         );
-        console.log("Check change date:", date);
-    }
+        this.props.filterFromDate(fromDate);
+        this.setState({ fromDateBegin: fromDate })
+    };
+
+    handleFilterToDate = (event) => {
+        const toDate = moment(new Date(event)).format(
+            "DD-MM-YYYY"
+        );
+        this.props.filterToDate(toDate);
+    };
+
     render() {
+        const { dateToday } = this.state
         return (
             <div className="form-date-container">
-                <div className="icon-content">
-                    <i className="fas fa-filter"></i>
-                </div>
+                <div className="text-content">
+                    <FormattedMessage id="common.from" /></div>
                 <Flatpickr
-                    value={this.state.dateToday}
+                    value={dateToday}
                     options={{
-                        dateFormat: "d-m-Y"
+                        dateFormat: "d-m-Y",
+                        maxDate: dateToday,
                     }}
-                    onChange={(dateSelect) => this.handleChangeDate(dateSelect)}
-                    className="date-calendar"
+                    onChange={([dateToday]) => this.handleFilterFromDate(dateToday)}
+                    className="date-calendar text-center"
+                />
+                <div className="text-content">
+                    <FormattedMessage id="common.to" className="text-content" /></div>
+                <Flatpickr
+                    value={dateToday}
+                    options={{
+                        dateFormat: "d-m-Y",
+                        maxDate: dateToday,
+                        minDate: this.state.fromDateBegin
+                    }}
+                    onChange={([dateToday]) => this.handleFilterToDate(dateToday)}
+                    className="date-calendar text-center"
                 />
             </div>
         );

@@ -68,7 +68,7 @@ class ModalEditCabinet extends Component {
 
   handleOnChangeCodeStatus = (id) => {
     let copyState = { ...this.state };
-    copyState[id] = document.getElementById("changeAvailable").checked;
+    copyState[id] = document.getElementById("changeAvailable").checked ? 1 : 0;
     this.setState({
       ...copyState,
     });

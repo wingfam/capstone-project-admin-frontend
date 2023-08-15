@@ -95,7 +95,11 @@
     "detail": "Chi tiết",
     "get-all": "Tất cả",
     "find-resident": "---Cư dân---",
-    "find-box": "---Tên hộp---"
+    "find-box": "---Tên hộp---",
+    "find-cabinet": "---Tên tủ---",
+    "find-business": "---Doanh nghiệp---",
+    "from": "Từ",
+    "to": "Đến"
   },
 
   "login": {

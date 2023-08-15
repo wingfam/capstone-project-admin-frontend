@@ -2,14 +2,16 @@
 
 .form-date-container {
   display: flex;
-  margin-top: 3%;
-  .icon-content {
-    margin: 5px 10px;
-    font-size: 20px;
-    color: $colormain;
-  }
+  font-size: $base-size;
+  margin-left: 20px;
+
   .date-calendar {
     border-radius: 5px;
-    font-size: $base-size;
+    width: 150px;
+  }
+  .text-content {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
   }
 }

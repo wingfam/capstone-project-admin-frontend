@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import "./FilterOrder.scss";
-import FilterBox from "./Box/FilterBox";
+import FilterBusiness from "./Business/FilterBusiness";
+import FilterDate from "./Date/FilterDate"
+import FilterCabinet from "./Cabinet/FilterCabinet";
 class FilterOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      boxId: "",
-      residentId: "",
+      cabinetId: "",
+      businessId: "",
+      fromDate: "",
+      toDate: ""
     };
   }
 
@@ -22,20 +26,33 @@ class FilterOrder extends Component {
   //     console.log("check data", this.state.arrResident);
   // }
 
-  handleFilterBox = (id) => {
+  handleFilterCabinet = (id) => {
     this.setState({
-      boxId: id,
+      cabinetId: id,
     });
   };
 
-  handleFilterResident = (id) => {
+  handleFilterBusiness = (id) => {
     this.setState({
-      residentId: id,
+      businessId: id,
+    });
+  };
+
+  handleFilterFromDate = (fromDateText) => {
+    this.setState({
+      fromDate: fromDateText,
+    });
+  };
+
+  handleFilterToDate = (toDateText) => {
+    this.setState({
+      toDate: toDateText,
     });
   };
 
   handleFilterOrder = () => {
     // this.props.filterOrder(this.state.residentId, this.state.boxId);
+    console.log("data filter order:", this.state.businessId, this.state.cabinetId, this.state.fromDate, this.state.toDate);
   };
 
   render() {
@@ -45,11 +62,18 @@ class FilterOrder extends Component {
           <i className="fas fa-filter"></i>
         </div>
         <div className="select-order-content">
-          <FilterBox
-            currentFilterBox={this.state.filterBox}
-            filterBox={this.handleFilterBox}
+          <FilterBusiness
+            filterBusiness={this.handleFilterBusiness}
+            className="filter-content" />
+          <FilterCabinet
+
+            filterCabinet={this.handleFilterCabinet}
             className="filter-content"
           />
+          <FilterDate
+            filterFromDate={this.handleFilterFromDate}
+            filterToDate={this.handleFilterToDate}
+            className="filter-content" />
         </div>
         <button onClick={this.handleFilterOrder}>Tìm kiếm</button>
       </div>
