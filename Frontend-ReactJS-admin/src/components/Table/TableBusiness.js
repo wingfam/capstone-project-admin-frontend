@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableBusiness.scss";
 import {
+  createBusinessService,
   editBusinessService,
   getAllBusiness,
 } from "../../services/businessService";
@@ -10,6 +11,8 @@ import { toast } from "react-toastify";
 import ModalBan from "../Modal/ModalBan";
 import ModalUnBan from "../Modal/ModalUnBan";
 import { SyncLoader } from "react-spinners";
+import ModalAddBusiness from "../Modal/ModalAddBusiness";
+import { emitter } from "../../utils/emitter";
 // import firebase from 'firebase/app';
 // import "firebase/database";
 
@@ -20,6 +23,7 @@ class TableBusiness extends Component {
       arrBusiness: [],
       isOpenModalBan: false,
       isOpenModalUnBan: false,
+      isOpenModalAddBusiness: false,
       showSpinner: true,
     };
   }
@@ -45,6 +49,12 @@ class TableBusiness extends Component {
   toggleUnBanModal = () => {
     this.setState({
       isOpenModalUnBan: !this.state.isOpenModalUnBan,
+    });
+  };
+
+  toggleAddBusinessModal = () => {
+    this.setState({
+      isOpenModalAddBusiness: !this.state.isOpenModalAddBusiness,
     });
   };
 
@@ -119,6 +129,42 @@ class TableBusiness extends Component {
     }
   };
 
+  createNewBusiness = async (business) => {
+    try {
+      let response = await createBusinessService(business);
+      if (response && response.errCode === 0) {
+        await this.getBusinessFromReact();
+        this.setState({
+          isOpenModalAddBusiness: false,
+        });
+        emitter.emit("EVENT_CLEAR_MODAL_DATA");
+        toast.success(<FormattedMessage id="toast.create-business-success" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(<FormattedMessage id="toast.create-business-error" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleBanBusiness = (business) => {
     this.setState({
       isOpenModalBan: true,
@@ -130,6 +176,12 @@ class TableBusiness extends Component {
     this.setState({
       isOpenModalUnBan: true,
       unBanBusiness: business,
+    });
+  };
+
+  handleAddNewUsers = () => {
+    this.setState({
+      isOpenModalAddBusiness: true,
     });
   };
 
@@ -156,7 +208,20 @@ class TableBusiness extends Component {
             unBanBusiness={this.doUnBanBusiness}
           />
         )}
+        <ModalAddBusiness
+          isOpen={this.state.isOpenModalAddBusiness}
+          toggleFromParent={this.toggleAddBusinessModal}
+          createBusiness={this.createNewBusiness}
+        />
         <div className="business-table mt-3 mx-1 ">
+          <div className="mx-1">
+            <button
+              className="btn btn-primary px-3"
+              onClick={() => this.handleAddNewUsers()}
+            >
+              <i className="fas fa-plus"></i>Add new users
+            </button>
+          </div>
           <table className="business">
             <thead>
               <tr>

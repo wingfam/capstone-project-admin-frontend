@@ -8,6 +8,7 @@ import {
 } from "../../services/businessService";
 import { toast } from "react-toastify";
 import CardHistory from "./CardHistory";
+import TableLocation from "../Table/TableLocation";
 
 class CardBusiness extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class CardBusiness extends Component {
       businessName: "",
       address: "",
       status: "",
+      arrLocation: [],
     };
   }
 
@@ -47,7 +49,7 @@ class CardBusiness extends Component {
     try {
       let res = await editBusinessService(business.id, business);
       if (res && res.errCode === 0) {
-        await this.getBusinessFromReact();
+        await this.getLocationFromReact();
         toast.success(<FormattedMessage id="toast.edit-business-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -161,6 +163,9 @@ class CardBusiness extends Component {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div>
+                <TableLocation />
               </div>
               <h3>
                 <i className="fas fa-truck-loading">

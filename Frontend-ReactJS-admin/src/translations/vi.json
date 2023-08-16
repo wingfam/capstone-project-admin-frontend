@@ -63,7 +63,8 @@
     "create-date": "Ngày tạo",
     "processing": "Đang xử lý",
     "done": "Hoàn thành",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "status":"Trạng thái"
   },
 
   "slidebar": {
@@ -130,7 +131,9 @@
     "edit-cabinet-success": "Chỉnh sửa tủ thành công!",
     "edit-cabinet-error": "Chỉnh sửa tủ không thành công!",
     "login-success": "Đăng nhập thành công",
-    "login-error": "Đăng nhập thất bại"
+    "login-error": "Đăng nhập thất bại",
+    "create-business-success":"Thêm doanh nghiệp thành công",
+    "create-business-error":"Thêm doanh nghiệp không thành công"
   },
 
   "warning": {

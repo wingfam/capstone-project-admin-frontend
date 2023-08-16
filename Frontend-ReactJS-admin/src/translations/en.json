@@ -61,7 +61,8 @@
     "create-date": "Create date",
     "processing": "Processing",
     "done": "Done",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "status":"Status"
   },
 
   "slidebar": {
@@ -129,7 +130,9 @@
     "lock-box-success": "Lock box succeeds!",
     "lock-box-error": "Lock box not succeeds!",
     "unlock-box-error": "Unlock box not succeeds!",
-    "unlock-box-success": "Unlock box succeeds!"
+    "unlock-box-success": "Unlock box succeeds!",
+    "create-business-success":"Create business succeeds",
+    "create-business-error":"Create business not succeeds"
   },
 
   "warning": {

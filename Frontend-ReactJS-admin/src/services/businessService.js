@@ -19,4 +19,14 @@ const editBusinessService = (residentId, inputData) => {
   return axios.put(`/api/v1/business/update?id=${residentId}`, inputData);
 };
 
-export { handleLoginApi, getAllBusiness, getABusiness, editBusinessService };
+const createBusinessService = (inputData) => {
+  return axios.post("/api/v1/business/add-business", inputData);
+};
+
+export {
+  handleLoginApi,
+  getAllBusiness,
+  getABusiness,
+  editBusinessService,
+  createBusinessService,
+};
