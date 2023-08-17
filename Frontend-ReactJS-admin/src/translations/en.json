@@ -62,7 +62,7 @@
     "processing": "Processing",
     "done": "Done",
     "cancel": "Cancel",
-    "status":"Status"
+    "status": "Status"
   },
 
   "slidebar": {
@@ -76,6 +76,8 @@
 
   "common": {
     "add": "Add",
+    "add-business": "Add new business",
+    "add-location": "Add new location",
     "edit": "Edit",
     "unlock": "Unlock",
     "delete": "Delete",
@@ -131,8 +133,8 @@
     "lock-box-error": "Lock box not succeeds!",
     "unlock-box-error": "Unlock box not succeeds!",
     "unlock-box-success": "Unlock box succeeds!",
-    "create-business-success":"Create business succeeds",
-    "create-business-error":"Create business not succeeds"
+    "create-business-success": "Create business succeeds",
+    "create-business-error": "Create business not succeeds"
   },
 
   "warning": {

@@ -49,7 +49,7 @@ class CardBusiness extends Component {
     try {
       let res = await editBusinessService(business.id, business);
       if (res && res.errCode === 0) {
-        await this.getLocationFromReact();
+        await this.getBusinessFromReact();
         toast.success(<FormattedMessage id="toast.edit-business-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -164,9 +164,7 @@ class CardBusiness extends Component {
                   </div>
                 </div>
               </div>
-              <div>
-                <TableLocation />
-              </div>
+              <TableLocation />
               <h3>
                 <i className="fas fa-truck-loading">
                   &nbsp; <FormattedMessage id="title.owner-cabinet" />

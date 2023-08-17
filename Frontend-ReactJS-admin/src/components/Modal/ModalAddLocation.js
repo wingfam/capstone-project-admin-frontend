@@ -28,7 +28,7 @@ class ModalAddLocation extends Component {
     });
   };
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -64,7 +64,7 @@ class ModalAddLocation extends Component {
             this.toggle();
           }}
         >
-          <FormattedMessage id="title.detail-cabinet" />
+          <FormattedMessage id="common.add-location" />
         </ModalHeader>
         <ModalBody>
           <div className="modal-create-business-body">

@@ -16,7 +16,9 @@ class TableOrder extends Component {
       arrBookingOrder: [],
       arrBookingStatus: [],
       showSpinner: true,
-      dateToday: new Date()
+      dateToday: moment(new Date()).format(
+        "YYYY-MM-DD"
+      )
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
@@ -54,13 +56,6 @@ class TableOrder extends Component {
     this.usersRef.off();
   }
 
-  handleChangeDate = (event) => {
-    const date = moment(new Date(event)).format(
-      "DD-MM-YYYY"
-    );
-    console.log("Check change date:", date);
-  }
-
   // doFilterOrder = async (residentId, boxId) => {
   //   console.log("Check: ", residentId, boxId);
   //   let response = await getBookingOrderById(residentId, boxId);
@@ -72,7 +67,8 @@ class TableOrder extends Component {
   render() {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
-
+    console.log("Check ", this.state.dateToday);
+    // console.log("data ", arrBookingOrder[4]);
     return (
       <div className="table-orders-container">
         <div>
@@ -113,6 +109,7 @@ class TableOrder extends Component {
                 margin={10}
                 speedMultiplier={0.75}
               />) : (arrBookingOrder && arrBookingOrder
+                .filter((newArr) => newArr.createDate === this.state.dateToday)
                 .map((item, index) => {
                   return (
                     <tr key={index} className="text-center">

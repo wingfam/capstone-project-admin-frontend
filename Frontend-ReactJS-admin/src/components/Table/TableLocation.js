@@ -90,12 +90,12 @@ class TableLocation extends Component {
           createLocation={this.createNewLocation}
         />
         <div className="histories-table mt-3 mx-1">
-          <div className="mx-1">
+          <div>
             <button
-              className="btn btn-primary px-3"
+              className="btn btn-location-business"
               onClick={() => this.handleAddLocation()}
             >
-              <i className="fas fa-plus"></i>Add new users
+              <i className="fas fa-plus" /> <FormattedMessage id="common.add-location" />
             </button>
           </div>
           <table className="histories">
@@ -107,9 +107,9 @@ class TableLocation extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.address" />
                 </th>
-                <th className="col-1">
+                {/* <th className="col-1">
                   <FormattedMessage id="table.status" />
-                </th>
+                </th> */}
               </tr>
               {this.state.showSpinner ? (
                 <SyncLoader
@@ -124,7 +124,29 @@ class TableLocation extends Component {
                     <tr key={index} className="text-center">
                       <td>{item.nameLocation}</td>
                       <td>{item.address}</td>
-                      <td>{item.status}</td>
+                      {/* <td>
+                        {(() => {
+                          switch (item.status) {
+                            case 0:
+                              return (
+                                <div>
+                                  <i className="fas fa-times text-danger" />
+                                  &nbsp;
+                                  <FormattedMessage id="table.disable" />
+                                </div>
+                              );
+                            case 1:
+                              return (
+                                <div>
+                                  <i className="fas fa-check text-success" />
+                                  &nbsp;
+                                  <FormattedMessage id="table.enable" />
+                                </div>
+                              );
+                            default:
+                          }
+                        })()}
+                      </td> */}
                     </tr>
                   );
                 })

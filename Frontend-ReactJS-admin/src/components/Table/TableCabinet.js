@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
   editCabinetService,
-  getACabinetByLocation,
   getAllCabinets,
+  getCabinetByBusiness,
   unavailableCabinetService,
 } from "../../services/cabinetService";
 import { SyncLoader } from "react-spinners";
@@ -53,11 +53,11 @@ class TableCabinet extends Component {
     });
   };
 
-  doFilterCabinet = async (id) => {
+  doFilterBusiness = async (id) => {
     if (id === "1") {
       await this.getCabinetsFromReact();
     } else {
-      let response = await getACabinetByLocation(id);
+      let response = await getCabinetByBusiness(id);
       this.setState({
         arrCabinets: response,
       });
@@ -195,9 +195,12 @@ class TableCabinet extends Component {
           />
         )}
         <div className="table-cabinet-content">
+          <div className="icon-content">
+            <i className="fas fa-filter"></i>
+          </div>
           <FilterBusiness
-            currentFilterCabinet={this.state.filterCabinet}
-            filterCabinet={this.doFilterCabinet}
+            currentFilterCabinet={this.state.filterBusiness}
+            filterBusiness={this.doFilterBusiness}
             className="filter-content"
           />
         </div>

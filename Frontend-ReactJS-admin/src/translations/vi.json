@@ -64,7 +64,7 @@
     "processing": "Đang xử lý",
     "done": "Hoàn thành",
     "cancel": "Hủy",
-    "status":"Trạng thái"
+    "status": "Trạng thái"
   },
 
   "slidebar": {
@@ -78,6 +78,8 @@
 
   "common": {
     "add": "Thêm",
+    "add-business": "Thêm doanh nghiệp",
+    "add-location": "Thêm địa điểm",
     "edit": "Sửa",
     "unlock": "Mở cấm",
     "delete": "Xóa",
@@ -132,8 +134,8 @@
     "edit-cabinet-error": "Chỉnh sửa tủ không thành công!",
     "login-success": "Đăng nhập thành công",
     "login-error": "Đăng nhập thất bại",
-    "create-business-success":"Thêm doanh nghiệp thành công",
-    "create-business-error":"Thêm doanh nghiệp không thành công"
+    "create-business-success": "Thêm doanh nghiệp thành công",
+    "create-business-error": "Thêm doanh nghiệp không thành công"
   },
 
   "warning": {

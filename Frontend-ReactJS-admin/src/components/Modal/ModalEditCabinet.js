@@ -179,7 +179,7 @@ class ModalEditCabinet extends Component {
               </div>
             </div>
             <div className="input-container">
-              <div className="form-group col-5">
+              <div className="form-group col-6">
                 <label>
                   <FormattedMessage id="table.status-cabinet" />
                 </label>

@@ -3,6 +3,14 @@
 .table-business-container {
   margin-top: 50px;
 
+  .btn-add-bussiness-content {
+    background-color: $colormain;
+    width: 200px;
+    height: 35px;
+    margin-bottom: 15px;
+    color: $common-white;
+  }
+
   .business {
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;

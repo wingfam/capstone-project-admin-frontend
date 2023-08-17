@@ -214,12 +214,12 @@ class TableBusiness extends Component {
           createBusiness={this.createNewBusiness}
         />
         <div className="business-table mt-3 mx-1 ">
-          <div className="mx-1">
+          <div >
             <button
-              className="btn btn-primary px-3"
+              className="btn btn-add-bussiness-content"
               onClick={() => this.handleAddNewUsers()}
             >
-              <i className="fas fa-plus"></i>Add new users
+              <i className="fas fa-plus" /> <FormattedMessage id="common.add-business" />
             </button>
           </div>
           <table className="business">

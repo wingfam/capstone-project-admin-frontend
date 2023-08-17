@@ -46,7 +46,7 @@ class FilterDate extends Component {
                 <div className="text-content">
                     <FormattedMessage id="common.to" className="text-content" /></div>
                 <Flatpickr
-                    value={dateToday}
+                    // value={dateToday}
                     options={{
                         dateFormat: "d-m-Y",
                         maxDate: dateToday,
