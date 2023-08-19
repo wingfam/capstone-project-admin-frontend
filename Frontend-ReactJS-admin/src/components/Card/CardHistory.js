@@ -66,7 +66,7 @@ class CardHistory extends Component {
                   </td>
                   <td>
                     {(() => {
-                      const date = moment(item.addrDate).format(
+                      const date = moment(item.addDate).format(
                         "DD-MM-YYYY T HH:mm"
                       );
                       return date;

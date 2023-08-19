@@ -4,10 +4,15 @@ import { NavLink } from "react-router-dom";
 import "./Slidebar.scss";
 import logoImg from "../../assets/images/logo.png"
 import { FormattedMessage } from "react-intl";
+import { Fragment } from "react";
+// import { useState } from "react";
+// import { Link } from "react-router-dom/cjs/react-router-dom";
 
 const Sidebar = ({ children }) => {
-  // const [isOpen, setIsOpen] = useState(true);
-  // const toggle = () => setIsOpen(!isOpen);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen1, setIsOpen1] = useState(false);
+  // // const toggle = () => setIsOpen(!isOpen);
+  // // const toggle1 = () => setIsOpen1(!isOpen1);
   const menuItem = [
     {
       path: "/system/dashboard",
@@ -18,11 +23,23 @@ const Sidebar = ({ children }) => {
       path: "/system/cabinet",
       name: <FormattedMessage id="slidebar.cabinet" />,
       icon: <i className="fas fa-table"></i>,
+      // iconDropDown1: <i className={isOpen1 ? "fas fa-chevron-up" : "fas fa-chevron-down"} ></i>,
+      list1: <div className={window.location.href.split("/")[4] === "box" ? "link-content active" : "link-content"} to={{
+        pathname: `/system/box/:id`,
+      }}>
+        <FormattedMessage id="title.box" />
+      </div>
     },
     {
       path: "/system/business-manage",
-      name: <FormattedMessage id="slidebar.business" />,
       icon: <i className="fas fa-user-tie"></i>,
+      name: <FormattedMessage id="slidebar.business" />,
+      // iconDropDown: <i className={isOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"} ></i>,
+      list: <div className={window.location.href.split("/")[4] === "business-detail" ? "link-content active" : "link-content"} to={{
+        pathname: `/system/business-detail/:id`,
+      }}>
+        <FormattedMessage id="title.detail-business" />
+      </div>
     },
     {
       path: "/system/order",
@@ -42,24 +59,27 @@ const Sidebar = ({ children }) => {
           </div>
         </div>
         {menuItem.map((item, index) => (
-          <NavLink
-            to={item.path}
-            key={index}
-            className="link"
-            activeclassname="active"
-          >
-
-            <div className="icon">{item.icon}</div>
-            <div
-              className="link_text"
+          <Fragment>
+            <NavLink
+              to={item.path}
+              key={index}
+              className="link"
+              activeclassname="active"
             >
-              {item.name}
-            </div>
-          </NavLink>
+
+              <div className="icon">{item.icon}</div>
+              <div
+                className="link_text"
+              >
+                {item.name}
+              </div>
+            </NavLink>
+            {/* <div className="icon-dropdown" onClick={toggle}>{item.iconDropDown}</div> */}
+            <div className="list-content" style={{ display: window.location.href.split("/")[4] === "business-detail" ? "block" : "none" }} >{item.list}</div>
+            {/* <div className="icon-dropdown" onClick={toggle1}>{item.iconDropDown1}</div> */}
+            <div className="list-content" style={{ display: window.location.href.split("/")[4] === "box" ? "block" : "none" }} >{item.list1}</div>
+          </Fragment>
         ))}
-        {/* <div style={{ marginLeft: isOpen ? "88%" : "70%", }} className="bars">
-          <i className="fas fa-exchange-alt" onClick={toggle}></i>
-        </div> */}
       </div>
       <main>{children}</main>
     </div>

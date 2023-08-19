@@ -36,13 +36,6 @@
       }
     }
 
-    .bars {
-      cursor: pointer;
-      display: flex;
-      font-size: 30px;
-      display: block;
-    }
-
     .link {
       display: flex;
       color: #feffff;
@@ -55,6 +48,41 @@
       .icon,
       .link_text {
         font-size: 25px;
+      }
+    }
+
+    .icon-dropdown {
+      position: relative;
+
+      i {
+        font-size: 25px;
+        position: absolute;
+        right: 25px;
+        bottom: 25px;
+        cursor: pointer;
+      }
+    }
+
+    .list-content {
+      .link-content {
+        color: $common-white;
+        font-size: 22px;
+        margin-left: 35px;
+        margin-bottom: 10px;
+
+        &.active {
+          background: lightskyblue;
+          color: $text-in-light;
+          border-radius: 7px;
+          height: 35px;
+        }
+
+        &:hover {
+          background: lightskyblue;
+          color: $text-in-light;
+          border-radius: 7px;
+          transition: all 0.5s;
+        }
       }
     }
 

@@ -7,6 +7,7 @@ const getAllLocations = () => {
 const getALocation = (lockerId) => {
   return axios.get(`/api/v1/location/search?id=${lockerId}`);
 };
+
 const getLocationByBusinessService = (businessId) => {
   return axios.get(
     `/api/v1/location/get-location-by-business?businessId=${businessId}`

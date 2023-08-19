@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import _ from "lodash";
 import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { getAllLocations } from "../../services/locationService";
+import { getLocationByBusinessService } from "../../services/locationService";
 import { ClipLoader } from "react-spinners";
 
 class ModalEditCabinet extends Component {
@@ -27,7 +27,7 @@ class ModalEditCabinet extends Component {
 
   async componentDidMount() {
     let cabinet = this.props.currentCabinet;
-    let response = await getAllLocations();
+    let response = await getLocationByBusinessService(cabinet.Business.id);
     if (cabinet && !_.isEmpty(cabinet)) {
       this.setState({
         nameCabinet: cabinet.nameCabinet,

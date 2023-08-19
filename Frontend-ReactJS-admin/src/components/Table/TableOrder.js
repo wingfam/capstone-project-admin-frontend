@@ -7,7 +7,6 @@ import moment from "moment/moment";
 import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
-import { Fragment } from "react";
 
 class TableOrder extends Component {
   constructor(props) {
