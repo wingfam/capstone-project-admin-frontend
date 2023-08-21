@@ -112,7 +112,7 @@ class TableOrder extends Component {
                 arrBookingOrder.map((item, index) => {
                   return (
                     <tr key={index} className="text-center">
-                      <td>{item.Box.Cabinet.nameCabinet}</td>
+                      <td>{item.Box.nameBox}</td>
                       <td>{item.Box.nameBox}</td>
                       <td>{item.Business.businessName}</td>
                       <td
@@ -140,10 +140,10 @@ class TableOrder extends Component {
 
                       {arrBookingStatus &&
                         arrBookingStatus
-                          .filter((newId) => newId.id === item.id)
+                          .filter((newId) => newId === item.id)
                           .filter(
                             (newArr) =>
-                              newArr.createDate === new Date("2023-08-17 20:05")
+                              newArr === this.state.arrBookingStatus
                           )
                           .map((data, index) => {
                             return (

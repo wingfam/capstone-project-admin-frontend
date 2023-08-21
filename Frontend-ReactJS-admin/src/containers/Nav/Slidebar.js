@@ -23,7 +23,6 @@ const Sidebar = ({ children }) => {
       path: "/system/cabinet",
       name: <FormattedMessage id="slidebar.cabinet" />,
       icon: <i className="fas fa-table"></i>,
-      // iconDropDown1: <i className={isOpen1 ? "fas fa-chevron-up" : "fas fa-chevron-down"} ></i>,
       list1: <div className={window.location.href.split("/")[4] === "box" ? "link-content active" : "link-content"} to={{
         pathname: `/system/box/:id`,
       }}>
@@ -34,7 +33,6 @@ const Sidebar = ({ children }) => {
       path: "/system/business-manage",
       icon: <i className="fas fa-user-tie"></i>,
       name: <FormattedMessage id="slidebar.business" />,
-      // iconDropDown: <i className={isOpen ? "fas fa-chevron-up" : "fas fa-chevron-down"} ></i>,
       list: <div className={window.location.href.split("/")[4] === "business-detail" ? "link-content active" : "link-content"} to={{
         pathname: `/system/business-detail/:id`,
       }}>
