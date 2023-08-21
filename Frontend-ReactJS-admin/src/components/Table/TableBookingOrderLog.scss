@@ -1,0 +1,69 @@
+@import "../../styles/common.scss";
+
+.table-box-container {
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    .table-box-content {
+        .text-address-box {
+            width: 90%;
+            font-size: 20px;
+            margin: 0 0 0 10px;
+        }
+    }
+
+    .boxs {
+        width: 100%;
+        border-radius: 5px;
+
+        tbody {
+            border-radius: 10px;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            font-size: $base-size;
+        }
+
+        tr:first-child th {
+            text-align: center;
+        }
+
+        tr:first-child th:first-child {
+            border-top-left-radius: 10px;
+            border: none;
+        }
+
+        tr:first-child th:last-child {
+            border-top-right-radius: 10px;
+            border: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: $colormain;
+            color: white;
+        }
+
+        .btn-info {
+            width: 50px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: $colormain;
+
+            &:hover {
+                background-color: transparent !important;
+                color: $common-red !important;
+            }
+        }
+    }
+}

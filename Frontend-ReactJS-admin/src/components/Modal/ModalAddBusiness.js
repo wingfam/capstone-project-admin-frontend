@@ -24,6 +24,7 @@ class ModalAddBusiness extends Component {
         businessName: "",
         address: "",
         phone: "",
+        showSpinner: false,
       });
     });
   };
@@ -43,8 +44,8 @@ class ModalAddBusiness extends Component {
   };
 
   handleSaveBusiness = () => {
-    this.props.createBusiness(this.state);
     this.setState({ showSpinner: true });
+    this.props.createBusiness(this.state);
   };
 
   render() {

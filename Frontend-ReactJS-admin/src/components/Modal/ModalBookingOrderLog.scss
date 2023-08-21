@@ -1,0 +1,29 @@
+@import "../../styles/common.scss";
+
+.modal-cabinet-container {
+    .modal-cabinet-header {
+        .modal-title {
+            background-color: $colormain;
+            font-size: 30px !important;
+            line-height: 34px !important;
+        }
+
+        button {
+            background-color: transparent !important;
+            border: none;
+            color: white;
+            font-size: 25px;
+        }
+    }
+
+    .modal-cabinet-body {
+        font-size: $base-size;
+        padding-bottom: 10px;
+    }
+
+    .modal-cabinet-footer {
+        .btn-accept {
+            background-color: $colormain;
+        }
+    }
+}

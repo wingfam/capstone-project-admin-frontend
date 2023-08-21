@@ -5,10 +5,35 @@ import { data } from "../data";
 import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./LineChart.scss";
+import { useEffect } from "react";
+import { lineChartService } from "../../services/dashBoard";
+import axios from "axios";
 
 Chart.register(CategoryScale);
 function LineChart() {
   const intl = useIntl();
+  const [loading, setLoading] = useState(true);
+  const [dataChart1, setDataChart] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get(
+          "https://localhost:44302/get-line-char"
+        );
+        setDataChart(response);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  //   var url = "https://localhost:44302/get-line-char";
+  //    axios.get(url).then((res) => {
+  //     setDataChart(res.data);
+  //     console.log("Check:", dataChart1);
+  //   });
+  // },[dataChart1]);
   const [lineData] = useState({
     labels: data.dataChart.map((vdata) => vdata.weekday),
     datasets: [
@@ -29,6 +54,7 @@ function LineChart() {
       },
     ],
   });
+  console.log("Check:", data.dataChart, dataChart1);
   return (
     <React.Fragment>
       <div className="linechart-container">
@@ -51,8 +77,8 @@ function LineChart() {
                       display: true,
                       text: intl.formatMessage({ id: "chart.week-chart" }),
                       font: {
-                        size: 17
-                      }
+                        size: 17,
+                      },
                     },
                   },
                   scales: {
@@ -60,17 +86,17 @@ function LineChart() {
                       ticks: {
                         font: {
                           size: 15,
-                        }
-                      }
+                        },
+                      },
                     },
                     x: {
                       ticks: {
                         font: {
                           size: 15,
-                        }
-                      }
-                    }
-                  }
+                        },
+                      },
+                    },
+                  },
                 }}
               />
             </div>

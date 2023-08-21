@@ -131,6 +131,7 @@ class TableBusiness extends Component {
 
   createNewBusiness = async (business) => {
     try {
+      console.log(business);
       let response = await createBusinessService(business);
       if (response && response.errCode === 0) {
         await this.getBusinessFromReact();
@@ -214,12 +215,13 @@ class TableBusiness extends Component {
           createBusiness={this.createNewBusiness}
         />
         <div className="business-table mt-3 mx-1 ">
-          <div >
+          <div>
             <button
               className="btn btn-add-bussiness-content"
               onClick={() => this.handleAddNewUsers()}
             >
-              <i className="fas fa-plus" /> <FormattedMessage id="common.add-business" />
+              <i className="fas fa-plus" />{" "}
+              <FormattedMessage id="common.add-business" />
             </button>
           </div>
           <table className="business">

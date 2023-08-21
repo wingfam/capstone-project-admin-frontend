@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./FilterOrder.scss";
 import FilterBusiness from "./Business/FilterBusiness";
-import FilterDate from "./Date/FilterDate"
+import FilterDate from "./Date/FilterDate";
 import FilterCabinet from "./Cabinet/FilterCabinet";
 class FilterOrder extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class FilterOrder extends Component {
       cabinetId: "",
       businessId: "",
       fromDate: "",
-      toDate: ""
+      toDate: "",
     };
   }
 
@@ -51,8 +51,19 @@ class FilterOrder extends Component {
   };
 
   handleFilterOrder = () => {
-    // this.props.filterOrder(this.state.residentId, this.state.boxId);
-    console.log("data filter order:", this.state.businessId, this.state.cabinetId, this.state.fromDate, this.state.toDate);
+    this.props.filterOrder(
+      this.state.businessId,
+      this.state.cabinetId,
+      this.state.fromDate,
+      this.state.toDate
+    );
+    console.log(
+      "data filter order:",
+      this.state.businessId,
+      this.state.cabinetId,
+      this.state.fromDate,
+      this.state.toDate
+    );
   };
 
   render() {
@@ -64,16 +75,17 @@ class FilterOrder extends Component {
         <div className="select-order-content">
           <FilterBusiness
             filterBusiness={this.handleFilterBusiness}
-            className="filter-content" />
+            className="filter-content"
+          />
           <FilterCabinet
-
             filterCabinet={this.handleFilterCabinet}
             className="filter-content"
           />
           <FilterDate
             filterFromDate={this.handleFilterFromDate}
             filterToDate={this.handleFilterToDate}
-            className="filter-content" />
+            className="filter-content"
+          />
         </div>
         <button onClick={this.handleFilterOrder}>Tìm kiếm</button>
       </div>
