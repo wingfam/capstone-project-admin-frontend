@@ -1,39 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { data } from "../data";
 import Chart from "chart.js/auto";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./LineChart.scss";
-// import { useEffect } from "react";
-// // import { lineChartService } from "../../services/dashBoard";
-// import axios from "axios";
-// import { render } from "node-sass";
 import { Component } from "react";
 import { lineChartService } from "../../services/dashBoard";
-import axios from "axios";
-// import DataChart, { dataChart } from "../data/DataChart";
 
 Chart.register(CategoryScale);
 
 class ChartDemo extends Component {
-  async componentDidMount() {
-    // await this.getDataChart();
-    this.state = { dataChart: [] };
-    let response = await axios.get("https://localhost:44302/get-line-char");
+  constructor(props) {
+    super(props);
+    this.state = {
+      lineData: [],
+    };
+  }
 
-    this.setState({
-      dataChart: response.data,
-    });
+  componentDidMount() {
+    this.getDataChart();
+  }
 
+  getDataChart = () => {
+    // let response = await lineChartService();
     const { intl } = this.props;
+    let dataLine = this.props.data;
+    // console.log("data prop:", dataLine);
     this.setState({
       lineData: {
-        labels: data.dataLine.map((vData) => vData.day),
+        labels: dataLine.map((vData) => vData.day),
         datasets: [
           {
             label: intl.formatMessage({ id: "chart.orders" }),
-            data: data.dataLine.map((vChart) => vChart.amount),
+            data: dataLine.map((vChart) => vChart.amount),
             backgroundColor: [
               "#CD853F",
               "#50AF95",
@@ -49,42 +49,13 @@ class ChartDemo extends Component {
         ],
       },
     });
-    // console.log("Check Demo:", this.state.lineData);
-  }
-
-
-
-  //   getDataChart = async () => {
-  //     this.state = { lineData: [] };
-  //     let response = await lineChartService();
-  //     const { intl } = this.props;
-  //     this.setState({
-  //       lineData: {
-  //         labels: response.map((vData) => vData.day),
-  //         datasets: [
-  //           {
-  //             label: intl.formatMessage({ id: "chart.orders" }),
-  //             data: response.map((vChart) => vChart.amount),
-  //             backgroundColor: [
-  //               "#CD853F",
-  //               "#50AF95",
-  //               "#f3ba2f",
-  //               "#2a71d0",
-  //               "#836FFF",
-  //               "#00FFFF",
-  //               "#8DEEEE",
-  //             ],
-  //             borderColor: "black",
-  //             borderWidth: 2,
-  //           },
-  //         ],
-  //       },
-  //     });
-  //     console.log("Check Demo:", this.state.lineData);
-  //   };
-  //   console.log("Check:", data.dataChart, dataChart1);
+    // console.log(
+    //   "Check Demo:",
+    //   dataLine.map((vData) => vData.day)
+    // );
+  };
   render() {
-    const { intl } = this.props;
+    // const { intl } = this.props;
     return (
       <React.Fragment>
         <div className="linechart-container">

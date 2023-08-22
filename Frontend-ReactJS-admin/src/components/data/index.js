@@ -1,44 +1,44 @@
 import { lineChartService } from "../../services/dashBoard";
 var getDataChartFromReact = async () => {
-  let res = await lineChartService();
+  await lineChartService();
 };
 export const data = {
   dataLine: [getDataChartFromReact()],
   dataChart: [
     {
       id: 1,
-      weekday: "Thứ 2",
-      userGain: 5,
+      day: "Thứ 3",
+      amount: 3,
     },
     {
       id: 2,
-      weekday: "Thứ 3",
-      userGain: 10,
+      day: "Thứ 2",
+      amount: 10,
     },
     {
       id: 3,
-      weekday: "Thứ 4",
-      userGain: 8,
+      day: "Chủ nhật",
+      amount: 8,
     },
     {
       id: 4,
-      weekday: "Thứ 5",
-      userGain: 8,
+      day: "Thứ 7",
+      amount: 9,
     },
     {
       id: 5,
-      weekday: "Thứ 6",
-      userGain: 15,
+      day: "Thứ 6",
+      amount: 10,
     },
     {
       id: 6,
-      weekday: "Thứ 7",
-      userGain: 12,
+      day: "Thứ 5",
+      amount: 9,
     },
     {
       id: 7,
-      weekday: "Chủ nhật",
-      userGain: 11,
+      day: "Thứ 4",
+      amount: 8,
     },
   ],
 

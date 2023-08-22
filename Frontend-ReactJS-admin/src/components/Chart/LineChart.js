@@ -6,20 +6,16 @@ import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./LineChart.scss";
 import { useEffect } from "react";
-import { lineChartService } from "../../services/dashBoard";
 import axios from "axios";
 
 Chart.register(CategoryScale);
 function LineChart() {
   const intl = useIntl();
   const [dataChart, setDataChart] = useState([]);
-  console.log("dataChart", dataChart);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response = await axios.get(
-          "https://localhost:44302/get-line-char"
-        );
+        let response = await axios.get("https://localhost:44302/get-line-char");
         setDataChart(response.data);
       } catch (error) {
         console.error(error);
@@ -27,19 +23,20 @@ function LineChart() {
     };
     fetchData();
   }, []);
-
+  // console.log("dataChart", dataChart);
+  // useEffect(() => {
   //   var url = "https://localhost:44302/get-line-char";
-  //    axios.get(url).then((res) => {
+  //   axios.get(url).then((res) => {
   //     setDataChart(res.data);
-  //     console.log("Check:", dataChart1);
+  //     console.log("Check:", dataChart);
   //   });
-  // },[dataChart1]);
+  // }, [dataChart]);
   const [lineData] = useState({
-    labels: dataChart.map((data) => data.day),
+    labels: data.dataChart.map((vData) => vData.day),
     datasets: [
       {
         label: intl.formatMessage({ id: "chart.orders" }),
-        data: dataChart.map((data) => data.amount),
+        data: data.dataChart.map((vData) => vData.amount),
         backgroundColor: [
           "#CD853F",
           "#50AF95",
@@ -54,7 +51,7 @@ function LineChart() {
       },
     ],
   });
-  console.log("check:", lineData);
+  console.log("check:", dataChart, data.dataChart);
   return (
     <React.Fragment>
       <div className="linechart-container">

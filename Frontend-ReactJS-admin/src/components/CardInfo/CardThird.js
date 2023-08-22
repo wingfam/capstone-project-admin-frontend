@@ -3,26 +3,26 @@ import { FormattedMessage } from "react-intl";
 // import { FormattedMessage } from "react-intl";
 import "./CardThird.scss";
 import { Component } from "react";
-import { getTotalBox } from "../../services/dashBoard";
+import { getTotalCabinet } from "../../services/dashBoard";
 
 class CardThird extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalCabinet: []
-    }
+      totalCabinet: [],
+    };
   }
 
   async componentDidMount() {
-    await this.getTotalCabinetFormReact()
+    await this.getTotalCabinetFormReact();
   }
 
   getTotalCabinetFormReact = async () => {
-    let res = await getTotalBox();
+    let res = await getTotalCabinet();
     this.setState({
-      totalCabinet: res.count
-    })
-  }
+      totalCabinet: res.count,
+    });
+  };
   render() {
     return (
       <div className="container-third-card">
@@ -34,10 +34,7 @@ class CardThird extends Component {
                 <i className="fas fa-boxes"></i>
               </div>
             </div>
-            <div
-              className="progress my-2 bg-white"
-              style={{ height: "4px" }}
-            >
+            <div className="progress my-2 bg-white" style={{ height: "4px" }}>
               <div
                 className="progress-bar bg-gray d-flex"
                 role="progressbar"
@@ -61,6 +58,6 @@ class CardThird extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 export default CardThird;

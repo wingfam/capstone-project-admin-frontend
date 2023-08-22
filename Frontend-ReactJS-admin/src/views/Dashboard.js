@@ -9,8 +9,27 @@ import CardSecond from "../components/CardInfo/CardSecond";
 import CardThird from "../components/CardInfo/CardThird";
 import CardFourth from "../components/CardInfo/CardFourth";
 import ChartDemo from "../components/Chart/ChartDemo";
+import { lineChartService } from "../services/dashBoard";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lineData: [],
+    };
+  }
+
+  async componentDidMount() {
+    await this.getDataChart();
+  }
+
+  getDataChart = async () => {
+    let response = await lineChartService();
+    this.setState({
+      lineData: response,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -31,13 +50,13 @@ class Dashboard extends Component {
         </div>
         <div className="row mt-5">
           <div className="chart-container">
-            <div className="barchart-content col-md-6">
+            {/* <div className="barchart-content col-md-6">
               <ChartBar />
-            </div>
-            <div className="linechart-content col-md-6">
+            </div> */}
+            <div className="linechart-content col-md-9">
               <LineChart />
             </div>
-            {/* <ChartDemo /> */}
+            <ChartDemo data={this.state.lineData} />
           </div>
         </div>
       </div>

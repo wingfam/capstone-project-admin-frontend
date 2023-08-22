@@ -48,8 +48,8 @@ function ChartBar() {
                       display: true,
                       text: intl.formatMessage({ id: "chart.month-chart" }),
                       font: {
-                        size: 17
-                      }
+                        size: 17,
+                      },
                     },
                     legend: {
                       display: false,
@@ -60,17 +60,17 @@ function ChartBar() {
                       ticks: {
                         font: {
                           size: 15,
-                        }
-                      }
+                        },
+                      },
                     },
                     x: {
                       ticks: {
                         font: {
                           size: 15,
-                        }
-                      }
-                    }
-                  }
+                        },
+                      },
+                    },
+                  },
                 }}
               />
             </div>

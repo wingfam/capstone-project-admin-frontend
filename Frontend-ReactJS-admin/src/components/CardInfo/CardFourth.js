@@ -9,20 +9,20 @@ class CardFourth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalBox: []
-    }
+      totalBox: [],
+    };
   }
 
   async componentDidMount() {
-    await this.getTotalBoxFromReact()
+    await this.getTotalBoxFromReact();
   }
 
   getTotalBoxFromReact = async () => {
-    let res = await getTotalBox()
+    let res = await getTotalBox();
     this.setState({
-      totalBox: res.count
-    })
-  }
+      totalBox: res.count,
+    });
+  };
   render() {
     return (
       <div className="container-fourth-card">
@@ -34,10 +34,7 @@ class CardFourth extends Component {
                 <i className="fas fa-box"></i>
               </div>
             </div>
-            <div
-              className="progress my-2 bg-white"
-              style={{ height: "4px" }}
-            >
+            <div className="progress my-2 bg-white" style={{ height: "4px" }}>
               <div
                 className="progress-bar d-flex"
                 role="progressbar"
@@ -48,7 +45,7 @@ class CardFourth extends Component {
             </div>
             <div className="d-flex align-items-center text-white">
               <p className="mb-0">
-                <FormattedMessage id="card-info.total-notification" />
+                <FormattedMessage id="card-info.total-box" />
               </p>
               <p className="mb-0 ms-auto">
                 +10%
@@ -61,6 +58,6 @@ class CardFourth extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 export default CardFourth;
