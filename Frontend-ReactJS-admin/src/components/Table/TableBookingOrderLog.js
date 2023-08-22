@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
-import firebase from "firebase/app";
-import "firebase/database";
 import "./TableBookingOrderLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
@@ -15,8 +13,6 @@ class TableBookingOrderLog extends Component {
       isAvailable: "",
       showSpinner: true,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref("BookingOrderLog");
   }
 
   async componentDidMount() {
@@ -25,16 +21,15 @@ class TableBookingOrderLog extends Component {
   }
 
   getBookingOrderByIdFromReact = async () => {
+    console.log("Check", this.props);
     let response = await getBookingOrderByBookingIdService(this.props.id);
     this.setState({
       arrBookingOrderLog: response,
     });
-    console.log("data:", this.state.arrBookingOrderLog);
   };
 
   render() {
     const arrBookingOrderLog = this.state.arrBookingOrderLog;
-    console.log("Check:", this.props.id);
     return (
       <div className="table-box-container">
         <div className="boxs-table mt-3 mx-1">

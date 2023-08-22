@@ -29,7 +29,7 @@ class ModalAddBusiness extends Component {
     });
   };
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -64,7 +64,7 @@ class ModalAddBusiness extends Component {
             this.toggle();
           }}
         >
-          <FormattedMessage id="title.detail-cabinet" />
+          <FormattedMessage id="common.add-business" />
         </ModalHeader>
         <ModalBody>
           <div className="modal-create-business-body">

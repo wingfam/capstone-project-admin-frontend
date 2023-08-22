@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import "./FilterOrder.scss";
 import FilterBusiness from "./Business/FilterBusiness";
 import FilterDate from "./Date/FilterDate";
-import FilterCabinet from "./Cabinet/FilterCabinet";
+import FilterBox from "./Box/FilterBox";
 class FilterOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cabinetId: "",
+      boxId: "",
       businessId: "",
       fromDate: "",
       toDate: "",
@@ -26,9 +26,9 @@ class FilterOrder extends Component {
   //     console.log("check data", this.state.arrResident);
   // }
 
-  handleFilterCabinet = (id) => {
+  handleFilterBox = (id) => {
     this.setState({
-      cabinetId: id,
+      boxId: id
     });
   };
 
@@ -52,15 +52,15 @@ class FilterOrder extends Component {
 
   handleFilterOrder = () => {
     this.props.filterOrder(
+      this.state.boxId,
       this.state.businessId,
-      this.state.cabinetId,
       this.state.fromDate,
       this.state.toDate
     );
     console.log(
       "data filter order:",
       this.state.businessId,
-      this.state.cabinetId,
+      this.state.boxId,
       this.state.fromDate,
       this.state.toDate
     );
@@ -77,8 +77,8 @@ class FilterOrder extends Component {
             filterBusiness={this.handleFilterBusiness}
             className="filter-content"
           />
-          <FilterCabinet
-            filterCabinet={this.handleFilterCabinet}
+          <FilterBox
+            filterBox={this.handleFilterBox}
             className="filter-content"
           />
           <FilterDate

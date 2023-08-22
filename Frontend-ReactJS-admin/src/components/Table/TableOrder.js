@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
-import { getAllBookingOrders } from "../../services/bookingOrder";
+import { filterBookingOrderService, getAllBookingOrders } from "../../services/bookingOrder";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
 import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
+import ModalBookingOrderLog from "../Modal/ModalBookingOrderLog";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -14,10 +15,9 @@ class TableOrder extends Component {
     this.state = {
       arrBookingOrder: [],
       arrBookingStatus: [],
+      isOpenModalBookingOrderLog: false,
       showSpinner: true,
-      dateToday: moment(new Date("2023-08-15 15:42")).format(
-        "YYYY-MM-DD  HH:mm"
-      ),
+      dateToday: new Date()
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
@@ -54,19 +54,38 @@ class TableOrder extends Component {
     this.usersRef.off();
   }
 
-  // doFilterOrder = async (residentId, boxId) => {
-  //   console.log("Check: ", residentId, boxId);
-  //   let response = await getBookingOrderById(residentId, boxId);
-  //   this.setState({
-  //     arrBookingHistories: response
-  //   })
-  // }
+  toggleBookingOrderLogModal = () => {
+    this.setState({
+      isOpenModalBookingOrderLog: !this.state.isOpenModalBookingOrderLog,
+    });
+  };
+
+  handleOpenLog = (bookingOrder) => {
+    this.setState({
+      isOpenModalBookingOrderLog: true,
+      bookingLog: bookingOrder,
+    });
+  };
+
+  doFilterOrder = async (boxId, businessId, fromDate, toDate) => {
+    let res = await filterBookingOrderService(boxId, businessId, fromDate, toDate)
+    this.setState({
+      arrBookingOrder: res
+    })
+    console.log("Filter:", businessId, boxId, fromDate, toDate);
+  };
 
   render() {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
     return (
       <div className="table-orders-container">
+        {this.state.isOpenModalBookingOrderLog && (<ModalBookingOrderLog
+          isOpen={this.state.isOpenModalBookingOrderLog}
+          toggleFromParent={this.toggleBookingOrderLogModal}
+          currentBookingOrderLog={this.state.bookingLog}
+        />)}
+
         <div>
           <FilterOrder
             currentFilterOrder={this.state.filterOrder}
@@ -80,9 +99,6 @@ class TableOrder extends Component {
                 <th className="col-1">
                   <FormattedMessage id="table.name-cabinet" />
                 </th>
-                <th className="col-1">
-                  <FormattedMessage id="table.name-box" />
-                </th>
                 <th className="col-2">
                   <FormattedMessage id="table.business-name" />
                 </th>
@@ -93,10 +109,10 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.booking-date" />
                 </th>
                 <th className="col-2">
-                  <FormattedMessage id="table.booking-valid-date" />
+                  <FormattedMessage id="table.status-booking" />
                 </th>
                 <th className="col-2">
-                  <FormattedMessage id="table.status-booking" />
+                  <FormattedMessage id="table.action" />
                 </th>
               </tr>
             </thead>
@@ -113,7 +129,6 @@ class TableOrder extends Component {
                   return (
                     <tr key={index} className="text-center">
                       <td>{item.Box.nameBox}</td>
-                      <td>{item.Box.nameBox}</td>
                       <td>{item.Business.businessName}</td>
                       <td
                         className="text-truncate"
@@ -129,18 +144,10 @@ class TableOrder extends Component {
                           return date;
                         })()}
                       </td>
-                      <td>
-                        {(() => {
-                          const date = moment(item.validDate).format(
-                            "DD-MM-YYYY T HH:mm"
-                          );
-                          return date;
-                        })()}
-                      </td>
 
                       {arrBookingStatus &&
                         arrBookingStatus
-                          .filter((newId) => newId === item.id)
+                          .filter((newId) => newId.id === item.id)
                           .map((data, index) => {
                             return (
                               <td key={index}>
@@ -167,6 +174,16 @@ class TableOrder extends Component {
                               </td>
                             );
                           })}
+                      <td>
+                        <button
+                          className="btn-log"
+                          onClick={() => {
+                            this.handleOpenLog(item);
+                          }}
+                        >
+                          <i className="fas fa-clipboard-list"></i>
+                        </button>
+                      </td>
                     </tr>
                   );
                 })

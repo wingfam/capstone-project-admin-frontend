@@ -12,6 +12,7 @@ import "./LineChart.scss";
 import { Component } from "react";
 import { lineChartService } from "../../services/dashBoard";
 import axios from "axios";
+// import DataChart, { dataChart } from "../data/DataChart";
 
 Chart.register(CategoryScale);
 
@@ -28,11 +29,11 @@ class ChartDemo extends Component {
     const { intl } = this.props;
     this.setState({
       lineData: {
-        labels: this.state.dataChart.map((vData) => vData.day),
+        labels: data.dataLine.map((vData) => vData.day),
         datasets: [
           {
             label: intl.formatMessage({ id: "chart.orders" }),
-            data: this.state.dataChart.map((vChart) => vChart.amount),
+            data: data.dataLine.map((vChart) => vChart.amount),
             backgroundColor: [
               "#CD853F",
               "#50AF95",
@@ -48,8 +49,10 @@ class ChartDemo extends Component {
         ],
       },
     });
-    console.log("Check Demo:", this.state.lineData);
+    // console.log("Check Demo:", this.state.lineData);
   }
+
+
 
   //   getDataChart = async () => {
   //     this.state = { lineData: [] };

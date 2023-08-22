@@ -11,7 +11,7 @@ const getBookingOrderByBookingIdService = (bookingOrderId) => {
 };
 
 const getBookingOrderSearchService = (bookingOrderId) => {
-  return axios.get(`/api/v1/bookingorder/search?id=${bookingOrderId}`);
+  return axios.get(`/api/v1/bookingOrder/search?id=${bookingOrderId}`);
 };
 
 const filterBookingOrderService = (
@@ -21,7 +21,7 @@ const filterBookingOrderService = (
   createDateEnd
 ) => {
   return axios.get(
-    `/api/v1/bookingorder/get-order-by-cabinet-business-createDate?boxId=${boxId}&bussnessId=${bussnessId}&createDateStart=${createDateStart},createDateEnd=${createDateEnd}`
+    `/api/v1/bookingOrder/get-oder-by-cabinet-business-createDate?boxId=${boxId}&bussnessId=${bussnessId}&createDateStart=${createDateStart}&createDateEnd=${createDateEnd}`
   );
 };
 

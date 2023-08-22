@@ -15,7 +15,7 @@ class FilterDate extends Component {
 
     handleFilterFromDate = (event) => {
         const fromDate = moment(new Date(event)).format(
-            "DD-MM-YYYY"
+            "MM-DD-YYYY"
         );
         this.props.filterFromDate(fromDate);
         this.setState({ fromDateBegin: fromDate })
@@ -23,7 +23,7 @@ class FilterDate extends Component {
 
     handleFilterToDate = (event) => {
         const toDate = moment(new Date(event)).format(
-            "DD-MM-YYYY"
+            "MM-DD-YYYY"
         );
         this.props.filterToDate(toDate);
     };
@@ -36,7 +36,7 @@ class FilterDate extends Component {
                     <FormattedMessage id="common.from" /></div>
                 <Flatpickr
                     options={{
-                        dateFormat: "d-m-Y",
+                        dateFormat: "m-d-Y",
                         maxDate: dateToday,
                     }}
                     onChange={([dateToday]) => this.handleFilterFromDate(dateToday)}
@@ -47,7 +47,7 @@ class FilterDate extends Component {
                 <Flatpickr
                     // value={dateToday}
                     options={{
-                        dateFormat: "d-m-Y",
+                        dateFormat: "m-d-Y",
                         maxDate: dateToday,
                         minDate: this.state.fromDateBegin
                     }}

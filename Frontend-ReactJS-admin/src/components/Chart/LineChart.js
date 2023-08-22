@@ -12,22 +12,22 @@ import axios from "axios";
 Chart.register(CategoryScale);
 function LineChart() {
   const intl = useIntl();
-  const [loading, setLoading] = useState(true);
-  const [dataChart1, setDataChart] = useState();
+  const [dataChart, setDataChart] = useState([]);
+  console.log("dataChart", dataChart);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: response } = await axios.get(
+        let response = await axios.get(
           "https://localhost:44302/get-line-char"
         );
-        setDataChart(response);
+        setDataChart(response.data);
       } catch (error) {
         console.error(error);
       }
-      setLoading(false);
     };
     fetchData();
   }, []);
+
   //   var url = "https://localhost:44302/get-line-char";
   //    axios.get(url).then((res) => {
   //     setDataChart(res.data);
@@ -35,11 +35,11 @@ function LineChart() {
   //   });
   // },[dataChart1]);
   const [lineData] = useState({
-    labels: data.dataChart.map((data) => data.weekday),
+    labels: dataChart.map((data) => data.day),
     datasets: [
       {
         label: intl.formatMessage({ id: "chart.orders" }),
-        data: data.dataChart.map((data) => data.userGain),
+        data: dataChart.map((data) => data.amount),
         backgroundColor: [
           "#CD853F",
           "#50AF95",
@@ -54,7 +54,7 @@ function LineChart() {
       },
     ],
   });
-  console.log("Check:", lineData);
+  console.log("check:", lineData);
   return (
     <React.Fragment>
       <div className="linechart-container">

@@ -1,4 +1,9 @@
+import { lineChartService } from "../../services/dashBoard";
+var getDataChartFromReact = async () => {
+  let res = await lineChartService();
+};
 export const data = {
+  dataLine: [getDataChartFromReact()],
   dataChart: [
     {
       id: 1,

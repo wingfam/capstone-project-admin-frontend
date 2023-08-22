@@ -37,7 +37,7 @@ class Dashboard extends Component {
             <div className="linechart-content col-md-6">
               <LineChart />
             </div>
-            <ChartDemo />
+            {/* <ChartDemo /> */}
           </div>
         </div>
       </div>
