@@ -8,6 +8,7 @@ import CardFirst from "../components/CardInfo/CardFirst";
 import CardSecond from "../components/CardInfo/CardSecond";
 import CardThird from "../components/CardInfo/CardThird";
 import CardFourth from "../components/CardInfo/CardFourth";
+import ChartDemo from "../components/Chart/ChartDemo";
 
 class Dashboard extends Component {
   render() {
@@ -36,6 +37,7 @@ class Dashboard extends Component {
             <div className="linechart-content col-md-6">
               <LineChart />
             </div>
+            <ChartDemo />
           </div>
         </div>
       </div>

@@ -35,11 +35,11 @@ function LineChart() {
   //   });
   // },[dataChart1]);
   const [lineData] = useState({
-    labels: data.dataChart.map((vdata) => vdata.weekday),
+    labels: data.dataChart.map((data) => data.weekday),
     datasets: [
       {
         label: intl.formatMessage({ id: "chart.orders" }),
-        data: data.dataChart.map((vdata) => vdata.userGain),
+        data: data.dataChart.map((data) => data.userGain),
         backgroundColor: [
           "#CD853F",
           "#50AF95",
@@ -54,7 +54,7 @@ function LineChart() {
       },
     ],
   });
-  console.log("Check:", data.dataChart, dataChart1);
+  console.log("Check:", lineData);
   return (
     <React.Fragment>
       <div className="linechart-container">
