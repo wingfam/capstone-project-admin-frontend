@@ -92,14 +92,14 @@
     "accept": "Chấp nhận",
     "confirm": "Xác nhận",
     "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-    "search": "Tìm kiếm...",
+    "search": "Tìm kiếm",
     "logout": "Đăng xuất",
     "bell": "Thông báo",
     "detail": "Chi tiết",
     "get-all": "Tất cả",
     "find-resident": "---Cư dân---",
-    "find-box": "---Tên hộp---",
-    "find-cabinet": "---Tên tủ---",
+    "find-box": "---Hộp---",
+    "find-cabinet": "---Tủ---",
     "find-business": "---Doanh nghiệp---",
     "from": "Từ",
     "to": "Đến"
@@ -135,7 +135,8 @@
     "login-success": "Đăng nhập thành công",
     "login-error": "Đăng nhập thất bại",
     "create-business-success": "Thêm doanh nghiệp thành công",
-    "create-business-error": "Thêm doanh nghiệp không thành công"
+    "create-business-error": "Thêm doanh nghiệp không thành công",
+    "blank-createDate": "Vui lòng chọn khoảng thời gian tìm kiếm"
   },
 
   "warning": {

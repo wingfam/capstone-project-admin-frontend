@@ -1,18 +1,11 @@
 import React from "react";
-// import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Slidebar.scss";
 import logoImg from "../../assets/images/logo.png";
 import { FormattedMessage } from "react-intl";
 import { Fragment } from "react";
-// import { useState } from "react";
-// import { Link } from "react-router-dom/cjs/react-router-dom";
 
 const Sidebar = ({ children }) => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [isOpen1, setIsOpen1] = useState(false);
-  // // const toggle = () => setIsOpen(!isOpen);
-  // // const toggle1 = () => setIsOpen1(!isOpen1);
   const menuItem = [
     {
       path: "/system/dashboard",

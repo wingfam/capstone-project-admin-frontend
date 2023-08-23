@@ -13,6 +13,7 @@ class TableCabinetLog extends Component {
       arrCabinetLog: [],
       isAvailable: "",
       showSpinner: true,
+      cabinetId: this.props.id
     };
     let database = firebase.database();
     this.usersRef = database.ref("CabinetLog");
@@ -42,6 +43,8 @@ class TableCabinetLog extends Component {
 
   render() {
     const arrCabinetLog = this.state.arrCabinetLog;
+    // const abc = arrCabinetLog.filter((arrNew) => arrNew.cabinetId === this.props.cabinetLog)
+    console.log(arrCabinetLog.map((item) => item.cabinetId), this.props.id);
     return (
       <div className="table-box-container">
         <div className="boxs-table mt-3 mx-1">
@@ -81,7 +84,7 @@ class TableCabinetLog extends Component {
               ) : (
                 arrCabinetLog &&
                 arrCabinetLog
-                  .filter((newArr) => newArr.cabinetId === this.props.id)
+                  .filter((newArr) => newArr.cabinetId === this.state.cabinetId)
                   .map((item, index) => {
                     return (
                       <tr key={index}>

@@ -90,7 +90,7 @@
     "accept": "Accept",
     "confirm": "Confirm",
     "confirm-this-task": "Are you sure to process this task?",
-    "search": "Search...",
+    "search": "Search",
     "logout": "Logout",
     "bell": "Notifications",
     "get-all": "Get all",
@@ -134,7 +134,8 @@
     "unlock-box-error": "Unlock box not succeeds!",
     "unlock-box-success": "Unlock box succeeds!",
     "create-business-success": "Create business succeeds",
-    "create-business-error": "Create business not succeeds"
+    "create-business-error": "Create business not succeeds",
+    "blank-createDate": "Please select a search period"
   },
 
   "warning": {

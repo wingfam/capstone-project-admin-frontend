@@ -6,8 +6,8 @@ import "./Header.scss";
 import { LANGUAGES } from "../../utils";
 import { changeLanguageApp } from "../../store/actions/appActions";
 import { injectIntl } from "react-intl";
-import firebase from 'firebase/app';
-import "firebase/database";
+// import firebase from 'firebase/app';
+// import "firebase/database";
 
 class Header extends Component {
   constructor(props) {
@@ -15,32 +15,32 @@ class Header extends Component {
     this.state = {
       arrNotis: [],
     };
-    let database = firebase.database();
-    this.usersRef = database.ref('AccessWarning');
+    // let database = firebase.database();
+    // this.usersRef = database.ref('AccessWarning');
   }
 
-  componentDidMount() {
-    this.usersRef.on('value', (snapshot) => {
-      const arrNotis = snapshot.val();
-      const dataArray = Object.values(arrNotis);
+  // componentDidMount() {
+  //   this.usersRef.on('value', (snapshot) => {
+  //     const arrNotis = snapshot.val();
+  //     const dataArray = Object.values(arrNotis);
 
-      this.setState({
-        arrNotis: dataArray,
-      });
-    });
+  //     this.setState({
+  //       arrNotis: dataArray,
+  //     });
+  //   });
 
-    this.usersRef.on('child_added', (snapshot) => {
-      const newNoti = snapshot.val();
+  //   this.usersRef.on('child_added', (snapshot) => {
+  //     const newNoti = snapshot.val();
 
-      this.setState((prevState) => ({
-        arrNotis: [...prevState.arrNotis, newNoti],
-      }));
-    });
-  }
+  //     this.setState((prevState) => ({
+  //       arrNotis: [...prevState.arrNotis, newNoti],
+  //     }));
+  //   });
+  // }
 
-  componentWillUnmount() {
-    this.usersRef.off()
-  }
+  // componentWillUnmount() {
+  //   this.usersRef.off()
+  // }
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -50,9 +50,9 @@ class Header extends Component {
     let titleHeader = this.props.data;
     let language = this.props.language;
 
-    let arrNoti = this.state.arrNotis;
-    const arrNotis = arrNoti.map(obj => obj.status)
-      .reduce((accumulator, current) => accumulator + current, 0);
+    // let arrNoti = this.state.arrNotis;
+    // const arrNotis = arrNoti.map(obj => obj.status)
+    //   .reduce((accumulator, current) => accumulator + current, 0);
 
     const { intl } = this.props;
     return (
@@ -95,7 +95,7 @@ class Header extends Component {
                 </div>
               </div>
             </div>
-            <div className="btn btn-bell">
+            {/* <div className="btn btn-bell">
               <Link to="/system/notification">
                 <i className="fas fa-bell" title={intl.formatMessage({ id: "common.bell" })}>
                   {(() => {
@@ -121,7 +121,7 @@ class Header extends Component {
                   }
                 </i>
               </Link>
-            </div>
+            </div> */}
             <div className="btn btn-logout" onClick={this.props.processLogout} title={intl.formatMessage({ id: "common.logout" })} >
               <i className="fas fa-sign-out-alt"></i>
             </div>

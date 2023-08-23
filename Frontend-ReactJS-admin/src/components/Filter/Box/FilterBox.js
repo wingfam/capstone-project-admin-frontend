@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./FilterBox.scss";
-import { injectIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import firebase from "firebase/app";
 import "firebase/database";
 class FilterBox extends Component {
@@ -39,18 +39,15 @@ class FilterBox extends Component {
   };
 
   render() {
-    const { intl } = this.props;
     return (
-      <div className="select-box-container">
+      <div className="select-box-container form-floating">
         <select
-          className="select-box-content text-center"
+          className="select-box-content text-center form-select"
           onChange={(event) => {
             this.handleFilterBox(event);
           }}
         >
-          <option value="">
-            {intl.formatMessage({ id: "common.find-box" })}{" "}
-          </option>
+          <option value="" ></option>
           {this.state.arrBox &&
             this.state.arrBox.map((item, index) => {
               return (
@@ -60,8 +57,9 @@ class FilterBox extends Component {
               );
             })}
         </select>
+        <label><FormattedMessage id="common.find-box" /> </label>
       </div>
     );
   }
 }
-export default injectIntl(FilterBox);
+export default FilterBox;

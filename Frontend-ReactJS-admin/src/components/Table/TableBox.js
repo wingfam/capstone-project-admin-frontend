@@ -95,7 +95,6 @@ class TableBox extends Component {
           theme: "light",
         });
       } else {
-        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.lock-box-error" />, {
           position: "top-right",
           autoClose: 3000,

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./FilterBusiness.scss";
 import firebase from "firebase/app";
 import "firebase/database";
-import { injectIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 class FilterBusiness extends Component {
   constructor(props) {
     super(props);
@@ -39,17 +39,16 @@ class FilterBusiness extends Component {
   };
 
   render() {
-    const { intl } = this.props;
+    // const { intl } = this.props;
     return (
-      <div className="select-business-container">
+      <div className="select-business-container form-floating">
         <select
-          className="select-business-content"
+          className="select-business-content form-select"
           onChange={(event) => {
             this.handleFilterBusiness(event);
           }}
         >
-          <option value="1" defaultValue>
-            {intl.formatMessage({ id: "common.find-business" })}
+          <option value="1" >
           </option>
           {this.state.arrBusiness &&
             this.state.arrBusiness.map((item, index) => {
@@ -60,8 +59,9 @@ class FilterBusiness extends Component {
               );
             })}
         </select>
+        <label><FormattedMessage id="common.find-business" /> </label>
       </div>
     );
   }
 }
-export default injectIntl(FilterBusiness);
+export default FilterBusiness;

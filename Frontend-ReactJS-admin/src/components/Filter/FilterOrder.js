@@ -3,6 +3,8 @@ import "./FilterOrder.scss";
 import FilterBusiness from "./Business/FilterBusiness";
 import FilterDate from "./Date/FilterDate";
 import FilterBox from "./Box/FilterBox";
+import { FormattedMessage } from "react-intl";
+import { toast } from "react-toastify";
 class FilterOrder extends Component {
   constructor(props) {
     super(props);
@@ -13,18 +15,6 @@ class FilterOrder extends Component {
       toDate: "",
     };
   }
-
-  async componentDidMount() {
-    // await this.getAllResident()
-  }
-
-  // getAllResident = async () => {
-  //     let data = await getAllUsers ();
-  //     this.setState({
-  //         arrResident: data
-  //     })
-  //     console.log("check data", this.state.arrResident);
-  // }
 
   handleFilterBox = (id) => {
     this.setState({
@@ -51,12 +41,26 @@ class FilterOrder extends Component {
   };
 
   handleFilterOrder = () => {
-    this.props.filterOrder(
-      this.state.boxId,
-      this.state.businessId,
-      this.state.fromDate,
-      this.state.toDate
-    );
+    if (this.state.fromDate !== "" && this.state.toDate !== "") {
+
+      this.props.filterOrder(
+        this.state.boxId,
+        this.state.businessId,
+        this.state.fromDate,
+        this.state.toDate
+      )
+    } else {
+      toast.error(<FormattedMessage id="toast.blank-createDate" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
     console.log(
       "data filter order:",
       this.state.businessId,
@@ -87,7 +91,7 @@ class FilterOrder extends Component {
             className="filter-content"
           />
         </div>
-        <button onClick={this.handleFilterOrder}>Tìm kiếm</button>
+        <button onClick={this.handleFilterOrder}><FormattedMessage id="common.search" /></button>
       </div>
     );
   }
