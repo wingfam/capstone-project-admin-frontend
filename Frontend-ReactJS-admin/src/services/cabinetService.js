@@ -13,10 +13,15 @@ const getACabinetByLocation = (locationId) => {
     `/api/v1/Cabinet/get-cabinet-by-location?locationId=${locationId}`
   );
 };
+
 const getCabinetByBusiness = (businessId) => {
   return axios.get(
     `/api/v1/cabinet/get-cabinet-by-business?businessId=${businessId}`
   );
+};
+
+const getCabinetLogByCabinetIdService = (cabinetId) => {
+  return axios.get(`/api/v1/cabinetLog/get-cabinet-log?cabinetId=${cabinetId}`);
 };
 
 const createNewCabinetService = (data) => {
@@ -38,5 +43,6 @@ export {
   createNewCabinetService,
   editCabinetService,
   unavailableCabinetService,
-  getCabinetByBusiness
+  getCabinetByBusiness,
+  getCabinetLogByCabinetIdService,
 };

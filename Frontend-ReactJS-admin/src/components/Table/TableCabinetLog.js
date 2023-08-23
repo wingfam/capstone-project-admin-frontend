@@ -5,6 +5,7 @@ import "firebase/database";
 import "./TableCabinetLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
+import { getCabinetLogByCabinetIdService } from "../../services/cabinetService";
 
 class TableCabinetLog extends Component {
   constructor(props) {
@@ -13,38 +14,47 @@ class TableCabinetLog extends Component {
       arrCabinetLog: [],
       isAvailable: "",
       showSpinner: true,
-      cabinetId: this.props.id
+      // cabinetId: "",
     };
     let database = firebase.database();
     this.usersRef = database.ref("CabinetLog");
   }
 
   async componentDidMount() {
-    this.usersRef.on("value", (snapshot) => {
-      const arrCabinetLog = snapshot.val();
-      const dataArray = Object.values(arrCabinetLog);
-      this.setState({
-        arrCabinetLog: dataArray,
-      });
-    });
-
-    this.usersRef.on("child_added", (snapshot) => {
-      const newCabinetLog = snapshot.val();
-      this.setState((prevState) => ({
-        arrCabinetLog: [...prevState.arrCabinetLog, newCabinetLog],
-      }));
-    });
-    this.setState({ showSpinner: false });
+    // this.usersRef.on("value", (snapshot) => {
+    //   const arrCabinetLog = snapshot.val();
+    //   const dataArray = Object.values(arrCabinetLog);
+    //   this.setState({
+    //     arrCabinetLog: dataArray,
+    //     cabinetId: this.props.id,
+    //   });
+    // });
+    // this.usersRef.on("child_added", (snapshot) => {
+    //   const newCabinetLog = snapshot.val();
+    //   this.setState((prevState) => ({
+    //     arrCabinetLog: [...prevState.arrCabinetLog, newCabinetLog],
+    //   }));
+    // });
+    // this.setState({ showSpinner: false });
+    await this.getCabinetLog();
   }
 
-  componentWillUnmount() {
-    this.usersRef.off();
-  }
+  getCabinetLog = async () => {
+    const cabinetId = this.props.id;
+    let res = await getCabinetLogByCabinetIdService(cabinetId);
+    this.setState({
+      arrCabinetLog: res,
+      showSpinner: false,
+    });
+  };
+
+  // componentWillUnmount() {
+  //   this.usersRef.off();
+  // }
 
   render() {
     const arrCabinetLog = this.state.arrCabinetLog;
-    // const abc = arrCabinetLog.filter((arrNew) => arrNew.cabinetId === this.props.cabinetLog)
-    console.log(arrCabinetLog.map((item) => item.cabinetId), this.props.id);
+    console.log("Check pro:", this.props, arrCabinetLog);
     return (
       <div className="table-box-container">
         <div className="boxs-table mt-3 mx-1">
@@ -84,7 +94,7 @@ class TableCabinetLog extends Component {
               ) : (
                 arrCabinetLog &&
                 arrCabinetLog
-                  .filter((newArr) => newArr.cabinetId === this.state.cabinetId)
+                  // .filter((newArr) => newArr.cabinetId === this.props.id)
                   .map((item, index) => {
                     return (
                       <tr key={index}>

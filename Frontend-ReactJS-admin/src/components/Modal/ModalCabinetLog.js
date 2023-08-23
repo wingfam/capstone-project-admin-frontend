@@ -10,7 +10,6 @@ class ModalCabinetLog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAvailable: "",
       showSpinner: true,
       cabinetName: "",
       cabinetId: "",
@@ -18,13 +17,13 @@ class ModalCabinetLog extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     let cabinetLog = this.props.currentCabinetLog;
-    let response = await getACabinet(cabinetLog.id);
+    console.log("Check prop modal:", this.props);
     this.setState({
-      cabinetName: response.nameCabinet,
-      cabinetId: response.id,
-      businessName: response.Business.businessName,
+      cabinetName: cabinetLog.nameCabinet,
+      cabinetId: cabinetLog.id,
+      businessName: cabinetLog.Business.businessName,
     });
   }
 
