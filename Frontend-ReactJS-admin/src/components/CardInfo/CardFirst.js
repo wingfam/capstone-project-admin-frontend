@@ -48,12 +48,6 @@ class CardFirst extends Component {
               <p className="mb-0">
                 <FormattedMessage id="card-info.total-booking" />
               </p>
-              <p className="mb-0 ms-auto">
-                +10%
-                <span>
-                  <i className="fas fa-arrow-up"></i>
-                </span>
-              </p>
             </div>
           </div>
         </div>

@@ -26,6 +26,12 @@ function LineChart() {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   axios.get(
+  //     "https://localhost:44302/get-line-char"
+  //   ).then(res => { setDataChart(res.data) })
+  // }, [dataChart])
+
   const lineData = {
     labels: dataChart.map((vData) => vData.day),
     datasets: [

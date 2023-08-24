@@ -49,10 +49,10 @@ class Dashboard extends Component {
         </div>
         <div className="row mt-5">
           <div className="chart-container">
-            {/* <div className="barchart-content col-md-6">
+            <div className="barchart-content col-md-6">
               <ChartBar />
-            </div> */}
-            <div className="linechart-content col-md-9">
+            </div>
+            <div className="linechart-content col-md-6">
               <LineChart />
             </div>
           </div>

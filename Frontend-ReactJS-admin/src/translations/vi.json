@@ -146,8 +146,8 @@
 
   "card-info": {
     "total-booking": "Tổng đơn đặt hàng",
-    "total-user": "Tổng người dùng",
-    "total-locker": "Tổng tủ",
+    "total-business": "Tổng doanh nghiệp",
+    "total-cabinet": "Tổng tủ",
     "total-box": "Tổng hộp"
   },
 

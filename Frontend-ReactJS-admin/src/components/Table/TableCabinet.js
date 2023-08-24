@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
+  addDisableService,
+  addUpdateService,
   editCabinetService,
   getAllCabinets,
   getCabinetByBusiness,
@@ -69,6 +71,7 @@ class TableCabinet extends Component {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
         await this.getCabinetsFromReact();
+        await addUpdateService(cabinet.id)
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -169,6 +172,7 @@ class TableCabinet extends Component {
           },
         },
       });
+      await addDisableService(cabinet.id)
       this.getCabinetsFromReact();
     } catch (e) {
       console.log(e);

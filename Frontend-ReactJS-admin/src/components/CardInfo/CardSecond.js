@@ -48,13 +48,7 @@ class CardSecond extends Component {
             </div>
             <div className="d-flex align-items-center text-white">
               <p className="mb-0">
-                <FormattedMessage id="card-info.total-user" />
-              </p>
-              <p className="mb-0 ms-auto">
-                +10%
-                <span>
-                  <i className="fas fa-arrow-up"></i>
-                </span>
+                <FormattedMessage id="card-info.total-business" />
               </p>
             </div>
           </div>

@@ -1,10 +1,10 @@
 @import "../../styles/common.scss";
 
-.modal-cabinet-container {
-  .modal-cabinet-header {
+.modal-cabinetlog-container {
+  .modal-cabinetlog-header {
     .modal-title {
       background-color: $colormain;
-      font-size: 30px !important;
+      font-size: 25px !important;
       line-height: 34px !important;
     }
 
@@ -16,12 +16,12 @@
     }
   }
 
-  .modal-cabinet-body {
+  .modal-cabinetlog-body {
     font-size: $base-size;
     padding-bottom: 10px;
   }
 
-  .modal-cabinet-footer {
+  .modal-cabinetlog-footer {
     .btn-accept {
       background-color: $colormain;
     }

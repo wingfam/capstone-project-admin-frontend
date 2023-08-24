@@ -68,11 +68,14 @@ class TableOrder extends Component {
   };
 
   doFilterOrder = async (boxId, businessId, fromDate, toDate) => {
+    this.setState({ showSpinner: true })
     let res = await filterBookingOrderService(boxId, businessId, fromDate, toDate)
     this.setState({
-      arrBookingOrder: res
+      arrBookingOrder: res,
+      showSpinner: false
     })
     console.log("Filter:", businessId, boxId, fromDate, toDate);
+    console.log("Filter arr:", this.state.arrBookingOrder);
   };
 
   render() {
@@ -153,15 +156,15 @@ class TableOrder extends Component {
                               <td key={index}>
                                 {(() => {
                                   switch (data.status) {
-                                    case 3:
+                                    case 2:
                                       return (
                                         <FormattedMessage id="table.processing" />
                                       );
-                                    case 4:
+                                    case 3:
                                       return (
                                         <FormattedMessage id="table.store-good" />
                                       );
-                                    case 5:
+                                    case 4:
                                       return (
                                         <FormattedMessage id="table.done" />
                                       );

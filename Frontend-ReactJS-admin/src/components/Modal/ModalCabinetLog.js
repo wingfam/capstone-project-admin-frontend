@@ -38,12 +38,12 @@ class ModalCabinetLog extends Component {
         toggle={() => {
           this.toggle();
         }}
-        className="modal-cabinet-container"
+        className="modal-cabinetlog-container"
         size="xl"
         style={{ maxWidth: "1350px" }}
       >
         <ModalHeader
-          className="modal-cabinet-header"
+          className="modal-cabinetlog-header"
           toggle={() => {
             this.toggle();
           }}
@@ -51,7 +51,7 @@ class ModalCabinetLog extends Component {
           <FormattedMessage id="title.cabinet-log" />
         </ModalHeader>
         <ModalBody>
-          <div className="modal-cabinet-body">
+          <div className="modal-cabinetlog-body">
             <TableCabinetLog
               id={this.state.cabinetId}
               name={this.state.cabinetName}
@@ -59,7 +59,7 @@ class ModalCabinetLog extends Component {
             />
           </div>
         </ModalBody>
-        <ModalFooter className="modal-cabinet-footer">
+        <ModalFooter className="modal-cabinetlog-footer">
           <Button
             className="px-3"
             onClick={() => {

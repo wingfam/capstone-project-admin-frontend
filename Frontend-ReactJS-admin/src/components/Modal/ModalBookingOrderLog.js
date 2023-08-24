@@ -54,12 +54,12 @@ class ModalBookingOrderLog extends Component {
         toggle={() => {
           this.toggle();
         }}
-        className="modal-cabinet-container"
+        className="modal-bookinglog-container"
         size="xl"
         style={{ maxWidth: "1350px" }}
       >
         <ModalHeader
-          className="modal-cabinet-header"
+          className="modal-bookinglog-header"
           toggle={() => {
             this.toggle();
           }}
@@ -67,7 +67,7 @@ class ModalBookingOrderLog extends Component {
           <FormattedMessage id="title.cabinet-log" />
         </ModalHeader>
         <ModalBody>
-          <div className="modal-cabinet-body">
+          <div className="modal-bookinglog-body">
             {/* <TableBookingOrderLog
               id={this.state.bookingId}
               cabinetName={this.state.cabinetName}

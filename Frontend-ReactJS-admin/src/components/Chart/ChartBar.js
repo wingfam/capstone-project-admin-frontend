@@ -5,16 +5,34 @@ import { data } from "../data";
 import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./ChartBar.scss";
+import axios from "axios";
+import { useEffect } from "react";
 
 Chart.register(CategoryScale);
 function ChartBar() {
   const intl = useIntl();
-  const [chartData] = useState({
-    labels: data.dataMonth.map((vdata) => vdata.weekday),
+  const [dataChart, setDataChart] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:44302/get-line-char"
+        );
+        setDataChart(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const chartData = ({
+    labels: dataChart.map((vdata) => vdata.day),
     datasets: [
       {
         label: intl.formatMessage({ id: "chart.orders" }),
-        data: data.dataMonth.map((vdata) => vdata.userGain),
+        data: dataChart.map((vdata) => vdata.amount),
         backgroundColor: [
           "#CD853F",
           "#50AF95",
@@ -46,7 +64,7 @@ function ChartBar() {
                   plugins: {
                     title: {
                       display: true,
-                      text: intl.formatMessage({ id: "chart.month-chart" }),
+                      text: intl.formatMessage({ id: "chart.week-chart" }),
                       font: {
                         size: 17,
                       },

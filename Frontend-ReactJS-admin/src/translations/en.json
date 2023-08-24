@@ -145,9 +145,9 @@
 
   "card-info": {
     "total-booking": "Total Bookings",
-    "total-user": "Total Customers",
-    "total-locker": "Total Lockers",
-    "total-notification": "Total Notifications"
+    "total-business": "Total Business",
+    "total-cabinet": "Total Cabinets",
+    "total-box": "Total Boxs"
   },
 
   "chart": {

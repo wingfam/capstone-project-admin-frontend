@@ -16,12 +16,12 @@ const getBookingOrderSearchService = (bookingOrderId) => {
 
 const filterBookingOrderService = (
   boxId,
-  bussnessId,
+  businessId,
   createDateStart,
   createDateEnd
 ) => {
   return axios.get(
-    `/api/v1/bookingOrder/get-oder-by-cabinet-business-createDate?boxId=${boxId}&bussnessId=${bussnessId}&createDateStart=${createDateStart}&createDateEnd=${createDateEnd}`
+    `/api/v1/bookingOrder/get-oder-by-cabinet-business-createDate?boxId=${boxId}&businessId=${businessId}&createDateStart=${createDateStart}&createDateEnd=${createDateEnd}`
   );
 };
 
