@@ -38,6 +38,7 @@ class FilterOrder extends Component {
     this.setState({
       toDate: toDateText,
     });
+
   };
 
   handleFilterOrder = () => {

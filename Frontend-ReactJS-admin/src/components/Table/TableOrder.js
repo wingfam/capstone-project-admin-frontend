@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./TableOrder.scss";
-import { filterBookingOrderService, getAllBookingOrders } from "../../services/bookingOrder";
+import { filterBookingOrderService } from "../../services/bookingOrder";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
 import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
 import ModalBookingOrderLog from "../Modal/ModalBookingOrderLog";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -17,7 +18,13 @@ class TableOrder extends Component {
       arrBookingStatus: [],
       isOpenModalBookingOrderLog: false,
       showSpinner: true,
-      dateToday: new Date()
+      dateToday: moment(new Date()).format(
+        "MM-DD-YYYY"
+      ),
+      dateOld: moment(new Date().setDate(20)).format(
+        "MM-DD-YYYY"
+      ),
+      currentPage: 0
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
@@ -34,6 +41,8 @@ class TableOrder extends Component {
       });
     });
 
+    console.log(this.state.arrBookingOrder.length);
+
     this.usersRef.on("child_added", (snapshot) => {
       const newStatus = snapshot.val();
       this.setState((prevState) => ({
@@ -44,9 +53,9 @@ class TableOrder extends Component {
   }
 
   getBookingOrderFromReact = async () => {
-    let response = await getAllBookingOrders();
+    let res = await filterBookingOrderService("", "", this.state.dateOld, this.state.dateToday)
     this.setState({
-      arrBookingOrder: response,
+      arrBookingOrder: res,
     });
   };
 
@@ -74,13 +83,39 @@ class TableOrder extends Component {
       arrBookingOrder: res,
       showSpinner: false
     })
-    console.log("Filter:", businessId, boxId, fromDate, toDate);
-    console.log("Filter arr:", this.state.arrBookingOrder);
+  };
+
+  handleClick = (e, index) => {
+    e.preventDefault();
+    this.setState({
+      currentPage: index
+    });
   };
 
   render() {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
+    const pageSize = 7;
+    const totalItem = this.state.arrBookingOrder.length;
+    const data = arrBookingOrder
+    const currentPage = this.state.currentPage;
+    let pageNumbers = [];
+
+    for (let i = 0; i < Math.ceil(totalItem / pageSize); i++) {
+      pageNumbers.push(
+        <PaginationItem key={i} active={currentPage === i ? true : false}>
+          <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    const paginatedData = data.slice(
+      currentPage * pageSize,
+      (currentPage + 1) * pageSize
+    );
+
     return (
       <div className="table-orders-container">
         {this.state.isOpenModalBookingOrderLog && (<ModalBookingOrderLog
@@ -119,17 +154,20 @@ class TableOrder extends Component {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {this.state.showSpinner ? (
-                <SyncLoader
-                  color="#21a5ff"
-                  margin={10}
-                  speedMultiplier={0.75}
-                />
-              ) : (
-                arrBookingOrder &&
-                arrBookingOrder.map((item, index) => {
-                  return (
+            {this.state.showSpinner ? (
+              <SyncLoader
+                color="#21a5ff"
+                margin={10}
+                speedMultiplier={0.75}
+              />
+            ) : (paginatedData.length === 0 ? (<tr>
+              <td colSpan="6" className="fs-4">
+                <FormattedMessage id="table.not-order-cabinet" />
+              </td>
+            </tr>) : (
+              paginatedData.map((item, index) => {
+                return (
+                  <tbody>
                     <tr key={index} className="text-center">
                       <td>{item.Box.nameBox}</td>
                       <td>{item.Business.businessName}</td>
@@ -188,11 +226,32 @@ class TableOrder extends Component {
                         </button>
                       </td>
                     </tr>
-                  );
-                })
-              )}
-            </tbody>
+                  </tbody>
+                );
+              })
+            ))}
+
+
           </table>
+          {paginatedData.length === 0 ? ("abc") : (
+            <Pagination className="text-center">
+              <PaginationItem>
+                <PaginationLink
+                  onClick={e => this.handleClick(e, currentPage - 1)}
+                  previous
+                  href="#"
+                />
+              </PaginationItem>
+              {pageNumbers}
+              <PaginationItem disabled={currentPage > pageNumbers - 1}>
+                <PaginationLink
+                  onClick={e => this.handleClick(e, currentPage + 1)}
+                  next
+                  href="#"
+                />
+              </PaginationItem>
+            </Pagination>
+          )}
         </div>
       </div>
     );

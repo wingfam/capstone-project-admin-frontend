@@ -4,7 +4,6 @@ import { FormattedMessage } from "react-intl";
 import "./ModalCabinetLog.scss";
 // import _ from "lodash";
 import TableCabinetLog from "../Table/TableCabinetLog";
-import { getACabinet } from "../../services/cabinetService";
 
 class ModalCabinetLog extends Component {
   constructor(props) {

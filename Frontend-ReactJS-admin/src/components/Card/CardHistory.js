@@ -45,15 +45,15 @@ class CardHistory extends Component {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {arrCabinet.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="fs-4">
-                  <FormattedMessage id="table.not-order-cabinet" />
-                </td>
-              </tr>
-            ) : arrCabinet.map((item, index) => {
-              return (
+          {arrCabinet.length === 0 ? (
+            <tr>
+              <td colSpan="4" className="fs-4">
+                <FormattedMessage id="table.not-order-cabinet" />
+              </td>
+            </tr>
+          ) : arrCabinet.map((item, index) => {
+            return (
+              <tbody>
                 <tr key={index} className="text-center">
                   <td>
                     {index + 1}
@@ -73,9 +73,9 @@ class CardHistory extends Component {
                     })()}
                   </td>
                 </tr>
-              )
-            })}
-          </tbody>
+              </tbody>
+            )
+          })}
         </table>
       </div>
     );

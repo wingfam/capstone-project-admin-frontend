@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { CategoryScale } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { data } from "../data";
 import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./ChartBar.scss";
