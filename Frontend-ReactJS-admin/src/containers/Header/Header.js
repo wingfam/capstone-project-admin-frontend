@@ -64,12 +64,12 @@ class Header extends Component {
             </Link>
           </div>
           <div className="header-center-content title">
-            <span className="display-4 px-3 bg-white rounded shadow">
+            <span className="display-4 px-3 bg-white rounded shadow title-content">
               {titleHeader}
             </span>
           </div>
           <div className="header-right-content">
-            <div className="btn-right-content">
+            <div className="btn-right-content offset-md-9">
               <div className="language-content">
                 <div
                   className={

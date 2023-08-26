@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CategoryScale } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./ChartBar.scss";
@@ -34,16 +34,18 @@ function ChartBar() {
         data: dataChart.map((vdata) => vdata.amount),
         backgroundColor: [
           "#CD853F",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-          "#836FFF",
-          "#00FFFF",
-          "#8DEEEE",
         ],
         borderColor: "black",
         borderWidth: 1,
-      },
+      }, {
+        label: "abc",
+        data: dataChart.map((vdata) => vdata.amount),
+        backgroundColor: [
+          "#50AF95",
+        ],
+        borderColor: "black",
+        borderWidth: 1,
+      }
     ],
   });
   return (
@@ -69,7 +71,7 @@ function ChartBar() {
                       },
                     },
                     legend: {
-                      display: false,
+                      display: true,
                     },
                   },
                   scales: {
@@ -90,6 +92,40 @@ function ChartBar() {
                   },
                 }}
               />
+
+              {/* <Line
+                data={chartData}
+                options={{
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
+                    title: {
+                      display: true,
+                      text: intl.formatMessage({ id: "chart.week-chart" }),
+                      font: {
+                        size: 18,
+                      },
+                    },
+                  },
+                  scales: {
+                    y: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        },
+                      },
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: 15,
+                        },
+                      },
+                    },
+                  },
+                }}
+              /> */}
             </div>
           </div>
         </div>

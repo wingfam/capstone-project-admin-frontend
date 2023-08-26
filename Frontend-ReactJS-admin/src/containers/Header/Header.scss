@@ -12,37 +12,50 @@
   position: sticky;
   top: 5px;
   border-radius: 7px;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   z-index: 5;
 
   .header-content {
     display: flex;
+    width: 100%;
 
     .header-left-content {
       margin: 15px 0 0 10px;
       display: flex;
-      width: 32%;
+      width: 17%;
 
       i {
         align-items: center;
         color: gray;
         font-size: $base-size + 7px;
+
+        &:hover {
+          color: $colormain;
+        }
       }
     }
 
     .header-center-content {
       width: 60%;
       display: flex;
-      margin-left: 10px;
+      .title-content {
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        color: $colormain;
+      }
     }
 
     .header-right-content {
       display: flex;
-      font-size: 20px;
+      width: 23%;
+      font-size: 22px;
+      right: 10px;
       .language-content {
         width: 20px;
-        margin-left: 10px;
-        margin-right: 10px;
+        right: 10px;
 
         .language-vi {
           cursor: pointer;
@@ -78,45 +91,19 @@
           }
         }
       }
+
       .btn-logout {
         color: gray;
         line-height: 40px;
-        margin-top: 5px;
+        margin-top: 3px;
         i {
           margin-top: 50%;
           margin-left: 85%;
           align-items: center;
           font-size: $base-size + 7px;
         }
-      }
-
-      .btn-bell {
-        line-height: 40px;
-        padding: 0 10px;
-        position: relative;
-        margin-top: 5px;
-        margin-right: 5px;
-
-        i {
-          margin: 50%;
-          align-items: center;
-          font-size: $base-size + 7px;
-          color: $colormain;
-
-          .btn-unread {
-            margin: 0;
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            font-size: $base-size;
-            color: $common-text-color;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            background-color: $common-red;
-          }
+        &:hover {
+          color: $common-red;
         }
       }
     }
