@@ -39,32 +39,26 @@ function ChartBar() {
     };
     fetchDataName();
   }, []);
-  // const [arrFirst] = 
-  // const [arrSecond] = 
 
-
-  const chartData = ({
+  const chartData = {
     labels: dataChart.map((vdata) => vdata.date),
     datasets: [
       {
         label: [...new Set(dataChart.map((vdata) => vdata.business_1_name))],
         data: dataChart.map((vdata) => vdata.business_1_amount),
-        backgroundColor: [
-          "#CD853F",
-        ],
+        backgroundColor: ["#CD853F"],
         borderColor: "black",
         borderWidth: 2,
-      }, {
+      },
+      {
         label: [...new Set(dataChart.map((vdata) => vdata.business_2_name))],
         data: dataChart.map((vdata) => vdata.business_2_amount),
-        backgroundColor: [
-          "#50AF95",
-        ],
+        backgroundColor: ["#50AF95"],
         borderColor: "black",
         borderWidth: 2,
-      }
+      },
     ],
-  });
+  };
   return (
     <React.Fragment>
       <div className="chartbar-container">
