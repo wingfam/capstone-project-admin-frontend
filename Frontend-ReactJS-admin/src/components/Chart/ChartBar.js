@@ -11,12 +11,12 @@ Chart.register(CategoryScale);
 function ChartBar() {
   const intl = useIntl();
   const [dataChart, setDataChart] = useState([]);
-
+  const [businessName, setBusinessName] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44302/get-line-char"
+          "https://localhost:44302/get-business-order"
         );
         setDataChart(response.data);
       } catch (error) {
@@ -26,25 +26,42 @@ function ChartBar() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchDataName = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:44302/api/v1/business/get-all"
+        );
+        setBusinessName(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDataName();
+  }, []);
+  // const [arrFirst] = 
+  // const [arrSecond] = 
+
+
   const chartData = ({
-    labels: dataChart.map((vdata) => vdata.day),
+    labels: dataChart.map((vdata) => vdata.date),
     datasets: [
       {
-        label: intl.formatMessage({ id: "chart.orders" }),
-        data: dataChart.map((vdata) => vdata.amount),
+        label: [...new Set(dataChart.map((vdata) => vdata.business_1_name))],
+        data: dataChart.map((vdata) => vdata.business_1_amount),
         backgroundColor: [
           "#CD853F",
         ],
         borderColor: "black",
-        borderWidth: 1,
+        borderWidth: 2,
       }, {
-        label: "abc",
-        data: dataChart.map((vdata) => vdata.amount),
+        label: [...new Set(dataChart.map((vdata) => vdata.business_2_name))],
+        data: dataChart.map((vdata) => vdata.business_2_amount),
         backgroundColor: [
           "#50AF95",
         ],
         borderColor: "black",
-        borderWidth: 1,
+        borderWidth: 2,
       }
     ],
   });
