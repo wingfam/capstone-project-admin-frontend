@@ -97,7 +97,7 @@ class TableOrder extends Component {
     const arrBookingStatus = this.state.arrBookingStatus;
     const pageSize = 7;
     const totalItem = this.state.arrBookingOrder.length;
-    const data = arrBookingOrder
+    const data = arrBookingOrder.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
     const currentPage = this.state.currentPage;
     let pageNumbers = []
 
@@ -115,7 +115,6 @@ class TableOrder extends Component {
       currentPage * pageSize,
       (currentPage + 1) * pageSize
     );
-
     return (
       <div className="table-orders-container">
         {this.state.isOpenModalBookingOrderLog && (<ModalBookingOrderLog
@@ -166,7 +165,7 @@ class TableOrder extends Component {
                   <FormattedMessage id="table.not-order-cabinet" />
                 </td>
               </tr>) : (
-                paginatedData.map((item, index) => {
+                paginatedData && paginatedData.map((item, index) => {
                   return (
                     <tbody>
                       <tr key={index} className="text-center">

@@ -165,7 +165,6 @@ class TableBox extends Component {
               ) : (
                 result &&
                 result
-                  .sort((a, b) => (a.addDate > b.addDate ? -1 : 1))
                   .map((item, index) => {
                     return (
                       <tr key={index}>

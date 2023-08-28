@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CategoryScale } from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { FormattedMessage, useIntl } from "react-intl";
 import "./ChartBar.scss";
@@ -11,7 +11,6 @@ Chart.register(CategoryScale);
 function ChartBar() {
   const intl = useIntl();
   const [dataChart, setDataChart] = useState([]);
-  const [businessName, setBusinessName] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,23 +24,6 @@ function ChartBar() {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const fetchDataName = async () => {
-      try {
-        const response = await axios.get(
-          "https://localhost:44302/api/v1/business/get-all"
-        );
-        setBusinessName(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchDataName();
-  }, []);
-  // const [arrFirst] = 
-  // const [arrSecond] = 
-
 
   const chartData = ({
     labels: dataChart.map((vdata) => vdata.date),
@@ -95,54 +77,20 @@ function ChartBar() {
                     y: {
                       ticks: {
                         font: {
-                          size: 15,
+                          size: 17,
                         },
                       },
                     },
                     x: {
                       ticks: {
                         font: {
-                          size: 15,
+                          size: 17,
                         },
                       },
                     },
                   },
                 }}
               />
-
-              {/* <Line
-                data={chartData}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                    title: {
-                      display: true,
-                      text: intl.formatMessage({ id: "chart.week-chart" }),
-                      font: {
-                        size: 18,
-                      },
-                    },
-                  },
-                  scales: {
-                    y: {
-                      ticks: {
-                        font: {
-                          size: 15,
-                        },
-                      },
-                    },
-                    x: {
-                      ticks: {
-                        font: {
-                          size: 15,
-                        },
-                      },
-                    },
-                  },
-                }}
-              /> */}
             </div>
           </div>
         </div>
