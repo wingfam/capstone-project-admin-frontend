@@ -7,7 +7,7 @@ const handleLoginApi = (adminEmail, adminPassword) => {
   });
 };
 
-const getAllBusiness = () => {
+const getAllBusinessService = () => {
   return axios.get("/api/v1/business/get-all");
 };
 
@@ -25,7 +25,7 @@ const createBusinessService = (inputData) => {
 
 export {
   handleLoginApi,
-  getAllBusiness,
+  getAllBusinessService,
   getABusiness,
   editBusinessService,
   createBusinessService,

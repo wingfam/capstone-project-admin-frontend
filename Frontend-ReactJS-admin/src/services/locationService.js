@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-const getAllLocations = () => {
+const getAllLocationsService = () => {
   return axios.get("/api/v1/location/get-all");
 };
 
@@ -24,7 +24,7 @@ const editLocation = (lockerId, inputData) => {
 
 export {
   getALocation,
-  getAllLocations,
+  getAllLocationsService,
   createNewLocationService,
   editLocation,
   getLocationByBusinessService,

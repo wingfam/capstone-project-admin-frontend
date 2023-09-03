@@ -80,6 +80,7 @@
     "add": "Thêm",
     "add-business": "Thêm doanh nghiệp",
     "add-location": "Thêm địa điểm",
+    "add-cabinet": "Thêm tủ",
     "edit": "Sửa",
     "unlock": "Mở cấm",
     "delete": "Xóa",
@@ -101,6 +102,8 @@
     "find-box": "---Hộp---",
     "find-cabinet": "---Tủ---",
     "find-business": "---Doanh nghiệp---",
+    "choose-business": "---Chọn doanh nghiệp---",
+    "choose-location": "---Chọn doanh nghiệp---",
     "from": "Từ",
     "to": "Đến"
   },

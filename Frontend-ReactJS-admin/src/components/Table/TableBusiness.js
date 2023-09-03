@@ -4,7 +4,7 @@ import "./TableBusiness.scss";
 import {
   createBusinessService,
   editBusinessService,
-  getAllBusiness,
+  getAllBusinessService,
 } from "../../services/businessService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,8 +13,6 @@ import ModalUnBan from "../Modal/ModalUnBan";
 import { SyncLoader } from "react-spinners";
 import ModalAddBusiness from "../Modal/ModalAddBusiness";
 import { emitter } from "../../utils/emitter";
-// import firebase from 'firebase/app';
-// import "firebase/database";
 
 class TableBusiness extends Component {
   constructor(props) {
@@ -34,7 +32,7 @@ class TableBusiness extends Component {
   }
 
   getBusinessFromReact = async () => {
-    let response = await getAllBusiness();
+    let response = await getAllBusinessService();
     this.setState({
       arrBusiness: response,
     });
@@ -131,7 +129,6 @@ class TableBusiness extends Component {
 
   createNewBusiness = async (business) => {
     try {
-      console.log(business);
       let response = await createBusinessService(business);
       if (response && response.errCode === 0) {
         await this.getBusinessFromReact();
@@ -230,7 +227,7 @@ class TableBusiness extends Component {
                 <th className="col-2">
                   <FormattedMessage id={"table.business-name"} />
                 </th>
-                <th className="col-1">
+                <th className="col-2">
                   <FormattedMessage id="table.phone" />
                 </th>
                 <th className="col-6">

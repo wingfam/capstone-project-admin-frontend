@@ -41,8 +41,6 @@ class TableOrder extends Component {
       });
     });
 
-    console.log(this.state.arrBookingOrder.length);
-
     this.usersRef.on("child_added", (snapshot) => {
       const newStatus = snapshot.val();
       this.setState((prevState) => ({
@@ -215,7 +213,7 @@ class TableOrder extends Component {
                                 </td>
                               );
                             })}
-                        <td>
+                        <td key={index}>
                           <button
                             className="btn-log"
                             onClick={() => {
@@ -230,8 +228,6 @@ class TableOrder extends Component {
                   );
                 })
               ))}
-
-
             </table>
           </div>
         </div>

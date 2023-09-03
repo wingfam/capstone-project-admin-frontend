@@ -62,13 +62,6 @@ class FilterOrder extends Component {
         theme: "light",
       })
     }
-    console.log(
-      "data filter order:",
-      this.state.businessId,
-      this.state.boxId,
-      this.state.fromDate,
-      this.state.toDate
-    );
   };
 
   render() {

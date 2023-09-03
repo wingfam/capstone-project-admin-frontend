@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import Header from "../containers/Header/Header";
 import { FormattedMessage } from "react-intl";
 import ChartBar from "../components/Chart/ChartBar";
-import LineChart from "../components/Chart/LineChart";
 import "../styles/Dashboard.scss";
 import CardFirst from "../components/CardInfo/CardFirst";
 import CardSecond from "../components/CardInfo/CardSecond";
 import CardThird from "../components/CardInfo/CardThird";
-import CardFourth from "../components/CardInfo/CardFourth";
 import { lineChartService } from "../services/dashBoard";
 
 class Dashboard extends Component {
@@ -49,9 +47,6 @@ class Dashboard extends Component {
             <div className="barchart-content col-md-10">
               <ChartBar />
             </div>
-            {/* <div className="linechart-content col-md-6">
-              <LineChart />
-            </div> */}
           </div>
         </div>
       </div>

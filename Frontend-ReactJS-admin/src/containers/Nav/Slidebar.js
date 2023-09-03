@@ -66,10 +66,9 @@ const Sidebar = ({ children }) => {
           <div className="title-logo">Smart Locker</div>
         </div>
         {menuItem.map((item, index) => (
-          <Fragment>
+          <Fragment key={index}>
             <NavLink
               to={item.path}
-              key={index}
               className="link"
               activeclassname="active"
             >

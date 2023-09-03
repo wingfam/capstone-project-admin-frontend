@@ -1,9 +1,7 @@
 @import "../../styles/common.scss";
 
-.table-histories-container {
-  //   margin-top: 5px;
-
-  .histories-table {
+.table-location-container {
+  .location-table {
     .btn-location-business {
       background-color: $colormain;
       color: $common-white;
@@ -12,15 +10,11 @@
       width: 200px;
       font-size: $base-size;
     }
-    .histories {
+    .locations {
       font-family: Arial, Helvetica, sans-serif;
       width: 100%;
       border-radius: 5px;
       margin-bottom: 20px;
-
-      tbody {
-        border-radius: 10px;
-      }
 
       td,
       th {
@@ -53,32 +47,6 @@
         text-align: left;
         background-color: $colormain;
         color: white;
-      }
-
-      .btn-edit {
-        width: 50px;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: orange;
-
-        &:hover {
-          background-color: transparent !important;
-          color: orange !important;
-        }
-      }
-
-      .btn-delete {
-        width: 50px;
-        border: none;
-        outline: none;
-        background: transparent;
-        color: rgb(235, 15, 15);
-
-        &:hover {
-          background-color: transparent !important;
-          color: rgb(235, 15, 15) !important;
-        }
       }
     }
   }

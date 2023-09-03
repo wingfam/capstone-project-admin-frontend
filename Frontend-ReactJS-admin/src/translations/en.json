@@ -78,6 +78,7 @@
     "add": "Add",
     "add-business": "Add new business",
     "add-location": "Add new location",
+    "add-cabinet": "Add new cabinet",
     "edit": "Edit",
     "unlock": "Unlock",
     "delete": "Delete",
@@ -98,6 +99,8 @@
     "find-box": "---Box---",
     "find-cabinet": "---Cabinet---",
     "find-business": "---Business---",
+    "choose-business": "---Business---",
+    "choose-location": "---Location---",
     "detail": "Detail",
     "from": "From",
     "to": "To"

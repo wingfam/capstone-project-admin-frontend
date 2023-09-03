@@ -1,4 +1,4 @@
-.modal-edit-cabinet-container {
+.modal-create-cabinet-container {
   .modal-content {
     .modal-header {
       button {
@@ -10,31 +10,10 @@
     }
   }
 
-  .modal-edit-cabinet-body {
+  .modal-create-cabinet-body {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-
-    .input-container-code {
-      display: flex;
-      position: relative;
-
-      .form-check-input {
-        width: 20px;
-        height: 20px;
-      }
-
-      .form-input-code {
-        height: 30px;
-        margin-left: 5px;
-      }
-      i {
-        position: absolute;
-        left: 57%;
-        top: 7px;
-        cursor: pointer;
-      }
-    }
 
     .input-container {
       display: flex;
@@ -54,8 +33,10 @@
       }
     }
 
-    .input-container-address {
-      width: 100%;
+    .input-address-container {
+      display: flex;
+      flex-direction: column;
+      width: 99%;
     }
   }
 }

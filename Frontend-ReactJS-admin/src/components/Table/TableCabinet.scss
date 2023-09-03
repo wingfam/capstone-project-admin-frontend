@@ -7,8 +7,18 @@
     display: flex;
     .icon-content {
       color: $colormain;
-      margin-top: 5px;
+      margin-top: 15px;
       margin-right: 10px;
+      font-size: 20px;
+    }
+    .btn-add-cabinet-content {
+      position: absolute;
+      background-color: $colormain;
+      width: 200px;
+      height: 35px;
+      right: 2%;
+      color: $common-white;
+      margin-top: 15px;
     }
   }
 

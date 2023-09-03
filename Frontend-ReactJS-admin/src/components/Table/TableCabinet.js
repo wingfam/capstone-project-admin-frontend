@@ -7,6 +7,7 @@ import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
   addDisableService,
   addUpdateService,
+  createNewCabinetService,
   editCabinetService,
   getAllCabinets,
   getCabinetByBusiness,
@@ -15,6 +16,8 @@ import {
 import { SyncLoader } from "react-spinners";
 import ModalCabinetLog from "../Modal/ModalCabinetLog";
 import FilterBusiness from "../Filter/Business/FilterBusiness";
+import { emitter } from "../../utils/emitter";
+import ModalAddCabinet from "../Modal/ModalAddCabinet";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class TableCabinet extends Component {
       arrCabinets: [],
       isOpenModalEditCabinet: false,
       isOpenModalCabinetLog: false,
+      isOpenModalAddCabinet: false,
       showSpinner: true,
 
       code: "",
@@ -40,6 +44,12 @@ class TableCabinet extends Component {
     let response = await getAllCabinets();
     this.setState({
       arrCabinets: response,
+    });
+  };
+
+  toggleCabinetAddModal = () => {
+    this.setState({
+      isOpenModalAddCabinet: !this.state.isOpenModalAddCabinet,
     });
   };
 
@@ -138,6 +148,43 @@ class TableCabinet extends Component {
     }
   };
 
+  createNewCabinet = async (cabinet) => {
+    try {
+      console.log(cabinet);
+      let response = await createNewCabinetService(cabinet);
+      if (response && response.errCode === 0) {
+        await this.getBusinessFromReact();
+        this.setState({
+          isOpenModalAddBusiness: false,
+        });
+        emitter.emit("EVENT_CLEAR_MODAL_DATA");
+        toast.success(<FormattedMessage id="toast.create-business-success" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(<FormattedMessage id="toast.create-business-error" />, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleEditCabinet = (cabinet) => {
     this.setState({
       isOpenModalEditCabinet: true,
@@ -149,6 +196,12 @@ class TableCabinet extends Component {
     this.setState({
       isOpenModalCabinetLog: true,
       cabinetLog: cabinet,
+    });
+  };
+
+  handleAddNewCabinet = () => {
+    this.setState({
+      isOpenModalAddCabinet: true,
     });
   };
 
@@ -198,6 +251,13 @@ class TableCabinet extends Component {
             currentCabinetLog={this.state.cabinetLog}
           />
         )}
+        {this.state.isOpenModalAddCabinet && (
+          <ModalAddCabinet
+            isOpen={this.state.isOpenModalAddCabinet}
+            toggleFromParent={this.toggleCabinetAddModal}
+            createCabinet={this.createNewCabinet}
+          />
+        )}
         <div className="table-cabinet-content">
           <div className="icon-content">
             <i className="fas fa-filter"></i>
@@ -207,6 +267,16 @@ class TableCabinet extends Component {
             filterBusiness={this.doFilterBusiness}
             className="filter-content"
           />
+          <button
+            className="btn btn-add-cabinet-content"
+            onClick={() => this.handleAddNewCabinet()}
+          >
+            <i className="fas fa-plus" />{" "}
+            <FormattedMessage id="common.add-business" />
+          </button>
+        </div>
+        <div>
+
         </div>
         <div className="cabinets-table mt-3 mx-1">
           <table className="cabinets">

@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import "./ModalBookingOrderLog.scss";
 // import _ from "lodash";
-import TableBookingOrderLog from "../Table/TableBookingOrderLog";
+// import TableBookingOrderLog from "../Table/TableBookingOrderLog";
 import { getBookingOrderByBookingIdService, getBookingOrderSearchService } from "../../services/bookingOrder";
 import moment from "moment";
 import { SyncLoader } from "react-spinners";

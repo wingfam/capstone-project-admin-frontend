@@ -83,13 +83,13 @@ class TableLocation extends Component {
   render() {
     let arrLocation = this.state.arrLocation;
     return (
-      <div className="table-histories-container">
+      <div className="table-location-container">
         <ModalAddLocation
           isOpen={this.state.isOpenModalAddLocation}
           toggleFromParent={this.toggleAddLocationModal}
           createLocation={this.createNewLocation}
         />
-        <div className="histories-table mt-3 mx-1">
+        <div className="location-table mt-3 mx-1">
           <div>
             <button
               className="btn btn-location-business"
@@ -98,8 +98,8 @@ class TableLocation extends Component {
               <i className="fas fa-plus" /> <FormattedMessage id="common.add-location" />
             </button>
           </div>
-          <table className="histories">
-            <tbody>
+          <table className="locations">
+            <thead>
               <tr>
                 <th className="col-2">
                   <FormattedMessage id="table.location" />
@@ -107,10 +107,9 @@ class TableLocation extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.address" />
                 </th>
-                {/* <th className="col-1">
-                  <FormattedMessage id="table.status" />
-                </th> */}
               </tr>
+            </thead>
+            <tbody>
               {this.state.showSpinner ? (
                 <SyncLoader
                   color="#21a5ff"
@@ -124,29 +123,6 @@ class TableLocation extends Component {
                     <tr key={index} className="text-center">
                       <td>{item.nameLocation}</td>
                       <td>{item.address}</td>
-                      {/* <td>
-                        {(() => {
-                          switch (item.status) {
-                            case 0:
-                              return (
-                                <div>
-                                  <i className="fas fa-times text-danger" />
-                                  &nbsp;
-                                  <FormattedMessage id="table.disable" />
-                                </div>
-                              );
-                            case 1:
-                              return (
-                                <div>
-                                  <i className="fas fa-check text-success" />
-                                  &nbsp;
-                                  <FormattedMessage id="table.enable" />
-                                </div>
-                              );
-                            default:
-                          }
-                        })()}
-                      </td> */}
                     </tr>
                   );
                 })

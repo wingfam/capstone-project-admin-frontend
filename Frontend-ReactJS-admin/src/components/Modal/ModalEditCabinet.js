@@ -22,6 +22,7 @@ class ModalEditCabinet extends Component {
       status: 0,
 
       showSpinner: false,
+      isShowCode: false
     };
   }
 
@@ -154,12 +155,28 @@ class ModalEditCabinet extends Component {
 
                 <input
                   className="form-input-code"
-                  type="text"
+                  type={this.state.isShowCode ? "text" : "password"}
                   onChange={(event) => {
                     this.handleOnChangeInput(event, "masterCode");
                   }}
                   value={this.state.masterCode}
                 />
+                <span
+                  onMouseDown={() => {
+                    this.setState({ isShowCode: true })
+                  }}
+                  onMouseUp={() => {
+                    this.setState({ isShowCode: false });
+                  }}
+                >
+                  <i
+                    className={
+                      this.state.isShowCode
+                        ? "far fa-eye"
+                        : "far fa-eye-slash"
+                    }
+                  ></i>
+                </span>
               </div>
             </div>
 
