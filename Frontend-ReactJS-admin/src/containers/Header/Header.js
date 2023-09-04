@@ -49,11 +49,6 @@ class Header extends Component {
   render() {
     let titleHeader = this.props.data;
     let language = this.props.language;
-
-    // let arrNoti = this.state.arrNotis;
-    // const arrNotis = arrNoti.map(obj => obj.status)
-    //   .reduce((accumulator, current) => accumulator + current, 0);
-
     const { intl } = this.props;
     return (
       <div className="header-container">

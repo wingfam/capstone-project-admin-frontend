@@ -231,23 +231,25 @@ class TableOrder extends Component {
             </table>
           </div>
         </div>
-        <Pagination style={{ display: paginatedData.length === 0 ? "none" : "" }} className="pagination-order">
-          <PaginationItem disabled={currentPage === 0} className="pagination-order-item">
-            <PaginationLink
-              onClick={e => this.handleClick(e, currentPage - 1)}
-              previous
-              href="#"
-            />
-          </PaginationItem>
-          {pageNumbers}
-          <PaginationItem disabled={currentPage >= pageNumbers.length - 1}>
-            <PaginationLink
-              onClick={e => this.handleClick(e, currentPage + 1)}
-              next
-              href="#"
-            />
-          </PaginationItem>
-        </Pagination>
+        <div className="pagination-order">
+          <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }}>
+            <PaginationItem disabled={currentPage === 0} >
+              <PaginationLink
+                onClick={e => this.handleClick(e, currentPage - 1)}
+                previous
+                href="#"
+              />
+            </PaginationItem>
+            {pageNumbers}
+            <PaginationItem disabled={currentPage >= pageNumbers.length - 1}>
+              <PaginationLink
+                onClick={e => this.handleClick(e, currentPage + 1)}
+                next
+                href="#"
+              />
+            </PaginationItem>
+          </Pagination>
+        </div>
       </div>
     );
   }

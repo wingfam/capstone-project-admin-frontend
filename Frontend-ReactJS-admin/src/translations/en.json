@@ -53,7 +53,8 @@
     "business-name": "Business's name",
     "total-box": "Total box",
     "not-order-processing": "No orders in progress",
-    "not-order-cabinet": "No order to display yet",
+    "not-order": "No orders to display yet",
+    "not-order-cabinet": "No cabinet to display yet",
     "not-box": "No cabinets to display yet",
     "message-title": "Title",
     "message-body": "Message",
@@ -138,7 +139,8 @@
     "unlock-box-success": "Unlock box succeeds!",
     "create-business-success": "Create business succeeds",
     "create-business-error": "Create business not succeeds",
-    "blank-createDate": "Please select a search period"
+    "blank-createDate": "Please select a search period",
+    "error-mastercode": "Please enter all 6 numbers for the master code"
   },
 
   "warning": {

@@ -5,6 +5,7 @@ import "firebase/database";
 import "./TableCabinetLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import { getCabinetLogByCabinetIdService } from "../../services/cabinetService";
 
 class TableCabinetLog extends Component {
@@ -13,29 +14,14 @@ class TableCabinetLog extends Component {
     this.state = {
       arrCabinetLog: [],
       isAvailable: "",
+      currentPage: 0,
       showSpinner: true,
-      // cabinetId: "",
     };
     let database = firebase.database();
     this.usersRef = database.ref("CabinetLog");
   }
 
   async componentDidMount() {
-    // this.usersRef.on("value", (snapshot) => {
-    //   const arrCabinetLog = snapshot.val();
-    //   const dataArray = Object.values(arrCabinetLog);
-    //   this.setState({
-    //     arrCabinetLog: dataArray,
-    //     cabinetId: this.props.id,
-    //   });
-    // });
-    // this.usersRef.on("child_added", (snapshot) => {
-    //   const newCabinetLog = snapshot.val();
-    //   this.setState((prevState) => ({
-    //     arrCabinetLog: [...prevState.arrCabinetLog, newCabinetLog],
-    //   }));
-    // });
-    // this.setState({ showSpinner: false });
     await this.getCabinetLog();
   }
 
@@ -48,13 +34,36 @@ class TableCabinetLog extends Component {
     });
   };
 
-  // componentWillUnmount() {
-  //   this.usersRef.off();
-  // }
+  handleClick = (e, index) => {
+    e.preventDefault();
+    this.setState({
+      currentPage: index
+    });
+  };
 
   render() {
     const arrCabinetLog = this.state.arrCabinetLog;
-    console.log("Check pro:", this.props, arrCabinetLog);
+    const pageSize = 7;
+    const totalItem = this.state.arrCabinetLog.length;
+    // const data = arrCabinetLog.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
+    const currentPage = this.state.currentPage;
+    let pageNumbers = []
+    console.log(totalItem, currentPage);
+
+    for (let i = 0; i < Math.ceil(totalItem / pageSize); i++) {
+      pageNumbers.push(
+        <PaginationItem key={i} active={currentPage === i ? true : false}>
+          <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    const paginatedData = arrCabinetLog.slice(
+      currentPage * pageSize,
+      (currentPage + 1) * pageSize
+    );
     return (
       <div className="table-box-container">
         <div className="boxs-table mt-3 mx-1">
@@ -85,16 +94,15 @@ class TableCabinetLog extends Component {
                   margin={10}
                   speedMultiplier={0.75}
                 />
-              ) : arrCabinetLog.length === 0 ? (
+              ) : paginatedData.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="fs-4">
                     <FormattedMessage id="table.not-box" />
                   </td>
                 </tr>
               ) : (
-                arrCabinetLog &&
-                arrCabinetLog
-                  // .filter((newArr) => newArr.cabinetId === this.props.id)
+                paginatedData &&
+                paginatedData
                   .map((item, index) => {
                     return (
                       <tr key={index}>
@@ -116,6 +124,25 @@ class TableCabinetLog extends Component {
               )}
             </tbody>
           </table>
+        </div>
+        <div className="pagination-cabinet-log">
+          <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} >
+            <PaginationItem disabled={currentPage === 0} className="pagination-cabinet-log-item">
+              <PaginationLink
+                onClick={e => this.handleClick(e, currentPage - 1)}
+                previous
+                href="#"
+              />
+            </PaginationItem>
+            {pageNumbers}
+            <PaginationItem disabled={currentPage >= pageNumbers.length - 1}>
+              <PaginationLink
+                onClick={e => this.handleClick(e, currentPage + 1)}
+                next
+                href="#"
+              />
+            </PaginationItem>
+          </Pagination>
         </div>
       </div>
     );

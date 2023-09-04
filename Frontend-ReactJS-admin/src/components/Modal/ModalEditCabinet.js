@@ -5,6 +5,7 @@ import "./ModalEditCabinet.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { getLocationByBusinessService } from "../../services/locationService";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 class ModalEditCabinet extends Component {
   constructor(props) {
@@ -76,8 +77,22 @@ class ModalEditCabinet extends Component {
   };
 
   handleSaveCabinet = () => {
-    this.props.editCabinet(this.state);
-    this.setState({ showSpinner: true });
+    if (this.state.masterCode === 6) {
+      this.props.editCabinet(this.state);
+      this.setState({ showSpinner: true });
+    }
+    else {
+      toast.error(<FormattedMessage id="toast.error-mastercode" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   render() {

@@ -230,13 +230,13 @@ class TableBusiness extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.phone" />
                 </th>
-                <th className="col-6">
+                <th className="col-4">
                   <FormattedMessage id="table.address" />
                 </th>
                 <th className="col-2">
                   <FormattedMessage id="table.status-business" />
                 </th>
-                <th className="col-1">
+                <th className="col-2">
                   <FormattedMessage id="table.action" />
                 </th>
               </tr>

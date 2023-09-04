@@ -47,7 +47,7 @@
     "ban": "Cấm",
     "size": "Kích thước",
     "location": "Địa điểm",
-    "master-code": "Mã admin",
+    "master-code": "Mã master",
     "available-code": "Trạng thái mã admin",
     "store-good": "Có hàng",
     "store-not-good": "Không có hàng",
@@ -55,7 +55,8 @@
     "business-name": "Tên doanh nghiệp",
     "total-box": "Số lượng hộp",
     "not-order-processing": "Không có đơn đặt hàng đang thực hiện",
-    "not-order-cabinet": "Chưa có đơn để hiển thị",
+    "not-order": "Chưa có đơn đặt hàng để hiển thị",
+    "not-order-cabinet": "Chưa có tủ để hiển thị",
     "not-box": "Chưa có tủ để hiển thị",
     "message-title": "Tiêu đề",
     "message-body": "Nội dung",
@@ -103,7 +104,7 @@
     "find-cabinet": "---Tủ---",
     "find-business": "---Doanh nghiệp---",
     "choose-business": "---Chọn doanh nghiệp---",
-    "choose-location": "---Chọn doanh nghiệp---",
+    "choose-location": "---Chọn địa điểm---",
     "from": "Từ",
     "to": "Đến"
   },
@@ -139,7 +140,8 @@
     "login-error": "Đăng nhập thất bại",
     "create-business-success": "Thêm doanh nghiệp thành công",
     "create-business-error": "Thêm doanh nghiệp không thành công",
-    "blank-createDate": "Vui lòng chọn khoảng thời gian tìm kiếm"
+    "blank-createDate": "Vui lòng chọn khoảng thời gian tìm kiếm",
+    "error-mastercode": "Vui lòng nhập đủ 6 chứ số cho master code"
   },
 
   "warning": {

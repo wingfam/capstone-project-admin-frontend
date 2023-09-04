@@ -5,7 +5,8 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { ClipLoader } from "react-spinners";
 import { emitter } from "../../utils/emitter";
 import { getAllBusinessService } from "../../services/businessService";
-import { getAllLocationsService, getLocationByBusinessService } from "../../services/locationService";
+import { getLocationByBusinessService } from "../../services/locationService";
+import { toast } from "react-toastify";
 
 class ModalAddCabinet extends Component {
     constructor(props) {
@@ -14,10 +15,13 @@ class ModalAddCabinet extends Component {
             businessId: "",
             locationId: "",
             cabinetName: "",
+            masterCode: "",
+            masterCodeStatus: "",
             arrBusiness: [],
             arrLocation: [],
 
             showSpinner: false,
+            isShowCode: false
         };
         this.listenToEmitter();
     }
@@ -32,21 +36,19 @@ class ModalAddCabinet extends Component {
     };
 
     async componentDidMount() {
-        // await this.getAllBusiness()
-        await this.getLocationByBusiness()
+        await this.getAllBusiness()
     }
 
-    getABusiness = async () => {
-        // let response = await getAllBusinessService();
-        // this.setState({
-        //     arrBusiness: response
-        // })
+    getAllBusiness = async () => {
+        let response = await getAllBusinessService();
+        this.setState({
+            arrBusiness: response
+        })
 
     }
 
-    getLocationByBusiness = async () => {
-        // console.log("Check businessId:", event.target.value);
-        let response = await getAllLocationsService();
+    getLocationByBusiness = async (event) => {
+        let response = await getLocationByBusinessService(event.target.value);
         this.setState({
             arrLocation: response
         })
@@ -65,14 +67,37 @@ class ModalAddCabinet extends Component {
         console.log(this.state.locationId);
     };
 
+    handleOnChangeCodeStatus = (id) => {
+        let copyState = { ...this.state };
+        copyState[id] = document.getElementById("changeAvailable").checked ? 1 : 0;
+        this.setState({
+            ...copyState,
+        });
+        console.log("check:", this.state.masterCodeStatus);
+    };
+
     handleSaveCabinet = () => {
-        // this.setState({ showSpinner: true });
-        // this.props.createCabinet(this.state);
-        console.log("Check:", this.state);
+        if (this.state.masterCode.length === 6) {
+            // this.setState({ showSpinner: true });
+            // this.props.createCabinet(this.state);
+            console.log("Check:", this.state);
+            alert("data good")
+        }
+        else {
+            toast.error(<FormattedMessage id="toast.error-mastercode" />, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     };
 
     render() {
-        // console.log("abc", this.state.businessId, this.state.arrLocation);
         const { intl } = this.props
         return (
             <Modal
@@ -80,7 +105,7 @@ class ModalAddCabinet extends Component {
                 toggle={() => {
                     this.toggle();
                 }}
-                className={"modal-create-business-container"}
+                className={"modal-create-cabinet-container"}
                 size="lg"
                 centered
             >
@@ -92,7 +117,7 @@ class ModalAddCabinet extends Component {
                     <FormattedMessage id="common.add-cabinet" />
                 </ModalHeader>
                 <ModalBody>
-                    <div className="modal-create-business-body">
+                    <div className="modal-create-cabinet-body">
                         <div className="input-container">
                             <label>
                                 <FormattedMessage id="table.name-cabinet" />
@@ -109,11 +134,11 @@ class ModalAddCabinet extends Component {
                             <label>
                                 <FormattedMessage id="table.business-name" />
                             </label>
-                            {/* <select
+                            <select
                                 className="form-control form-select"
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event, "businessId");
-                                    // this.getLocationByBusiness(event);
+                                    this.getLocationByBusiness(event);
                                 }}
                                 value={this.state.businessId}
                             >
@@ -124,21 +149,13 @@ class ModalAddCabinet extends Component {
                                     this.state.arrBusiness
                                         .map((item, index) => {
                                             return (
-                                                <optgroup label={item.businessName} key={index} value={item.id}>
-                                                    {(this.state.arrLocation &&
-                                                        this.state.arrLocation
-                                                            .filter((a) => a.businessId === item.id)
-                                                            .map((item, index) => {
-                                                                return (
-                                                                    <option value={item.id} key={index}>
-                                                                        {item.nameLocation}
-                                                                    </option>
-                                                                );
-                                                            }))}
-                                                </optgroup>
+                                                <option value={item.id} key={index}>
+                                                    {item.businessName}
+                                                </option>
                                             );
-                                        })}
-                            </select> */}
+                                        })
+                                }
+                            </select>
                         </div>
 
                         <div className="input-address-container">
@@ -150,7 +167,7 @@ class ModalAddCabinet extends Component {
                                 onChange={(event) => {
                                     this.handleOnChangeInput(event, "locationId");
                                 }}
-                                // disabled={this.state.arrLocation.length !== 0 ? "" : "disabled"}
+                                disabled={this.state.arrLocation.length !== 0 ? "" : "disabled"}
                                 value={this.state.locationId}
                             >
                                 <option selected>{intl.formatMessage({
@@ -158,7 +175,7 @@ class ModalAddCabinet extends Component {
                                 })} </option>
                                 {this.state.arrLocation &&
                                     this.state.arrLocation
-                                        // .filter((a) => a.businessId === this.state.businessId)
+                                        .filter((a) => a.businessId === this.state.businessId)
                                         .map((item, index) => {
                                             return (
                                                 <option value={item.id} key={index} businessId={item.businessId}>
@@ -167,6 +184,49 @@ class ModalAddCabinet extends Component {
                                             );
                                         })}
                             </select>
+                        </div>
+
+                        <div className="input-container">
+                            <label>
+                                <FormattedMessage id="table.master-code" />
+                            </label>
+                            <div className="input-container-code form-check">
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id="changeAvailable"
+                                    onClick={() => {
+                                        this.handleOnChangeCodeStatus("masterCodeStatus");
+                                    }}
+                                    value={this.state.masterCodeStatus}
+                                    defaultChecked
+                                />
+
+                                <input
+                                    className="form-input-code"
+                                    type={this.state.isShowCode ? "text" : "password"}
+                                    onChange={(event) => {
+                                        this.handleOnChangeInput(event, "masterCode");
+                                    }}
+                                    value={this.state.masterCode}
+                                />
+                                <span
+                                    onMouseDown={() => {
+                                        this.setState({ isShowCode: true })
+                                    }}
+                                    onMouseUp={() => {
+                                        this.setState({ isShowCode: false });
+                                    }}
+                                >
+                                    <i
+                                        className={
+                                            this.state.isShowCode
+                                                ? "far fa-eye"
+                                                : "far fa-eye-slash"
+                                        }
+                                    ></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </ModalBody>
