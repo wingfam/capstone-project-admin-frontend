@@ -18,6 +18,7 @@ import ModalCabinetLog from "../Modal/ModalCabinetLog";
 import FilterBusiness from "../Filter/Business/FilterBusiness";
 import { emitter } from "../../utils/emitter";
 import ModalAddCabinet from "../Modal/ModalAddCabinet";
+import _ from "lodash";
 
 class TableCabinet extends Component {
   constructor(props) {
@@ -42,9 +43,12 @@ class TableCabinet extends Component {
 
   getCabinetsFromReact = async () => {
     let response = await getAllCabinets();
-    this.setState({
-      arrCabinets: response,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        arrCabinets: response,
+      });
+    }
   };
 
   toggleCabinetAddModal = () => {

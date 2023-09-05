@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import { emitter } from "../../utils/emitter";
 import ModalAddLocation from "../Modal/ModalAddLocation";
+import _ from "lodash";
 
 class TableLocation extends Component {
   constructor(props) {
@@ -29,9 +30,12 @@ class TableLocation extends Component {
     let response = await getLocationByBusinessService(
       window.location.href.split("/")[5]
     );
-    this.setState({
-      arrLocation: response,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        arrLocation: response,
+      });
+    }
   };
 
   createNewLocation = async (location) => {

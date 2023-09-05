@@ -13,6 +13,7 @@ import ModalUnBan from "../Modal/ModalUnBan";
 import { SyncLoader } from "react-spinners";
 import ModalAddBusiness from "../Modal/ModalAddBusiness";
 import { emitter } from "../../utils/emitter";
+import _ from "lodash";
 
 class TableBusiness extends Component {
   constructor(props) {
@@ -33,9 +34,12 @@ class TableBusiness extends Component {
 
   getBusinessFromReact = async () => {
     let response = await getAllBusinessService();
-    this.setState({
-      arrBusiness: response,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        arrBusiness: response,
+      });
+    }
   };
 
   toggleBanModal = () => {

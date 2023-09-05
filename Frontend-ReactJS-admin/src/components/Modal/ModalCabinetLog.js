@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import "./ModalCabinetLog.scss";
-// import _ from "lodash";
+import _ from "lodash";
 import TableCabinetLog from "../Table/TableCabinetLog";
 
 class ModalCabinetLog extends Component {
@@ -18,12 +18,14 @@ class ModalCabinetLog extends Component {
 
   componentDidMount() {
     let cabinetLog = this.props.currentCabinetLog;
-    console.log("Check prop modal:", this.props);
-    this.setState({
-      cabinetName: cabinetLog.nameCabinet,
-      cabinetId: cabinetLog.id,
-      businessName: cabinetLog.Business.businessName,
-    });
+    if (cabinetLog && !_.isEmpty(cabinetLog)) {
+
+      this.setState({
+        cabinetName: cabinetLog.nameCabinet,
+        cabinetId: cabinetLog.id,
+        businessName: cabinetLog.Business.businessName,
+      });
+    }
   }
 
   toggle = () => {

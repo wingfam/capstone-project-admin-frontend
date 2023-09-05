@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import "./ModalBookingOrderLog.scss";
-// import _ from "lodash";
-// import TableBookingOrderLog from "../Table/TableBookingOrderLog";
+import _ from "lodash";
 import { getBookingOrderByBookingIdService, getBookingOrderSearchService } from "../../services/bookingOrder";
 import moment from "moment";
 import { SyncLoader } from "react-spinners";
@@ -29,16 +28,22 @@ class ModalBookingOrderLog extends Component {
   getBookingOrderByIdFromReact = async () => {
     let bookingOrderLog = this.props.currentBookingOrderLog;
     let response = await getBookingOrderSearchService(bookingOrderLog.id);
-    this.setState({
-      cabinetName: response.Box.Cabinet.nameCabinet,
-      boxName: response.Box.nameBox,
-      bookingId: response.id,
-      businessName: response.Business.businessName,
-    });
-    let res = await getBookingOrderByBookingIdService(this.state.bookingId);
-    this.setState({
-      arrBookingOrderLog: res,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        cabinetName: response.Box.Cabinet.nameCabinet,
+        boxName: response.Box.nameBox,
+        bookingId: response.id,
+        businessName: response.Business.businessName,
+      });
+      let res = await getBookingOrderByBookingIdService(this.state.bookingId);
+      if (res && !_.isEmpty(res)) {
+
+        this.setState({
+          arrBookingOrderLog: res,
+        });
+      }
+    }
   };
 
   toggle = () => {
@@ -46,7 +51,6 @@ class ModalBookingOrderLog extends Component {
   };
 
   render() {
-    // console.log("abc", this.state.arrBookingOrderLog, this.state);
     const arrBookingOrderLog = this.state.arrBookingOrderLog;
     return (
       <Modal

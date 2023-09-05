@@ -29,8 +29,6 @@ class ModalAddBusiness extends Component {
     });
   };
 
-  componentDidMount() { }
-
   toggle = () => {
     this.props.toggleFromParent();
   };

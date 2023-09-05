@@ -4,6 +4,7 @@ import "./TableBookingOrderLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
 import { getBookingOrderByBookingIdService } from "../../services/bookingOrder";
+import _ from "lodash";
 
 class TableBookingOrderLog extends Component {
   constructor(props) {
@@ -21,11 +22,13 @@ class TableBookingOrderLog extends Component {
   }
 
   getBookingOrderByIdFromReact = async () => {
-    console.log("Check", this.props);
     let response = await getBookingOrderByBookingIdService(this.props.id);
-    this.setState({
-      arrBookingOrderLog: response,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        arrBookingOrderLog: response,
+      });
+    }
   };
 
   render() {

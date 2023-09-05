@@ -8,7 +8,9 @@ import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
 import ModalBookingOrderLog from "../Modal/ModalBookingOrderLog";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+// import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import _ from "lodash";
+import { Pagination, PaginationItem } from "@mui/material";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -24,7 +26,9 @@ class TableOrder extends Component {
       dateOld: moment(new Date().setDate(25)).format(
         "MM-DD-YYYY"
       ),
+
       currentPage: 0,
+      pageStart: 1
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
@@ -52,9 +56,12 @@ class TableOrder extends Component {
 
   getBookingOrderFromReact = async () => {
     let res = await filterBookingOrderService("", "", this.state.dateOld, this.state.dateToday)
-    this.setState({
-      arrBookingOrder: res,
-    });
+    if (res && !_.isEmpty(res)) {
+      this.setState({
+        arrBookingOrder: res,
+      });
+    }
+
   };
 
   componentWillUnmount() {
@@ -83,10 +90,10 @@ class TableOrder extends Component {
     })
   };
 
-  handleClick = (e, index) => {
+  handleChange = (e, index) => {
     e.preventDefault();
     this.setState({
-      currentPage: index
+      pageStart: index
     });
   };
 
@@ -102,9 +109,9 @@ class TableOrder extends Component {
     for (let i = 0; i < Math.ceil(totalItem / pageSize); i++) {
       pageNumbers.push(
         <PaginationItem key={i} active={currentPage === i ? true : false}>
-          <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
+          {/* <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
             {i + 1}
-          </PaginationLink>
+          </PaginationLink> */}
         </PaginationItem>
       );
     }
@@ -232,12 +239,14 @@ class TableOrder extends Component {
           </div>
         </div>
         <div className="pagination-order">
-          <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }}>
-            <PaginationItem disabled={currentPage === 0} >
+          {/* <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} className="justify-content-center"
+            listClassName=" justify-content-center" shape="rounded">
+            <PaginationItem disabled={currentPage === 0} shape="rounded">
               <PaginationLink
                 onClick={e => this.handleClick(e, currentPage - 1)}
                 previous
                 href="#"
+                shape="rounded"
               />
             </PaginationItem>
             {pageNumbers}
@@ -248,7 +257,18 @@ class TableOrder extends Component {
                 href="#"
               />
             </PaginationItem>
-          </Pagination>
+          </Pagination> */}
+          <Pagination count={pageNumbers.length}
+            onChange={this.handleChange}
+            renderItem={(currentPage) => (
+              <PaginationItem
+                // components={{ 
+                //     previous, 
+                //     next: ArrowForwardIcon 
+                // }}
+                {...currentPage}
+              />
+            )} />
         </div>
       </div>
     );

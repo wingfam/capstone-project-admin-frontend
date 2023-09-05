@@ -68,13 +68,13 @@
   }
 
   .pagination-cabinet-log {
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    color: $colormain;
-    ul {
+    p {
+      margin-top: 15px;
+    }
+    p,
+    div {
+      font-size: $base-size;
+      // margin-top: 10px;
     }
   }
 }

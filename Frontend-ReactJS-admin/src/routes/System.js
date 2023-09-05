@@ -7,7 +7,6 @@ import Order from "../views/Order";
 import Dashboard from "../views/Dashboard";
 import Notification from "../views/Notification";
 import DetailBusiness from "../views/DetailBusiness";
-import History from "../views/History";
 import Box from "../views/Box";
 import BusinessManage from "../views/BusinessManage";
 
@@ -25,7 +24,6 @@ class System extends Component {
               <Route path="/system/notification" component={Notification} />
               <Route path="/system/business-manage" component={BusinessManage} />
               <Route path="/system/business-detail/:id" component={DetailBusiness} />
-              <Route path="/system/history" component={History} />
               <Route path="/system/box" component={Box} />
               <Route
                 component={() => {

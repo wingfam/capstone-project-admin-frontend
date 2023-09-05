@@ -7,6 +7,7 @@ import "./TableBox.scss";
 import { toast } from "react-toastify";
 import { editBox } from "../../services/boxService";
 import { SyncLoader } from "react-spinners";
+import _ from "lodash";
 
 class TableBox extends Component {
   constructor(props) {
@@ -22,11 +23,14 @@ class TableBox extends Component {
 
   async componentDidMount() {
     let response = await getACabinet(window.location.href.split("/")[5]);
-    this.setState({
-      cabinetName: response.nameCabinet,
-      cabinetLocation: response.Location.nameLocation,
-      cabinetStatus: response.status,
-    });
+    if (response && !_.isEmpty(response)) {
+
+      this.setState({
+        cabinetName: response.nameCabinet,
+        cabinetLocation: response.Location.nameLocation,
+        cabinetStatus: response.status,
+      });
+    }
 
     this.usersRef.on("value", (snapshot) => {
       const arrBox = snapshot.val();
