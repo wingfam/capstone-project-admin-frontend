@@ -37,8 +37,14 @@ const unavailableCabinetService = (cabinetId) => {
 };
 
 const addDisableService = (cabinetId) => {
-  return axios.post(`/api/v1/cabinetLog/add-disable-log?cabinetId=${cabinetId}`);
+  return axios.post(
+    `/api/v1/cabinetLog/add-disable-log?cabinetId=${cabinetId}`
+  );
 };
+const addCreateService = (cabinetId) => {
+  return axios.post(`/api/v1/cabinetLog/add-create-log?cabinetId=${cabinetId}`);
+};
+
 const addUpdateService = (cabinetId) => {
   return axios.post(`/api/v1/cabinetLog/add-update-log?cabinetId=${cabinetId}`);
 };
@@ -56,5 +62,6 @@ export {
   getCabinetByBusiness,
   getCabinetLogByCabinetIdService,
   addDisableService,
-  addUpdateService
+  addUpdateService,
+  addCreateService,
 };

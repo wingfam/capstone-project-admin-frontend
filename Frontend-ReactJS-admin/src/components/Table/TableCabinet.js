@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
+  addCreateService,
   addDisableService,
   addUpdateService,
   createNewCabinetService,
@@ -84,7 +85,7 @@ class TableCabinet extends Component {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
         await this.getCabinetsFromReact();
-        await addUpdateService(cabinet.id)
+        await addUpdateService(cabinet.id);
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
           autoClose: 3000,
@@ -99,7 +100,6 @@ class TableCabinet extends Component {
           isOpenModalEditCabinet: false,
         });
       } else {
-        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
           autoClose: 3000,
@@ -153,10 +153,10 @@ class TableCabinet extends Component {
 
   createNewCabinet = async (cabinet) => {
     try {
-      console.log(cabinet);
       let response = await createNewCabinetService(cabinet);
       if (response && response.errCode === 0) {
         await this.getCabinetsFromReact();
+        await addCreateService(cabinet.id);
         this.setState({
           isOpenModalAddCabinet: false,
         });
@@ -228,7 +228,7 @@ class TableCabinet extends Component {
           },
         },
       });
-      await addDisableService(cabinet.id)
+      await addDisableService(cabinet.id);
       this.getCabinetsFromReact();
     } catch (e) {
       console.log(e);
@@ -278,9 +278,7 @@ class TableCabinet extends Component {
             <FormattedMessage id="common.add-cabinet" />
           </button>
         </div>
-        <div>
-
-        </div>
+        <div></div>
         <div className="cabinets-table mt-3 mx-1">
           <table className="cabinets">
             <tbody>

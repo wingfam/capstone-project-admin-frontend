@@ -19,12 +19,9 @@ class TableOrder extends Component {
       arrBookingStatus: [],
       isOpenModalBookingOrderLog: false,
       showSpinner: true,
-      dateToday: moment(new Date()).format(
-        "MM-DD-YYYY"
-      ),
-      dateOld: moment(new Date().setDate(25)).format(
-        "MM-DD-YYYY"
-      ),
+      showEllip: true,
+      dateToday: moment(new Date()).format("MM-DD-YYYY"),
+      dateOld: moment(new Date()).format("MM-DD-YYYY"),
 
       currentPage: 0,
       dataPerPage: 7,
@@ -54,13 +51,17 @@ class TableOrder extends Component {
   }
 
   getBookingOrderFromReact = async () => {
-    let res = await filterBookingOrderService("", "", this.state.dateOld, this.state.dateToday)
+    let res = await filterBookingOrderService(
+      "",
+      "",
+      "08-22-2023",
+      "08-25-2023"
+    );
     if (res && !_.isEmpty(res)) {
       this.setState({
         arrBookingOrder: res,
       });
     }
-
   };
 
   componentWillUnmount() {
@@ -81,51 +82,62 @@ class TableOrder extends Component {
   };
 
   doFilterOrder = async (boxId, businessId, fromDate, toDate) => {
-    this.setState({ showSpinner: true })
-    let res = await filterBookingOrderService(boxId, businessId, fromDate, toDate)
+    this.setState({ showSpinner: true });
+    let res = await filterBookingOrderService(
+      boxId,
+      businessId,
+      fromDate,
+      toDate
+    );
     this.setState({
       arrBookingOrder: res,
-      showSpinner: false
-    })
+      showSpinner: false,
+    });
   };
 
   handleClick = (e, index) => {
     e.preventDefault();
     this.setState({
-      currentPage: index
+      currentPage: index,
     });
   };
-
   render() {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
-    const data = arrBookingOrder.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
+    const data = arrBookingOrder.sort((a, b) =>
+      a.createDate > b.createDate ? -1 : 1
+    );
     const dataPerPage = 7;
     const pageNumbers = [];
     for (let i = 0; i < Math.ceil(data.length / dataPerPage); i++) {
       pageNumbers.push(i);
     }
-    let start = 1, end = pageNumbers.length;
+    let start = 1,
+      end = pageNumbers.length;
     if (this.state.currentPage - 2 >= 0) {
-      start = this.state.currentPage - 1;
+      start = this.state.currentPage;
     }
     if (this.state.currentPage + 2 < pageNumbers.length) {
       end = this.state.currentPage + 2;
     }
-    console.log(this.state.currentPage);
     const paginatedData = data.slice(
       this.state.currentPage * dataPerPage,
       (this.state.currentPage + 1) * dataPerPage
     );
     return (
       <div className="table-orders-container">
-        {this.state.isOpenModalBookingOrderLog && (<ModalBookingOrderLog
-          isOpen={this.state.isOpenModalBookingOrderLog}
-          toggleFromParent={this.toggleBookingOrderLogModal}
-          currentBookingOrderLog={this.state.bookingLog}
-        />)}
+        {this.state.isOpenModalBookingOrderLog && (
+          <ModalBookingOrderLog
+            isOpen={this.state.isOpenModalBookingOrderLog}
+            toggleFromParent={this.toggleBookingOrderLogModal}
+            currentBookingOrderLog={this.state.bookingLog}
+          />
+        )}
 
-        <div className="card card-container" style={{ width: "100%", height: "500px" }}>
+        <div
+          className="card card-container"
+          style={{ width: "100%", height: "500px" }}
+        >
           <div>
             <FilterOrder
               currentFilterOrder={this.state.filterOrder}
@@ -162,12 +174,15 @@ class TableOrder extends Component {
                   margin={10}
                   speedMultiplier={0.75}
                 />
-              ) : (paginatedData.length === 0 ? (<tr>
-                <td colSpan="6" className="fs-4">
-                  <FormattedMessage id="table.not-order-cabinet" />
-                </td>
-              </tr>) : (
-                paginatedData && paginatedData.map((item, index) => {
+              ) : paginatedData.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="fs-4">
+                    <FormattedMessage id="table.not-order-cabinet" />
+                  </td>
+                </tr>
+              ) : (
+                paginatedData &&
+                paginatedData.map((item, index) => {
                   return (
                     <tbody>
                       <tr key={index} className="text-center">
@@ -231,27 +246,41 @@ class TableOrder extends Component {
                     </tbody>
                   );
                 })
-              ))}
+              )}
             </table>
           </div>
         </div>
         <div className="pagination-order">
-          <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} className="justify-content-center"
-            listClassName=" justify-content-center">
-            <Pagination.Prev onClick={e => this.handleClick(e, this.state.currentPage - 1)} disabled={this.state.currentPage === 0} />
-            {start !== 1 && <Pagination.Ellipsis />}
+          <Pagination
+            style={{
+              display: this.state.showSpinner
+                ? "none"
+                : paginatedData.length === 0
+                ? "none"
+                : "",
+            }}
+            className="justify-content-center"
+            listclassname=" justify-content-center"
+          >
+            <Pagination.Prev
+              onClick={(e) => this.handleClick(e, this.state.currentPage - 1)}
+              disabled={this.state.currentPage === 0}
+            />
+            {start !== 1 && <Pagination.Ellipsis disabled />}
             {pageNumbers.slice(start - 1, end).map((number) => (
               <Pagination.Item
                 key={number}
-                onClick={e => this.handleClick(e, number)}
+                onClick={(e) => this.handleClick(e, number)}
                 active={this.state.currentPage === number}
-                shape="rounded"
               >
                 {number + 1}
               </Pagination.Item>
             ))}
-            {end !== pageNumbers.length && <Pagination.Ellipsis />}
-            <Pagination.Next onClick={e => this.handleClick(e, this.state.currentPage + 1)} disabled={this.state.currentPage >= pageNumbers.length - 1} />
+            {end !== pageNumbers.length && <Pagination.Ellipsis disabled />}
+            <Pagination.Next
+              onClick={(e) => this.handleClick(e, this.state.currentPage + 1)}
+              disabled={this.state.currentPage >= pageNumbers.length - 1}
+            />
           </Pagination>
         </div>
       </div>
