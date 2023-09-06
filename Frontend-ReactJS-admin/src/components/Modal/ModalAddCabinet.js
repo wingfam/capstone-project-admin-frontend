@@ -14,9 +14,9 @@ class ModalAddCabinet extends Component {
         this.state = {
             businessId: "",
             locationId: "",
-            cabinetName: "",
-            masterCode: "",
-            masterCodeStatus: "",
+            nameCabinet: "",
+            masterCode: "123456",
+            // masterCodeStatus: "true",
             arrBusiness: [],
             arrLocation: [],
 
@@ -67,21 +67,18 @@ class ModalAddCabinet extends Component {
         console.log(this.state.locationId);
     };
 
-    handleOnChangeCodeStatus = (id) => {
-        let copyState = { ...this.state };
-        copyState[id] = document.getElementById("changeAvailable").checked ? 1 : 0;
-        this.setState({
-            ...copyState,
-        });
-        console.log("check:", this.state.masterCodeStatus);
-    };
+    // handleOnChangeCodeStatus = (id) => {
+    //     let copyState = { ...this.state };
+    //     copyState[id] = document.getElementById("changeAvailable").checked ? 1 : 0;
+    //     this.setState({
+    //         ...copyState,
+    //     });
+    // };
 
     handleSaveCabinet = () => {
         if (this.state.masterCode.length === 6) {
-            // this.setState({ showSpinner: true });
-            // this.props.createCabinet(this.state);
-            console.log("Check:", this.state);
-            alert("data good")
+            this.setState({ showSpinner: true });
+            this.props.createCabinet(this.state);
         }
         else {
             toast.error(<FormattedMessage id="toast.error-mastercode" />, {
@@ -125,9 +122,9 @@ class ModalAddCabinet extends Component {
                             <input
                                 type="text"
                                 onChange={(event) => {
-                                    this.handleOnChangeInput(event, "cabinetName");
+                                    this.handleOnChangeInput(event, "nameCabinet");
                                 }}
-                                value={this.state.cabinetName}
+                                value={this.state.nameCabinet}
                             />
                         </div>
                         <div className="input-container">
@@ -194,21 +191,14 @@ class ModalAddCabinet extends Component {
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    id="changeAvailable"
-                                    onClick={() => {
-                                        this.handleOnChangeCodeStatus("masterCodeStatus");
-                                    }}
-                                    value={this.state.masterCodeStatus}
-                                    defaultChecked
+                                    checked
                                 />
 
                                 <input
                                     className="form-input-code"
                                     type={this.state.isShowCode ? "text" : "password"}
-                                    onChange={(event) => {
-                                        this.handleOnChangeInput(event, "masterCode");
-                                    }}
                                     value={this.state.masterCode}
+                                    disabled
                                 />
                                 <span
                                     onMouseDown={() => {

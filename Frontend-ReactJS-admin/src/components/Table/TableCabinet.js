@@ -44,7 +44,6 @@ class TableCabinet extends Component {
   getCabinetsFromReact = async () => {
     let response = await getAllCabinets();
     if (response && !_.isEmpty(response)) {
-
       this.setState({
         arrCabinets: response,
       });
@@ -157,12 +156,12 @@ class TableCabinet extends Component {
       console.log(cabinet);
       let response = await createNewCabinetService(cabinet);
       if (response && response.errCode === 0) {
-        await this.getBusinessFromReact();
+        await this.getCabinetsFromReact();
         this.setState({
-          isOpenModalAddBusiness: false,
+          isOpenModalAddCabinet: false,
         });
         emitter.emit("EVENT_CLEAR_MODAL_DATA");
-        toast.success(<FormattedMessage id="toast.create-business-success" />, {
+        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -173,7 +172,7 @@ class TableCabinet extends Component {
           theme: "light",
         });
       } else {
-        toast.error(<FormattedMessage id="toast.create-business-error" />, {
+        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -276,7 +275,7 @@ class TableCabinet extends Component {
             onClick={() => this.handleAddNewCabinet()}
           >
             <i className="fas fa-plus" />{" "}
-            <FormattedMessage id="common.add-business" />
+            <FormattedMessage id="common.add-cabinet" />
           </button>
         </div>
         <div>

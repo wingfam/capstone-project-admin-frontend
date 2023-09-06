@@ -8,9 +8,8 @@ import FilterOrder from "../Filter/FilterOrder";
 import firebase from "firebase/app";
 import "firebase/database";
 import ModalBookingOrderLog from "../Modal/ModalBookingOrderLog";
-// import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import _ from "lodash";
-import { Pagination, PaginationItem } from "@mui/material";
+import { Pagination } from "react-bootstrap";
 
 class TableOrder extends Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class TableOrder extends Component {
       ),
 
       currentPage: 0,
-      pageStart: 1
+      dataPerPage: 7,
     };
     let database = firebase.database();
     this.usersRef = database.ref("BookingOrder");
@@ -90,35 +89,33 @@ class TableOrder extends Component {
     })
   };
 
-  handleChange = (e, index) => {
+  handleClick = (e, index) => {
     e.preventDefault();
     this.setState({
-      pageStart: index
+      currentPage: index
     });
   };
 
   render() {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
-    const pageSize = 7;
-    const totalItem = this.state.arrBookingOrder.length;
     const data = arrBookingOrder.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
-    const currentPage = this.state.currentPage;
-    let pageNumbers = []
-
-    for (let i = 0; i < Math.ceil(totalItem / pageSize); i++) {
-      pageNumbers.push(
-        <PaginationItem key={i} active={currentPage === i ? true : false}>
-          {/* <PaginationLink onClick={e => this.handleClick(e, i)} href="#">
-            {i + 1}
-          </PaginationLink> */}
-        </PaginationItem>
-      );
+    const dataPerPage = 7;
+    const pageNumbers = [];
+    for (let i = 0; i < Math.ceil(data.length / dataPerPage); i++) {
+      pageNumbers.push(i);
     }
-
+    let start = 1, end = pageNumbers.length;
+    if (this.state.currentPage - 2 >= 0) {
+      start = this.state.currentPage - 1;
+    }
+    if (this.state.currentPage + 2 < pageNumbers.length) {
+      end = this.state.currentPage + 2;
+    }
+    console.log(this.state.currentPage);
     const paginatedData = data.slice(
-      currentPage * pageSize,
-      (currentPage + 1) * pageSize
+      this.state.currentPage * dataPerPage,
+      (this.state.currentPage + 1) * dataPerPage
     );
     return (
       <div className="table-orders-container">
@@ -239,36 +236,23 @@ class TableOrder extends Component {
           </div>
         </div>
         <div className="pagination-order">
-          {/* <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} className="justify-content-center"
-            listClassName=" justify-content-center" shape="rounded">
-            <PaginationItem disabled={currentPage === 0} shape="rounded">
-              <PaginationLink
-                onClick={e => this.handleClick(e, currentPage - 1)}
-                previous
-                href="#"
+          <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} className="justify-content-center"
+            listClassName=" justify-content-center">
+            <Pagination.Prev onClick={e => this.handleClick(e, this.state.currentPage - 1)} disabled={this.state.currentPage === 0} />
+            {start !== 1 && <Pagination.Ellipsis />}
+            {pageNumbers.slice(start - 1, end).map((number) => (
+              <Pagination.Item
+                key={number}
+                onClick={e => this.handleClick(e, number)}
+                active={this.state.currentPage === number}
                 shape="rounded"
-              />
-            </PaginationItem>
-            {pageNumbers}
-            <PaginationItem disabled={currentPage >= pageNumbers.length - 1}>
-              <PaginationLink
-                onClick={e => this.handleClick(e, currentPage + 1)}
-                next
-                href="#"
-              />
-            </PaginationItem>
-          </Pagination> */}
-          <Pagination count={pageNumbers.length}
-            onChange={this.handleChange}
-            renderItem={(currentPage) => (
-              <PaginationItem
-                // components={{ 
-                //     previous, 
-                //     next: ArrowForwardIcon 
-                // }}
-                {...currentPage}
-              />
-            )} />
+              >
+                {number + 1}
+              </Pagination.Item>
+            ))}
+            {end !== pageNumbers.length && <Pagination.Ellipsis />}
+            <Pagination.Next onClick={e => this.handleClick(e, this.state.currentPage + 1)} disabled={this.state.currentPage >= pageNumbers.length - 1} />
+          </Pagination>
         </div>
       </div>
     );
