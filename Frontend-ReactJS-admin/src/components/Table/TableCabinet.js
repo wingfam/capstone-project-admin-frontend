@@ -29,6 +29,7 @@ class TableCabinet extends Component {
       isOpenModalCabinetLog: false,
       isOpenModalAddCabinet: false,
       showSpinner: true,
+      showSpinnerModal: true,
 
       code: "",
       cabinetId: "",
@@ -172,16 +173,32 @@ class TableCabinet extends Component {
           theme: "light",
         });
       } else {
-        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        if (response && response.errCode === 1) {
+          toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          this.setState({
+            showSpinnerModal: false
+          })
+        } else {
+          toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       }
     } catch (e) {
       console.log(e);
@@ -259,6 +276,7 @@ class TableCabinet extends Component {
             isOpen={this.state.isOpenModalAddCabinet}
             toggleFromParent={this.toggleCabinetAddModal}
             createCabinet={this.createNewCabinet}
+            showSpinnerModal={this.state.showSpinnerModal}
           />
         )}
         <div className="table-cabinet-content">

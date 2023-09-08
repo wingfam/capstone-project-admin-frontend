@@ -20,7 +20,7 @@ class ModalAddCabinet extends Component {
             arrBusiness: [],
             arrLocation: [],
 
-            showSpinner: false,
+            // showSpinner: false,
             isShowCode: false
         };
         this.listenToEmitter();
@@ -64,24 +64,15 @@ class ModalAddCabinet extends Component {
         this.setState({
             ...copyState,
         });
-        console.log(this.state.locationId);
     };
 
-    // handleOnChangeCodeStatus = (id) => {
-    //     let copyState = { ...this.state };
-    //     copyState[id] = document.getElementById("changeAvailable").checked ? 1 : 0;
-    //     this.setState({
-    //         ...copyState,
-    //     });
-    // };
-
     handleSaveCabinet = () => {
-        if (this.state.masterCode.length === 6) {
-            this.setState({ showSpinner: true });
+        this.setState({ showSpinner: true });
+        if (this.state.masterCode.length === 6 && this.state.businessId !== "" && this.state.locationId !== "") {
             this.props.createCabinet(this.state);
         }
         else {
-            toast.error(<FormattedMessage id="toast.error-mastercode" />, {
+            toast.error(<FormattedMessage id="toast.error-cabinet-info" />, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -91,6 +82,7 @@ class ModalAddCabinet extends Component {
                 progress: undefined,
                 theme: "light",
             });
+            this.setState({ showSpinner: false })
         }
     };
 

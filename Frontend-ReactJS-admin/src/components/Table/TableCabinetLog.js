@@ -21,8 +21,6 @@ class TableCabinetLog extends Component {
 
       showSpinner: true,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref("CabinetLog");
   }
 
   async componentDidMount() {

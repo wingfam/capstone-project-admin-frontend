@@ -143,7 +143,8 @@
     "create-cabinet-success": "Tạo tủ thành công",
     "create-cabinet-error": "Tủ tủ không thành công",
     "blank-createDate": "Vui lòng chọn khoảng thời gian tìm kiếm",
-    "error-mastercode": "Vui lòng nhập đủ 6 chứ số cho master code"
+    "error-mastercode": "Vui lòng nhập đủ 6 chứ số cho master code",
+    "error-cabinet-info": "Vui lòng nhập đủ thông tin"
   },
 
   "warning": {

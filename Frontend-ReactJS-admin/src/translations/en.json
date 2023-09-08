@@ -140,7 +140,8 @@
     "create-business-success": "Create business succeeds",
     "create-business-error": "Create business not succeeds",
     "blank-createDate": "Please select a search period",
-    "error-mastercode": "Please enter all 6 numbers for the master code"
+    "error-mastercode": "Please enter all 6 numbers for the master code",
+    "error-cabinet-info": "Please enter all cabinet's information"
   },
 
   "warning": {
