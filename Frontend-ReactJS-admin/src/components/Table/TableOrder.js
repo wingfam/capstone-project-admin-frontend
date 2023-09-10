@@ -100,23 +100,22 @@ class TableOrder extends Component {
     const arrBookingOrder = this.state.arrBookingOrder;
     const arrBookingStatus = this.state.arrBookingStatus;
     const data = arrBookingOrder.sort((a, b) => (a.createDate > b.createDate ? -1 : 1))
-    const dataPerPage = 7;
     const pageNumbers = [];
-    for (let i = 0; i < Math.ceil(data.length / dataPerPage); i++) {
+    for (let i = 0; i < Math.ceil(data.length / this.state.dataPerPage); i++) {
       pageNumbers.push(i);
     }
     let start = 1, end = pageNumbers.length;
     if (this.state.currentPage - 2 >= 0) {
-      start = this.state.currentPage - 1;
+      start = this.state.currentPage;
     }
     if (this.state.currentPage + 2 < pageNumbers.length) {
       end = this.state.currentPage + 2;
     }
-    console.log(this.state.currentPage);
     const paginatedData = data.slice(
-      this.state.currentPage * dataPerPage,
-      (this.state.currentPage + 1) * dataPerPage
+      this.state.currentPage * this.state.dataPerPage,
+      (this.state.currentPage + 1) * this.state.dataPerPage
     );
+
     return (
       <div className="table-orders-container">
         {this.state.isOpenModalBookingOrderLog && (<ModalBookingOrderLog
@@ -136,7 +135,7 @@ class TableOrder extends Component {
             <table className="orders">
               <thead>
                 <tr>
-                  <th className="col-1">
+                  <th className="col-2">
                     <FormattedMessage id="table.name-cabinet" />
                   </th>
                   <th className="col-2">
@@ -237,7 +236,7 @@ class TableOrder extends Component {
         </div>
         <div className="pagination-order">
           <Pagination style={{ display: this.state.showSpinner ? "none" : paginatedData.length === 0 ? "none" : "" }} className="justify-content-center"
-            listClassName=" justify-content-center">
+            listclassname=" justify-content-center">
             <Pagination.Prev onClick={e => this.handleClick(e, this.state.currentPage - 1)} disabled={this.state.currentPage === 0} />
             {start !== 1 && <Pagination.Ellipsis />}
             {pageNumbers.slice(start - 1, end).map((number) => (

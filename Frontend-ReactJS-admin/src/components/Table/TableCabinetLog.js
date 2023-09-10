@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
-import firebase from "firebase/app";
-import "firebase/database";
 import "./TableCabinetLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";

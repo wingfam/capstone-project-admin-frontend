@@ -16,11 +16,9 @@ class ModalAddCabinet extends Component {
             locationId: "",
             nameCabinet: "",
             masterCode: "123456",
-            // masterCodeStatus: "true",
             arrBusiness: [],
             arrLocation: [],
 
-            // showSpinner: false,
             isShowCode: false
         };
         this.listenToEmitter();
@@ -111,6 +109,7 @@ class ModalAddCabinet extends Component {
                             <label>
                                 <FormattedMessage id="table.name-cabinet" />
                             </label>
+                            <i className="fas fa-asterisk"></i>
                             <input
                                 type="text"
                                 onChange={(event) => {
@@ -123,6 +122,7 @@ class ModalAddCabinet extends Component {
                             <label>
                                 <FormattedMessage id="table.business-name" />
                             </label>
+                            <i className="fas fa-asterisk icon-business-name"></i>
                             <select
                                 className="form-control form-select"
                                 onChange={(event) => {
@@ -151,6 +151,8 @@ class ModalAddCabinet extends Component {
                             <label>
                                 <FormattedMessage id="table.location" />
                             </label>
+                            <i className="fas fa-asterisk"></i>
+
                             <select
                                 className="form-control form-select"
                                 onChange={(event) => {

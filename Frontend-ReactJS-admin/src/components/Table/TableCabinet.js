@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableCabinet.scss";
 import { Link } from "react-router-dom";
@@ -19,12 +19,15 @@ import FilterBusiness from "../Filter/Business/FilterBusiness";
 import { emitter } from "../../utils/emitter";
 import ModalAddCabinet from "../Modal/ModalAddCabinet";
 import _ from "lodash";
+import firebase from "firebase/app";
+import "firebase/database";
 
 class TableCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrCabinets: [],
+      arrStatus: [],
       isOpenModalEditCabinet: false,
       isOpenModalCabinetLog: false,
       isOpenModalAddCabinet: false,
@@ -35,11 +38,31 @@ class TableCabinet extends Component {
       cabinetId: "",
       isAvailable: "",
     };
+    let database = firebase.database();
+    this.usersRef = database.ref("Cabinet");
   }
 
   async componentDidMount() {
     await this.getCabinetsFromReact();
     this.setState({ showSpinner: false });
+    this.usersRef.on("value", (snapshot) => {
+      const arrStatus = snapshot.val();
+      const dataArray = Object.values(arrStatus);
+      this.setState({
+        arrStatus: dataArray,
+      });
+    });
+
+    this.usersRef.on("child_added", (snapshot) => {
+      const newStatus = snapshot.val();
+      this.setState((prevState) => ({
+        arrStatus: [...prevState.arrStatus, newStatus],
+      }));
+    });
+  }
+
+  componentWillUnmount() {
+    this.usersRef.off();
   }
 
   getCabinetsFromReact = async () => {
@@ -100,7 +123,6 @@ class TableCabinet extends Component {
           isOpenModalEditCabinet: false,
         });
       } else {
-        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
           autoClose: 3000,
@@ -174,7 +196,7 @@ class TableCabinet extends Component {
         });
       } else {
         if (response && response.errCode === 1) {
-          toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+          toast.error(<FormattedMessage id="toast.error-name-cabinet" />, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -184,9 +206,6 @@ class TableCabinet extends Component {
             progress: undefined,
             theme: "light",
           });
-          this.setState({
-            showSpinnerModal: false
-          })
         } else {
           toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
             position: "top-right",
@@ -346,30 +365,38 @@ class TableCabinet extends Component {
                         </td>
                         <td>{item.Business.businessName}</td>
                         <td>{item.Location.nameLocation}</td>
-                        <td className="text-center">
-                          {(() => {
-                            switch (item.status) {
-                              case 1:
-                                return (
-                                  <div>
-                                    <i className="fas fa-check text-success" />
-                                    &nbsp;
-                                    <FormattedMessage id="table.enable" />
-                                  </div>
-                                );
-                              case 0:
-                                return (
-                                  <div>
-                                    <i className="fas fa-times text-danger" />
-                                    &nbsp;
-                                    <FormattedMessage id="table.disable" />{" "}
-                                  </div>
-                                );
-                              default:
-                            }
-                          })()}
-                        </td>
-                        <td className="text-center">{item.totalBox}</td>
+                        {this.state.arrStatus && this.state.arrStatus.filter((a) => a.id === item.id).map((data, index) => {
+                          return (
+                            <Fragment>
+                              <td className="text-center" key={index}>
+                                {(() => {
+                                  switch (data.status) {
+                                    case 1:
+                                      return (
+                                        <div>
+                                          <i className="fas fa-check text-success" />
+                                          &nbsp;
+                                          <FormattedMessage id="table.enable" />
+                                        </div>
+                                      );
+                                    case 0:
+                                      return (
+                                        <div>
+                                          <i className="fas fa-times text-danger" />
+                                          &nbsp;
+                                          <FormattedMessage id="table.disable" />
+                                        </div>
+                                      );
+                                    default:
+                                  }
+                                })()}
+
+                              </td>
+                              <td className="text-center">{data.totalBox}</td>
+                            </Fragment>
+                          )
+                        })}
+
                         <td>
                           <button
                             className="btn-edit"

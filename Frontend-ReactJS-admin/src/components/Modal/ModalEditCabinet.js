@@ -95,6 +95,10 @@ class ModalEditCabinet extends Component {
     }
   };
 
+  handleShowMasterCode = () => {
+    this.setState({ isShowCode: !this.state.isShowCode })
+  }
+
   render() {
     const { intl } = this.props;
     return (
@@ -177,12 +181,7 @@ class ModalEditCabinet extends Component {
                   value={this.state.masterCode}
                 />
                 <span
-                  onMouseDown={() => {
-                    this.setState({ isShowCode: true })
-                  }}
-                  onMouseUp={() => {
-                    this.setState({ isShowCode: false });
-                  }}
+                  onClick={() => { this.handleShowMasterCode() }}
                 >
                   <i
                     className={
