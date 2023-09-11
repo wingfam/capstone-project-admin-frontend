@@ -15,6 +15,10 @@
     gap: 20px;
     flex-wrap: wrap;
 
+    .input-container-group {
+      flex-wrap: nowrap;
+    }
+
     .input-container {
       display: flex;
       flex-direction: column;
@@ -24,54 +28,66 @@
         width: calc(96% + 20px);
       }
 
-      .fas {
-        font-size: 10px;
-        color: red;
-        position: absolute;
-        left: 85px;
-      }
-
-      .icon-business-name {
-        font-size: 10px;
-        color: red;
-        position: absolute;
-        right: 10%;
-      }
-
-      input {
-        border-radius: 3px;
-        border: 1px solid grey;
+      .input-cabinet-name {
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
         outline: none;
-        height: 30px;
+        height: 37px;
         padding: 0 10px;
       }
 
-      .input-container-code {
-        display: flex;
-        position: relative;
+      .form-select-total {
+        width: 130px;
+      }
+    }
 
-        .form-check-input {
-          width: 20px;
-          height: 20px;
-        }
+    .name-cabinet {
+      i {
+        font-size: 10px;
+        color: red;
+        position: absolute;
+        left: 70px;
+      }
+    }
 
-        .form-input-code {
-          height: 30px;
-          margin-left: 5px;
-        }
-        i {
-          position: absolute;
-          left: 57%;
-          top: 7px;
-          cursor: pointer;
-        }
+    .business-name {
+      i {
+        font-size: 10px;
+        color: red;
+        position: absolute;
+        right: 31%;
+      }
+    }
+
+    .input-container-code {
+      display: flex;
+      flex-direction: column;
+      width: 45%;
+      position: relative;
+      left: 5%;
+      .form-check-input {
+        width: 25px;
+        height: 25px;
+        margin-top: 5px;
+      }
+
+      .form-input-code {
+        padding: 0 10px;
+        height: 38px;
+        margin-left: 5px;
+        border-radius: 5px;
+      }
+      i {
+        position: absolute;
+        left: 70%;
+        top: 55%;
+        cursor: pointer;
       }
     }
 
     .input-address-container {
-      display: flex;
       flex-direction: column;
-      width: 48%;
+      width: 300px;
 
       .fas {
         font-size: 10px;

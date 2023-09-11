@@ -174,51 +174,23 @@ class TableCabinet extends Component {
     }
   };
 
-  createNewCabinet = async (cabinet) => {
+  createNewCabinet = async () => {
     try {
-      console.log(cabinet);
-      let response = await createNewCabinetService(cabinet);
-      if (response && response.errCode === 0) {
-        await this.getCabinetsFromReact();
-        this.setState({
-          isOpenModalAddCabinet: false,
-        });
-        emitter.emit("EVENT_CLEAR_MODAL_DATA");
-        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        if (response && response.errCode === 1) {
-          toast.error(<FormattedMessage id="toast.error-name-cabinet" />, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } else {
-          toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
-      }
+      await this.getCabinetsFromReact();
+      this.setState({
+        isOpenModalAddCabinet: false,
+      });
+      emitter.emit("EVENT_CLEAR_MODAL_DATA");
+      toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (e) {
       console.log(e);
     }
@@ -307,13 +279,15 @@ class TableCabinet extends Component {
             filterBusiness={this.doFilterBusiness}
             className="filter-content"
           />
-          <button
-            className="btn btn-add-cabinet-content"
-            onClick={() => this.handleAddNewCabinet()}
-          >
-            <i className="fas fa-plus" />{" "}
-            <FormattedMessage id="common.add-cabinet" />
-          </button>
+          <div className="offset-md-9 btn-create-cabinet">
+            <button
+              className="btn btn-add-cabinet-content "
+              onClick={() => this.handleAddNewCabinet()}
+            >
+              <i className="fas fa-plus" />{" "}
+              <FormattedMessage id="common.add-cabinet" />
+            </button>
+          </div>
         </div>
         <div>
 
@@ -367,8 +341,8 @@ class TableCabinet extends Component {
                         <td>{item.Location.nameLocation}</td>
                         {this.state.arrStatus && this.state.arrStatus.filter((a) => a.id === item.id).map((data, index) => {
                           return (
-                            <Fragment>
-                              <td className="text-center" key={index}>
+                            <Fragment key={index}>
+                              <td className="text-center" >
                                 {(() => {
                                   switch (data.status) {
                                     case 1:
