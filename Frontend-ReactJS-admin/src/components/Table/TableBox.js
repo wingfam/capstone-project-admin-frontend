@@ -14,11 +14,13 @@ class TableBox extends Component {
     super(props);
     this.state = {
       arrBox: [],
+      arrOrder: [],
       cabinetStatus: "",
       showSpinner: true,
     };
     let database = firebase.database();
     this.usersRef = database.ref("Box");
+    this.orderRef = database.ref("BookingOrder");
   }
 
   async componentDidMount() {
@@ -46,11 +48,27 @@ class TableBox extends Component {
         arrBox: [...prevState.arrBox, newBox],
       }));
     });
+
+    this.orderRef.on("value", (snapshot) => {
+      const arrOrder = snapshot.val();
+      const dataArray = Object.values(arrOrder);
+      this.setState({
+        arrOrder: dataArray,
+      });
+    });
+
+    this.orderRef.on("child_added", (snapshot) => {
+      const newOrder = snapshot.val();
+      this.setState((prevState) => ({
+        arrOrder: [...prevState.arrOrder, newOrder],
+      }));
+    });
     this.setState({ showSpinner: false });
   }
 
   componentWillUnmount() {
     this.usersRef.off();
+    this.orderRef.off();
   }
 
   doUnBox = async (box) => {
@@ -59,10 +77,10 @@ class TableBox extends Component {
       if (res && res.errCode === 0) {
         toast.success(<FormattedMessage id="toast.unlock-box-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -70,10 +88,10 @@ class TableBox extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.unlock-box-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -90,10 +108,10 @@ class TableBox extends Component {
       if (res && res.errCode === 0) {
         toast.success(<FormattedMessage id="toast.lock-box-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -101,10 +119,10 @@ class TableBox extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.lock-box-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -175,20 +193,28 @@ class TableBox extends Component {
                         <td>
                           {item.nameBox}--{this.state.cabinetName}
                         </td>
-                        <td className="text-center">
-                          {(() => {
-                            switch (item.status) {
-                              case 4:
-                                return (
-                                  <FormattedMessage id="table.store-good" />
-                                );
-                              default:
-                                return (
-                                  <FormattedMessage id="table.store-not-good" />
-                                );
-                            }
-                          })()}
-                        </td>
+                        {this.state.arrOrder.filter((a) => a.boxId === item.id).length === 0 ?
+                          (<td className="text-center" ><FormattedMessage id="table.store-not-good" /></td>)
+                          : (this.state.arrOrder && this.state.arrOrder.filter((a) => a.boxId === item.id).slice(-1).map((order, index) => {
+                            return (
+                              <td key={index} className="text-center">{(() => {
+                                switch (item.status) {
+                                  case 2:
+                                    return (
+                                      <FormattedMessage id="table.processing" />
+                                    );
+                                  case 4:
+                                    return (
+                                      <FormattedMessage id="table.store-good" />
+                                    );
+                                  default:
+                                    return (
+                                      <FormattedMessage id="table.store-not-good" />
+                                    );
+                                }
+                              })()}</td>
+                            )
+                          }))}
                         <td className="text-center">
                           {item.status ? (
                             <div>

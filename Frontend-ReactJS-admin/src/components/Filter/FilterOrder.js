@@ -53,10 +53,10 @@ class FilterOrder extends Component {
     } else {
       toast.error(<FormattedMessage id="toast.blank-createDate" />, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "light",

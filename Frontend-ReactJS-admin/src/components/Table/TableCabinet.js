@@ -7,7 +7,6 @@ import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
   addDisableService,
   addUpdateService,
-  createNewCabinetService,
   editCabinetService,
   getAllCabinets,
   getCabinetByBusiness,
@@ -111,10 +110,10 @@ class TableCabinet extends Component {
         await addUpdateService(cabinet.id)
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -125,10 +124,10 @@ class TableCabinet extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -149,10 +148,10 @@ class TableCabinet extends Component {
         await this.getCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -160,10 +159,10 @@ class TableCabinet extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -183,10 +182,10 @@ class TableCabinet extends Component {
       emitter.emit("EVENT_CLEAR_MODAL_DATA");
       toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "light",

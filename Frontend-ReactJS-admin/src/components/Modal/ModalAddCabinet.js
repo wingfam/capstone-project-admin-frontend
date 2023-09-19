@@ -77,10 +77,10 @@ class ModalAddCabinet extends Component {
                     if (response && response.errCode === 1) {
                         toast.error(<FormattedMessage id="toast.error-name-cabinet" />, {
                             position: "top-right",
-                            autoClose: 3000,
+                            autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
-                            pauseOnHover: true,
+                            pauseOnHover: false,
                             draggable: true,
                             progress: undefined,
                             theme: "light",
@@ -90,10 +90,10 @@ class ModalAddCabinet extends Component {
                     } else {
                         toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
                             position: "top-right",
-                            autoClose: 3000,
+                            autoClose: 2500,
                             hideProgressBar: false,
                             closeOnClick: true,
-                            pauseOnHover: true,
+                            pauseOnHover: false,
                             draggable: true,
                             progress: undefined,
                             theme: "light",
@@ -107,10 +107,10 @@ class ModalAddCabinet extends Component {
         else {
             toast.error(<FormattedMessage id="toast.error-cabinet-info" />, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 2500,
                 hideProgressBar: false,
                 closeOnClick: true,
-                pauseOnHover: true,
+                pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
                 theme: "light",
@@ -118,6 +118,12 @@ class ModalAddCabinet extends Component {
             this.setState({ showSpinner: false })
         }
     };
+
+    handleShowMasterCode = () => {
+        this.setState({
+            isShowCode: !this.state.isShowCode
+        })
+    }
 
     render() {
         const { intl } = this.props
@@ -229,12 +235,7 @@ class ModalAddCabinet extends Component {
                                         disabled
                                     />
                                     <span
-                                        onMouseDown={() => {
-                                            this.setState({ isShowCode: true })
-                                        }}
-                                        onMouseUp={() => {
-                                            this.setState({ isShowCode: false });
-                                        }}
+                                        onClick={() => this.handleShowMasterCode()}
                                     >
                                         <i
                                             className={

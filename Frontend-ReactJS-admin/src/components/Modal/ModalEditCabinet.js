@@ -77,21 +77,27 @@ class ModalEditCabinet extends Component {
   };
 
   handleSaveCabinet = () => {
-    if (this.state.masterCode === 6) {
-      this.props.editCabinet(this.state);
-      this.setState({ showSpinner: true });
+    console.log(this.state);
+    try {
+      if (this.state.masterCode === 6) {
+        this.props.editCabinet(this.state);
+        this.setState({ showSpinner: true });
+      }
+      else {
+        toast.error(<FormattedMessage id="toast.error-mastercode" />, {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
-    else {
-      toast.error(<FormattedMessage id="toast.error-mastercode" />, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+    catch (e) {
+      console.log(e)
     }
   };
 
