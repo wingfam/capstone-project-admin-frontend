@@ -20,7 +20,6 @@ class TableBox extends Component {
     };
     let database = firebase.database();
     this.usersRef = database.ref("Box");
-    this.orderRef = database.ref("BookingOrder");
   }
 
   async componentDidMount() {
@@ -48,27 +47,11 @@ class TableBox extends Component {
         arrBox: [...prevState.arrBox, newBox],
       }));
     });
-
-    this.orderRef.on("value", (snapshot) => {
-      const arrOrder = snapshot.val();
-      const dataArray = Object.values(arrOrder);
-      this.setState({
-        arrOrder: dataArray,
-      });
-    });
-
-    this.orderRef.on("child_added", (snapshot) => {
-      const newOrder = snapshot.val();
-      this.setState((prevState) => ({
-        arrOrder: [...prevState.arrOrder, newOrder],
-      }));
-    });
     this.setState({ showSpinner: false });
   }
 
   componentWillUnmount() {
     this.usersRef.off();
-    this.orderRef.off();
   }
 
   doUnBox = async (box) => {
@@ -193,28 +176,24 @@ class TableBox extends Component {
                         <td>
                           {item.nameBox}--{this.state.cabinetName}
                         </td>
-                        {this.state.arrOrder.filter((a) => a.boxId === item.id).length === 0 ?
-                          (<td className="text-center" ><FormattedMessage id="table.store-not-good" /></td>)
-                          : (this.state.arrOrder && this.state.arrOrder.filter((a) => a.boxId === item.id).slice(-1).map((order, index) => {
-                            return (
-                              <td key={index} className="text-center">{(() => {
-                                switch (item.status) {
-                                  case 2:
-                                    return (
-                                      <FormattedMessage id="table.processing" />
-                                    );
-                                  case 4:
-                                    return (
-                                      <FormattedMessage id="table.store-good" />
-                                    );
-                                  default:
-                                    return (
-                                      <FormattedMessage id="table.store-not-good" />
-                                    );
-                                }
-                              })()}</td>
-                            )
-                          }))}
+                        <td className="text-center">
+                          {(() => {
+                            switch (item.process) {
+                              case 2:
+                                return (
+                                  <FormattedMessage id="table.processing" />
+                                );
+                              case 1:
+                                return (
+                                  <FormattedMessage id="table.store-good" />
+                                );
+                              default:
+                                return (
+                                  <FormattedMessage id="table.store-not-good" />
+                                );
+                            }
+                          })()}
+                        </td>
                         <td className="text-center">
                           {item.status ? (
                             <div>
