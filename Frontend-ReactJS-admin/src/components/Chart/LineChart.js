@@ -16,7 +16,7 @@ function LineChart() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44302/get-line-char"
+          "http://wingfam-001-site1.atempurl.com/get-business-order"
         );
         setDataChart(response.data);
       } catch (error) {
@@ -25,12 +25,6 @@ function LineChart() {
     };
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   axios.get(
-  //     "https://localhost:44302/get-line-char"
-  //   ).then(res => { setDataChart(res.data) })
-  // }, [dataChart])
 
   const lineData = {
     labels: dataChart.map((vData) => vData.day),

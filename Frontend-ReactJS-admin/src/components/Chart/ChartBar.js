@@ -15,7 +15,7 @@ function ChartBar() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44302/get-business-order"
+          "http://wingfam-001-site1.atempurl.com/get-business-order"
         );
         setDataChart(response.data);
       } catch (error) {
@@ -25,42 +25,11 @@ function ChartBar() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchDataName = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://localhost:44302/api/v1/business/get-all"
-  //       );
-  //       setBusinessName(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchDataName();
-  // }, []);
-  // const [arrFirst] = 
-  // const [arrSecond] = 
-
-
   const chartData = ({
     labels: dataChart.map((vdata) => vdata.date),
-    datasets: [
-      {
-        label: [...new Set(dataChart.map((vdata) => vdata.business_1_name))],
-        data: dataChart.map((vdata) => vdata.business_1_amount),
-        backgroundColor: ["#CD853F"],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-      {
-        label: [...new Set(dataChart.map((vdata) => vdata.business_2_name))],
-        data: dataChart.map((vdata) => vdata.business_2_amount),
-        backgroundColor: ["#50AF95"],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
+    datasets: [...new Set(dataChart.map((dataNew) => dataNew.BusinessPerDay.map((ndata) => ndata.businessName)))]
   });
+  console.log(dataChart.map((vdata) => vdata.BusinessPerDay.map((ndata) => ndata.businessName)));
   return (
     <React.Fragment>
       <div className="chartbar-container">
