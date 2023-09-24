@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
-import firebase from "firebase/app";
-import "firebase/database";
 import "./TableCabinetLog.scss";
 import { SyncLoader } from "react-spinners";
 import moment from "moment/moment";
@@ -21,8 +19,6 @@ class TableCabinetLog extends Component {
 
       showSpinner: true,
     };
-    let database = firebase.database();
-    this.usersRef = database.ref("CabinetLog");
   }
 
   async componentDidMount() {

@@ -6,6 +6,7 @@ import "./Login.scss";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { handleLoginApi } from "../../services/businessService";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 class Login extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Login extends Component {
       password: "",
       isShowPassword: false,
       Message: "",
+      showSpinner: false
     };
   }
 
@@ -24,10 +26,10 @@ class Login extends Component {
     navigate(`${redirectPath}`);
     toast.success(<FormattedMessage id="toast.login-success" />, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2500,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
+      pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: "light",
@@ -50,6 +52,7 @@ class Login extends Component {
     this.setState({
       Message: "",
       LoginStatus: "",
+      showSpinner: true
     });
     try {
       let data = await handleLoginApi(this.state.username, this.state.password);
@@ -57,6 +60,7 @@ class Login extends Component {
         this.setState({
           Message: data.Message,
           LoginStatus: data.LoginStatus,
+          showSpinner: false
         });
       }
       if (data && data.LoginStatus === 0) {
@@ -68,13 +72,14 @@ class Login extends Component {
         if (error.response.data) {
           this.setState({
             Message: error.response.data.Message,
+            showSpinner: false
           });
           toast.error(<FormattedMessage id="toast.login-error" />, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2500,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: true,
             progress: undefined,
             theme: "light",
@@ -166,13 +171,16 @@ class Login extends Component {
                 onClick={() => {
                   this.handleLogin();
                 }}
+                disabled={this.state.showSpinner === true ? "disable" : ""}
+                style={{ opacity: this.state.showSpinner === true ? "0.5" : "" }}
               >
+                {this.state.showSpinner ? (<ClipLoader color="white" size={20} speedMultiplier={0.75} />) : ""}&nbsp;
                 <FormattedMessage id="login.login" />
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

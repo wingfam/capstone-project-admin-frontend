@@ -15,32 +15,7 @@ class Header extends Component {
     this.state = {
       arrNotis: [],
     };
-    // let database = firebase.database();
-    // this.usersRef = database.ref('AccessWarning');
   }
-
-  // componentDidMount() {
-  //   this.usersRef.on('value', (snapshot) => {
-  //     const arrNotis = snapshot.val();
-  //     const dataArray = Object.values(arrNotis);
-
-  //     this.setState({
-  //       arrNotis: dataArray,
-  //     });
-  //   });
-
-  //   this.usersRef.on('child_added', (snapshot) => {
-  //     const newNoti = snapshot.val();
-
-  //     this.setState((prevState) => ({
-  //       arrNotis: [...prevState.arrNotis, newNoti],
-  //     }));
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   this.usersRef.off()
-  // }
 
   changeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -59,7 +34,7 @@ class Header extends Component {
             </Link>
           </div>
           <div className="header-center-content title">
-            <span className="display-4 px-3 bg-white rounded shadow title-content">
+            <span className="display-4 px-3 rounded shadow title-content">
               {titleHeader}
             </span>
           </div>

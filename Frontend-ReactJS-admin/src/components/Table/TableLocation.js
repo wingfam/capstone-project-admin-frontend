@@ -49,10 +49,10 @@ class TableLocation extends Component {
         emitter.emit("EVENT_CLEAR_MODAL_DATA");
         toast.success(<FormattedMessage id="toast.create-business-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -60,10 +60,10 @@ class TableLocation extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.create-business-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableCabinet.scss";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import {
   addCreateService,
   addDisableService,
   addUpdateService,
-  createNewCabinetService,
   editCabinetService,
   getAllCabinets,
   getCabinetByBusiness,
@@ -20,26 +19,50 @@ import FilterBusiness from "../Filter/Business/FilterBusiness";
 import { emitter } from "../../utils/emitter";
 import ModalAddCabinet from "../Modal/ModalAddCabinet";
 import _ from "lodash";
+import firebase from "firebase/app";
+import "firebase/database";
 
 class TableCabinet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrCabinets: [],
+      arrStatus: [],
       isOpenModalEditCabinet: false,
       isOpenModalCabinetLog: false,
       isOpenModalAddCabinet: false,
       showSpinner: true,
+      showSpinnerModal: true,
 
       code: "",
       cabinetId: "",
       isAvailable: "",
     };
+    let database = firebase.database();
+    this.usersRef = database.ref("Cabinet");
   }
 
   async componentDidMount() {
     await this.getCabinetsFromReact();
     this.setState({ showSpinner: false });
+    this.usersRef.on("value", (snapshot) => {
+      const arrStatus = snapshot.val();
+      const dataArray = Object.values(arrStatus);
+      this.setState({
+        arrStatus: dataArray,
+      });
+    });
+
+    this.usersRef.on("child_added", (snapshot) => {
+      const newStatus = snapshot.val();
+      this.setState((prevState) => ({
+        arrStatus: [...prevState.arrStatus, newStatus],
+      }));
+    });
+  }
+
+  componentWillUnmount() {
+    this.usersRef.off();
   }
 
   getCabinetsFromReact = async () => {
@@ -88,10 +111,10 @@ class TableCabinet extends Component {
         await addUpdateService(cabinet.id);
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -100,12 +123,13 @@ class TableCabinet extends Component {
           isOpenModalEditCabinet: false,
         });
       } else {
+        alert(res.errCode);
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -126,10 +150,10 @@ class TableCabinet extends Component {
         await this.getCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -137,10 +161,10 @@ class TableCabinet extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.edit-cabinet-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -151,40 +175,34 @@ class TableCabinet extends Component {
     }
   };
 
-  createNewCabinet = async (cabinet) => {
+  createNewCabinet = async () => {
     try {
-      let response = await createNewCabinetService(cabinet);
-      if (response && response.errCode === 0) {
-        await this.getCabinetsFromReact();
-        await addCreateService(cabinet.id);
-        this.setState({
-          isOpenModalAddCabinet: false,
-        });
-        emitter.emit("EVENT_CLEAR_MODAL_DATA");
-        toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      this.setState({
+        isOpenModalAddCabinet: false,
+      });
+      emitter.emit("EVENT_CLEAR_MODAL_DATA");
+      toast.success(<FormattedMessage id="toast.create-cabinet-success" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (e) {
       console.log(e);
+      toast.error(<FormattedMessage id="toast.create-cabinet-error" />, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -259,6 +277,7 @@ class TableCabinet extends Component {
             isOpen={this.state.isOpenModalAddCabinet}
             toggleFromParent={this.toggleCabinetAddModal}
             createCabinet={this.createNewCabinet}
+            showSpinnerModal={this.state.showSpinnerModal}
           />
         )}
         <div className="table-cabinet-content">
@@ -270,13 +289,15 @@ class TableCabinet extends Component {
             filterBusiness={this.doFilterBusiness}
             className="filter-content"
           />
-          <button
-            className="btn btn-add-cabinet-content"
-            onClick={() => this.handleAddNewCabinet()}
-          >
-            <i className="fas fa-plus" />{" "}
-            <FormattedMessage id="common.add-cabinet" />
-          </button>
+          <div className="offset-md-9 btn-create-cabinet">
+            <button
+              className="btn btn-add-cabinet-content "
+              onClick={() => this.handleAddNewCabinet()}
+            >
+              <i className="fas fa-plus" />{" "}
+              <FormattedMessage id="common.add-cabinet" />
+            </button>
+          </div>
         </div>
         <div></div>
         <div className="cabinets-table mt-3 mx-1">
@@ -326,30 +347,42 @@ class TableCabinet extends Component {
                         </td>
                         <td>{item.Business.businessName}</td>
                         <td>{item.Location.nameLocation}</td>
-                        <td className="text-center">
-                          {(() => {
-                            switch (item.status) {
-                              case 1:
-                                return (
-                                  <div>
-                                    <i className="fas fa-check text-success" />
-                                    &nbsp;
-                                    <FormattedMessage id="table.enable" />
-                                  </div>
-                                );
-                              case 0:
-                                return (
-                                  <div>
-                                    <i className="fas fa-times text-danger" />
-                                    &nbsp;
-                                    <FormattedMessage id="table.disable" />{" "}
-                                  </div>
-                                );
-                              default:
-                            }
-                          })()}
-                        </td>
-                        <td className="text-center">{item.totalBox}</td>
+                        {this.state.arrStatus &&
+                          this.state.arrStatus
+                            .filter((a) => a.id === item.id)
+                            .map((data, index) => {
+                              return (
+                                <Fragment key={index}>
+                                  <td className="text-center">
+                                    {(() => {
+                                      switch (data.status) {
+                                        case 1:
+                                          return (
+                                            <div>
+                                              <i className="fas fa-check text-success" />
+                                              &nbsp;
+                                              <FormattedMessage id="table.enable" />
+                                            </div>
+                                          );
+                                        case 0:
+                                          return (
+                                            <div>
+                                              <i className="fas fa-times text-danger" />
+                                              &nbsp;
+                                              <FormattedMessage id="table.disable" />
+                                            </div>
+                                          );
+                                        default:
+                                      }
+                                    })()}
+                                  </td>
+                                  <td className="text-center">
+                                    {data.totalBox}
+                                  </td>
+                                </Fragment>
+                              );
+                            })}
+
                         <td>
                           <button
                             className="btn-edit"

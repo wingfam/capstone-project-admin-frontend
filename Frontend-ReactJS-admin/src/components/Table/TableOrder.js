@@ -109,21 +109,23 @@ class TableOrder extends Component {
     );
     const dataPerPage = 7;
     const pageNumbers = [];
-    for (let i = 0; i < Math.ceil(data.length / dataPerPage); i++) {
+    for (let i = 0; i < Math.ceil(data.length / this.state.dataPerPage); i++) {
       pageNumbers.push(i);
     }
     let start = 1,
       end = pageNumbers.length;
     if (this.state.currentPage - 2 >= 0) {
-      start = this.state.currentPage;
+      start = this.state.currentPage - 1;
     }
     if (this.state.currentPage + 2 < pageNumbers.length) {
       end = this.state.currentPage + 2;
     }
+    console.log(this.state.currentPage);
     const paginatedData = data.slice(
-      this.state.currentPage * dataPerPage,
-      (this.state.currentPage + 1) * dataPerPage
+      this.state.currentPage * this.state.dataPerPage,
+      (this.state.currentPage + 1) * this.state.dataPerPage
     );
+
     return (
       <div className="table-orders-container">
         {this.state.isOpenModalBookingOrderLog && (
@@ -148,7 +150,7 @@ class TableOrder extends Component {
             <table className="orders">
               <thead>
                 <tr>
-                  <th className="col-1">
+                  <th className="col-2">
                     <FormattedMessage id="table.name-cabinet" />
                   </th>
                   <th className="col-2">
@@ -266,7 +268,7 @@ class TableOrder extends Component {
               onClick={(e) => this.handleClick(e, this.state.currentPage - 1)}
               disabled={this.state.currentPage === 0}
             />
-            {start !== 1 && <Pagination.Ellipsis disabled />}
+            {start !== 1 && <Pagination.Ellipsis />}
             {pageNumbers.slice(start - 1, end).map((number) => (
               <Pagination.Item
                 key={number}

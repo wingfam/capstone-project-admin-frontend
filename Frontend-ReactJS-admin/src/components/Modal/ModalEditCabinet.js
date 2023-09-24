@@ -77,23 +77,29 @@ class ModalEditCabinet extends Component {
   };
 
   handleSaveCabinet = () => {
-    if (this.state.masterCode === 6) {
+    console.log(this.state);
+    this.setState({ showSpinner: true });
+    if (this.state.masterCode.length === 6) {
       this.props.editCabinet(this.state);
-      this.setState({ showSpinner: true });
     }
     else {
       toast.error(<FormattedMessage id="toast.error-mastercode" />, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "light",
       });
+      this.setState({ showSpinner: false })
     }
   };
+
+  handleShowMasterCode = () => {
+    this.setState({ isShowCode: !this.state.isShowCode })
+  }
 
   render() {
     const { intl } = this.props;
@@ -177,12 +183,7 @@ class ModalEditCabinet extends Component {
                   value={this.state.masterCode}
                 />
                 <span
-                  onMouseDown={() => {
-                    this.setState({ isShowCode: true })
-                  }}
-                  onMouseUp={() => {
-                    this.setState({ isShowCode: false });
-                  }}
+                  onClick={() => { this.handleShowMasterCode() }}
                 >
                   <i
                     className={

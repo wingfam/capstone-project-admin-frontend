@@ -48,9 +48,6 @@ const addCreateService = (cabinetId) => {
 const addUpdateService = (cabinetId) => {
   return axios.post(`/api/v1/cabinetLog/add-update-log?cabinetId=${cabinetId}`);
 };
-// const addDisableService = (cabinetId) => {
-//   return axios.delete(`/api/v1/cabinetLog/add-disable-log?cabinetId=${cabinetId}`);
-// };
 
 export {
   getAllCabinets,

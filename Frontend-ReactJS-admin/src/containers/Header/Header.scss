@@ -22,7 +22,7 @@
     .header-left-content {
       margin: 15px 0 0 10px;
       display: flex;
-      width: 17%;
+      width: 20%;
 
       i {
         align-items: center;
@@ -45,12 +45,14 @@
         right: 0;
         left: 0;
         color: $colormain;
+        opacity: 1;
+        background-color: rgba(255, 255, 255, 0.8);
       }
     }
 
     .header-right-content {
       display: flex;
-      width: 23%;
+      width: 20%;
       font-size: 22px;
       right: 10px;
       .language-content {

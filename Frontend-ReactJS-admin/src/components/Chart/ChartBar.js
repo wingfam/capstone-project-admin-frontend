@@ -11,11 +11,12 @@ Chart.register(CategoryScale);
 function ChartBar() {
   const intl = useIntl();
   const [dataChart, setDataChart] = useState([]);
+  const [businessName, setBusinessName] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://localhost:44302/get-business-order"
+          "http://wingfam-001-site1.atempurl.com/get-business-order"
         );
         setDataChart(response.data);
       } catch (error) {
@@ -25,42 +26,92 @@ function ChartBar() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchDataName = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://localhost:44302/api/v1/business/get-all"
-  //       );
-  //       setBusinessName(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchDataName();
-  // }, []);
-  // const [arrFirst] = 
-  // const [arrSecond] = 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://wingfam-001-site1.atempurl.com/api/v1/business/get-all"
+        );
+        setBusinessName(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
-
-  const chartData = ({
+  const chartData = {
     labels: dataChart.map((vdata) => vdata.date),
+
     datasets: [
       {
-        label: [...new Set(dataChart.map((vdata) => vdata.business_1_name))],
-        data: dataChart.map((vdata) => vdata.business_1_amount),
-        backgroundColor: ["#CD853F"],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-      {
-        label: [...new Set(dataChart.map((vdata) => vdata.business_2_name))],
-        data: dataChart.map((vdata) => vdata.business_2_amount),
+        label: businessName.slice(0, 1).map((name) => name.businessName),
+        data: dataChart.map(
+          (dataAmount) => dataAmount.BusinessPerDay[0].businessAmount
+        ),
         backgroundColor: ["#50AF95"],
         borderColor: "black",
         borderWidth: 2,
       },
+      {
+        label: businessName.slice(1, 2).map((name) => name.businessName),
+        data: dataChart.map(
+          (dataAmount) => dataAmount.BusinessPerDay[1].businessAmount
+        ),
+        backgroundColor: ["#CD853F"],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+      businessName.length >= 2
+        ? [
+            {
+              label: businessName.slice(2, 3).map((name) => name.businessName),
+              data: dataChart.map(
+                (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
+              ),
+              backgroundColor: ["#f3ba2f"],
+              borderColor: "black",
+              borderWidth: 2,
+            },
+
+            {
+              label: businessName.slice(3, 4).map((name) => name.businessName),
+              data: dataChart.map((data) =>
+                data.BusinessPerDay.slice(3, 4)
+                  .map((amount) => amount.businessAmount)
+                  .toString()
+              ),
+              backgroundColor: ["#2a71d0"],
+              borderColor: "black",
+              borderWidth: 2,
+            },
+            {
+              label: businessName.slice(4, 5).map((name) => name.businessName),
+              data: dataChart.map((data) =>
+                data.BusinessPerDay.slice(4, 5)
+                  .map((amount) => amount.businessAmount)
+                  .toString()
+              ),
+              backgroundColor: ["#6519cf"],
+              borderColor: "black",
+              borderWidth: 2,
+            },
+            {
+              label: businessName.slice(5, 6).map((name) => name.businessName),
+              data: dataChart.map((data) =>
+                data.BusinessPerDay.slice(5, 6)
+                  .map((amount) => amount.businessAmount)
+                  .toString()
+              ),
+              backgroundColor: ["#d9a24"],
+              borderColor: "white",
+              borderWidth: 1,
+            },
+          ]
+        : { label: "", backgroundColor: "white" },
     ],
-  });
+  };
+  console.log(businessName.length >= 2 ? "a" : "b");
   return (
     <React.Fragment>
       <div className="chartbar-container">

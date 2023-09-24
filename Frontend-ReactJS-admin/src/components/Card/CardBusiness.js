@@ -52,10 +52,10 @@ class CardBusiness extends Component {
         await this.getBusinessFromReact();
         toast.success(<FormattedMessage id="toast.edit-business-success" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -63,10 +63,10 @@ class CardBusiness extends Component {
       } else {
         toast.error(<FormattedMessage id="toast.edit-business-error" />, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "light",

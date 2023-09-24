@@ -2,30 +2,60 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import "./CardHistory.scss";
 import moment from "moment";
-import { getCabinetByBusiness } from "../../services/cabinetService";
+import firebase from "firebase/app";
+import "firebase/database";
 
 class CardHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrCabinet: []
+      arrCabinet: [],
+      arrLocation: []
     };
+    let database = firebase.database();
+    this.usersRef = database.ref("Cabinet");
+    this.locationRef = database.ref("Location");
   }
 
   async componentDidMount() {
-    await this.getCabinetByBusinessId();
+    this.usersRef.on("value", (snapshot) => {
+      const arrCabinet = snapshot.val();
+      const dataArray = Object.values(arrCabinet);
+      this.setState({
+        arrCabinet: dataArray,
+      });
+    });
+
+    this.usersRef.on("child_added", (snapshot) => {
+      const newCabinet = snapshot.val();
+      this.setState((prevState) => ({
+        arrCabinet: [...prevState.arrCabinet, newCabinet],
+      }));
+    });
+
+    this.locationRef.on("value", (snapshot) => {
+      const arrLocation = snapshot.val();
+      const dataArray = Object.values(arrLocation);
+      this.setState({
+        arrLocation: dataArray,
+      });
+    });
+
+    this.locationRef.on("child_added", (snapshot) => {
+      const newLocation = snapshot.val();
+      this.setState((prevState) => ({
+        arrLocation: [...prevState.arrLocation, newLocation],
+      }));
+    });
   }
 
-  getCabinetByBusinessId = async () => {
-    let response = await getCabinetByBusiness(window.location.href.split("/")[5]);
-    this.setState({
-      arrCabinet: response
-    })
+  componentWillUnmount() {
+    this.usersRef.off();
+    this.locationRef.off();
   }
-
 
   render() {
-    const arrCabinet = this.state.arrCabinet;
+    const arrCabinet = this.state.arrCabinet.filter((a) => a.businessId === window.location.href.split("/")[5]);
     return (
       <div className="container-history-table">
         <table className="history">
@@ -61,9 +91,14 @@ class CardHistory extends Component {
                   <td>
                     {item.nameCabinet}
                   </td>
-                  <td>
-                    {item.Location.address}
-                  </td>
+                  {this.state.arrLocation && this.state.arrLocation.filter((a) => a.id === item.locationId).map((data, index) => {
+                    return (
+
+                      <td key={index}>
+                        {data.nameLocation}
+                      </td>
+                    )
+                  })}
                   <td>
                     {(() => {
                       const date = moment(item.addDate).format(

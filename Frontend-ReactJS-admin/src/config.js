@@ -1,6 +1,6 @@
 const config = {
   api: {
-    API_BASE_URL: "https://localhost:44302",
+    API_BASE_URL: "http://wingfam-001-site1.atempurl.com/",
   },
 };
 

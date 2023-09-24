@@ -11,14 +11,14 @@
       margin-right: 10px;
       font-size: 20px;
     }
-    .btn-add-cabinet-content {
-      position: absolute;
-      background-color: $colormain;
-      width: 200px;
-      height: 35px;
-      right: 2%;
-      color: $common-white;
-      margin-top: 15px;
+    .btn-create-cabinet {
+      .btn-add-cabinet-content {
+        background-color: $colormain;
+        width: 195px;
+        height: 40px;
+        color: $common-white;
+        margin-top: 15px;
+      }
     }
   }
 
