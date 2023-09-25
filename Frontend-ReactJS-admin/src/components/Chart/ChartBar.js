@@ -40,54 +40,23 @@ function ChartBar() {
     fetchData();
   }, []);
 
-  var chartOne = {
-    label: businessName.slice(2, 3).map((name) => name.businessName),
-    data: dataChart.map(
-      (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
-    ),
-    backgroundColor: ["#f3ba2f"],
-    borderColor: "black",
-    borderWidth: 2,
-  }
-
-  var chartTwo = {
-    label: businessName.slice(3, 4).map((name) => name.businessName),
-    data: dataChart.map((data) =>
-      data.BusinessPerDay.slice(3, 4)
-        .map((amount) => amount.businessAmount)
-        .toString()
-    ),
-    backgroundColor: ["#2a71d0"],
-    borderColor: "black",
-    borderWidth: 2,
-  }
-  var chartThree = {
-    label: businessName.slice(4, 5).map((name) => name.businessName),
-    data: dataChart.map((data) =>
-      data.BusinessPerDay.slice(4, 5)
-        .map((amount) => amount.businessAmount)
-        .toString()
-    ),
-    backgroundColor: ["#2a71d0"],
-    borderColor: "black",
-    borderWidth: 2,
-  }
-  var chartFour = {
-    label: businessName.slice(5, 6).map((name) => name.businessName),
-    data: dataChart.map((data) =>
-      data.BusinessPerDay.slice(5, 6)
-        .map((amount) => amount.businessAmount)
-        .toString()
-    ),
-    backgroundColor: ["#2a71d0"],
-    borderColor: "black",
-    borderWidth: 2,
-  }
-
   const chartData = {
     labels: dataChart.map((vdata) => vdata.date),
 
     datasets: [
+      // businessName.forEach((item) => [
+      //   {
+      //     label: businessName
+      //       .slice(item, item + 1)
+      //       .map((name) => name.businessName),
+      //     data: dataChart.map(
+      //       (dataAmount) => dataAmount.BusinessPerDay[item].businessAmount
+      //     ),
+      //     backgroundColor: ["#50AF95"],
+      //     borderColor: "black",
+      //     borderWidth: 2,
+      //   },
+      // ]),
       {
         label: businessName.slice(0, 1).map((name) => name.businessName),
         data: dataChart.map(
@@ -106,21 +75,70 @@ function ChartBar() {
         borderColor: "black",
         borderWidth: 2,
       },
-      businessName.length === 3
-        ? {
-          label: businessName.slice(2, 3).map((name) => name.businessName),
-          data: dataChart.map(
-            (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
-          ),
-          backgroundColor: ["#f3ba2f"],
-          borderColor: "black",
-          borderWidth: 2,
-        } : businessName.length === 4 ? (chartOne, chartTwo) : businessName.length === 5 ? (chartOne, chartTwo, chartThree) : businessName.length === 6 ?
-          (chartOne, chartTwo, chartThree, chartThree, chartFour) : { label: "", backgroundColor: "white" },
+      {
+        label: businessName.slice(2, 3).map((name) => name.businessName),
+        data: dataChart.map(
+          (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
+        ),
+        backgroundColor: ["#f3ba2f"],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+      {
+        label: businessName.slice(3, 4).map((name) => name.businessName),
+        data: dataChart.map((data) =>
+          data.BusinessPerDay.slice(3, 4)
+            .map((amount) => amount.businessAmount)
+            .toString()
+        ),
+        backgroundColor: ["#d9a24"],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+      {
+        label: businessName.slice(4, 5).map((name) => name.businessName),
+        data: dataChart.map((data) =>
+          data.BusinessPerDay.slice(4, 5)
+            .map((amount) => amount.businessAmount)
+            .toString()
+        ),
+        backgroundColor:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : ["#2a71d0"],
+        borderColor:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : "black",
+        borderWidth:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? 2
+            : 0,
+      },
+      {
+        label: businessName.slice(5, 6).map((name) => name.businessName),
+        data: dataChart.map((data) =>
+          data.BusinessPerDay.slice(5, 6)
+            .map((amount) => amount.businessAmount)
+            .toString()
+        ),
+        backgroundColor:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : ["#6519cf"],
+        borderColor:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : "black",
+        borderWidth:
+          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+            ? 2
+            : 0,
+      },
     ],
   };
-  businessName.forEach((index) => console.log(index))
-  console.log(chartData.datasets, dataChart.map((a) => a.BusinessPerDay));
+  // businessName.forEach((index) => console.log(index));
+  console.log(chartData.datasets);
   return (
     <React.Fragment>
       <div className="chartbar-container">
@@ -145,6 +163,11 @@ function ChartBar() {
                     },
                     legend: {
                       display: true,
+                      labels: {
+                        font: {
+                          size: 17,
+                        },
+                      },
                     },
                   },
                   scales: {

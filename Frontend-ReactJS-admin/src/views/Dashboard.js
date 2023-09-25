@@ -46,8 +46,8 @@ class Dashboard extends Component {
         <div className="row mt-2">
           <div className="chart-container">
             <div className="barchart-content col-md-10">
-              {/* <ChartBar /> */}
-              <ChartNew />
+              <ChartBar />
+              {/* <ChartNew /> */}
             </div>
           </div>
         </div>
