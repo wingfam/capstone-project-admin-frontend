@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalEditCabinet from "../Modal/ModalEditCabinet";
 import {
-  addCreateService,
   addDisableService,
   addUpdateService,
   editCabinetService,

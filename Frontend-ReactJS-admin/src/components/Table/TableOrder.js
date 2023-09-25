@@ -107,7 +107,6 @@ class TableOrder extends Component {
     const data = arrBookingOrder.sort((a, b) =>
       a.createDate > b.createDate ? -1 : 1
     );
-    const dataPerPage = 7;
     const pageNumbers = [];
     for (let i = 0; i < Math.ceil(data.length / this.state.dataPerPage); i++) {
       pageNumbers.push(i);
@@ -258,8 +257,8 @@ class TableOrder extends Component {
               display: this.state.showSpinner
                 ? "none"
                 : paginatedData.length === 0
-                ? "none"
-                : "",
+                  ? "none"
+                  : "",
             }}
             className="justify-content-center"
             listclassname=" justify-content-center"

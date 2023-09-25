@@ -7,6 +7,7 @@ import CardFirst from "../components/CardInfo/CardFirst";
 import CardSecond from "../components/CardInfo/CardSecond";
 import CardThird from "../components/CardInfo/CardThird";
 import { lineChartService } from "../services/dashBoard";
+import ChartNew from "../components/Chart/ChartNew";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -45,7 +46,8 @@ class Dashboard extends Component {
         <div className="row mt-2">
           <div className="chart-container">
             <div className="barchart-content col-md-10">
-              <ChartBar />
+              {/* <ChartBar /> */}
+              <ChartNew />
             </div>
           </div>
         </div>

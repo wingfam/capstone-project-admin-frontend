@@ -40,6 +40,50 @@ function ChartBar() {
     fetchData();
   }, []);
 
+  var chartOne = {
+    label: businessName.slice(2, 3).map((name) => name.businessName),
+    data: dataChart.map(
+      (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
+    ),
+    backgroundColor: ["#f3ba2f"],
+    borderColor: "black",
+    borderWidth: 2,
+  }
+
+  var chartTwo = {
+    label: businessName.slice(3, 4).map((name) => name.businessName),
+    data: dataChart.map((data) =>
+      data.BusinessPerDay.slice(3, 4)
+        .map((amount) => amount.businessAmount)
+        .toString()
+    ),
+    backgroundColor: ["#2a71d0"],
+    borderColor: "black",
+    borderWidth: 2,
+  }
+  var chartThree = {
+    label: businessName.slice(4, 5).map((name) => name.businessName),
+    data: dataChart.map((data) =>
+      data.BusinessPerDay.slice(4, 5)
+        .map((amount) => amount.businessAmount)
+        .toString()
+    ),
+    backgroundColor: ["#2a71d0"],
+    borderColor: "black",
+    borderWidth: 2,
+  }
+  var chartFour = {
+    label: businessName.slice(5, 6).map((name) => name.businessName),
+    data: dataChart.map((data) =>
+      data.BusinessPerDay.slice(5, 6)
+        .map((amount) => amount.businessAmount)
+        .toString()
+    ),
+    backgroundColor: ["#2a71d0"],
+    borderColor: "black",
+    borderWidth: 2,
+  }
+
   const chartData = {
     labels: dataChart.map((vdata) => vdata.date),
 
@@ -62,56 +106,21 @@ function ChartBar() {
         borderColor: "black",
         borderWidth: 2,
       },
-      businessName.length >= 2
-        ? [
-            {
-              label: businessName.slice(2, 3).map((name) => name.businessName),
-              data: dataChart.map(
-                (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
-              ),
-              backgroundColor: ["#f3ba2f"],
-              borderColor: "black",
-              borderWidth: 2,
-            },
-
-            {
-              label: businessName.slice(3, 4).map((name) => name.businessName),
-              data: dataChart.map((data) =>
-                data.BusinessPerDay.slice(3, 4)
-                  .map((amount) => amount.businessAmount)
-                  .toString()
-              ),
-              backgroundColor: ["#2a71d0"],
-              borderColor: "black",
-              borderWidth: 2,
-            },
-            {
-              label: businessName.slice(4, 5).map((name) => name.businessName),
-              data: dataChart.map((data) =>
-                data.BusinessPerDay.slice(4, 5)
-                  .map((amount) => amount.businessAmount)
-                  .toString()
-              ),
-              backgroundColor: ["#6519cf"],
-              borderColor: "black",
-              borderWidth: 2,
-            },
-            {
-              label: businessName.slice(5, 6).map((name) => name.businessName),
-              data: dataChart.map((data) =>
-                data.BusinessPerDay.slice(5, 6)
-                  .map((amount) => amount.businessAmount)
-                  .toString()
-              ),
-              backgroundColor: ["#d9a24"],
-              borderColor: "white",
-              borderWidth: 1,
-            },
-          ]
-        : { label: "", backgroundColor: "white" },
+      businessName.length === 3
+        ? {
+          label: businessName.slice(2, 3).map((name) => name.businessName),
+          data: dataChart.map(
+            (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
+          ),
+          backgroundColor: ["#f3ba2f"],
+          borderColor: "black",
+          borderWidth: 2,
+        } : businessName.length === 4 ? (chartOne, chartTwo) : businessName.length === 5 ? (chartOne, chartTwo, chartThree) : businessName.length === 6 ?
+          (chartOne, chartTwo, chartThree, chartThree, chartFour) : { label: "", backgroundColor: "white" },
     ],
   };
-  console.log(businessName.length >= 2 ? "a" : "b");
+  businessName.forEach((index) => console.log(index))
+  console.log(chartData.datasets, dataChart.map((a) => a.BusinessPerDay));
   return (
     <React.Fragment>
       <div className="chartbar-container">
