@@ -44,19 +44,6 @@ function ChartBar() {
     labels: dataChart.map((vdata) => vdata.date),
 
     datasets: [
-      // businessName.forEach((item) => [
-      //   {
-      //     label: businessName
-      //       .slice(item, item + 1)
-      //       .map((name) => name.businessName),
-      //     data: dataChart.map(
-      //       (dataAmount) => dataAmount.BusinessPerDay[item].businessAmount
-      //     ),
-      //     backgroundColor: ["#50AF95"],
-      //     borderColor: "black",
-      //     borderWidth: 2,
-      //   },
-      // ]),
       {
         label: businessName.slice(0, 1).map((name) => name.businessName),
         data: dataChart.map(
@@ -91,7 +78,7 @@ function ChartBar() {
             .map((amount) => amount.businessAmount)
             .toString()
         ),
-        backgroundColor: ["#d9a24"],
+        backgroundColor: ["#666666"],
         borderColor: "black",
         borderWidth: 2,
       },
@@ -123,15 +110,15 @@ function ChartBar() {
             .toString()
         ),
         backgroundColor:
-          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+          businessName.slice(5, 6).map((name) => name.businessName).length === 0
             ? ["white"]
             : ["#6519cf"],
         borderColor:
-          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+          businessName.slice(5, 6).map((name) => name.businessName).length === 0
             ? ["white"]
             : "black",
         borderWidth:
-          businessName.slice(4, 5).map((name) => name.businessName).length === 0
+          businessName.slice(5, 6).map((name) => name.businessName).length === 0
             ? 2
             : 0,
       },

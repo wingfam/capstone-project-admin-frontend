@@ -143,10 +143,10 @@ class TableCabinet extends Component {
     try {
       let res = await editCabinetService(cabinet.id, cabinet);
       if (res && res.errCode === 0) {
+        await this.getCabinetsFromReact();
         this.setState({
           isOpenModalCabinetLog: false,
         });
-        await this.getCabinetsFromReact();
         toast.success(<FormattedMessage id="toast.edit-cabinet-success" />, {
           position: "top-right",
           autoClose: 2500,
@@ -176,6 +176,7 @@ class TableCabinet extends Component {
 
   createNewCabinet = async () => {
     try {
+      await this.getCabinetsFromReact();
       this.setState({
         isOpenModalAddCabinet: false,
       });
