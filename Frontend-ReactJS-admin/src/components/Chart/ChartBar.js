@@ -40,8 +40,64 @@ function ChartBar() {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   for (let i = 0; i < businessName.length; i++) {
+  //     const newDataSet = {
+  //       label: businessName.slice(i, i + 1).map((name) => name.businessName),
+  //       data: dataChart.map(
+  //         (dataAmount) => dataAmount.BusinessPerDay[i].businessAmount
+  //       ),
+  //       backgroundColor: ["#CD853F"],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //     }
+  //     chartData.datasets.push(newDataSet)
+  //   }
+  // })
+
+  // function DataChart() {
+  //   for (let i = 0; i < businessName.length; i++) {
+  //     const newDataSet = {
+  //       label: businessName.slice(i, i + 1).map((name) => name.businessName),
+  //       data: dataChart.map(
+  //         (dataAmount) => dataAmount.BusinessPerDay[i].businessAmount
+  //       ),
+  //       backgroundColor: ["#CD853F"],
+  //       borderColor: "black",
+  //       borderWidth: 2,
+  //     }
+  //     chartData.datasets.push(newDataSet)
+  //   }
+  // }
   const chartData = {
     labels: dataChart.map((vdata) => vdata.date),
+
+    // datasets: [
+    //   {
+    //     label: businessName.slice(0, 1).map((name) => name.businessName),
+    //     data: dataChart.map(
+    //       (dataAmount) => dataAmount.BusinessPerDay[0].businessAmount
+    //     ),
+    //     backgroundColor: ["#50AF95"],
+    //     borderColor: "black",
+    //     borderWidth: 2,
+    //   },
+    //   dataChart.forEach((a, i) => {
+    //     const newDataSet = {
+    //       label: businessName.slice(i, i + 1).map((name) => name.businessName),
+    //       data: dataChart.map(
+    //         (dataAmount) => dataAmount.BusinessPerDay[i].businessAmount
+    //       ),
+    //       backgroundColor: ["#CD853F"],
+    //       borderColor: "black",
+    //       borderWidth: 2,
+    //     }
+    //     chartData.datasets.push(newDataSet)
+    //   },
+    //   )
+
+    // ]
+
 
     datasets: [
       {
@@ -64,12 +120,23 @@ function ChartBar() {
       },
       {
         label: businessName.slice(2, 3).map((name) => name.businessName),
-        data: dataChart.map(
-          (dataAmount) => dataAmount.BusinessPerDay[2].businessAmount
+        data: dataChart.map((data) =>
+          data.BusinessPerDay.slice(2, 3)
+            .map((amount) => amount.businessAmount)
+            .toString()
         ),
-        backgroundColor: ["#f3ba2f"],
-        borderColor: "black",
-        borderWidth: 2,
+        backgroundColor:
+          businessName.slice(2, 3).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : ["#f3ba2f"],
+        borderColor:
+          businessName.slice(2, 3).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : "black",
+        borderWidth:
+          businessName.slice(2, 3).map((name) => name.businessName).length === 0
+            ? 0
+            : 2,
       },
       {
         label: businessName.slice(3, 4).map((name) => name.businessName),
@@ -78,9 +145,18 @@ function ChartBar() {
             .map((amount) => amount.businessAmount)
             .toString()
         ),
-        backgroundColor: ["#666666"],
-        borderColor: "black",
-        borderWidth: 2,
+        backgroundColor:
+          businessName.slice(3, 4).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : ["#666666"],
+        borderColor:
+          businessName.slice(3, 4).map((name) => name.businessName).length === 0
+            ? ["white"]
+            : "black",
+        borderWidth:
+          businessName.slice(3, 4).map((name) => name.businessName).length === 0
+            ? 0
+            : 2,
       },
       {
         label: businessName.slice(4, 5).map((name) => name.businessName),
@@ -99,8 +175,8 @@ function ChartBar() {
             : "black",
         borderWidth:
           businessName.slice(4, 5).map((name) => name.businessName).length === 0
-            ? 2
-            : 0,
+            ? 0
+            : 2,
       },
       {
         label: businessName.slice(5, 6).map((name) => name.businessName),
@@ -119,13 +195,17 @@ function ChartBar() {
             : "black",
         borderWidth:
           businessName.slice(5, 6).map((name) => name.businessName).length === 0
-            ? 2
-            : 0,
+            ? 0
+            : 2,
       },
     ],
   };
-  // businessName.forEach((index) => console.log(index));
-  console.log(chartData.datasets);
+
+  businessName.forEach((a, i) => console.log(a.businessName, dataChart.map((data) =>
+    data.BusinessPerDay.slice(0, 1)
+      .map((amount) => amount.businessAmount)
+      .toString()
+  )))
   return (
     <React.Fragment>
       <div className="chartbar-container">
@@ -141,13 +221,23 @@ function ChartBar() {
                 data={chartData}
                 options={{
                   plugins: {
+                    tooltip: {
+                      enabled: true,
+                      position: 'average',
+                      caretSize: 10,
+                      bodyFont: {
+                        size: 17
+                      }
+                    },
                     title: {
                       display: true,
                       text: intl.formatMessage({ id: "chart.week-chart" }),
                       font: {
-                        size: 17,
+                        size: 20,
                       },
+                      color: ["black"]
                     },
+
                     legend: {
                       display: true,
                       labels: {
