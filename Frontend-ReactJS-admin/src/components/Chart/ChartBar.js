@@ -98,7 +98,6 @@ function ChartBar() {
 
     // ]
 
-
     datasets: [
       {
         label: businessName.slice(0, 1).map((name) => name.businessName),
@@ -200,12 +199,6 @@ function ChartBar() {
       },
     ],
   };
-
-  businessName.forEach((a, i) => console.log(a.businessName, dataChart.map((data) =>
-    data.BusinessPerDay.slice(0, 1)
-      .map((amount) => amount.businessAmount)
-      .toString()
-  )))
   return (
     <React.Fragment>
       <div className="chartbar-container">
@@ -223,11 +216,11 @@ function ChartBar() {
                   plugins: {
                     tooltip: {
                       enabled: true,
-                      position: 'average',
+                      position: "average",
                       caretSize: 10,
                       bodyFont: {
-                        size: 17
-                      }
+                        size: 17,
+                      },
                     },
                     title: {
                       display: true,
@@ -235,7 +228,7 @@ function ChartBar() {
                       font: {
                         size: 20,
                       },
-                      color: ["black"]
+                      color: ["black"],
                     },
 
                     legend: {

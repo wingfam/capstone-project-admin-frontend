@@ -146,7 +146,8 @@
     "blank-createDate": "Please select a search period",
     "error-mastercode": "Please enter all 6 numbers for the master code",
     "error-cabinet-info": "Please enter all cabinet's information",
-    "error-cabinet-name": "You have entered the same cabinet name"
+    "error-cabinet-name": "You have entered the same cabinet name",
+    "error-lock-box-processing":"Box operations cannot be stopped when stock is available"
   },
 
   "warning": {

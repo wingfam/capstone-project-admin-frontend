@@ -149,7 +149,8 @@
     "blank-createDate": "Vui lòng chọn khoảng thời gian tìm kiếm",
     "error-mastercode": "Vui lòng nhập đủ 6 chứ số cho master code",
     "error-cabinet-info": "Vui lòng nhập đủ thông tin",
-    "error-name-cabinet": "Bạn đã nhập trùng tên tủ"
+    "error-name-cabinet": "Bạn đã nhập trùng tên tủ",
+    "error-lock-box-processing":"Không thể dừng hoạt động hộp khi có hàng"
   },
 
   "warning": {
