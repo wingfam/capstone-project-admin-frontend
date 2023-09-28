@@ -54,8 +54,8 @@ class TableOrder extends Component {
     let res = await filterBookingOrderService(
       "",
       "",
-      "08-22-2023",
-      "08-25-2023"
+      "09-25-2023",
+      "09-28-2023"
     );
     if (res && !_.isEmpty(res)) {
       this.setState({
@@ -119,7 +119,6 @@ class TableOrder extends Component {
     if (this.state.currentPage + 2 < pageNumbers.length) {
       end = this.state.currentPage + 2;
     }
-    console.log(this.state.currentPage);
     const paginatedData = data.slice(
       this.state.currentPage * this.state.dataPerPage,
       (this.state.currentPage + 1) * this.state.dataPerPage
@@ -178,7 +177,7 @@ class TableOrder extends Component {
               ) : paginatedData.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="fs-4">
-                    <FormattedMessage id="table.not-order-cabinet" />
+                    <FormattedMessage id="table.not-order" />
                   </td>
                 </tr>
               ) : (
@@ -267,7 +266,7 @@ class TableOrder extends Component {
               onClick={(e) => this.handleClick(e, this.state.currentPage - 1)}
               disabled={this.state.currentPage === 0}
             />
-            {start !== 1 && <Pagination.Ellipsis />}
+            {start !== 1 && <Pagination.Ellipsis disabled />}
             {pageNumbers.slice(start - 1, end).map((number) => (
               <Pagination.Item
                 key={number}

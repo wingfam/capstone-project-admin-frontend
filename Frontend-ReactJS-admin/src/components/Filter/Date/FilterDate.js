@@ -36,18 +36,9 @@ class FilterDate extends Component {
             ...copyState,
             fromDateBegin: copyState["fromDate"]
         });
-        // console.log("Check date:", this.state.fromDate, this.state.toDate);
         this.props.filterToDate(this.state.toDate)
         this.props.filterFromDate(this.state.fromDate)
-    };
-
-    // handleFilterToDate = (event) => {
-    //     const toDate = moment(new Date(event)).format(
-    //         "MM-DD-YYYY"
-    //     );
-    //     // this.props.filterToDate(toDate);
-    // };
-
+    }
     render() {
         const fromDate = this.state.dateOld;
         const toDate = this.state.dateToday

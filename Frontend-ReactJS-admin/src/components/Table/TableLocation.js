@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableLocation.scss";
 import { SyncLoader } from "react-spinners";
 import {
   createNewLocationService,
+  editLocationService,
   getLocationByBusinessService,
 } from "../../services/locationService";
 import { toast } from "react-toastify";
@@ -84,8 +85,42 @@ class TableLocation extends Component {
     this.setState({ isOpenModalAddLocation: true });
   };
 
+  doEditLocation = async (location, e) => {
+    try {
+      let res = await editLocationService(location.id, { nameLocation: location.nameLocation, address: location.address, businessId: location.businessId, status: e });
+      if (res && res.errCode === 0) {
+        await this.getLocationFromReact();
+
+        toast.success(e === 1 ? <FormattedMessage id="toast.unlock-location-success" /> : <FormattedMessage id="toast.lock-location-success" />, {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(e === 1 ? <FormattedMessage id="toast.unlock-box-error" /> : <FormattedMessage id="toast.lock-box-error" />, {
+          position: "top-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   render() {
     let arrLocation = this.state.arrLocation;
+    const { intl } = this.props;
     return (
       <div className="table-location-container">
         <ModalAddLocation
@@ -111,6 +146,9 @@ class TableLocation extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.address" />
                 </th>
+                <th className="col-2">
+                  <FormattedMessage id="table.status" />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -127,6 +165,39 @@ class TableLocation extends Component {
                     <tr key={index} className="text-center">
                       <td>{item.nameLocation}</td>
                       <td>{item.address}</td>
+                      <td>{(() => {
+                        switch (item.status) {
+                          case 1:
+                            return (
+                              <button
+                                className="btn-delete"
+                                onClick={() => {
+                                  this.doEditLocation(item, 0);
+                                }}
+                                title={intl.formatMessage({
+                                  id: "common.ban",
+                                })}
+                              >
+                                <i className="fas fa-lock"></i>
+                              </button>
+                            );
+                          case 0:
+                            return (
+                              <button
+                                className="btn-unlock"
+                                onClick={() => {
+                                  this.doEditLocation(item, 1);
+                                }}
+                                title={intl.formatMessage({
+                                  id: "common.unlock",
+                                })}
+                              >
+                                <i className="fas fa-lock-open"></i>
+                              </button>
+                            );
+                          default:
+                        }
+                      })()}</td>
                     </tr>
                   );
                 })
@@ -139,4 +210,4 @@ class TableLocation extends Component {
   }
 }
 
-export default TableLocation;
+export default injectIntl(TableLocation);

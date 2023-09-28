@@ -48,6 +48,32 @@
         background-color: $colormain;
         color: white;
       }
+
+      .btn-delete {
+        width: 50px;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: $common-red;
+
+        &:hover {
+          background-color: transparent !important;
+          color: $common-red !important;
+        }
+      }
+
+      .btn-unlock {
+        width: 50px;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: $common-green;
+
+        &:hover {
+          background-color: transparent !important;
+          color: $common-green !important;
+        }
+      }
     }
   }
 }

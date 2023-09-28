@@ -177,7 +177,7 @@ class ModalAddCabinet extends Component {
                                     id: "common.choose-business",
                                 })} </option>
                                 {this.state.arrBusiness &&
-                                    this.state.arrBusiness
+                                    this.state.arrBusiness.filter((a) => a.status === 1)
                                         .map((item, index) => {
                                             return (
                                                 <option value={item.id} key={index}>
