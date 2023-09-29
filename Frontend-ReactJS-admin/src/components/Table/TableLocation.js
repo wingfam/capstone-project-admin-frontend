@@ -12,7 +12,6 @@ import { emitter } from "../../utils/emitter";
 import ModalAddLocation from "../Modal/ModalAddLocation";
 import _ from "lodash";
 import ModalAddCabinetBusiness from "../Modal/ModalAddCabinetBusiness";
-import { createNewCabinetService } from "../../services/cabinetService";
 
 class TableLocation extends Component {
   constructor(props) {
