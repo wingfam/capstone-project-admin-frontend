@@ -4,13 +4,14 @@ import "./CardHistory.scss";
 import moment from "moment";
 import firebase from "firebase/app";
 import "firebase/database";
+import { Link } from "react-router-dom";
 
 class CardHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrCabinet: [],
-      arrLocation: []
+      arrLocation: [],
     };
     let database = firebase.database();
     this.usersRef = database.ref("Cabinet");
@@ -55,7 +56,9 @@ class CardHistory extends Component {
   }
 
   render() {
-    const arrCabinet = this.state.arrCabinet.filter((a) => a.businessId === window.location.href.split("/")[5]);
+    const arrCabinet = this.state.arrCabinet.filter(
+      (a) => a.businessId === window.location.href.split("/")[5]
+    );
     return (
       <div className="container-history-table">
         <table className="history">
@@ -81,39 +84,43 @@ class CardHistory extends Component {
                 <FormattedMessage id="table.not-order-cabinet" />
               </td>
             </tr>
-          ) : arrCabinet.map((item, index) => {
-            return (
-              <tbody>
-                <tr key={index} className="text-center">
-                  <td>
-                    {index + 1}
-                  </td>
-                  <td>
-                    {item.nameCabinet}
-                  </td>
-                  {this.state.arrLocation && this.state.arrLocation.filter((a) => a.id === item.locationId).map((data, index) => {
-                    return (
-
-                      <td key={index}>
-                        {data.nameLocation}
-                      </td>
-                    )
-                  })}
-                  <td>
-                    {(() => {
-                      const date = moment(item.addDate).format(
-                        "DD-MM-YYYY T HH:mm"
-                      );
-                      return date;
-                    })()}
-                  </td>
-                </tr>
-              </tbody>
-            )
-          })}
+          ) : (
+            arrCabinet.map((item, index) => {
+              return (
+                <tbody>
+                  <tr key={index} className="text-center">
+                    <td>{index + 1}</td>
+                    <td>
+                      <Link
+                        to={{
+                          pathname: `/system/box/${item.id}`,
+                        }}
+                      >
+                        {item.nameCabinet}
+                      </Link>
+                    </td>
+                    {this.state.arrLocation &&
+                      this.state.arrLocation
+                        .filter((a) => a.id === item.locationId)
+                        .map((data, index) => {
+                          return <td key={index}>{data.nameLocation}</td>;
+                        })}
+                    <td>
+                      {(() => {
+                        const date = moment(item.addDate).format(
+                          "DD-MM-YYYY T HH:mm"
+                        );
+                        return date;
+                      })()}
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })
+          )}
         </table>
       </div>
     );
-  };
+  }
 }
 export default CardHistory;

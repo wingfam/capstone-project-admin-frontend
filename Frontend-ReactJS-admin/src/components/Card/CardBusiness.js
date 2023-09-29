@@ -164,9 +164,20 @@ class CardBusiness extends Component {
                   </div>
                 </div>
               </div>
+              <div
+                className="progress mt-5 mx-auto"
+                style={{ height: "5px", background: "#21a5ff", width: "65%" }}
+              />
               <TableLocation />
+              <div
+                className="progress mt-5 mx-auto"
+                style={{ height: "5px", background: "#00c087", width: "65%" }}
+              />
               <h3>
-                <i className="fas fa-truck-loading">
+                <i
+                  className="fas fa-truck-loading"
+                  style={{ color: "#00c087" }}
+                >
                   &nbsp; <FormattedMessage id="title.owner-cabinet" />
                 </i>
               </h3>

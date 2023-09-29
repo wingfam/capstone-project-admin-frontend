@@ -28,7 +28,7 @@ class ModalAddLocation extends Component {
     });
   };
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   toggle = () => {
     this.props.toggleFromParent();
@@ -81,7 +81,7 @@ class ModalAddLocation extends Component {
               />
             </div>
 
-            <div className="input-address-container">
+            <div className="input-address-container input-container">
               <label>
                 <FormattedMessage id="table.address" />
               </label>
