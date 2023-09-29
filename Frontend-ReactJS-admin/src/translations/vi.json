@@ -150,7 +150,7 @@
     "error-mastercode": "Vui lòng nhập đủ 6 chứ số cho master code",
     "error-cabinet-info": "Vui lòng nhập đủ thông tin",
     "error-name-cabinet": "Bạn đã nhập trùng tên tủ",
-    "error-lock-box-processing":"Không thể dừng hoạt động hộp khi có hàng"
+    "error-lock-box-processing": "Không thể dừng hoạt động hộp khi hộp đang booking"
   },
 
   "warning": {

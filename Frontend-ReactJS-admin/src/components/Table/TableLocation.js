@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import "./TableLocation.scss";
 import { SyncLoader } from "react-spinners";
@@ -90,7 +90,6 @@ class TableLocation extends Component {
       let res = await editLocationService(location.id, { nameLocation: location.nameLocation, address: location.address, businessId: location.businessId, status: e });
       if (res && res.errCode === 0) {
         await this.getLocationFromReact();
-
         toast.success(e === 1 ? <FormattedMessage id="toast.unlock-location-success" /> : <FormattedMessage id="toast.lock-location-success" />, {
           position: "top-right",
           autoClose: 2500,
@@ -169,31 +168,38 @@ class TableLocation extends Component {
                         switch (item.status) {
                           case 1:
                             return (
-                              <button
-                                className="btn-delete"
-                                onClick={() => {
-                                  this.doEditLocation(item, 0);
-                                }}
-                                title={intl.formatMessage({
-                                  id: "common.ban",
-                                })}
-                              >
-                                <i className="fas fa-lock"></i>
-                              </button>
+                              <Fragment>
+
+                                <FormattedMessage id="table.enable" />
+                                <button
+                                  className="btn-delete"
+                                  onClick={() => {
+                                    this.doEditLocation(item, 0);
+                                  }}
+                                  title={intl.formatMessage({
+                                    id: "common.ban",
+                                  })}
+                                >
+                                  <i className="fas fa-lock"></i>
+                                </button>
+                              </Fragment>
                             );
                           case 0:
                             return (
-                              <button
-                                className="btn-unlock"
-                                onClick={() => {
-                                  this.doEditLocation(item, 1);
-                                }}
-                                title={intl.formatMessage({
-                                  id: "common.unlock",
-                                })}
-                              >
-                                <i className="fas fa-lock-open"></i>
-                              </button>
+                              <Fragment>
+                                <FormattedMessage id="table.disable" />
+                                <button
+                                  className="btn-unlock"
+                                  onClick={() => {
+                                    this.doEditLocation(item, 1);
+                                  }}
+                                  title={intl.formatMessage({
+                                    id: "common.unlock",
+                                  })}
+                                >
+                                  <i className="fas fa-lock-open"></i>
+                                </button>
+                              </Fragment>
                             );
                           default:
                         }

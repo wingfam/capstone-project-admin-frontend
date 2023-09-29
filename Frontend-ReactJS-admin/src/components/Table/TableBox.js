@@ -55,7 +55,7 @@ class TableBox extends Component {
 
   doEditBox = async (box, e) => {
     try {
-      if (box.process === 0) {
+      if (box.process === 0 && box.process !== 2) {
         let res = await editBox(box.id, { status: e });
         if (res && res.errCode === 0) {
           toast.success(

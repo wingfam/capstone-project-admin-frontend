@@ -379,60 +379,60 @@ class TableCabinet extends Component {
                                   <td className="text-center">
                                     {data.totalBox}
                                   </td>
+                                  <td>
+                                    <button
+                                      className="btn-edit"
+                                      onClick={() => {
+                                        this.handleEditCabinet(item);
+                                      }}
+                                      title={intl.formatMessage({ id: "common.detail" })}
+                                    >
+                                      <i className="fas fa-pencil-alt"></i>
+                                    </button>
+                                    {(() => {
+                                      switch (data.status) {
+                                        case 1:
+                                          return (
+                                            <button
+                                              className="btn-delete"
+                                              onClick={() => {
+                                                this.handleUnavailableCabinet(item);
+                                              }}
+                                              title={intl.formatMessage({
+                                                id: "common.unavailable",
+                                              })}
+                                            >
+                                              <i className="fas fa-ban"></i>
+                                            </button>
+                                          );
+                                        case 0:
+                                          return (
+                                            <button
+                                              className="btn-delete disabled"
+                                              title={intl.formatMessage({
+                                                id: "common.unavailable",
+                                              })}
+                                              disabled
+                                            >
+                                              <i className="fas fa-ban"></i>
+                                            </button>
+                                          );
+                                        default:
+                                      }
+                                    })()}
+                                    <button
+                                      className="btn-info"
+                                      onClick={() => {
+                                        this.handleCabinetLog(item);
+                                      }}
+                                    >
+                                      <i className="fas fa-clipboard-list"></i>
+                                    </button>
+                                  </td>
                                 </Fragment>
                               );
                             })}
 
-                        <td>
-                          <button
-                            className="btn-edit"
-                            onClick={() => {
-                              this.handleEditCabinet(item);
-                            }}
-                            title={intl.formatMessage({ id: "common.detail" })}
-                          >
-                            <i className="fas fa-pencil-alt"></i>
-                          </button>
-                          {(() => {
-                            switch (item.status) {
-                              case 1:
-                                return (
-                                  <button
-                                    className="btn-delete"
-                                    onClick={() => {
-                                      this.handleUnavailableCabinet(item);
-                                    }}
-                                    title={intl.formatMessage({
-                                      id: "common.unavailable",
-                                    })}
-                                  >
-                                    <i className="fas fa-ban"></i>
-                                  </button>
-                                );
-                              case 0:
-                                return (
-                                  <button
-                                    className="btn-delete disabled"
-                                    title={intl.formatMessage({
-                                      id: "common.unavailable",
-                                    })}
-                                    disabled
-                                  >
-                                    <i className="fas fa-ban"></i>
-                                  </button>
-                                );
-                              default:
-                            }
-                          })()}
-                          <button
-                            className="btn-info"
-                            onClick={() => {
-                              this.handleCabinetLog(item);
-                            }}
-                          >
-                            <i className="fas fa-clipboard-list"></i>
-                          </button>
-                        </td>
                       </tr>
                     );
                   })
