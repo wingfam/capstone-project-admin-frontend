@@ -33,26 +33,27 @@ class TableCabinetLog extends Component {
         arrCabinetLog: res,
         showSpinner: false,
       });
-
   };
 
   handleChangePage = (e, index) => {
     e.preventDefault();
     this.setState({
-      pageStart: index
-    })
-  }
+      pageStart: index,
+    });
+  };
 
   handleChangeRowsPerPage = (e) => {
-    let data = parseInt(e.target.value, 10)
+    let data = parseInt(e.target.value, 10);
     this.setState({
       rpg: data,
-      pageStart: 0
-    })
-  }
+      pageStart: 0,
+    });
+  };
 
   render() {
-    const arrCabinetLog = this.state.arrCabinetLog;
+    const arrCabinetLog = this.state.arrCabinetLog.sort((a, b) =>
+      a.createDate < b.createDate ? 1 : -1
+    );
     const totalItem = this.state.arrCabinetLog.length;
 
     const paginatedData = arrCabinetLog.slice(
@@ -97,25 +98,24 @@ class TableCabinetLog extends Component {
                 </tr>
               ) : (
                 paginatedData &&
-                paginatedData
-                  .map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{this.props.name}</td>
-                        <td>{this.props.business}</td>
-                        <td className="text-center">{item.messageTitle}</td>
-                        <td>{item.messageBody}</td>
-                        <td>
-                          {(() => {
-                            const date = moment(item.createDate).format(
-                              "DD-MM-YYYY T HH:mm"
-                            );
-                            return date;
-                          })()}
-                        </td>
-                      </tr>
-                    );
-                  })
+                paginatedData.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{this.props.name}</td>
+                      <td>{this.props.business}</td>
+                      <td className="text-center">{item.messageTitle}</td>
+                      <td>{item.messageBody}</td>
+                      <td>
+                        {(() => {
+                          const date = moment(item.createDate).format(
+                            "DD-MM-YYYY T HH:mm"
+                          );
+                          return date;
+                        })()}
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

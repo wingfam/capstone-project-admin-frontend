@@ -228,7 +228,6 @@ function ChartBar() {
                       font: {
                         size: 20,
                       },
-                      color: ["black"],
                     },
 
                     legend: {
