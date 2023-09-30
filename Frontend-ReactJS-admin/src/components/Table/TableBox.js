@@ -168,7 +168,7 @@ class TableBox extends Component {
                   return (
                     <tr key={index}>
                       <td>
-                        {item.nameBox}--{this.state.cabinetName}
+                        {item.nameBox}<i class="fas fa-ellipsis-v"></i>{this.state.cabinetName}
                       </td>
                       <td className="text-center">
                         {(() => {

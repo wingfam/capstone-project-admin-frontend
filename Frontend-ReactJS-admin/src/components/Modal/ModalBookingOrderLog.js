@@ -83,13 +83,13 @@ class ModalBookingOrderLog extends Component {
                 <table className="boxs">
                   <thead>
                     <tr>
-                      <th className="col-1">
+                      <th className="col-2">
                         <FormattedMessage id="table.name-cabinet" />
                       </th>
                       <th className="col-2">
                         <FormattedMessage id="table.business-name" />
                       </th>
-                      <th className="col-2">
+                      <th className="col-1">
                         <FormattedMessage id="table.message-title" />
                       </th>
                       <th className="col-3">

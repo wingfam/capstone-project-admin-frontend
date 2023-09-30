@@ -304,7 +304,7 @@ class TableCabinet extends Component {
           <table className="cabinets">
             <tbody>
               <tr>
-                <th className="col-1">
+                <th className="col-2">
                   <FormattedMessage id="table.name-cabinet" />
                 </th>
                 <th className="col-2">
@@ -316,7 +316,7 @@ class TableCabinet extends Component {
                 <th className="col-2">
                   <FormattedMessage id="table.status-cabinet" />
                 </th>
-                <th className="col-2">
+                <th className="col-1">
                   <FormattedMessage id="table.total-box" />
                 </th>
                 <th className="col-2">
@@ -345,8 +345,8 @@ class TableCabinet extends Component {
                             {item.nameCabinet}
                           </Link>
                         </td>
-                        <td>{item.Business.businessName}</td>
-                        <td>{item.Location.nameLocation}</td>
+                        <td className="text-center">{item.Business.businessName}</td>
+                        <td className="text-center">{item.Location.nameLocation}</td>
                         {this.state.arrStatus &&
                           this.state.arrStatus
                             .filter((a) => a.id === item.id)
