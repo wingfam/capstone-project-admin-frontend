@@ -11,7 +11,7 @@ class FilterDate extends Component {
             dateToday: moment(new Date()).format(
                 "MM-DD-YYYY"
             ),
-            dateOld: moment(new Date().setDate(25)).format(
+            dateOld: moment(new Date("09-27-2023")).format(
                 "MM-DD-YYYY"
             ),
             fromDateBegin: "",

@@ -20,7 +20,7 @@ class TableOrder extends Component {
       isOpenModalBookingOrderLog: false,
       showSpinner: true,
       showEllip: true,
-      dateToday: moment(new Date()).format("MM-DD-YYYY"),
+      dateToday: moment(new Date("09-27-2023")).format("MM-DD-YYYY"),
       dateOld: moment(new Date()).format("MM-DD-YYYY"),
 
       currentPage: 0,
@@ -54,8 +54,8 @@ class TableOrder extends Component {
     let res = await filterBookingOrderService(
       "",
       "",
-      "09-25-2023",
-      "09-28-2023"
+      "09-27-2023",
+      "10-01-2023"
     );
     if (res && !_.isEmpty(res)) {
       this.setState({
